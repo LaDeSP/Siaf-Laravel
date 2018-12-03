@@ -32,3 +32,4 @@ Route::get('/', function () {
 });
 
 Route::get('/propriedade', "PropriedadeController@index");
+Route::get('/investimento', "InvestimentoController@create");

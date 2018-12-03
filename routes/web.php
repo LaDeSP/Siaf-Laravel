@@ -17,3 +17,5 @@ Route::group(['middleware'=>['web']], function()
     Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
     Route::get('/propriedade', "PropriedadeController@index")->middleware('auth');
 });
+
+Route::get('/investimento', "InvestimentoController@create");

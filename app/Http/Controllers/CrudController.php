@@ -17,7 +17,16 @@ class CrudController extends Controller
         return view('master');
     }
 
-    
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create($name)
+    {
+        return app('App\Http\Controllers'.'\\'.$name.'Controller')->createte();
+
+    }
     /**
      * Store a newly created resource in storage.
      *

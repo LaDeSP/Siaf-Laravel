@@ -3,9 +3,9 @@
 <html>
 <head>
 	<title></title>
-	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-	<script src="/images/https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-	<script src="/images/https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.bundle.min.js" integrity="sha384-pjaaA8dDz/5BgdFUPX6M/9SUZv4d12SUPF0axWc+VRZkx5xU3daN+lYb49+Ax+Tl" crossorigin="anonymous"></script>
+	<link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<script src="/bootstrap/js/bootstrap.min.js"></script>
+	<script src="/bootstrap/js/bootstrap.bundle.min.js"></script>
 	<style type="text/css">
 		a:hover,a{
   			color: inherit; /* blue colors for links too */
@@ -15,13 +15,17 @@
 		.menu{
 			background-color: #f8f8f8;
 			font-size:1.7vw;
-
 		}
 		.rodape{
 			background-color: #80808099;
+			border-top: 1px solid #2e54678f;
 			padding: 20px
 		}
-		
+		.conteudo{
+			border-left: 1px solid #6178844f;
+			border-top: 1px solid #6178844f;
+			
+		}
 	</style>
 </head>
 <body>
@@ -31,8 +35,10 @@
 				<img class="img-fluid" src="/images/log.png">
 			</div>
 			<div   class="col-5 offset-1  col-sm-3 offset-sm-6 col-md-2 offset-md-8" >
-				<img  class="img-fluid col-12 offset-sm-6 col-sm-6" src="/images/agr.png">	
-				<div  class="user col-12 offset-sm-6 col-sm-6 text-center">@yield('usuario')</div>		
+				<a href="/usuario">
+					<img  class="img-fluid col-12 offset-sm-6 col-sm-6" src="/images/agr.png">	
+					<div  class="user col-12 offset-sm-6 col-sm-6 text-center"> @yield('usuario')</div>
+				</a>
 			</div>
 		</div>
 		<div  class="row">
@@ -41,7 +47,7 @@
 				<div class="row">
 					
 					<div class=" col-md-6 ">
-						<a href="/">
+						<a href="/home">
 						 <div class="row"> 
 						 	<div>
 						 		<img class="col-md-12 img-fluid" src="/images/agr.png" >	
@@ -186,7 +192,7 @@
 																				
 			</div>
 
-			<div  class="col-10 col-sm-10 col-md-9 col-xl-9">
+			<div  class="conteudo col-10 col-sm-10 col-md-9 col-xl-9">
 				  @yield('conteudo')
 
 			</div>
@@ -194,7 +200,7 @@
 			
 		</div>
 		<div class="row ">
-			<div class="rodape col-12 text-center">Mussum Ipsum, cacilds vidis litro abertis. Nullam volutpat risus nec leo commodo, ut interdum diam laoreet.</div>
+			<div class="rodape col-12 text-center">Desenvolvido e mantido por Leco Ufms.</div>
 		</div>
 	</div>
 </body>

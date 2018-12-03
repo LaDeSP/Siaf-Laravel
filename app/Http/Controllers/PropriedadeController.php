@@ -22,7 +22,7 @@ class PropriedadeController extends Controller
             $tmp = array("propriedade"=> $p, "produtos"=> Produto::all()->where('propriedade_id','=',$p['id']), 'talhao' => Talhao::all()->where('propriedade_id','=',$p['id']));
             $props_prod[]= $tmp;
         }
-        return view('propriedades', ["propriedades"=>$props_prod,"User"=>$this->usuario]);
+        return view('propriedades', ["propriedades"=>$props_prod,"User"=>$this->usuario['name']]);
     }
 
     /**

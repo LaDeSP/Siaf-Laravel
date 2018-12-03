@@ -19,3 +19,5 @@ Route::group(['middleware'=>['web']], function()
 });
 
 Route::get('/investimento', "InvestimentoController@create");
+
+Route::get('/estoque', "EstoqueController@create");

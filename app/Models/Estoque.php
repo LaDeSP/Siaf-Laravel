@@ -23,8 +23,10 @@ class Estoque extends Model
 	protected $fillable = [
 		'ID',
 		'Data',
-		'Plantio',
-		'Quantidade'
+		'Quantidade',
+		'Produto',
+		'Propriedade',
+		'Plantio'
 	];
 
 
@@ -74,7 +76,18 @@ class Estoque extends Model
 		    	}
 			}
 		}
-		return ["Ocorreu um problema, lamentamos o inconveniente.", 403];
+		return ["Ocorreu um problema.", 403];
 	}
+
+	public function setSubEstoque($qtd_venda)
+    {
+        if ($this->exists)
+        {
+            $this->attributes['quantidade'] =
+                $this->attributes['quantidade'] - $qtd_venda;
+            $this->save();
+        }
+        return $this;
+    }
 
 }

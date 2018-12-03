@@ -1,17 +1,8 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+Route::redirect('/', '/login');
 
-
+Auth::routes();
 
 // route to show the login form
 Route::group(['prefix'=> 'api'], function (){
@@ -21,14 +12,8 @@ Route::group(['prefix'=> 'api'], function (){
     Route::post('/{name}', 'CrudController@store');
 });
 
-Route::get('login', 'home@login');
-Route::post('autentica', 'home@autentica');
-Route::get('novo', 'home@novo');
-Route::post('grava', 'home@salva');
-
-
-Route::get('/', function () {
-    return view('welcome');
+Route::group(['middleware'=>['auth']], function()
+{
+    Route::get('/home', 'HomeController@index')->name('home'); 
+    Route::get('/propriedade', "PropriedadeController@index");
 });
-
-Route::get('/propriedade', "PropriedadeController@index");

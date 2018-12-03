@@ -21,7 +21,7 @@ class CreateInvestimentoTable extends Migration
             $table->unsignedInteger('quantidade');
             $table->date('data');
             $table->unsignedInteger('propriedade_id');
-            $table->foreign('propriedade_id')->references('id')->on('propriedade');
+            $table->foreign('propriedade_id')->references('id')->on('propriedade')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }

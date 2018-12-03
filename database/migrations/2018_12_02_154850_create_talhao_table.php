@@ -18,7 +18,7 @@ class CreateTalhaoTable extends Migration
             $table->unsignedInteger('area');
             $table->string('nome');
             $table->unsignedInteger('propriedade_id');
-            $table->foreign('propriedade_id')->references('id')->on('propriedade');
+            $table->foreign('propriedade_id')->references('id')->on('propriedade')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }

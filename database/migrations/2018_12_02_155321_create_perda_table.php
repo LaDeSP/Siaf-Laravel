@@ -19,7 +19,7 @@ class CreatePerdaTable extends Migration
             $table->unsignedInteger('quantidade');
             $table->date('data');
             $table->unsignedInteger('estoque_id');
-            $table->foreign('estoque_id')->references('id')->on('estoque');
+            $table->foreign('estoque_id')->references('id')->on('estoque')->onDelete('cascade')->onUpdate('cascade');
             $table->unsignedInteger('destino_id');
             $table->foreign('destino_id')->references('id')->on('destino');
             $table->timestamps();

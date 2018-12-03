@@ -15,9 +15,7 @@ class CreatePropriedadeTable extends Migration
     {
         Schema::create('propriedade', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('users_id');
-            $table->foreign('users_id')->references('id')->on('users');
-
+            $table->string('users_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade') ;
             $table->string('nome');
             $table->string('localizacao');
 

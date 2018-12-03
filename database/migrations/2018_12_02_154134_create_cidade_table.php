@@ -16,7 +16,7 @@ class CreateCidadeTable extends Migration
         Schema::create('cidade', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('estado_id');
-            $table->foreign('estado_id')->references('id')->on('estado');
+            $table->foreign('estado_id')->references('id')->on('estado')->onDelete('cascade')->onUpdate('cascade');
             $table->string('nome');
             $table->timestamps();
         });

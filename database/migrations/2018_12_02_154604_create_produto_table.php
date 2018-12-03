@@ -16,8 +16,9 @@ class CreateProdutoTable extends Migration
         Schema::create('produto', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nome');
+            $table->boolean('status');
             $table->unsignedInteger('propriedade_id');
-            $table->foreign('propriedade_id')->references('id')->on('propriedade');
+            $table->foreign('propriedade_id')->references('id')->on('propriedade')->onDelete('cascade')->onUpdate('cascade');
             $table->unsignedInteger('unidade_id');
             $table->foreign('unidade_id')->references('id')->on('unidade');
             $table->timestamps();

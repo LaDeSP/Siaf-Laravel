@@ -21,7 +21,7 @@ class CreatePlantioTable extends Migration
             $table->unsignedInteger('talhao_id');
             $table->foreign('talhao_id')->references('id')->on('talhao');
             $table->unsignedInteger('produto_id');
-            $table->foreign('produto_id')->references('id')->on('produto');
+            $table->foreign('produto_id')->references('id')->on('produto')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }

@@ -21,7 +21,7 @@ class CreateVendaTable extends Migration
             $table->string('nota')->nullable();
             $table->string('destino')->nullable();
             $table->unsignedInteger('estoque_id');
-            $table->foreign('estoque_id')->references('id')->on('estoque');
+            $table->foreign('estoque_id')->references('id')->on('estoque')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }

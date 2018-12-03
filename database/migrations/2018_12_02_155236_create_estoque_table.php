@@ -20,7 +20,7 @@ class CreateEstoqueTable extends Migration
             $table->date('data');
             $table->foreign('produto_id')->references('id')->on('produto');
             $table->unsignedInteger('propriedade_id');
-            $table->foreign('propriedade_id')->references('id')->on('propriedade');
+            $table->foreign('propriedade_id')->references('id')->on('propriedade')->onDelete('cascade')->onUpdate('cascade');
             $table->unsignedInteger('plantio_id')->nullable();
             $table->foreign('plantio_id')->references('id')->on('plantio');
             $table->timestamps();

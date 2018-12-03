@@ -21,7 +21,7 @@ class CreateManejoplantioTable extends Migration
             $table->unsignedInteger('plantio_id');
             $table->foreign('plantio_id')->references('id')->on('plantio');
             $table->unsignedInteger('manejo_id');
-            $table->foreign('manejo_id')->references('id')->on('manejo');
+            $table->foreign('manejo_id')->references('id')->on('manejo')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }

@@ -30,3 +30,5 @@ Route::post('grava', 'home@salva');
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/propriedade', "PropriedadeController@index");

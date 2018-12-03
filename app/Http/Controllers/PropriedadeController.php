@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Plantio;
 use App\Models\Produto;
 use App\Models\Propriedade;
+use App\Models\Talhao;
 use Illuminate\Http\Request;
 
 class PropriedadeController extends Controller
@@ -14,11 +14,15 @@ class PropriedadeController extends Controller
      *
      * @return Propriedade[]|\Illuminate\Database\Eloquent\Collection
      */
-    public function index(Propriedade $propriedades, Produto $produtos)
+    public function index()
     {
-        $props = $propriedades->where('users_id', '=', '47110931099');
-        $prod  = $produtos->all();
-        return view('propriedades', ["propriedades"=>$props, "produtos"=> $prod]);
+        $props = Propriedade::all()->where('users_id', '=', '47110931099');
+        $props_prod = [];
+        foreach ($props as $p){
+            $tmp = array("propriedade"=> $p, "produtos"=> Produto::all()->where('propriedade_id','=',$p['id']), 'talhao' => Talhao::all()->where('propriedade_id','=',$p['id']));
+            $props_prod[]= $tmp;
+        }
+        return view('propriedades', ["propriedades"=>$props_prod,"User"=>$this->usuario]);
     }
 
     /**

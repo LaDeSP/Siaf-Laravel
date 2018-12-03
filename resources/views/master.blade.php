@@ -40,8 +40,8 @@
 			<div   class="col-5 offset-1  col-sm-3 offset-sm-6 col-md-2 offset-md-8" >
 				<a href="/usuario">
 					<img  class="img-fluid col-12 offset-sm-6 col-sm-6" src="/images/agr.png">	
-					<div  class="user col-12 offset-sm-6 col-sm-6 text-center">@yield('usuario')</div>
-				</a>		
+					<div  class="user col-12 offset-sm-6 col-sm-6 text-center"> @yield('usuario')</div>
+				</a>
 			</div>
 		</div>
 		<div  class="row">

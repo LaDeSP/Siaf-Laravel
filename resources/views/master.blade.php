@@ -195,7 +195,7 @@
 																				
 			</div>
 
-			<div  class="conteudo col-11 col-sm-11 col-md-11 col-xl-10">
+			<div  class="conteudo col-11 col-sm-10 col-md-10 col-xl-10">
 				  @yield('conteudo')
 
 			</div>

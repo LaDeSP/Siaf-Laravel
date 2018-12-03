@@ -181,6 +181,7 @@
 					</div>
 
 					<div class=" col-md-5 ">
+					<a href="/manual">
 					 <div class="row"> 
 					 	<div>
 					 		<img class="col-md-12 img-fluid" src="/images/Manual.png" >	
@@ -189,7 +190,8 @@
 					 </div>
 					 <div class="row">
 					 	 <div  class=" col-md-12 text-center ">Manual</div>	
-					 </div>	
+					 </div>
+					 </a>	
 					</div>
 				</div>
 																				

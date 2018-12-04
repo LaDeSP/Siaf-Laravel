@@ -16,6 +16,8 @@ class CreateCidadeTable extends Migration
         Schema::create('cidade', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('estado_id');
+            $table->decimal('latitude', 8, 5);
+            $table->decimal('longitude',8,5);
             $table->foreign('estado_id')->references('id')->on('estado')->onDelete('cascade')->onUpdate('cascade');
             $table->string('nome');
             $table->timestamps();

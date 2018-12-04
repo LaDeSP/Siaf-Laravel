@@ -12,12 +12,17 @@ Route::group(['prefix'=> 'api'], function (){
     Route::post('/{name}', 'CrudController@store');
 });
 
-Route::group(['middleware'=>['web']], function()
+Route::group(['middleware'=>['web', 'auth']], function()
 {
-    Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
-    Route::get('/propriedade', "PropriedadeController@index")->middleware('auth');
+    Route::get('/home', 'HomeController@index')->name('home');
+    Route::get('/propriedade', "PropriedadeController@index");
+    Route::get('/usuario', "UsersController@index");
+    Route::get('/manejo', "ManejoController@index");
+    Route::get('/despesa', "DespesaController@index");
+    Route::get('/manual', "ManualController@index");
+    Route::get('/investimento',"InvestimentoController@index");
+    Route::get('/plantio', "PlantioController@index");
+    Route::get('/relatorio', "RelatorioController@index");
+    Route::get('/venda', "VendasController@index");
+    Route::get('/estoque', "EstoqueController@create");
 });
-
-Route::get('/investimento', "InvestimentoController@create");
-
-Route::get('/estoque', "EstoqueController@create");

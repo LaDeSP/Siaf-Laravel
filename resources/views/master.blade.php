@@ -3,6 +3,7 @@
 <html>
 <head>
 	<title></title>
+	
 	<link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 	<script src="/bootstrap/js/bootstrap.min.js"></script>
 	<script src="/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -12,7 +13,6 @@
   			color: inherit; /* blue colors for links too */
   			text-decoration: inherit; /* no underline */
 		}
-
 		.menu{
 			background-color: #f8f8f8;
 			font-size:1.1vw;
@@ -25,11 +25,15 @@
 		.conteudo{
 			border-left: 1px solid #6178844f;
 			border-top: 1px solid #6178844f;
-			
-		}
+            width: 100%;
+
+        }
 		img{
 			padding: 10px;
 		}
+        @media screen and (min-width: 768px){
+            .rwd-break { display: none; }
+        }
 	</style>
 </head>
 <body>
@@ -43,6 +47,18 @@
 					<img  class="img-fluid col-12 offset-sm-6 col-sm-6" src="/images/agr.png">	
 					<div  class="user lead col-12 offset-sm-6 col-sm-6 text-center"> @yield('usuario')</div>
 				</a>
+				<div class="btn-group">
+  <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Ação
+  </button>
+  <div class="dropdown-menu">
+    <a class="dropdown-item" href="#">Alguma ação</a>
+    <a class="dropdown-item" href="#">Outra ação</a>
+    <a class="dropdown-item" href="#">Alguma coisa aqui</a>
+    <div class="dropdown-divider"></div>
+    <a class="dropdown-item" href="#">Link separado</a>
+  </div>
+</div>
 			</div>
 		</div>
 		<div  class="row">
@@ -131,7 +147,7 @@
 					 	
 					 </div>
 					 <div class="row">
-					 	<div  class=" col-md-12 lead text-center">Propriedade</div>
+					 	<div class="col-12 md-12 lead text-center">Propriedade</div>
 					 </div>	
 					</a>
 					</div>
@@ -198,9 +214,8 @@
 																				
 			</div>
 
-			<div  class="conteudo col-11 col-sm-10 col-md-10 col-xl-10">
-				  @yield('conteudo')
-
+			<div  class="conteudo col-2 col-sm-4">
+                    @yield('conteudo')
 			</div>
 
 			

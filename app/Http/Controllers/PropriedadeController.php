@@ -16,7 +16,7 @@ class PropriedadeController extends Controller
      */
     public function index()
     {
-        $props = Propriedade::all()->where('users_id', '=', '47110931099');
+        $props = $this->show($this->usuario['cpf']);
         $props_prod = [];
         foreach ($props as $p){
             $tmp = array("propriedade"=> $p, "produtos"=> Produto::all()->where('propriedade_id','=',$p['id']), 'talhao' => Talhao::all()->where('propriedade_id','=',$p['id']));
@@ -54,7 +54,7 @@ class PropriedadeController extends Controller
      */
     public function show($id)
     {
-        //
+        return Propriedade::all()->where('users_id', '=', $id);
     }
 
     /**
@@ -90,4 +90,5 @@ class PropriedadeController extends Controller
     {
         //
     }
+
 }

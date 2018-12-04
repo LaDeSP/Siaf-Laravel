@@ -47,21 +47,25 @@
 			<div   class="col-3 offset-1  col-sm-3 offset-sm-6 col-md-2 offset-md-8" >
 				<a href="/usuario">
 					<img  class="img-fluid col-12 offset-sm-6 col-sm-6" src="/images/agr.png">
-					<div  class="user lead col-12 offset-sm-6 col-sm-6 text-center"> @yield('usuario')</div>
+					<!--<div  class="user lead col-12 offset-sm-6 col-sm-6 text-center"> @yield('usuario')</div>-->
 				</a>
 				<div class="btn-group">
-  <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    Ação
-  </button>
-  <div class="dropdown-menu">
-    <a class="dropdown-item" href="#">Alguma ação</a>
-    <a class="dropdown-item" href="#">Outra ação</a>
-    <a class="dropdown-item" href="#">Alguma coisa aqui</a>
-    <div class="dropdown-divider"></div>
-    <a class="dropdown-item" href="#">Link separado</a>
-  </div>
+  					<button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					  {{ Auth::user()->name }} <span class="caret"></span>
+  				</button>
+  				<div class="dropdown-menu">
+					<a class="dropdown-item" href="{{ route('logout') }}"
+                    	onclick="event.preventDefault();
+                    	document.getElementById('logout-form').submit();">
+                    	{{ __('Logout') }}
+                	</a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        @csrf
+                	</form>
+  				</div>
+			</div>
 
-</div>
+		</div>
 			</div>
 		</div>
 		<div  class="row">

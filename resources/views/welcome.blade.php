@@ -1,7 +1,24 @@
 @extends('master')
 @section('usuario', $User)
 @section('conteudo')
-    <p>This is my body content..</p>
-    <div id="cont_140cbe2cc0c6b21e4aa7486416bca6ea"><script type="text/javascript" async src="https://www.tempo.com/wid_loader/140cbe2cc0c6b21e4aa7486416bca6ea"></script></div>
+<link href="plugin-tempo/jquery.weather.br.min.css" media="all" rel="stylesheet" />
+<script src="plugin-tempo/jquery.weather.br.js"></script>
+<style type="text/css">
+    #weather {
+        margin-right:1px;
+        width: 300px;
+    }
+</style>
+<script>
+    $(function() {
+        $('#weather').weather({
+            geoLocation:false,
+            locationLat: -19.4703,
+            locationLon: -42.5476
+        });
+    });
+ </script>
+  <div class="ml-auto" id="weather"></div>
+
 
 @endsection

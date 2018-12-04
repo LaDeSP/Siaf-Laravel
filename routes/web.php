@@ -15,6 +15,7 @@ Route::group(['prefix'=> 'api'], function (){
 Route::group(['middleware'=>['web', 'auth']], function()
 {
     Route::get('/home', 'HomeController@index')->name('home');
+    Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
     Route::get('/propriedade', "PropriedadeController@index");
     Route::get('/usuario', "UsersController@index");
     Route::get('/manejo', "ManejoController@index");

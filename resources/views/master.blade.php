@@ -3,11 +3,13 @@
 <html>
 <head>
 	<title></title>
-	
+
+	<script src="/js/JQuery/jquery-2.2.4.min.js"></script>
+	<script src="/bootstrap/js/popper.min.js"></script>
 	<link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 	<script src="/bootstrap/js/bootstrap.min.js"></script>
 	<script src="/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<style type="text/css">
 		a:hover,a{
   			color: inherit; /* blue colors for links too */
@@ -38,13 +40,13 @@
 </head>
 <body>
 	<div class="container-fluid">
-		<div  class="row menu"> 
+		<div  class="row menu">
 			<div  class="col-6 col-sm-3 col-md-2" >
 				<img class="img-fluid" src="/images/log.png">
 			</div>
 			<div   class="col-3 offset-1  col-sm-3 offset-sm-6 col-md-2 offset-md-8" >
 				<a href="/usuario">
-					<img  class="img-fluid col-12 offset-sm-6 col-sm-6" src="/images/agr.png">	
+					<img  class="img-fluid col-12 offset-sm-6 col-sm-6" src="/images/agr.png">
 					<div  class="user lead col-12 offset-sm-6 col-sm-6 text-center"> @yield('usuario')</div>
 				</a>
 				<div class="btn-group">
@@ -58,6 +60,7 @@
     <div class="dropdown-divider"></div>
     <a class="dropdown-item" href="#">Link separado</a>
   </div>
+
 </div>
 			</div>
 		</div>
@@ -65,43 +68,43 @@
 
 			<div  class="col-2 col-sm-2 col-md-2 col-xl-2 menu">
 				<div class="row">
-					
+
 					<div class=" col-md-5 ">
 						<a href="/home">
-						 <div class="row"> 
+						 <div class="row">
 						 	<div>
-						 		<img class="col-md-12 img-fluid" src="/images/Inicio.png" >	
+						 		<img class="col-md-12 img-fluid" src="/images/Inicio.png" >
 						 	</div>
-						 	
+
 						 </div>
 						 <div class="row">
 						 	<div class="col-md-12 lead text-center">Inicio</div>
-						 </div>	
+						 </div>
 						</a>
 					</div>
-					
+
 					<div class=" col-md-5 ">
-					<a href="/venda">	
-					 <div class="row"> 
+					<a href="/venda">
+					 <div class="row">
 					 	<div>
-					 		<img class="col-md-12 img-fluid" src="/images/Vendas.png" >	
+					 		<img class="col-md-12 img-fluid" src="/images/Vendas.png" >
 					 	</div>
-					 	
+
 					 </div>
 					 <div class="row">
 					 	<div  class=" col-md-12 lead text-center">Vendas</div>
-					 </div>	
+					 </div>
 					</a>
 					</div>
 				</div>
-				<div class="row"> 
+				<div class="row">
 					<div class=" col-md-5 ">
 					<a href="/estoque">
-					 <div class="row"> 
+					 <div class="row">
 					 	<div>
-					 		<img class="col-md-12 img-fluid" src="/images/Estoque.png" >	
+					 		<img class="col-md-12 img-fluid" src="/images/Estoque.png" >
 					 	</div>
-					 	
+
 					 </div>
 					 <div class="row">
 					 	<div  class=" col-md-12 lead     text-center">Estoque</div>
@@ -111,114 +114,114 @@
 
 					<div class=" col-md-5 ">
 					<a href="/plantio">
-					 <div class="row"> 
+					 <div class="row">
 					 	<div>
-					 		<img class="col-md-12 img-fluid" src="/images/Plantio.png" >	
+					 		<img class="col-md-12 img-fluid" src="/images/Plantio.png" >
 					 	</div>
-					 	
+
 					 </div>
 					 <div class="row">
 					 	<div  class=" col-md-12 lead text-center">Plantio</div>
-					 </div>	
+					 </div>
 					</a>
 					</div>
 				</div>
-				<div class="row"> 
+				<div class="row">
 					<div class=" col-md-5 ">
 					<a href="/manejo">
-					 <div class="row"> 
+					 <div class="row">
 					 	<div>
-					 		<img class="col-md-12 img-fluid" src="/images/Manejo.png" >	
+					 		<img class="col-md-12 img-fluid" src="/images/Manejo.png" >
 					 	</div>
-					 	
+
 					 </div>
 					 <div class="row">
 					 	<div  class=" col-md-12 lead text-center">Manejo</div>
 					 </div>
-					</a>	
+					</a>
 					</div>
 
 					<div class=" col-md-5 ">
 					<a href="/propriedade">
-					 <div class="row"> 
+					 <div class="row">
 					 	<div>
-					 		<img class="col-md-12 img-fluid" src="/images/Propriedade.png" >	
+					 		<img class="col-md-12 img-fluid" src="/images/Propriedade.png" >
 					 	</div>
-					 	
+
 					 </div>
 					 <div class="row">
 					 	<div class="col-12 md-12 lead text-center">Propriedade</div>
-					 </div>	
+					 </div>
 					</a>
 					</div>
 				</div>
-				<div class="row"> 
+				<div class="row">
 					<div class=" col-md-5 ">
 					<a href="/despesa">
-					 <div class="row"> 
+					 <div class="row">
 					 	<div>
-					 		<img class="col-md-12 img-fluid" src="/images/Despesas.png" >	
+					 		<img class="col-md-12 img-fluid" src="/images/Despesas.png" >
 					 	</div>
-					 	
+
 					 </div>
 					 <div class="row">
 					 	<div  class=" col-md-12 lead text-center ">Despesas</div>
 					 </div>
-					 </a>	
+					 </a>
 					</div>
 
 					<div class=" col-md-5 ">
 					<a href="/investimento">
-					 <div class="row"> 
+					 <div class="row">
 					 	<div>
-					 		<img class="col-md-12 img-fluid" src="/images/Investimento.png" >	
+					 		<img class="col-md-12 img-fluid" src="/images/Investimento.png" >
 					 	</div>
-					 	
+
 					 </div>
 					 <div class="row">
 					 	<div  class=" col-md-12 lead text-center">Investimentos</div>
-					 </div>	
+					 </div>
 					</a>
 					</div>
 				</div>
 
-				<div class="row"> 
+				<div class="row">
 					<div class=" col-md-5 ">
 					<a href="/relatorio">
-					 <div class="row"> 
+					 <div class="row">
 					 	<div>
-					 		<img class="col-md-12 img-fluid" src="/images/Relatorio.png" >	
+					 		<img class="col-md-12 img-fluid" src="/images/Relatorio.png" >
 					 	</div>
-					 	
+
 					 </div>
 					 <div class="row">
 					 	<div  class=" col-md-12 lead text-center ">Relatorios</div>
 					 </div>
-					 </a>	
+					 </a>
 					</div>
 
 					<div class=" col-md-5 ">
 					<a href="/manual">
-					 <div class="row"> 
+					 <div class="row">
 					 	<div>
-					 		<img class="col-md-12 img-fluid" src="/images/Manual.png" >	
+					 		<img class="col-md-12 img-fluid" src="/images/Manual.png" >
 					 	</div>
-					 	
+
 					 </div>
 					 <div class="row">
 					 	 <div  class=" col-md-12 lead text-center ">Manual</div>
 					 </div>
-					 </a>	
+					 </a>
 					</div>
 				</div>
-																				
+
 			</div>
 
 			<div  class="conteudo col-2 col-sm-4">
                     @yield('conteudo')
 			</div>
 
-			
+
 		</div>
 		<div class="row ">
 			<div class="rodape col-12 text-center">Desenvolvido e mantido por Leco Ufms.</div>

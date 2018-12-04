@@ -22,7 +22,7 @@
 				</div>
 	    		<div class="form-group date col-md-8">
 					<label for="data" class="control-label">Data</label>
-				   	<input type="date" class="form-control data " id="data" name="data" value="{{data}}" required>
+				   	<input type="date" class="form-control data " id="data" name="data" required>
 				</div>
 	    	</div>
 	    	<div class="text-center">

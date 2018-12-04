@@ -3,12 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use  App\Models\Estoque;
+use App\Models\Estoque;
 use App\Models\Produto;
 use App\Models\Plantio;
 use App\Models\Propriedade;
 
-class Estoque extends Controller
+class EstoqueController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -25,20 +25,20 @@ class Estoque extends Controller
 
     public function getProduto()
     {
-        $produto = \DB::table('produto')->lists('nome', 'id');
-        return view('link.create')->with('produto', $produto);
+        $produto = Produto::pluck('nome', 'id');
+        return view('estoque', compact('produto'));
     }
 
     public function getPropriedade()
     {
-        $produto = \DB::table('propriedade')->lists('nome', 'id');
-        return view('link.create')->with('propriedade', $propriedade);
+        $propriedade = Propriedade::pluck('nome', 'id');
+        return view('estoque', compact('propriedade'));
     }
 
     public function getPlantio()
     {
-        $produto = \DB::table('plantio')->lists('data','id');
-        return view('link.create')->with('plantio', $plantio);
+        $plantio = Plantio::pluck('id', 'talhao_id');
+        return view('estoque', compact('plantio'));
     }
 
     /**
@@ -49,8 +49,8 @@ class Estoque extends Controller
     public function create()
     {
         $this->getProduto();
-        $this->getPlantio();
         $this->getPropriedade();
+        $this->getPlantio();
         return view('estoque');
     }
 

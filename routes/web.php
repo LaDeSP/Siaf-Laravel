@@ -12,12 +12,14 @@ Route::group(['prefix'=> 'api'], function (){
     Route::post('/{name}', 'CrudController@store');
 });
 
-Route::group(['middleware'=>['web']], function()
+Route::group(['middleware'=>['web', 'auth']], function()
 {
-    Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
-    Route::get('/propriedade', "PropriedadeController@index")->middleware('auth');
+    Route::get('/home', 'HomeController@index')->name('home');
+    Route::get('/propriedade', "PropriedadeController@index");
+    Route::get('/investimento', "InvestimentoController@create");
+    Route::get('/investimento', "InvestimentoController@index");
+
 });
 
-Route::get('/investimento', "InvestimentoController@create");
 
 Route::get('/estoque', "EstoqueController@create");

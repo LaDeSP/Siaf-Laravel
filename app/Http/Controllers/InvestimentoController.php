@@ -4,9 +4,19 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Investimento;
-
+use App\Models\Propriedade;
 class InvestimentoController extends Controller
 {
+        /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        return view('investimento',['method' => 'get']);
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -14,7 +24,7 @@ class InvestimentoController extends Controller
      */
     public function create()
     {
-        return view('investimento');
+        return view('investimento', ['method' => 'create']);
     }
 
     /**
@@ -25,8 +35,16 @@ class InvestimentoController extends Controller
      */
     public function store(Request $request)
     {
+        $objeto=$request->all();
+        if(!(isset ($objeto['propriedade_id']))){
+            $prop = Propriedade::find(1);
+            $objeto['propriedade_id'] = $prop->id;
+        }
         if ($request != null) {
-            Investimento::insere($request->all());
+            $investimento = Investimento::insere($objeto);
+            if (!(empty($investimento))) {
+                return redirect()->action('InvestimentoController@index');
+            }
         }else{
             return 405;
         }

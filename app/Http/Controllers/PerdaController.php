@@ -3,42 +3,22 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Perda;
+use App\Models\Destino;
 use App\Models\Estoque;
-use App\Models\Produto;
-use App\Models\Plantio;
-use App\Models\Propriedade;
 
-class EstoqueController extends Controller
+
+class PerdaController extends Controllers
 {
-    /**
+	/**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Estoque $aln)
+    public function index(Perda $aln)
     {
-        $allVenda = $aln->all();
-        return compact("allEstoque");
-    }
-
-
-
-    public function getProduto()
-    {
-        $produto = Produto::pluck('nome', 'id');
-        return view('estoque', compact('produto'));
-    }
-
-    public function getPropriedade()
-    {
-        $propriedade = Propriedade::pluck('nome', 'id');
-        return view('estoque', compact('propriedade'));
-    }
-
-    public function getPlantio()
-    {
-        $plantio = Plantio::pluck('id', 'talhao_id');
-        return view('estoque', compact('plantio'));
+        $allPerda = $aln->all();
+        return compact("allPerda");
     }
 
     /**
@@ -48,10 +28,7 @@ class EstoqueController extends Controller
      */
     public function create()
     {
-        $this->getProduto();
-        $this->getPropriedade();
-        $this->getPlantio();
-        return view('estoque');
+        //
     }
 
     /**
@@ -63,8 +40,8 @@ class EstoqueController extends Controller
     public function store(Request $request)
     {
         $ob =  $request->input('info');
-        $estoque = ['ID'=> $ob['estoque']['id'], 'Quantidade' => $ob['estoque']['quantidade'],'Produto' => $ob['estoque']['produto_id'], 'Data' => $ob['estoque']['data'], 'Propriedade' => $ob['estoque']['propriedade_id'], 'Plantio' => $ob['estoque']['plantio_id']];
-        return response()->json(Estoque::inserir($estoque));
+        $perda = ['ID'=> $ob['perda']['id'], 'Quantidade' => $ob['perda']['quantidade'],'Valor' => $ob['perda']['valor_unit'], 'Data' => $ob['perda']['data'], 'Nota' => $ob['perda']['nota'], 'Destino' => $ob['perda']['destino'], 'Estoque' => ['perda']['estoque_id']];
+        return response()->json(Perda::inserir($perda));
     }
 
     /**
@@ -75,8 +52,8 @@ class EstoqueController extends Controller
      */
     public function show($id)
     {
-        $estoque = Estoque::ler($id);
-        return $estoque;
+        $perda = Perda::ler($id);
+        return $perda;
     }
 
     /**
@@ -110,7 +87,7 @@ class EstoqueController extends Controller
      */
     public function destroy($id)
     {
-        $estoque = Estoque::excluir($id);
-        return response($estoque);
-    }
+        $perda = Perda::excluir($id);
+        return response($perda);
+    }	
 }

@@ -1,6 +1,6 @@
 @extends('master')
 
-@section('usuario', $User);
+@section('usuario', $User)
 
 @section('conteudo')
 @foreach ($propriedades as $propriedade)

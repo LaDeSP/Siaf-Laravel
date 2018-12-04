@@ -22,3 +22,4 @@ Route::group(['middleware'=>['web', 'auth']], function()
 });
 
 
+Route::get('/estoque', "EstoqueController@create");

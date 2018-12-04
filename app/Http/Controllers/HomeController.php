@@ -15,6 +15,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('welcome',["User"=>$this->usuario['name']]);
+        return view('welcome',["User"=>$this->getFirstName($this->usuario['name'])]);
     }
 }

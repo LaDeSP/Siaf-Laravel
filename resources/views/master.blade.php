@@ -6,6 +6,7 @@
 	<link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 	<script src="/bootstrap/js/bootstrap.min.js"></script>
 	<script src="/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<style type="text/css">
 		a:hover,a{
   			color: inherit; /* blue colors for links too */
@@ -37,16 +38,16 @@
 			<div  class="col-6 col-sm-3 col-md-2" >
 				<img class="img-fluid" src="/images/log.png">
 			</div>
-			<div   class="col-5 offset-1  col-sm-3 offset-sm-6 col-md-2 offset-md-8" >
+			<div   class="col-3 offset-1  col-sm-3 offset-sm-6 col-md-2 offset-md-8" >
 				<a href="/usuario">
 					<img  class="img-fluid col-12 offset-sm-6 col-sm-6" src="/images/agr.png">	
-					<div  class="user col-12 offset-sm-6 col-sm-6 text-center"> @yield('usuario')</div>
+					<div  class="user lead col-12 offset-sm-6 col-sm-6 text-center"> @yield('usuario')</div>
 				</a>
 			</div>
 		</div>
 		<div  class="row">
 
-			<div  class="col-1 col-sm-2 col-md-2 col-xl-2 menu">
+			<div  class="col-2 col-sm-2 col-md-2 col-xl-2 menu">
 				<div class="row">
 					
 					<div class=" col-md-5 ">
@@ -58,7 +59,7 @@
 						 	
 						 </div>
 						 <div class="row">
-						 	<div  class=" col-md-12 text-center">Inicio</div>	
+						 	<div class="col-md-12 lead text-center">Inicio</div>
 						 </div>	
 						</a>
 					</div>
@@ -72,7 +73,7 @@
 					 	
 					 </div>
 					 <div class="row">
-					 	<div  class=" col-md-12 text-center">Vendas</div>	
+					 	<div  class=" col-md-12 lead text-center">Vendas</div>
 					 </div>	
 					</a>
 					</div>
@@ -87,7 +88,7 @@
 					 	
 					 </div>
 					 <div class="row">
-					 	<div  class=" col-md-12 text-center">Estoque</div>	
+					 	<div  class=" col-md-12 lead     text-center">Estoque</div>
 					 </div>
 					</a>
 					</div>
@@ -101,7 +102,7 @@
 					 	
 					 </div>
 					 <div class="row">
-					 	<div  class=" col-md-12 text-center">Plantio</div>	
+					 	<div  class=" col-md-12 lead text-center">Plantio</div>
 					 </div>	
 					</a>
 					</div>
@@ -116,7 +117,7 @@
 					 	
 					 </div>
 					 <div class="row">
-					 	<div  class=" col-md-12 text-center">Manejo</div>	
+					 	<div  class=" col-md-12 lead text-center">Manejo</div>
 					 </div>
 					</a>	
 					</div>
@@ -130,7 +131,7 @@
 					 	
 					 </div>
 					 <div class="row">
-					 	<div  class=" col-md-12 text-center">Propriedade</div>	
+					 	<div  class=" col-md-12 lead text-center">Propriedade</div>
 					 </div>	
 					</a>
 					</div>
@@ -145,7 +146,7 @@
 					 	
 					 </div>
 					 <div class="row">
-					 	<div  class=" col-md-12 text-center ">Despesas</div>	
+					 	<div  class=" col-md-12 lead text-center ">Despesas</div>
 					 </div>
 					 </a>	
 					</div>
@@ -159,7 +160,7 @@
 					 	
 					 </div>
 					 <div class="row">
-					 	<div  class=" col-md-12 text-center">Investimentos</div>	
+					 	<div  class=" col-md-12 lead text-center">Investimentos</div>
 					 </div>	
 					</a>
 					</div>
@@ -175,12 +176,13 @@
 					 	
 					 </div>
 					 <div class="row">
-					 	<div  class=" col-md-12 text-center ">Relatorios</div>	
+					 	<div  class=" col-md-12 lead text-center ">Relatorios</div>
 					 </div>
 					 </a>	
 					</div>
 
 					<div class=" col-md-5 ">
+					<a href="/manual">
 					 <div class="row"> 
 					 	<div>
 					 		<img class="col-md-12 img-fluid" src="/images/Manual.png" >	
@@ -188,14 +190,15 @@
 					 	
 					 </div>
 					 <div class="row">
-					 	 <div  class=" col-md-12 text-center ">Manual</div>	
-					 </div>	
+					 	 <div  class=" col-md-12 lead text-center ">Manual</div>
+					 </div>
+					 </a>	
 					</div>
 				</div>
 																				
 			</div>
 
-			<div  class="conteudo col-11 col-sm-11 col-md-11 col-xl-10">
+			<div  class="conteudo col-11 col-sm-10 col-md-10 col-xl-10">
 				  @yield('conteudo')
 
 			</div>

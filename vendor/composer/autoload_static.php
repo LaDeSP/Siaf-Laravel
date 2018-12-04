@@ -18,6 +18,7 @@ class ComposerStaticInit01866e94038b84acd1c89df5cf260e47
         '6124b4c8570aa390c21fafd04a26c69f' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
         '801c31d8ed748cfa537fa45402288c95' => __DIR__ . '/..' . '/psy/psysh/src/functions.php',
         '0d8253363903f0ac7b0978dcde4e28a0' => __DIR__ . '/..' . '/beyondcode/laravel-dump-server/helpers.php',
+        'f18cc91337d49233e5754e93f3ed9ec3' => __DIR__ . '/..' . '/laravelcollective/html/src/helpers.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -114,6 +115,7 @@ class ComposerStaticInit01866e94038b84acd1c89df5cf260e47
         'C' => 
         array (
             'Cron\\' => 5,
+            'Collective\\Html\\' => 16,
         ),
         'B' => 
         array (
@@ -300,6 +302,10 @@ class ComposerStaticInit01866e94038b84acd1c89df5cf260e47
         array (
             0 => __DIR__ . '/..' . '/dragonmantank/cron-expression/src/Cron',
         ),
+        'Collective\\Html\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/laravelcollective/html/src',
+        ),
         'BeyondCode\\DumpServer\\' => 
         array (
             0 => __DIR__ . '/..' . '/beyondcode/laravel-dump-server/src',
@@ -344,7 +350,6 @@ class ComposerStaticInit01866e94038b84acd1c89df5cf260e47
 
     public static $classMap = array (
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
-        'App\\Estoque' => __DIR__ . '/../..' . '/app/Models/Estoque.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
         'App\\Http\\Controllers\\Auth\\ForgotPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ForgotPasswordController.php',
         'App\\Http\\Controllers\\Auth\\LoginController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/LoginController.php',
@@ -353,14 +358,20 @@ class ComposerStaticInit01866e94038b84acd1c89df5cf260e47
         'App\\Http\\Controllers\\Auth\\VerificationController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/VerificationController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
         'App\\Http\\Controllers\\CrudController' => __DIR__ . '/../..' . '/app/Http/Controllers/CrudController.php',
-        'App\\Http\\Controllers\\Estoque' => __DIR__ . '/../..' . '/app/Http/Controllers/EstoqueController.php',
+        'App\\Http\\Controllers\\DespesaController' => __DIR__ . '/../..' . '/app/Http/Controllers/DespesaController.php',
+        'App\\Http\\Controllers\\EstoqueController' => __DIR__ . '/../..' . '/app/Http/Controllers/EstoqueController.php',
         'App\\Http\\Controllers\\HomeController' => __DIR__ . '/../..' . '/app/Http/Controllers/HomeController.php',
+        'App\\Http\\Controllers\\InvestimentoController' => __DIR__ . '/../..' . '/app/Http/Controllers/InvestimentoController.php',
         'App\\Http\\Controllers\\ManejoController' => __DIR__ . '/../..' . '/app/Http/Controllers/ManejoController.php',
+        'App\\Http\\Controllers\\ManualController' => __DIR__ . '/../..' . '/app/Http/Controllers/ManualController.php',
+        'App\\Http\\Controllers\\PerdaController' => __DIR__ . '/../..' . '/app/Http/Controllers/PerdaController.php',
         'App\\Http\\Controllers\\PlantioController' => __DIR__ . '/../..' . '/app/Http/Controllers/PlantioController.php',
         'App\\Http\\Controllers\\ProdutoController' => __DIR__ . '/../..' . '/app/Http/Controllers/ProdutoController.php',
         'App\\Http\\Controllers\\PropriedadeController' => __DIR__ . '/../..' . '/app/Http/Controllers/PropriedadeController.php',
+        'App\\Http\\Controllers\\RelatorioController' => __DIR__ . '/../..' . '/app/Http/Controllers/RelatorioController.php',
         'App\\Http\\Controllers\\TalhaoController' => __DIR__ . '/../..' . '/app/Http/Controllers/TalhaoController.php',
         'App\\Http\\Controllers\\UsersController' => __DIR__ . '/../..' . '/app/Http/Controllers/UsersController.php',
+        'App\\Http\\Controllers\\VendasController' => __DIR__ . '/../..' . '/app/Http/Controllers/VendasController.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
         'App\\Http\\Middleware\\Authenticate' => __DIR__ . '/../..' . '/app/Http/Middleware/Authenticate.php',
         'App\\Http\\Middleware\\CheckForMaintenanceMode' => __DIR__ . '/../..' . '/app/Http/Middleware/CheckForMaintenanceMode.php',
@@ -369,11 +380,15 @@ class ComposerStaticInit01866e94038b84acd1c89df5cf260e47
         'App\\Http\\Middleware\\TrimStrings' => __DIR__ . '/../..' . '/app/Http/Middleware/TrimStrings.php',
         'App\\Http\\Middleware\\TrustProxies' => __DIR__ . '/../..' . '/app/Http/Middleware/TrustProxies.php',
         'App\\Http\\Middleware\\VerifyCsrfToken' => __DIR__ . '/../..' . '/app/Http/Middleware/VerifyCsrfToken.php',
+        'App\\Models\\Estoque' => __DIR__ . '/../..' . '/app/Models/Estoque.php',
+        'App\\Models\\Investimento' => __DIR__ . '/../..' . '/app/Models/Investimento.php',
         'App\\Models\\Manejo' => __DIR__ . '/../..' . '/app/Models/Manejo.php',
         'App\\Models\\Plantio' => __DIR__ . '/../..' . '/app/Models/Plantio.php',
         'App\\Models\\Produto' => __DIR__ . '/../..' . '/app/Models/Produto.php',
         'App\\Models\\Propriedade' => __DIR__ . '/../..' . '/app/Models/Propriedade.php',
         'App\\Models\\Talhao' => __DIR__ . '/../..' . '/app/Models/Talhao.php',
+        'App\\Models\\Venda' => __DIR__ . '/../..' . '/app/Models/Venda.php',
+        'App\\Perda' => __DIR__ . '/../..' . '/app/Models/Perda.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
         'App\\Providers\\AuthServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AuthServiceProvider.php',
         'App\\Providers\\BroadcastServiceProvider' => __DIR__ . '/../..' . '/app/Providers/BroadcastServiceProvider.php',
@@ -391,6 +406,13 @@ class ComposerStaticInit01866e94038b84acd1c89df5cf260e47
         'Carbon\\Laravel\\ServiceProvider' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Laravel/ServiceProvider.php',
         'Carbon\\Translator' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Translator.php',
         'CidadeSeeder' => __DIR__ . '/../..' . '/database/seeds/CidadeSeeder.php',
+        'Collective\\Html\\Componentable' => __DIR__ . '/..' . '/laravelcollective/html/src/Componentable.php',
+        'Collective\\Html\\Eloquent\\FormAccessible' => __DIR__ . '/..' . '/laravelcollective/html/src/Eloquent/FormAccessible.php',
+        'Collective\\Html\\FormBuilder' => __DIR__ . '/..' . '/laravelcollective/html/src/FormBuilder.php',
+        'Collective\\Html\\FormFacade' => __DIR__ . '/..' . '/laravelcollective/html/src/FormFacade.php',
+        'Collective\\Html\\HtmlBuilder' => __DIR__ . '/..' . '/laravelcollective/html/src/HtmlBuilder.php',
+        'Collective\\Html\\HtmlFacade' => __DIR__ . '/..' . '/laravelcollective/html/src/HtmlFacade.php',
+        'Collective\\Html\\HtmlServiceProvider' => __DIR__ . '/..' . '/laravelcollective/html/src/HtmlServiceProvider.php',
         'Cron\\AbstractField' => __DIR__ . '/..' . '/dragonmantank/cron-expression/src/Cron/AbstractField.php',
         'Cron\\CronExpression' => __DIR__ . '/..' . '/dragonmantank/cron-expression/src/Cron/CronExpression.php',
         'Cron\\DayOfMonthField' => __DIR__ . '/..' . '/dragonmantank/cron-expression/src/Cron/DayOfMonthField.php',
@@ -2729,6 +2751,7 @@ class ComposerStaticInit01866e94038b84acd1c89df5cf260e47
         'PhpParser\\Parser\\Tokens' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Parser/Tokens.php',
         'PhpParser\\PrettyPrinterAbstract' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/PrettyPrinterAbstract.php',
         'PhpParser\\PrettyPrinter\\Standard' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/PrettyPrinter/Standard.php',
+        'ProdutoSeeder' => __DIR__ . '/../..' . '/database/seeds/ProdutoSeeder.php',
         'Prophecy\\Argument' => __DIR__ . '/..' . '/phpspec/prophecy/src/Prophecy/Argument.php',
         'Prophecy\\Argument\\ArgumentsWildcard' => __DIR__ . '/..' . '/phpspec/prophecy/src/Prophecy/Argument/ArgumentsWildcard.php',
         'Prophecy\\Argument\\Token\\AnyValueToken' => __DIR__ . '/..' . '/phpspec/prophecy/src/Prophecy/Argument/Token/AnyValueToken.php',
@@ -3719,6 +3742,7 @@ class ComposerStaticInit01866e94038b84acd1c89df5cf260e47
         'Symfony\\Polyfill\\Ctype\\Ctype' => __DIR__ . '/..' . '/symfony/polyfill-ctype/Ctype.php',
         'Symfony\\Polyfill\\Mbstring\\Mbstring' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/Mbstring.php',
         'Symfony\\Polyfill\\Php72\\Php72' => __DIR__ . '/..' . '/symfony/polyfill-php72/Php72.php',
+        'TalhaoSeeder' => __DIR__ . '/../..' . '/database/seeds/TalhaoSeeder.php',
         'Tests\\CreatesApplication' => __DIR__ . '/../..' . '/tests/CreatesApplication.php',
         'Tests\\Feature\\ExampleTest' => __DIR__ . '/../..' . '/tests/Feature/ExampleTest.php',
         'Tests\\TestCase' => __DIR__ . '/../..' . '/tests/TestCase.php',
@@ -3738,6 +3762,7 @@ class ComposerStaticInit01866e94038b84acd1c89df5cf260e47
         'TijsVerkoyen\\CssToInlineStyles\\Css\\Property\\Property' => __DIR__ . '/..' . '/tijsverkoyen/css-to-inline-styles/src/Css/Property/Property.php',
         'TijsVerkoyen\\CssToInlineStyles\\Css\\Rule\\Processor' => __DIR__ . '/..' . '/tijsverkoyen/css-to-inline-styles/src/Css/Rule/Processor.php',
         'TijsVerkoyen\\CssToInlineStyles\\Css\\Rule\\Rule' => __DIR__ . '/..' . '/tijsverkoyen/css-to-inline-styles/src/Css/Rule/Rule.php',
+        'UnidadeSeeder' => __DIR__ . '/../..' . '/database/seeds/UnidadeSeeder.php',
         'UserSeeder' => __DIR__ . '/../..' . '/database/seeds/UserSeeder.php',
         'Webmozart\\Assert\\Assert' => __DIR__ . '/..' . '/webmozart/assert/src/Assert.php',
         'Whoops\\Exception\\ErrorException' => __DIR__ . '/..' . '/filp/whoops/src/Whoops/Exception/ErrorException.php',

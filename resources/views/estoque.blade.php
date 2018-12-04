@@ -4,61 +4,38 @@
 @section('usuario', $User);
 
 @section('conteudo')
-<form method="post"  action="api/estoque">
-	@csrf
-	    <div>
 
-	        <div class="form-group">
-	        	<div class="form-group">
-					{{--<br />
-    				{!! Form::label('Produto') !!}<br />
-    				{!! Form::select('produto_id',
-        					['0' => 'Selecione o Produto'] + $produto->toArray(), 
-            				null,
-            				array('class' => 'form-control', 'id' => 'nome') 
-            			);	 
-            		!!}--}}
-				</div>
-			</div>
-{{--
+{{--<form method="post"  action="api/estoque">--}}
+    <div class="form-group">
 
-			<div class="row">
-				<div class="form-group date col-md-8">
-					<label for="data" class="control-label">Data</label>
-				   	<input type="date" class="form-control data " id="data" name="data" value="{{data}}" required>
-				</div>
+                    {!! Form::open(["url"=>'api/estoque',"files"=>"true"])!!}
+                    Insira o nome da sessão: {!! Form::password("section_name", ["class"=>"form-control", "required"=>true]) !!}<br>
+                    Upload image: {!! Form::file('image') !!}<br>
+                    {!! Form::submit("Inserir", ["class"=> "btn btn-danger"])!!}
+                    {!! Form::close() !!}
+    </div>
+<table class="table table-striped table-hover table-condensed">
+    <thead>
+    <tr>
+        <th>Produto</th>
+        <th>Quantidade</th>
+        <th>Unidade</th>
+        <th>Ações</th>
+    </tr>
+    </thead>
 
-	        	<div class="form-group col-md-8">
-					<label for="quantidade" class="control-label">Quantidade</label>
-					<input type="number" class="form-control" id="quantidade" name="quantidade" placeholder="Quantidade" value="{{quantidade}}" required>
-				</div>
+    <tbody>
+        @foreach($produtos as $prod)
+{{--            <td>{{$prod['nome_produto']}}</td>
+            <td>{{$prod['quantidade']}}</td>
+            <td>{{$prod['Unidade']}}</td>--}}
+            <td>
+                <button class="btn btn-xs btn-primary"> Editar </button> | <button class="btn btn-xs btn-danger">Perda</button>
+            </td>
+        @endforeach
+    </tbody>
 
-	    	</div>
---}}
-
-	    	<div class="form-group">
-	        	<div class="form-group">
-					<br />
-{{--
-    				{!! Form::label('Propriedade') !!}<br />
-    				{!! Form::select('propriedade_id', 
-        					['0' => 'Selecione a Propriedade'] + $propriedade->toArray(), 
-            				null,
-            				array('class' => 'form-control', 'id' => 'nome') 
-            			);	 
-            		!!}
---}}
-				</div>
-			</div>
-
-		</div>
-
-	    	<div class="text-center">
-	    		<button type="submit" class="btn btn-success" name="salvar">Registrar</button>
-			</div>
-
-    	</div>
-</form>
+</table>
 
 @endsection
 	

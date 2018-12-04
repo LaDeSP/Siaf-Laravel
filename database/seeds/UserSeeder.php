@@ -12,13 +12,20 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('users')->
-            insert([
-                'cpf'               =>"47110931099",
+        $toInsert = array(
+          array('cpf'               =>"47110931099",
                 'name'              =>'Tomilho fazendeiro',
                 'email'             =>'tomilho@gmail.com',
                 'telefone'          =>'67999999999',
-                'password'          =>bcrypt('tom123456')
-            ]);
+                'password'          =>bcrypt('tom123456')),
+
+          array('cpf'               =>"83552301089",
+                'name'              =>'Zé pequeno',
+                'email'             =>'dadinho@gmail.com',
+                'telefone'          =>'67988999999',
+                'password'          =>bcrypt('littleze')),
+        );
+
+        DB::table('users')->insert($toInsert);
     }
 }

@@ -12,12 +12,28 @@ class PropriedadeSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('propriedade')->
-        insert([
-            'users_id'          =>'47110931099',
-            'nome'              =>'Fazenda do Tomilho',
-            'localizacao'       =>'Rural',
-            'cidade_id'         =>1
-        ]);
+        $toInsert = array(
+          array('users_id'          =>'47110931099',
+                'nome'              =>'Fazenda do Tomilho',
+                'localizacao'       =>'Rural',
+                'cidade_id'         =>1),
+
+          array('users_id'          =>'47110931099',
+                'nome'              =>'Outra Fazenda do Tomilho',
+                'localizacao'       =>'Judas perdeu as botas',
+                'cidade_id'         =>1),
+
+          array('users_id'          =>'47110931099',
+                'nome'              =>'Mais uma do Tomilho',
+                'localizacao'       =>'Pode excluir essa',
+                'cidade_id'         =>1),
+
+          array('users_id'          =>'83552301089',
+                'nome'              =>'Cidade de Deus',
+                'localizacao'       =>'CDD',
+                'cidade_id'         =>1)
+        );
+
+        DB::table('propriedade')->insert($toInsert);
     }
 }

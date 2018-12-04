@@ -1,4 +1,5 @@
 {
+    "repositories":[{"type":"composer", "url": "https://packagist.org"}],
     "name": "laravel/laravel",
     "type": "project",
     "description": "The Laravel Framework.",
@@ -12,8 +13,7 @@
         "fideloper/proxy": "^4.0",
         "laravel/framework": "5.7.*",
         "laravel/tinker": "^1.0",
-        "laravelcollective/html": "^5.7",
-        "laravelcollective/html":"^5.7.*"
+        "laravelcollective/html": "^5.7"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",

@@ -26,19 +26,19 @@ class EstoqueController extends Controller
     public function getProduto()
     {
         $produto = Produto::pluck('nome', 'id');
-        return view('estoque', compact('produto'));
+        return compact('produto');
     }
 
     public function getPropriedade()
     {
         $propriedade = Propriedade::pluck('nome', 'id');
-        return view('estoque', compact('propriedade'));
+        return compact('propriedade') ;
     }
 
     public function getPlantio()
     {
         $plantio = Plantio::pluck('id', 'talhao_id');
-        return view('estoque', compact('plantio'));
+        return  compact('plantio');
     }
 
     /**
@@ -48,10 +48,8 @@ class EstoqueController extends Controller
      */
     public function create()
     {
-        $this->getProduto();
-        $this->getPropriedade();
-        $this->getPlantio();
-        return view('estoque', ["User"=>$this->getFirstName($this->usuario['name']), "data"=>"12/10/2012", "quantidade"=>"Bastante"]);
+        $produtos = $this->getProduto();
+        return view('estoque', ["User"=>$this->getFirstName($this->usuario['name']),"produtos"=>$produtos]);
     }
 
     /**

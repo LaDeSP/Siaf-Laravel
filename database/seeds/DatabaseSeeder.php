@@ -15,7 +15,10 @@ class DatabaseSeeder extends Seeder
             EstadoSeeder::class,
             CidadeSeeder::class,
             UserSeeder::class,
-            PropriedadeSeeder::class
+            PropriedadeSeeder::class,
+            UnidadeSeeder::class,
+            TalhaoSeeder::class,
+            ProdutoSeeder::class
         ]);
     }
 }

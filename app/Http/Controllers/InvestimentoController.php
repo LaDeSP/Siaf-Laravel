@@ -14,7 +14,7 @@ class InvestimentoController extends Controller
      */
     public function index()
     {
-        return view('investimento',['method' => 'get']);
+        return view('investimento',['method' => 'get', "User"=>$this->getFirstName($this->usuario['name'])]);
     }
 
     /**

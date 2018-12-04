@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Cidade;
+use App\Models\Propriedade;
 
 class HomeController extends Controller
 {
@@ -15,6 +17,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('welcome',["User"=>$this->getFirstName($this->usuario['name']), "Tela"=>"Início"]);
+
+        $propiedades=Propriedade::all()->where('users_id','=',$this->usuario['cpf']);
+        $cidade=Cidade::cordenadas($propiedades[0]['cidade_id']);
+        return view('welcome',["User"=>$this->getFirstName($this->usuario['name']), "Tela"=>"Início",'Longitude'=> $cidade[0]['longitude'],"Latitude" => $cidade[0]['latitude']]);
     }
 }

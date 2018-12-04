@@ -15,8 +15,8 @@
     $(function() {
         $('#weather').weather({
             geoLocation:false,
-            locationLat: 0.3166667,
-            locationLon: -50.8833333
+            locationLat: {{$Latitude}},
+            locationLon: {{$Longitude}}
         });
     });
  </script>

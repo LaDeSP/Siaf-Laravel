@@ -1,7 +1,7 @@
 
 @extends('master')
 
-@section('usuario', 'LULU da casa')
+@section('usuario', $User)
 
 @section('conteudo')
 @if ($method === 'get')

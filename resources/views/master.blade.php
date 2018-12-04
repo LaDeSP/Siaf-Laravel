@@ -12,7 +12,6 @@
   			color: inherit; /* blue colors for links too */
   			text-decoration: inherit; /* no underline */
 		}
-
 		.menu{
 			background-color: #f8f8f8;
 			font-size:1.1vw;
@@ -25,11 +24,15 @@
 		.conteudo{
 			border-left: 1px solid #6178844f;
 			border-top: 1px solid #6178844f;
-			
-		}
+            width: 100%;
+
+        }
 		img{
 			padding: 10px;
 		}
+        @media screen and (min-width: 768px){
+            .rwd-break { display: none; }
+        }
 	</style>
 </head>
 <body>
@@ -131,7 +134,7 @@
 					 	
 					 </div>
 					 <div class="row">
-					 	<div  class=" col-md-12 lead text-center">Propriedade</div>
+					 	<div class="col-12 md-12 lead text-center">Propriedade</div>
 					 </div>	
 					</a>
 					</div>
@@ -198,9 +201,8 @@
 																				
 			</div>
 
-			<div  class="conteudo col-11 col-sm-10 col-md-10 col-xl-10">
-				  @yield('conteudo')
-
+			<div  class="conteudo col-2 col-sm-4">
+                    @yield('conteudo')
 			</div>
 
 			

@@ -18,7 +18,7 @@ class Investimento extends Model
 	];
 
 	public static function insere($request){
-		self::firstOrCreate(['nome'=> $request['nome'] ],['nome'=> $request['nome'], 'descricao'=> $request['descricao'], 'valor_unit'=> $request['valor_unit'], 'quantidade'=> $request['quantidade'], 'data'=> $request['data'], 'propriedade_id'=> $request['propriedade_id'] ]);
+		return self::firstOrCreate(['nome'=> $request['nome'] ],['nome'=> $request['nome'], 'descricao'=> $request['descricao'], 'valor_unit'=> $request['valor_unit'], 'quantidade'=> $request['quantidade'], 'data'=> $request['data'], 'propriedade_id'=> $request['propriedade_id'] ]);
 
 	}
 }

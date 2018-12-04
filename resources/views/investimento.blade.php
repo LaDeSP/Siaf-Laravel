@@ -1,7 +1,7 @@
 
 @extends('master')
 
-@section('usuario', 'LULU da casa')
+@section('usuario', $User)
 
 @section('conteudo')
 @if ($method === 'get')
@@ -9,6 +9,7 @@
 			<table class="table table-striped table-hover table-condensed">
 				<thead>
 					<tr>
+						<th>Propriedade</th>
 						<th>Investimento</th>
 						<th>Descrição</th>
 						<th>Valor R$</th>
@@ -19,6 +20,10 @@
 				<tbody>
 				
 					<tr class="linha">
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
 						<td></td>
 						<td>
 						<button type="button" class="btn btn-xs btn-primary">
@@ -36,7 +41,7 @@
 		    <div>
 				<div class="form-group">
 					<label for="nome" class="control-label">Investimento<span style="color: red">*</span></label>
-					<input type="text" class="form-control " pattern="[A-Za-zÀ-ú., -]{5,255}$" id="nome" name="nome" placeholder="Nome" required>
+					<input type="text" class="form-control " pattern="[A-Za-zÀ-ú]{5,255}$" id="nome" name="nome" placeholder="Nome" required>
 					
 				</div>
 		        <div class="form-group">
@@ -46,11 +51,11 @@
 		        <div class="row">
 					<div class="form-group col-md-6">
 						<label for="valor_unit" class="control-label">Quantidade<span style="color: red">*</span></label>
-						<input type="number"  pattern="[0-9., -]$"class="form-control " id="quantidade" name="quantidade" placeholder="Quantidade" required>
+						<input type="number"  pattern="[0-9]$"class="form-control " id="quantidade" name="quantidade" placeholder="Quantidade" required>
 					</div>
 					<div class="form-group col-md-6">
 						<label for="valor_unit" class="control-label">Valor<span style="color: red">*</span></label>
-						<input type="number"  pattern="[0-9., -]$"class="form-control " id="valor" name="valor_unit" placeholder="Valor R$" required>
+						<input type="number"  pattern="[0-9.]$"class="form-control " id="valor" name="valor_unit" placeholder="Valor R$" required>
 					</div>
 		        </div>
 		    	<div class="form-group date col-md-8">

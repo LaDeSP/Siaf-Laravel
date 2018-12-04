@@ -14,17 +14,7 @@ class InvestimentoController extends Controller
      */
     public function index()
     {
-        return view('investimento',['method' => 'get']);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        return view('investimento', ['method' => 'create']);
+        return view('investimento',['method' => 'get', "User"=>$this->getFirstName($this->usuario['name'])]);
     }
 
     /**

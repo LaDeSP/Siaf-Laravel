@@ -3,6 +3,7 @@
 <html>
 <head>
 	<title></title>
+	
 	<link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 	<script src="/bootstrap/js/bootstrap.min.js"></script>
 	<script src="/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -43,6 +44,18 @@
 					<img  class="img-fluid col-12 offset-sm-6 col-sm-6" src="/images/agr.png">	
 					<div  class="user lead col-12 offset-sm-6 col-sm-6 text-center"> @yield('usuario')</div>
 				</a>
+				<div class="btn-group">
+  <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Ação
+  </button>
+  <div class="dropdown-menu">
+    <a class="dropdown-item" href="#">Alguma ação</a>
+    <a class="dropdown-item" href="#">Outra ação</a>
+    <a class="dropdown-item" href="#">Alguma coisa aqui</a>
+    <div class="dropdown-divider"></div>
+    <a class="dropdown-item" href="#">Link separado</a>
+  </div>
+</div>
 			</div>
 		</div>
 		<div  class="row">

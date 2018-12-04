@@ -13,7 +13,7 @@ class DespesaController extends Controller
      */
     public function index()
     {
-        return view('despesa', ["User"=>$this->getFirstName($this->usuario['name'])]);
+        return view('despesa', ["User"=>$this->getFirstName($this->usuario['name']), "Tela"=>"Despesas"]);
     }
 
     /**

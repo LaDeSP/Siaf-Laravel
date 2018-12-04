@@ -25,7 +25,7 @@ class EstoqueController extends Controller
 
     public function getProduto()
     {
-        $produto = Produto::pluck('nome', 'id');
+        $produto = Produto::all();
         return compact('produto');
     }
 
@@ -49,7 +49,7 @@ class EstoqueController extends Controller
     public function create()
     {
         $produtos = $this->getProduto();
-        return view('estoque', ["User"=>$this->getFirstName($this->usuario['name']),"produtos"=>$produtos]);
+        return view('estoque', ["User"=>$this->getFirstName($this->usuario['name']),"produtos"=>$produtos, "Tela"=>"Estoque"]);
     }
 
     /**

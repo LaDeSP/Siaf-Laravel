@@ -13,7 +13,7 @@ class RelatorioController extends Controller
      */
     public function index()
     {
-        return view('relatorio', ["User"=>$this->getFirstName($this->usuario['name'])]);
+        return view('relatorio', ["User"=>$this->getFirstName($this->usuario['name']), "Tela"=>"Relatorio"]);
     }
 
     /**

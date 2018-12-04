@@ -1,11 +1,11 @@
 
 @extends('master')
 
-@section('usuario', $User);
+@section('usuario', $User)
 
 @section('conteudo')
-
-{{--<form method="post"  action="api/estoque">--}}
+{{--
+--}}{{--<form method="post"  action="api/estoque">--}}{{--
     <div class="form-group">
 
                     {!! Form::open(["url"=>'api/estoque',"files"=>"true"])!!}
@@ -13,8 +13,8 @@
                     Upload image: {!! Form::file('image') !!}<br>
                     {!! Form::submit("Inserir", ["class"=> "btn btn-danger"])!!}
                     {!! Form::close() !!}
-    </div>
-<table class="table table-striped table-hover table-condensed">
+    </div>--}}
+<table class="table table-hover table-condensed">
     <thead>
     <tr>
         <th>Produto</th>
@@ -26,12 +26,16 @@
 
     <tbody>
         @foreach($produtos as $prod)
-{{--            <td>{{$prod['nome_produto']}}</td>
-            <td>{{$prod['quantidade']}}</td>
-            <td>{{$prod['Unidade']}}</td>--}}
-            <td>
-                <button class="btn btn-xs btn-primary"> Editar </button> | <button class="btn btn-xs btn-danger">Perda</button>
-            </td>
+            @foreach($prod as $p)
+            <tr>
+                <td>{{$p['nome']}}</td>
+                <td>{{$p['propriedade_id']}}</td>
+                <td>Kg</td>
+                <td>
+                    <button class="btn btn-xs btn-primary"> Editar </button> &nbsp; &nbsp; <button class="btn btn-xs btn-danger">Perda</button>
+                </td>
+            </tr>
+            @endforeach
         @endforeach
     </tbody>
 

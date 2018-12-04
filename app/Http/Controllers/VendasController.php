@@ -15,7 +15,7 @@ class VendasController extends Controller
     public function index(Venda $aln)
     {
      //   $allVenda = $aln->all();
-        return view('venda', ["allVenda"=>'$allVenda', "User"=>$this->getFirstName($this->usuario['name'])]);
+        return view('venda', ["allVenda"=>'$allVenda', "User"=>$this->getFirstName($this->usuario['name']), "Tela"=>"Vendas"]);
     }
 
     /**

@@ -44,7 +44,10 @@
 			<div  class="col-6 col-sm-3 col-md-2" >
 				<img class="img-fluid" src="/images/log.png">
 			</div>
-			<div   class="col-3 offset-1  col-sm-3 offset-sm-6 col-md-2 offset-md-8" >
+            <div>
+                {{$Tela}}
+            </div>
+			<div  class="col-3 offset-1  col-sm-4 offset-sm-6 col-md-2 offset-md-9" >
 				<a href="/usuario">
 					<img  class="img-fluid col-12 offset-sm-6 col-sm-6" src="/images/agr.png">
 				</a>

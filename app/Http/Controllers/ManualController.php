@@ -13,7 +13,7 @@ class ManualController extends Controller
      */
     public function index()
     {
-        return view('manual', ["User"=>$this->getFirstName($this->usuario['name'])]);
+        return view('manual', ["User"=>$this->getFirstName($this->usuario['name']), "Tela"=>"Manual"]);
     }
 
     /**

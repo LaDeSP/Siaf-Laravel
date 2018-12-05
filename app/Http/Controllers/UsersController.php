@@ -13,7 +13,7 @@ class UsersController extends Controller
      */
     public function index()
     {
-        return view('user', ["User"=>$this->getFirstName($this->usuario['name']), "Tela"=>"Perfil"]);
+        return view('user', ["User"=>$this->getFirstName($this->usuario['name']), "Tela"=>"Meu Perfil"]);
     }
 
     /**

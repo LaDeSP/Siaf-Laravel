@@ -24,7 +24,7 @@ class CrudController extends Controller
      */
     public function create($name)
     {
-        return app('App\Http\Controllers'.'\\'.$name.'Controller')->createte();
+        return app('App\Http\Controllers'.'\\'.$name.'Controller')->create();
 
     }
     /**

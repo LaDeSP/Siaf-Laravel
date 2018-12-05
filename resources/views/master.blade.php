@@ -37,6 +37,18 @@
             .rwd-break { display: none; }
         }
 	</style>
+	<script type="text/javascript">
+		$( document ).ready(function() {
+
+
+							$('.bd-user-modal-sm').css("margin-left", $(window).width() - $('.modal-content').width()*2);
+							$('.bd-user-modal-sm').css("margin-top", 0);
+
+			});
+
+
+
+</script>
 </head>
 <body>
 	<div class="container-fluid">
@@ -47,27 +59,39 @@
             <div>
                 {{$Tela}}
             </div>
-			<div  class="col-3 offset-1  col-sm-4 offset-sm-6 col-md-2 offset-md-9" >
-				<a href="/usuario">
-					<img  class="img-fluid col-12 offset-sm-6 col-sm-6" src="/images/agr.png">
-				</a>
-				<div class="btn-group">
-  					<button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-					  {{$User}} <span class="caret"></span>
-  				</button>
-  				<div class="dropdown-menu">
-					<a class="dropdown-item" href="{{ route('logout') }}"
-                    	onclick="event.preventDefault();
-                    	document.getElementById('logout-form').submit();">
-                    	{{ __('Logout') }}
-                	</a>
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                        @csrf
-                	</form>
-  				</div>
-			</div>
+				<div  style="border:1px solid black" class=" col-2 offset-7 "  data-toggle="modal" data-target=".bd-user-modal-sm"  data-backdrop="false" >
+						<img  class="img-fluid col-12 " src="/images/agr.png">
+						<div class="col-12 text-center" >{{$User}} </div>
+				</div>
 
-		</div>
+				<div class="modal fade bd-user-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="false">
+			  	<div class="modal-dialog modal-sm">
+						    <div class="modal-content">
+											<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+												<span aria-hidden="true">&times;</span>
+										</button>
+									<ul class="list-group">
+											<li class="col-10 offset-1 list-group-item list-group-item-action list-group-item-secondary">
+													<a href="/usuario"> <h3>usuario</h3> </a>
+											</li>
+											<li class="col-10 offset-1 list-group-item list-group-item-action list-group-item-secondary">
+						      			<a href="{{ route('logout') }}"
+							                    	onclick="event.preventDefault();
+							                    	document.getElementById('logout-form').submit();">
+							                    	<h3>Sair</h3>
+												</a>
+											</li>
+
+											</ul>
+											<div class="modal-footer">
+
+		 									</div>
+												<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+														@csrf
+											</form>
+						    </div>
+			  		</div>
+				</div>
 			</div>
 		</div>
 		<div  class="row">

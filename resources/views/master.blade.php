@@ -74,7 +74,7 @@
 						    <div class="modal-content">
 									<ul class="list-group">
 											<li class=" list-group-item list-group-item-action list-group-item-success">
-													<a href="/usuario"> <h8>Usuário</h8> </a>
+													<a href="/usuario"> <h8>Perfil</h8> </a>
 											</li>
 											<li class=" list-group-item list-group-item-action list-group-item-success">
 						      			<a href="{{ route('logout') }}"

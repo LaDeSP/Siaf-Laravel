@@ -64,8 +64,8 @@
             <div class="col-md-2 offset-3 text-center lead caret">
                 <h2>{{$Tela}}</h2>
             </div>
-				<div   class=" col-2 offset-3 "  data-toggle="modal" data-target=".bd-user-modal-sm"  data-backdrop="false" >
-						<img  class="img-fluid col-6   offset-3" src="/images/agr.png">
+				<div   class="col-2 offset-3 "  data-toggle="modal" data-target=".bd-user-modal-sm"  data-backdrop="false" >
+						<img  class="btn img-fluid col-6   offset-3" src="/images/agr.png">
 						<div class="col-8 text-center offset-2" >{{$User}} </div>
 				</div>
 

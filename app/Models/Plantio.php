@@ -43,7 +43,7 @@ class Plantio extends Model
 
     public static function set()
     {
-      
+      return 'aa';
     }
 
 }

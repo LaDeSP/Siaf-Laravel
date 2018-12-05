@@ -10,6 +10,7 @@ class Cidade extends Model
 
   static function cordenadas($id)
       {
-          return self::all()->where('id','=',$id);
+          $cidades=self::all()->where('id','=',$id);
+          return array_first($cidades);
       }
 }

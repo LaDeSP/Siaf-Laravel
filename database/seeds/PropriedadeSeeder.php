@@ -16,7 +16,7 @@ class PropriedadeSeeder extends Seeder
           array('users_id'          =>'47110931099',
                 'nome'              =>'Fazenda do Tomilho',
                 'localizacao'       =>'Rural',
-                'cidade_id'         =>1),
+                'cidade_id'         =>5129),
 
           array('users_id'          =>'47110931099',
                 'nome'              =>'Outra Fazenda do Tomilho',
@@ -26,7 +26,7 @@ class PropriedadeSeeder extends Seeder
           array('users_id'          =>'47110931099',
                 'nome'              =>'Mais uma do Tomilho',
                 'localizacao'       =>'Pode excluir essa',
-                'cidade_id'         =>1),
+                'cidade_id'         =>5129),
 
           array('users_id'          =>'83552301089',
                 'nome'              =>'Cidade de Deus',

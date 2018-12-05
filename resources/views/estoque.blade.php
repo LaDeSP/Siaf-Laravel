@@ -14,7 +14,7 @@
                     {!! Form::submit("Inserir", ["class"=> "btn btn-danger"])!!}
                     {!! Form::close() !!}
     </div>--}}
-<table class="table table-hover table-condensed">
+<table class="table table-hover table-bordered">
     <thead>
     <tr>
         <th>Produto</th>
@@ -32,7 +32,7 @@
                 <td>{{$p['propriedade_id']}}</td>
                 <td>Kg</td>
                 <td>
-                    <button class="btn btn-xs btn-primary"> Editar </button> &nbsp; &nbsp; <button class="btn btn-xs btn-danger">Perda</button>
+                    <button class="btn btn-xs btn-primary"> Editar </button>   &nbsp;  &nbsp; <button class="btn btn-xs btn-warning">Perda</button>  &nbsp;  &nbsp; <a class="btn btn-xs btn-danger">Excluir</a>
                 </td>
             </tr>
             @endforeach

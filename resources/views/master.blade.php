@@ -2,8 +2,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title></title>
-
+	<title> SIAF </title>
+	<link rel="icon" href="/images/icon.png">
 	<script src="/js/JQuery/jquery-2.2.4.min.js"></script>
 	<script src="/bootstrap/js/popper.min.js"></script>
 	<link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -40,12 +40,12 @@
 </head>
 <body>
 	<div class="container-fluid">
-		<div  class="row menu">
+		<div  class="row menu align-items-center">
 			<div  class="col-6 col-sm-3 col-md-2" >
 				<img class="img-fluid" src="/images/log.png">
 			</div>
-            <div>
-                {{$Tela}}
+            <div class="col-md-2 offset-3 text-center lead caret">
+                <h2>{{$Tela}}</h2>
             </div>
 			<div  class="col-3 offset-1  col-sm-4 offset-sm-6 col-md-2 offset-md-9" >
 				<a href="/usuario">

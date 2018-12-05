@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Investimento;
-use App\Models\Propriedade;
+
 class InvestimentoController extends Controller
 {
         /**
@@ -12,9 +12,24 @@ class InvestimentoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($action=null,$id=null)
     {
-        return view('investimento',['method' => 'get', "User"=>$this->getFirstName($this->usuario['name'])]);
+        if ($action == null) {
+            $action = "read";
+        }
+        $propriedades = null;
+        $dados=array();
+        $prop = new PropriedadeController();
+        $propriedades= $prop->show($this->usuario['cpf']);
+        if (empty($id)) {
+            foreach ($propriedades as $propriedade) {
+                $investimentoOne = Investimento::ler('propriedade_id', $propriedade->id);
+                array_push($dados, $investimentoOne);
+            }
+        }else{
+            $dados = self::show($id);
+        }
+        return view('investimento',['method' => $action ,"propriedades" => $propriedades,"dados" => $dados, "User"=>$this->getFirstName($this->usuario['name']),"Tela" =>"Investimento"]);
     }
 
     /**
@@ -25,13 +40,8 @@ class InvestimentoController extends Controller
      */
     public function store(Request $request)
     {
-        $objeto=$request->all();
-        if(!(isset ($objeto['propriedade_id']))){
-            $prop = Propriedade::find(1);
-            $objeto['propriedade_id'] = $prop->id;
-        }
         if ($request != null) {
-            $investimento = Investimento::insere($objeto);
+            $investimento = Investimento::insere($request->all());
             if (!(empty($investimento))) {
                 return redirect()->action('InvestimentoController@index');
             }
@@ -46,20 +56,9 @@ class InvestimentoController extends Controller
      * @param  \App\Investimento  $investimento
      * @return \Illuminate\Http\Response
      */
-    public function show(Investimento $investimento)
+    public function show($id= null,$variable=null)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Investimento  $investimento
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Investimento $investimento)
-    {
-        //
+        return Investimento::ler($id, $variable);
     }
 
     /**
@@ -69,9 +68,12 @@ class InvestimentoController extends Controller
      * @param  \App\Investimento  $investimento
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Investimento $investimento)
-    {
-        //
+    public function update(Request $request, $id)
+    {    $investimento = Investimento::alterar($request, $id);
+        if($investimento == 200){
+            return  redirect()->action('InvestimentoController@index');
+        }
+        return 405;
     }
 
     /**
@@ -80,8 +82,12 @@ class InvestimentoController extends Controller
      * @param  \App\Investimento  $investimento
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Investimento $investimento)
+    public function destroy($id)
     {
-        //
+        $investimento = Investimento::excluir($id);
+        if($investimento == 200){
+            return  redirect()->action('InvestimentoController@index');
+        }
+        return 405;
     }
 }

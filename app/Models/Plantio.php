@@ -41,9 +41,11 @@ class Plantio extends Model
       return [$plantio, 200];
     }
 
-    public static function set()
+    public static function create($request)
     {
-      return 'aa';
+      return $request;
+      $venda = DB::table("plantio")->insert([ 'Data_semeadura' => $request['data_semeadura'],'Data_plantio' => $request['data_plantio'], 'Quantidade_pantas' => $request['quantidade_pantas'], 'Talhao' => $request['talhao'], 'Produto' => $request['produto']]);
+      return [$venda, 200];
     }
 
 }

@@ -23,6 +23,7 @@ Route::group(['middleware'=>['web', 'auth']], function()
     Route::get('/manual', "ManualController@index");
     Route::get('/investimento/{action?}/{id?}',"InvestimentoController@index");
     Route::get('/plantio', "PlantioController@index");
+    Route::post('/plantio', "PlantioController@create");
     Route::get('/relatorio', "RelatorioController@index");
     Route::get('/venda', "VendasController@index");
     Route::get('/estoque', "EstoqueController@create");

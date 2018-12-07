@@ -9,7 +9,7 @@
   <meta name="csrf-token" content="{{ csrf_token() }}">
   
   <link href="/css/login.css" rel="stylesheet">
-  <script src="/js/login.js"></script>
+  <script src="/js/JQuery/jquery-2.2.4.min.js"></script>
   <title>SIAF</title>
 </head>
 
@@ -32,37 +32,37 @@
             <label>
               Nome
               <input id="name" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') }}" required autofocus>
- 
-                                @if ($errors->has('name'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('name') }}</strong>
-                                    </span>
-                                @endif
+              
+              @if ($errors->has('name'))
+              <span class="invalid-feedback" role="alert">
+                <strong>{{ $errors->first('name') }}</strong>
+              </span>
+              @endif
               <i class='validate icon-check'></i>
             </label>
           </div>
           <div class='form-group no-error'>
-              <label>
-                Cpf
-                <input id="cpf" type="text" class="form-control{{ $errors->has('cpf') ? ' is-invalid' : '' }}" name="cpf" value="{{ old('cpf') }}" required autofocus>
- 
-                                @if ($errors->has('cpf'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('cpf') }}</strong>
-                                    </span>
-                                @endif
-              </label>
-            </div>
+            <label>
+              Cpf
+              <input id="cpf" type="text" class="form-control{{ $errors->has('cpf') ? ' is-invalid' : '' }}" name="cpf" value="{{ old('cpf') }}" required autofocus>
+              
+              @if ($errors->has('cpf'))
+              <span class="invalid-feedback" role="alert">
+                <strong>{{ $errors->first('cpf') }}</strong>
+              </span>
+              @endif
+            </label>
+          </div>
           <div class='form-group no-error'>
             <label>
               Email
               <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required>
- 
-                                @if ($errors->has('email'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                @endif
+              
+              @if ($errors->has('email'))
+              <span class="invalid-feedback" role="alert">
+                <strong>{{ $errors->first('email') }}</strong>
+              </span>
+              @endif
               <i class='validate icon-check'></i>
             </label>
           </div>
@@ -70,23 +70,23 @@
             <label>
               Senha
               <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
- 
-                                @if ($errors->has('password'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                @endif
+              
+              @if ($errors->has('password'))
+              <span class="invalid-feedback" role="alert">
+                <strong>{{ $errors->first('password') }}</strong>
+              </span>
+              @endif
               <i class='validate'></i>
             </label>
           </div>
-
+          
           <div class='form-group'>
-              <label>
-                Confirme a senha
-                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
-                <i class='validate'></i>
-              </label>
-            </div>
+            <label>
+              Confirme a senha
+              <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
+              <i class='validate'></i>
+            </label>
+          </div>
           <div class='form-group'>
             <label>
               Telefone
@@ -94,19 +94,19 @@
               <i class='validate'></i>
             </label>
           </div>
-        
+          
           <!-- .title Vamos montar a estrutura ideal para sua empresa -->
           <div class='form-group'>
             <label>
               Nome da sua propriedade
-              <input id='organization_name' name='organization[name]' placeholder='Nome da empresa que você trabalha' type='text' value=''>
+              <input placeholder='Nome da empresa que você trabalha' type='text' value=''>
               <i class='validate'></i>
             </label>
           </div>
           <div class='form-group'>
             <label>
               Localização da sua propriedade
-              <input id='organization_name' name='organization[name]' placeholder='Nome da empresa que você trabalha' type='text' value=''>
+              <input placeholder='Nome da empresa que você trabalha' type='text' value=''>
               <i class='validate'></i>
             </label>
           </div>
@@ -140,7 +140,6 @@
           
         </div>
       </form>
-      
       <script type="text/javascript">
         $('select[name=estados]').change(function () {
           var idEstado = $(this).val();

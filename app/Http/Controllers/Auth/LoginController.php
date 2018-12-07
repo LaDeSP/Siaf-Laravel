@@ -40,14 +40,16 @@ class LoginController extends Controller
 
     public function login(Request $request)
     {
-        $credentials = $request->only('cpf', 'password'); 
-        if (Auth::attempt(['cpf' => $credentials['cpf'], 'password' => $credentials['password']]))
+        $credentials = $request->only('cpf', 'password');
+        
+        $remember = $request->input('remember_me');
+        if (Auth::attempt(['cpf' => $credentials['cpf'], 'password' => $credentials['password']], $remember))
         {
             return redirect()->intended('home');
         }
         else
         {
-            return back()->with('error', 'CPF e/ou Senha invalidos(s)');
+            return back()->with('error', 'CPF e/ou Senha invalido(s)');
         }
 
     }

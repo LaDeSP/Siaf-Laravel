@@ -13,7 +13,7 @@
       <title>SIAF</title>
       <script type="text/javascript">
          $("#telefone, #celular").mask("(00) 00000-0000");
-         $('#cpf').mask('000.000.000-00');
+         //$('#cpf').mask('000.000.000-00');
       </script>
    </head>
    <body class='self_registration cn-site'>

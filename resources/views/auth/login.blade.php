@@ -11,7 +11,7 @@
       <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
       <title>SIAF</title>
       <script type="text/javascript">
-         $('#cpf').mask('000.000.000-00');
+         //$('#cpf').mask('000.000.000-00');
       </script>
    </head>
    <body class="cn-site">

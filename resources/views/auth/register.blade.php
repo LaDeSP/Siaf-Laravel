@@ -99,14 +99,14 @@
           <div class='form-group'>
             <label>
               Nome da sua propriedade
-              <input placeholder='Nome da empresa que você trabalha' type='text' value=''>
+              <input type='text' value=''>
               <i class='validate'></i>
             </label>
           </div>
           <div class='form-group'>
             <label>
               Localização da sua propriedade
-              <input placeholder='Nome da empresa que você trabalha' type='text' value=''>
+              <input type='text' value=''>
               <i class='validate'></i>
             </label>
           </div>

@@ -1,7 +1,7 @@
 .browser_alert_login {
-   width: 606px;
-   margin: 10px auto;
-   padding: 0 0 0 45px
+   width: 240px;
+   margin: 40px auto;
+   padding: 0 0 0 30px
 }
  
 * {
@@ -266,7 +266,7 @@ body.self_registration .dots .signup-with {
    .box-right {
       width: 65%
    }
-   .box-right form .step {
+   .box-right form .step .browser_alert_login{
       padding: 0 10%
    }
    

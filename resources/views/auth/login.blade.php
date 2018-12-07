@@ -23,6 +23,11 @@
         <a href="{{ route('register') }}">{{ __('Cadastro') }}</a>
       </div>
     </div>
+    @if ($message = Session::get('error'))
+        <div class="alert alert-danger alert-block browser_alert_login">
+          <strong>{{$message}}</strong>
+        </div>
+    @endif       
     <form action="{{ route('login') }}" method="POST">
       @csrf
       <div class='step login-step'>
@@ -39,24 +44,18 @@
           <label>
             Senha
             <input id="password" type="password" class="{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
-            
-            @if ($errors->has('password'))
-            <span class="" role="alert">
-              <strong>{{ $errors->first('password') }}</strong>
-            </span>
-            @endif
           </label>
         </div>
         <div class='form-group'>
           <label class='pull-left'>
-              <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+            <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
             Continuar conectado
           </label>
           <label class='pull-right'>
             <a class="forgot" href="{{ route('password.request') }}">Esqueci minha senha</a>
           </label>
         </div>
-        <button type='submit'>
+        <button type='submit' name="login" value="Login">
           {{ __('Entrar') }}
         </button>
         <a class="text-center signup-link" href="{{ route('register') }}">Ainda não tem uma conta? <span>Você pode se cadastrar!</span></a>

@@ -45,8 +45,10 @@ class LoginController extends Controller
         {
             return redirect()->intended('home');
         }
-        else{
-            return redirect()->intended('login');
+        else
+        {
+            return back()->with('error', 'CPF e/ou Senha invalidos(s)');
         }
+
     }
 }

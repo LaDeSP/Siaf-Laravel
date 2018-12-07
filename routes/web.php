@@ -1,6 +1,7 @@
 <?php
 
 Route::redirect('/', '/login');
+Route::get('/cidades/{id}', 'CidadeController@show');
 
 Auth::routes();
 

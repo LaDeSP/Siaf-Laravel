@@ -18,8 +18,8 @@ class Controller extends BaseController
         $this->middleware(function ($request, $next) {
             $this->usuario = Auth::user();
             if (! $request->session()->exists('propriedade')) {
-                $propriedade=array_first(Propriedade::all()->where('users_id', '=', $this->usuario['cpf']));
-                $request->session()->put('propriedade_id',$propriedade);
+
+                $request->session()->put('propriedade_id',array_first(Propriedade::all()->where('users_id', '=', $this->usuario['cpf'])));
 
             }
 
@@ -28,8 +28,8 @@ class Controller extends BaseController
     }
 
     function  setPropriedade($request,$id){
-       $propriedade=array_first( Propriedade::all()->where('users_id', '=', $this->usuario['cpf'],'id', '=', $id ) );
-       $request->session()->put('propriedade', $propriedade);
+
+       $request->session()->put('propriedade', array_first( Propriedade::all()->where('users_id', '=', $this->usuario['cpf'])->where('id', '=', $id ) ));
 
     }
 

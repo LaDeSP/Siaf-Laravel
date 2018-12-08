@@ -9,13 +9,12 @@
         <input type="date" name="data_semeadura" value="">
         <input type="date" name="data_plantio" value="">
         <input type="number" name="quantidade_plantas" value="">
+        <p>This is user {{  $Propriedade['propriedade']['nome'] }}</p>
         <select>
-        @foreach ($Propriedades as $propriedade)
-                <p>This is user {{ $propriedade['talhao'] }}</p>
-                @foreach ($propriedade['talhao'] as $talhao)
+
+                @foreach ($Propriedade['talhao'] as $talhao)
                     <option value="{{$talhao['id']}}">{{$talhao['nome']}}</option>
                 @endforeach
-        @endforeach
         </select>
         <input type="number" name="talhao_id" value="">
         <input type="number" name="produto_id" value="">

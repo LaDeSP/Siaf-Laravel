@@ -12,25 +12,15 @@ class PlantioController extends Controller
 {
     public function index(Request $request){
             //return Plantio::get();
-            var_dump($this->getPropriedade($request));
             $this->setPropriedade($request,1);
-            var_dump($this->getPropriedade($request));
-            return $this->usuario;
-            $props =  Propriedade::all()->where('users_id', '=', $this->usuario['cpf']);
-            $props_prod = [];
-            foreach ($props as $p){
-                $tmp = array("propriedade"=> $p, "produtos"=> Produto::all()->where('propriedade_id','=',$p['id']), 'talhao' => Talhao::all()->where('propriedade_id','=',$p['id']));
-                $props_prod[]= $tmp;
-            }
+            $p=$this->getPropriedade($request);
+            $tmp = array("propriedade"=> $p, "produtos"=> Produto::all()->where('propriedade_id','=',$p['id']), 'talhao' => Talhao::all()->where('propriedade_id','=',$p['id']));
 
-
-
-            return view('plantio', ["User"=>$this->getFirstName($this->usuario['name']) ,'Propriedades'=>$props_prod , "Tela"=>"Plantio"]);
+            return view('plantio', ["User"=>$this->getFirstName($this->usuario['name']) ,'Propriedade'=>$tmp , "Tela"=>"Plantio"]);
     }
 
     public function create(Request $request){
             return Plantio::create($request);
-
             return view('plantio', ["User"=>$this->getFirstName($this->usuario['name']), "Tela"=>"Plantio"]);
     }
 }

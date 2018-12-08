@@ -14,9 +14,6 @@ class InvestimentoController extends Controller
      */
     public function index($action=null,$id=null)
     {
-        if ($action == null) {
-            $action = "read";
-        }
         $propriedades = null;
         $dados=array();
         $prop = new PropriedadeController();
@@ -26,10 +23,8 @@ class InvestimentoController extends Controller
                 $investimentoOne = Investimento::ler('propriedade_id', $propriedade->id);
                 array_push($dados, $investimentoOne);
             }
-        }else{
-            $dados = self::show($id);
         }
-        return view('investimento',['method' => $action ,"propriedades" => $propriedades,"dados" => $dados, "User"=>$this->getFirstName($this->usuario['name']),"Tela" =>"Investimento"]);
+        return view('investimento',["propriedades" => $propriedades,"dados" => $dados, "User"=>$this->getFirstName($this->usuario['name']),"Tela" =>"Investimento"]);
     }
 
     /**

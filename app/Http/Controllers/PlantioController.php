@@ -10,8 +10,12 @@ use Illuminate\Http\Request;
 
 class PlantioController extends Controller
 {
-    public function index(){
+    public function index(Request $request){
             //return Plantio::get();
+            var_dump($this->getPropriedade($request));
+            $this->setPropriedade($request,1);
+            var_dump($this->getPropriedade($request));
+            return $this->usuario;
             $props =  Propriedade::all()->where('users_id', '=', $this->usuario['cpf']);
             $props_prod = [];
             foreach ($props as $p){
@@ -20,7 +24,7 @@ class PlantioController extends Controller
             }
 
 
-            
+
             return view('plantio', ["User"=>$this->getFirstName($this->usuario['name']) ,'Propriedades'=>$props_prod , "Tela"=>"Plantio"]);
     }
 

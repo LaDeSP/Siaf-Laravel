@@ -41,7 +41,9 @@
 	</style>
 	<script type="text/javascript">
 		$( document ).ready(function() {
-
+							$(".mensagem").fadeTo(2000, 500).slideUp(500, function(){
+									$(".mensagem").slideUp(500);
+								});
 
 							$('.bd-user-modal-sm').css("margin-left", $(window).width() - $('.modal-content').width()*2);
 
@@ -247,6 +249,11 @@
 			</div>
 
 			<div  class="conteudo col-10 col-sm-10">
+				@isset($mensagem)
+						<div class="mensagem alert alert-{{$status}} fade in">
+								{{$mensagem}}
+						</div>
+				@endisset
                     @yield('conteudo')
 			</div>
 

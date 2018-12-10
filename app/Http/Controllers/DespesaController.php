@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Despesa;
 
 class DespesaController extends Controller
 {
@@ -11,9 +12,12 @@ class DespesaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('despesa', ["User"=>$this->getFirstName($this->usuario['name']), "Tela"=>"Despesas"]);
+        $this->setPropriedade($request,1);
+        $propriedade = $this->getPropriedade($request);
+        $despesas = Despesa::ler('propriedade_id', $propriedade->id);
+        return view('despesa', ["propriedade" => $propriedade, "dados" => $despesas,"User"=>$this->getFirstName($this->usuario['name']), "Tela"=>"Despesas"]);
     }
 
     /**
@@ -34,7 +38,11 @@ class DespesaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if ($request != null) {
+            return Despesa::inserir($request->all());
+        }else{
+            return 405;
+        }
     }
 
     /**
@@ -43,9 +51,9 @@ class DespesaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id=null,$variable=null)
     {
-        //
+        return Despesa::ler($id, $variable);
     }
 
     /**
@@ -68,7 +76,11 @@ class DespesaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        if ($request != null) {
+            return Despesa::alterar($request, $id);
+        }else{
+            return 405;
+        }
     }
 
     /**
@@ -79,6 +91,9 @@ class DespesaController extends Controller
      */
     public function destroy($id)
     {
-        //
+        if ($id != null) {
+            return  Despesa::excluir($id);
+        }
+        return 405;
     }
 }

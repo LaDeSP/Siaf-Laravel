@@ -34,12 +34,15 @@ $( document ).ready(function() {
 </script>
 
 <div class="main">
-  <a class="btn  btn-primary"
-    href="/plantio/create"
-    data-endpoint="/plantio/create"
-    data-target="exampleModal"
-    data-cache="false",
-    data-async="true">Adicionar</a>
+  <div class="col-10 text-right adicionar">
+    <a class="btn  btn-success"
+      href="/plantio/create"
+      data-endpoint="/plantio/create"
+      data-target="exampleModal"
+      data-cache="false",
+      data-async="true">Adicionar</a>
+  </div>
+
 
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -81,6 +84,7 @@ $( document ).ready(function() {
 					</tr>
 				</thead>
 				<tbody>
+
 			       @foreach ($Plantios as $Plantio)
 					    <tr>
                 <td>{{$Plantio->data_semeadura}}</td>
@@ -93,7 +97,7 @@ $( document ).ready(function() {
 
 
 
-                    <a class="btn  btn-primary"
+                    <a class="btn  btn-warning"
                       href="/plantio/{{$Plantio->id}}/edit"
                       data-endpoint="/plantio/{{$Plantio->id}}/edit"
                       data-target="exampleModal"
@@ -104,7 +108,7 @@ $( document ).ready(function() {
 										<form  class="col-sm-6 	" method="post" id="investimento" action="/plantio/{{$Plantio->id}}">
 											@method("DELETE")
 											@csrf
-											<button  type="submit" class="btn btn-xs btn-danger delete alert">Excluir</button>
+											<button  type="submit" class="btn btn-xs btn-danger delete confirm">Excluir</button>
 										</form>
 
 									</div>
@@ -115,6 +119,9 @@ $( document ).ready(function() {
 
 				</tbody>
 			</table>
+      @if(count($Plantios)==0)
+        Por favor, adicione novos Plantios!
+      @endif
 	</div>
 
 

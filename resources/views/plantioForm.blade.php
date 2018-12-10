@@ -9,29 +9,42 @@
   </div>
       <div class="modal-body">
 
+        <div class="row linhaFrom">
+            <label class="col-5">Data Semeadura:</label>
+            <input class="col-5" type="date" name="data_semeadura" value="@isset($dados){{$dados->data_semeadura}}@endisset">
+        </div>
+        <div class="row linhaFrom">
+            <label class="col-5">Data Plantio:<span class="text-danger">*</span></label>
+            <input class="col-5" type="date" name="data_plantio" required='required' value="@isset($dados){{$dados->data_plantio}}@endisset">
+        </div>
+        <div class="row linhaFrom">
+            <label class="col-5">Número de Plantas:</label>
+            <input class="col-5" type="number" min="1" name="quantidade_pantas" value="@isset($dados){{$dados->quantidade_pantas}}@endisset">
+        </div>
+        <div class="row linhaFrom">
+            <label class="col-3">Talhão:<span class="text-danger">*</span></label>
 
-        <input type="date" name="data_semeadura" value="@isset($dados){{$dados->data_semeadura}}@endisset">
-        <input type="date" name="data_plantio" value="@isset($dados){{$dados->data_plantio}}@endisset">
-        <input type="number" name="quantidade_pantas" value="@isset($dados){{$dados->quantidade_pantas}}@endisset">
-        <select name="talhao_id">
-                @foreach ($Propriedade['talhao'] as $talhao)
-                    <option  @isset($dados)@if($talhao['id']== $dados->talhao_id ) echo selected  @endif @endisset value="{{$talhao['id']}}">{{$talhao['nome']}}</option>
-                @endforeach
-        </select>
+            <select class="col-9" name="talhao_id" required='required'>
+                    @foreach ($Propriedade['talhao'] as $talhao)
+                        <option  @isset($dados)@if($talhao['id']== $dados->talhao_id ) echo selected  @endif @endisset value="{{$talhao['id']}}">{{$talhao['nome']}}</option>
+                    @endforeach
+            </select>
+         </div>
+         <div class="row linhaFrom">
+            <label class="col-3">Produto:<span class="text-danger">*</span></label>
+            <select class="col-9" name="produto_id" required='required'>
+                    @foreach ($Propriedade['produto'] as $produto)
+                        <option  @isset($dados)@if($produto['id']== $dados->produto_id ) echo selected  @endif @endisset value="{{$produto['id']}}">{{$produto['nome']}}</option>
+                    @endforeach
+            </select>
 
-        <select name="produto_id">
-                @foreach ($Propriedade['produto'] as $produto)
-                    <option  @isset($dados)@if($produto['id']== $dados->produto_id ) echo selected  @endif @endisset value="{{$produto['id']}}">{{$produto['nome']}}</option>
-                @endforeach
-        </select>
-
-
+        </div>
 
     </div>
 
     <div class="modal-footer">
-      <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-      <button type="submit" class="btn btn-primary">Salvar</button>
+      <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+      <button type="submit" class="btn btn-success">Salvar</button>
 
     </div>
     {{ Form::close() }}

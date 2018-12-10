@@ -18,8 +18,12 @@ class PlantioController extends Controller
 
     }
 
-    public function plantios(Request $request){
+    public function plantios(Request $request,$id=''){
       $propiedade=$this->getPropriedade($request);
+      if ($id){
+        $plantio=array(DB::table('plantio')->join('talhao', 'talhao.id', '=', 'plantio.talhao_id')->join('produto', 'produto.id', '=', 'plantio.produto_id') ->where('plantio.id','=',$id)->get(['plantio.id','data_plantio','data_semeadura','quantidade_pantas','talhao_id','produto_id','talhao.nome as nomet','produto.nome as nomep'])->sortByDesc('data_plantio' )  );
+        return $plantio[0];
+      }
       $talhoes=Talhao::all()->where('propriedade_id','=',$propiedade['id']);
       $plantios = array();
       foreach ($talhoes as $key => $talhao) {
@@ -33,11 +37,19 @@ class PlantioController extends Controller
     }
 
     public function create(Request $request){
-            $this->setPropriedade($request,1);
             $p=$this->getPropriedade($request);
             $tmp = array("propriedade"=> $p, "produto"=> Produto::all()->where('propriedade_id','=',$p['id']), 'talhao' => Talhao::all()->where('propriedade_id','=',$p['id']));
             return view('plantioForm', ["User"=>$this->getFirstName($this->usuario['name']) ,'Propriedade'=>$tmp , "Tela"=>"Plantio" ,'Method'=>'post','Url'=>'/plantio']);
     }
+
+    public function edit(Request $request,$id){
+      $dados=$this->plantios($request,$id);
+      $p=$this->getPropriedade($request);
+      $tmp = array("propriedade"=> $p, "produto"=> Produto::all()->where('propriedade_id','=',$p['id']), 'talhao' => Talhao::all()->where('propriedade_id','=',$p['id']));
+      return view('plantioForm', ["User"=>$this->getFirstName($this->usuario['name']) ,'Propriedade'=>$tmp , "Tela"=>"Plantio Editar" ,'Method'=>'put','Url'=>'/plantio/'.$id ,'dados'=>$dados[0] ] );
+    }
+
+
 
     public function store(Request $request){
             $post = array_except($request,['_token'])->toArray();
@@ -53,7 +65,7 @@ class PlantioController extends Controller
             }
             $plantios=$this->plantios($request);
 
-            return view('plantio', ["User"=>$this->getFirstName($this->usuario['name']) ,'Plantios'=>$plantios , "Tela"=>"Plantio",'mensagem'=>'Sucesso ao salvar o usuario!','status'=>'success']);
+            return view('plantio', ["User"=>$this->getFirstName($this->usuario['name']) ,'Plantios'=>$plantios , "Tela"=>"Plantio",'mensagem'=>$mensagem,'status'=>$status]);
 
     }
 
@@ -61,12 +73,35 @@ class PlantioController extends Controller
             $post = array_except($request,['_token'])->toArray();
             $plantio = Plantio::find($id);
             $post = array_except($request,['id'])->toArray();
-            $plantio->update($post);
-            return $plantio ;
+            $salva=$plantio->update($post);
+            if($salva==true){
+              $status='success';
+              $mensagem='Sucesso ao editar o plantio!';
+            }
+            else{
+              $status='danger';
+              $mensagem='Erro ao editar o plantio!';
+            }
+
+            $plantios=$this->plantios($request);
+
+            return view('plantio', ["User"=>$this->getFirstName($this->usuario['name']) ,'Plantios'=>$plantios , "Tela"=>"Plantio",'mensagem'=>$mensagem,'status'=>$status]);
           }
+
     public function destroy(Request $request,$id){
-                    $res=Plantio::where('id',$id)->delete();
-                    return $res ;
+                    $salva=Plantio::where('id',$id)->delete();
+                    if($salva==true){
+                      $status='success';
+                      $mensagem='Sucesso ao excluir o plantio!';
+                    }
+                    else{
+                      $status='danger';
+                      $mensagem='Erro ao excluir o plantio!';
+                    }
+
+                    $plantios=$this->plantios($request);
+
+                    return view('plantio', ["User"=>$this->getFirstName($this->usuario['name']) ,'Plantios'=>$plantios , "Tela"=>"Plantio",'mensagem'=>$mensagem,'status'=>$status]);
     }
 
 }

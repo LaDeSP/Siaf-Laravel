@@ -9,6 +9,8 @@
 	<link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 	<script src="/bootstrap/js/bootstrap.min.js"></script>
 	<script src="/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<script src="/bootbox/bootbox.min.js"></script>
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<style type="text/css">
 		a:hover,a{
@@ -41,6 +43,27 @@
 	</style>
 	<script type="text/javascript">
 		$( document ).ready(function() {
+					$(".alert").on("click", function(e) {
+									e.preventDefault();
+									form=this.closest('form');
+								bootbox.confirm({ message:"Tem certeza que deseja excluir.",
+								buttons: {
+        					confirm: {
+            						label: 'Sim',
+            						className: 'btn-danger'
+        							},
+        					cancel: {
+            					label: 'Não',
+            					className: 'btn-success'
+        						}
+    							},
+									callback:function(result){
+										if(result)
+												form.submit();
+
+									}});
+						});
+
 							$(".mensagem").fadeTo(2000, 500).slideUp(500, function(){
 									$(".mensagem").slideUp(500);
 								});
@@ -49,7 +72,7 @@
 
 							$('.bd-user-modal-sm').css("margin-top", $('.menu').height());
 							$('.op').css("margin",0) ;
-							console.log($(window).height()-$('.menu').height());
+
 
 			});
 

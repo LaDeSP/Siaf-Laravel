@@ -10,18 +10,18 @@
       <div class="modal-body">
 
 
-        <input type="date" name="data_semeadura" value="">
-        <input type="date" name="data_plantio" value="">
-        <input type="number" name="quantidade_pantas" value="">
+        <input type="date" name="data_semeadura" value="@isset($dados){{$dados->data_semeadura}}@endisset">
+        <input type="date" name="data_plantio" value="@isset($dados){{$dados->data_plantio}}@endisset">
+        <input type="number" name="quantidade_pantas" value="@isset($dados){{$dados->quantidade_pantas}}@endisset">
         <select name="talhao_id">
                 @foreach ($Propriedade['talhao'] as $talhao)
-                    <option value="{{$talhao['id']}}">{{$talhao['nome']}}</option>
+                    <option  @isset($dados)@if($talhao['id']== $dados->talhao_id ) echo selected  @endif @endisset value="{{$talhao['id']}}">{{$talhao['nome']}}</option>
                 @endforeach
         </select>
 
         <select name="produto_id">
                 @foreach ($Propriedade['produto'] as $produto)
-                    <option value="{{$produto['id']}}">{{$produto['nome']}}</option>
+                    <option  @isset($dados)@if($produto['id']== $dados->produto_id ) echo selected  @endif @endisset value="{{$produto['id']}}">{{$produto['nome']}}</option>
                 @endforeach
         </select>
 
@@ -30,8 +30,8 @@
     </div>
 
     <div class="modal-footer">
-      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-      <button type="submit" class="btn btn-primary">Save changes</button>
+      <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+      <button type="submit" class="btn btn-primary">Salvar</button>
 
     </div>
     {{ Form::close() }}

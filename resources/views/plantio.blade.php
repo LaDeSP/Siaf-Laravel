@@ -34,7 +34,7 @@ $( document ).ready(function() {
 </script>
 
 <div class="main">
-  <a class="btn  btn-primary" 
+  <a class="btn  btn-primary"
     href="/plantio/create"
     data-endpoint="/plantio/create"
     data-target="exampleModal"
@@ -91,17 +91,20 @@ $( document ).ready(function() {
 								<td>
 									<div class="row">
 
-                    <form  class="col-sm-6	" method="post" id="investimento" action="/plantio/{{$Plantio->id}}">
-											@method("PUT")
-											@csrf
-											<button  type="submit" class="btn btn-xs btn-primary edit">Editar</button>
-										</form>
 
 
-										<form  class="col-sm-6	" method="post" id="investimento" action="/plantio/{{$Plantio->id}}">
+                    <a class="btn  btn-primary"
+                      href="/plantio/{{$Plantio->id}}/edit"
+                      data-endpoint="/plantio/{{$Plantio->id}}/edit"
+                      data-target="exampleModal"
+                      data-cache="false",
+                      data-async="true">Editar</a>
+
+
+										<form  class="col-sm-6 	" method="post" id="investimento" action="/plantio/{{$Plantio->id}}">
 											@method("DELETE")
 											@csrf
-											<button  type="submit" class="btn btn-xs btn-danger delete">Excluir</button>
+											<button  type="submit" class="btn btn-xs btn-danger delete alert">Excluir</button>
 										</form>
 
 									</div>

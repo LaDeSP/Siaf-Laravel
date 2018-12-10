@@ -10,7 +10,9 @@ class Plantio extends Model
     protected $table = "plantio";
 
     protected $casts = [
-  		'ID' => 'int'
+  		'ID' => 'int',
+      'data_semeadura'=>'date:d-m-Y',
+      'data_plantio'=>'date:d-m-Y'
   	];
 
     protected $dates = [
@@ -41,11 +43,11 @@ class Plantio extends Model
       return [$plantio, 200];
     }
 
-    public static function create($request)
+  /*  public static function create($request)
     {
       return $request;
       $venda = DB::table("plantio")->insert([ 'Data_semeadura' => $request['data_semeadura'],'Data_plantio' => $request['data_plantio'], 'Quantidade_pantas' => $request['quantidade_pantas'], 'Talhao' => $request['talhao'], 'Produto' => $request['produto']]);
       return [$venda, 200];
-    }
+    }*/
 
 }

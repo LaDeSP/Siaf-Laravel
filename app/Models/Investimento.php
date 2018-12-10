@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-
 class Investimento extends Model
 {
     protected $table = 'investimento';
@@ -18,17 +17,38 @@ class Investimento extends Model
 	];
 
 	public static function insere($request){
-		return self::firstOrCreate(['nome'=> $request['nome'] ],['nome'=> $request['nome'], 'descricao'=> $request['descricao'], 'valor_unit'=> $request['valor_unit'], 'quantidade'=> $request['quantidade'], 'data'=> $request['data'], 'propriedade_id'=> $request['propriedade_id'] ]);
+		 $investimento = new Investimento();
+		 $investimento->nome= $request['nome'];
+		 $investimento->descricao=$request['descricao'];
+		 $investimento->valor_unit= $request['valor_unit'];
+		 $investimento->quantidade= $request['quantidade'];
+		 $investimento->data = $request['data'];
+		 $investimento->propriedade_id = $request['propriedade_id'];
+		 $investimento->save();
+		if (empty($investimento)) {
+			return 405;
+		}
+		return 200;
 	}
 	public static function ler($id,$variable){
 		if ($id == null) {
-			return self::all();
+			$investimento = self::all();
+			if (empty($investimento)) {
+				return 405;
+			}
+			return $investimento;
 		} 
 		if ($variable == null) {
 			$investimento = self::find($id);
+			if (empty($investimento)) {
+				return 405;
+			}
 			return $investimento;
 		} else {
 			$investimento = self::all()->where($id,'=',$variable);
+			if (empty($investimento)) {
+				return 405;
+			}
 			return $investimento;
 		}
 	}
@@ -50,12 +70,18 @@ class Investimento extends Model
 			$investimento->data = $request['data'];
 		}
 		$investimento->save();
+		if (empty($investimento)) {
+			return 405;
+		}
 		return 200;
 	}
 	public static function excluir($id){
 		$investimento = Investimento::find($id);
 		if (!empty($investimento)) {
 			$investimento->delete();
+			if (empty($investimento)) {
+				return 405;
+			}
 			return 200;
 		}
 	}

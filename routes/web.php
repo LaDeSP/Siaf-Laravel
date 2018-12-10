@@ -22,7 +22,7 @@ Route::group(['middleware'=>['web', 'auth']], function()
     Route::get('/manejo', "ManejoController@index");
     Route::get('/despesa', "DespesaController@index");
     Route::get('/manual', "ManualController@index");
-    Route::get('/investimento/{action?}/{id?}',"InvestimentoController@index");
+    Route::get('/investimento',"InvestimentoController@index");
     Route::resource('/plantio', "PlantioController");
     Route::get('/relatorio', "RelatorioController@index");
     Route::get('/venda', "VendasController@index");

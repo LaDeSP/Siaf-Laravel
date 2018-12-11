@@ -17,9 +17,10 @@ class Controller extends BaseController
     function __construct() {
         $this->middleware(function ($request, $next) {
             $this->usuario = Auth::user();
-            if (! $request->session()->exists('propriedade')) {
 
-                $request->session()->put('propriedade_id',array_first(Propriedade::all()->where('users_id', '=', $this->usuario['cpf'])));
+
+            if (! $request->session()->exists('propriedade') || $request->session()->get('propriedade')==null ) {
+                  $request->session()->put('propriedade',array_first(Propriedade::all()->where('users_id', '=', $this->usuario['cpf'])));
 
             }
 
@@ -45,5 +46,8 @@ class Controller extends BaseController
         $first_name = trim( preg_replace('#'.$last_name.'#', '', $name ) );
         return $first_name;
     }
+
+
+
 
 }

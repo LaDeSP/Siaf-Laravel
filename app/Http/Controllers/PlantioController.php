@@ -13,6 +13,7 @@ class PlantioController extends Controller
 {
     public function index(Request $request,$mensagem='',$status=''){
             //return Plantio::get();
+            
             $plantios=$this->plantios($request);
             return view('plantio', ["User"=>$this->getFirstName($this->usuario['name']) ,'Plantios'=>$plantios , "Tela"=>"Plantio"]);
 

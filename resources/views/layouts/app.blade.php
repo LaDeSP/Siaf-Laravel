@@ -32,11 +32,11 @@
             <div class='bar'>
                 <div class='switcher'>
                     @if(Request::segment(1) == 'login')
-                    <a class='active btn btn-success' href="{{ route('login') }}">{{ __('Login') }}</a>
+                    <a class='btn btn-success' href="{{ route('login') }}">{{ __('Login') }}</a>
                     <a class="active btn btn-light" href="{{ route('register') }}">{{ __('Cadastro') }}</a>
                     @elseif(Request::segment(1) == 'register')
                     <a class="active btn btn-light" href="{{ route('login') }}">{{ __('Login') }}</a>
-                    <a class='active btn btn-success' href="{{ route('register') }}">{{ __('Cadastro') }}</a>
+                    <a class='btn btn-success' href="{{ route('register') }}">{{ __('Cadastro') }}</a>
                     @endif
                 </div>
             </div>

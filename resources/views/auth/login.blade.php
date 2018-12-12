@@ -42,7 +42,7 @@
         <a class="forgot" href="{{ route('password.request') }}">Esqueci minha senha</a>
         </label>
     </div>
-    <button class="active btn btn-success" type='submit' name="login" value="Login">
+    <button class=" btn btn-success" type='submit' name="login" value="Login">
     {{ __('Entrar') }}
     </button>
     <a class="text-center signup-link" href="{{ route('register') }}">Ainda não tem uma conta? <span>Você pode se cadastrar!</span></a>

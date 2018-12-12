@@ -126,7 +126,7 @@
                   @endif
                   </label>
                </div>
-               <button class='active btn btn-success' id='submit-form' type='submit'>
+               <button class=' btn btn-success' id='submit-form' type='submit'>
                Crie meu usuário
                </button>
                <a class="text-center signup-link" href="{{ route('login') }}">Já tem conta no Siaf? <span>Você pode fazer login!</span></a>

@@ -41,8 +41,8 @@
                   @endif
                   </label>
                </div>
-               <button class='active btn btn-success' type='submit' name="login" value="Login">
-               {{ __('Enviar o link de redefinição de senha') }}
+               <button class='btn btn-success' type='submit' name="login" value="Login">
+               {{ __('Enviar o link') }}
                </button>
          </form>
          </div>

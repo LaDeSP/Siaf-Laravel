@@ -12,12 +12,10 @@ class InvestimentoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request  $request)
+    public function index(Request $request)
     {
-        $this->setPropriedade($request,1);
         $propriedade = $this->getPropriedade($request);
         $investimento = Investimento::ler('propriedade_id', $propriedade->id);
-        
         return view('investimento',["propriedade" => $propriedade,"dados" => $investimento, "User"=>$this->getFirstName($this->usuario['name']),"Tela" =>"Investimento"]);
     }
 
@@ -30,7 +28,17 @@ class InvestimentoController extends Controller
     public function store(Request $request)
     {
         if ($request != null) {
-            return Investimento::insere($request->all());
+            $investimento = Investimento::insere($request->all());
+            if($investimento == 200){
+                $status='success';
+                $mensagem='Sucesso ao salvar o investimento!';
+            }else{
+                $status='danger';
+                $mensagem='Erro ao salvar o investimento!';
+            }
+            $propriedade = $this->getPropriedade($request);
+            $investimento = Investimento::ler('propriedade_id', $propriedade->id);
+            return view('investimento',["propriedade" => $propriedade,"dados" => $investimento, "User"=>$this->getFirstName( $this->usuario['nome']) , "Tela"=>"Investimento",'mensagem'=>$mensagem,'status'=>$status]);
         }else{
             return 405;
         }
@@ -57,7 +65,17 @@ class InvestimentoController extends Controller
     public function update(Request $request, $id)
     {    
         if ($request != null) {
-            return Investimento::alterar($request, $id);
+            $investimento = Investimento::alterar($request, $id);
+            if($investimento == 200){
+                $status='success';
+                $mensagem='Sucesso ao editar o investimento!';
+            }else{
+                $status='danger';
+                $mensagem='Erro ao editar o investimento!';
+            }
+            $propriedade = $this->getPropriedade($request);
+            $investimento = Investimento::ler('propriedade_id', $propriedade->id);
+            return view('investimento', ["propriedade" => $propriedade,"dados" => $investimento, "User"=>$this->getFirstName($this->usuario['name']),"Tela" =>"Investimento",'mensagem'=>$mensagem,'status'=>$status]);
         }else{
             return 405;
         }
@@ -69,10 +87,20 @@ class InvestimentoController extends Controller
      * @param  \App\Investimento  $investimento
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request,$id)
     {
         if ($id != null) {
-            return  Investimento::excluir($id);
+            $investimento = Investimento::excluir($id);
+            if($investimento == 200){
+                $status='success';
+                $mensagem='Sucesso ao excluir o investimento!';
+            }else{
+                $status='danger';
+                $mensagem='Erro ao excluir o investimento!';
+            }
+            $propriedade = $this->getPropriedade($request);
+            $investimento = Investimento::ler('propriedade_id', $propriedade->id);
+            return view('investimento',["propriedade" => $propriedade,"dados" => $investimento, "User"=>$this->getFirstName( 'name ukuitut') , "Tela"=>"Investimento",'mensagem'=>$mensagem,'status'=>$status]);
         }
         return 405;
     }

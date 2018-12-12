@@ -67,8 +67,8 @@ class CrudController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($name,$id=null)
+    public function destroy($name,$id=null, Request $request)
     {
-        return app('App\Http\Controllers'.'\\'.$name.'Controller')->destroy($id);
+        return app('App\Http\Controllers'.'\\'.$name.'Controller')->destroy($request,$id);
     }
 }

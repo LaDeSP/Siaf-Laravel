@@ -1,32 +1,5 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-   <head>
-      <link rel="icon" href="/images/favicon.png">
-      <meta charset='UTF-8'>
-      <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
-      <!-- CSRF Token -->
-      <meta name="csrf-token" content="{{ csrf_token() }}">
-      <link href="/css/login.css" rel="stylesheet">
-      <script src="/js/JQuery/jquery-2.2.4.min.js"></script>
-      <script src="/js/validator/jQuery.mask1.14.11.min.js"></script>
-      <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-      <title>SIAF</title>
-      <script type="text/javascript">
-         $("#telefone, #celular").mask("(00) 00000-0000");
-         //$('#cpf').mask('000.000.000-00');
-      </script>
-   </head>
-   <body class='self_registration cn-site'>
-      <div class='box-left'>
-      <div class="banner-sec img-fluid" alt="Responsive image">
-      </div>
-      <div class='box-right'>
-         <div class='bar'>
-            <div class='switcher'>
-               <a  href="{{ route('login') }}">{{ __('Login') }}</a>
-               <a class='active' href="{{ route('register') }}">{{ __('Cadastro') }}</a>
-            </div>
-         </div>
+@extends('layouts.app')
+@section('content')
          <form class="" id="" action="{{ route('register') }}" accept-charset="UTF-8" method="post">
             @csrf
             <div class='step step1 current-step' data-step='1'>
@@ -45,7 +18,7 @@
                <div class='form-group'>
                   <label>
                   CPF
-                  <input id="cpf" placeholder="Informe seu CPF no formato xxx.xxx.xxx-xx" type="text" class="form-control{{ $errors->has('cpf') ? ' is-invalid' : '' }}" name="cpf" value="{{ old('cpf') }}" required autofocus>
+                  <input id="cpf" placeholder="Informe seu CPF (somente numeros)" type="text" class="form-control{{ $errors->has('cpf') ? ' is-invalid' : '' }}" name="cpf" value="{{ old('cpf') }}" required autofocus>
                   @if ($errors->has('cpf'))
                   <span class="invalid-feedback" role="alert">
                   <strong>{{ $errors->first('cpf') }}</strong>
@@ -56,7 +29,7 @@
                <div class='form-group'>
                   <label>
                   Email
-                  <input id="email" placeholder="Informe seu email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required>
+                  <input id="email" placeholder="Informe seu email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" autofocus>
                   @if ($errors->has('email'))
                   <span class="invalid-feedback" role="alert">
                   <strong>{{ $errors->first('email') }}</strong>
@@ -89,27 +62,31 @@
                <div class='form-group'>
                   <label>
                   Telefone
-                  <input placeholder="Informe seu telefone" type="tel" id="telefone" name="telefone"/>
-                  </label>
+                  <input id="telefone" placeholder="Informe seu telefone" type="text" class="form-control {{ $errors->has('telefone') ? ' is-invalid' : '' }}" name="telefone" value="{{ old('telefone') }}" required>
+                  @if ($errors->has('telefone'))
+                  <span class="invalid-feedback" role="alert">
+                  <strong>{{ $errors->first('telefone') }}</strong>
+                  </span>
+                  @endif
                </div>
                <!-- .title Vamos montar a estrutura ideal para sua propriedade -->
                <div class='form-group'>
                   <label>
                   Nome da sua propriedade
-                  <input type='text' value=''>
+                  <input class="form-control" type='text' value='' placeholder="Informe o nome da sua propriedade" >
                   </label>
                </div>
                <div class='form-group'>
                   <label>
                   Localização da sua propriedade
-                  <input type='text' value=''>
+                  <input class="form-control" placeholder="Informe a localização da sua propriedade"  type='text' value=''>
                   </label>
                </div>
                <div class='form-group'>
                   <label>
                      Estado
-                     <select name="estados" id="uf">
-                        <option value="">Escolha...</option>
+                     <select class="custom-select" name="estados" id="uf">
+                        <option value="">Selecione o Estado...</option>
                         @foreach ($estados as $estado)
                         <option value={{$estado->id}}>{{ $estado->nome }}</option>
                         @endforeach
@@ -119,12 +96,12 @@
                <div class='form-group'>
                   <label>
                      Cidade
-                     <select name="cidadess" id="cidade">
-                        <option value="">Escolha...</option>
+                     <select class="custom-select" name="cidadess" id="cidade">
+                        <option value="">Selecione a cidade...</option>
                      </select>
                   </label>
                </div>
-               <button id='submit-form' type='submit'>
+               <button class='active btn btn-success' id='submit-form' type='submit'>
                Crie meu usuário
                </button>
                <a class="text-center signup-link" href="{{ route('login') }}">Já tem conta no Siaf? <span>Você pode fazer login!</span></a>
@@ -141,6 +118,4 @@
               });
             });
          </script>
-      </div>
-   </body>
-</html>
+     @endsection

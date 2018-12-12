@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Validator;
 
 class LoginController extends Controller
 {
@@ -39,11 +40,22 @@ class LoginController extends Controller
     }
 
     public function login(Request $request)
-    {
-        $credentials = $request->only('cpf', 'password');
+    {   
+        $data = $request->all();
         
+        $validacao = Validator::make($data, [
+            'cpf' => 'required|formato_cpf|cpf',
+            'senha' => 'required|min:6',
+            ]);
+            
+        if($validacao->fails())
+        {
+            return back()->with('errors', $validacao->errors());
+        }
+
         $remember = $request->input('remember_me');
-        if (Auth::attempt(['cpf' => $credentials['cpf'], 'password' => $credentials['password']], $remember))
+        $data['cpf'] = preg_replace("/[^0-9]/", "", $data['cpf']);
+        if (Auth::attempt(['cpf' => $data['cpf'], 'password' => $data['senha']], $remember))
         {
             return redirect()->intended('home');
         }

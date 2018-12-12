@@ -15,8 +15,8 @@
       <div class='box-right'>
          <div class='bar'>
             <div class='switcher'>
-               <a class="" href="{{ route('login') }}">{{ __('Login') }}</a>
-               <a href="{{ route('register') }}">{{ __('Cadastro') }}</a>
+               <a class="active btn btn-light" href="{{ route('login') }}">{{ __('Login') }}</a>
+               <a class="active btn btn-light" href="{{ route('register') }}">{{ __('Cadastro') }}</a>
             </div>
          </div>
          <form action="{{ route('password.email') }}" method="POST">
@@ -41,7 +41,7 @@
                   @endif
                   </label>
                </div>
-               <button type='submit' name="login" value="Login">
+               <button class='active btn btn-success' type='submit' name="login" value="Login">
                {{ __('Enviar o link de redefinição de senha') }}
                </button>
          </form>

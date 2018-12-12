@@ -12,24 +12,13 @@ class InvestimentoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($action=null,$id=null)
+    public function index(Request  $request)
     {
-        if ($action == null) {
-            $action = "read";
-        }
-        $propriedades = null;
-        $dados=array();
-        $prop = new PropriedadeController();
-        $propriedades= $prop->show($this->usuario['cpf']);
-        if (empty($id)) {
-            foreach ($propriedades as $propriedade) {
-                $investimentoOne = Investimento::ler('propriedade_id', $propriedade->id);
-                array_push($dados, $investimentoOne);
-            }
-        }else{
-            $dados = self::show($id);
-        }
-        return view('investimento',['method' => $action ,"propriedades" => $propriedades,"dados" => $dados, "User"=>$this->getFirstName($this->usuario['name']),"Tela" =>"Investimento"]);
+        $this->setPropriedade($request,1);
+        $propriedade = $this->getPropriedade($request);
+        $investimento = Investimento::ler('propriedade_id', $propriedade->id);
+        
+        return view('investimento',["propriedade" => $propriedade,"dados" => $investimento, "User"=>$this->getFirstName($this->usuario['name']),"Tela" =>"Investimento"]);
     }
 
     /**
@@ -41,10 +30,7 @@ class InvestimentoController extends Controller
     public function store(Request $request)
     {
         if ($request != null) {
-            $investimento = Investimento::insere($request->all());
-            if (!(empty($investimento))) {
-                return redirect()->action('InvestimentoController@index');
-            }
+            return Investimento::insere($request->all());
         }else{
             return 405;
         }
@@ -69,11 +55,12 @@ class InvestimentoController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {    $investimento = Investimento::alterar($request, $id);
-        if($investimento == 200){
-            return  redirect()->action('InvestimentoController@index');
+    {    
+        if ($request != null) {
+            return Investimento::alterar($request, $id);
+        }else{
+            return 405;
         }
-        return 405;
     }
 
     /**
@@ -84,9 +71,8 @@ class InvestimentoController extends Controller
      */
     public function destroy($id)
     {
-        $investimento = Investimento::excluir($id);
-        if($investimento == 200){
-            return  redirect()->action('InvestimentoController@index');
+        if ($id != null) {
+            return  Investimento::excluir($id);
         }
         return 405;
     }

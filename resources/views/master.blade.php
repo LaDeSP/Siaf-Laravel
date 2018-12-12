@@ -9,6 +9,10 @@
 	<link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 	<script src="/bootstrap/js/bootstrap.min.js"></script>
 	<script src="/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<script src="/bootbox/bootbox.min.js"></script>
+	<script src="/js/moment-with-locales.min.js"></script>
+
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<style type="text/css">
 		a:hover,a{
@@ -30,24 +34,65 @@
 		      width: 100%;
 
         }
-
+				.btn-warning, .btn-warning:hover{
+					color: #fff;
+				}
+				.linhaFrom{
+					margin-bottom: 10px
+				}
 		img{
 					padding: 10px;
 			}
         		@media screen and (min-width: 768px){
             .rwd-break { display: none; }
         }
+			.adicionar{
+				margin-bottom: 4px;
+				margin-top: 4px;
+			}
 
 	</style>
 	<script type="text/javascript">
 		$( document ).ready(function() {
 
+			$('#exampleModal').on('shown.bs.modal', function () {
+				$('[type=date').each(function(e){
+					if(this.value==='')
+							this.value=moment().format('YYYY-MM-DD')
+				});
+			});
+
+
+					$(".confirm").on("click", function(e) {
+									e.preventDefault();
+									form=this.closest('form');
+								bootbox.confirm({ message:"Tem certeza que deseja excluir.",
+								buttons: {
+        					confirm: {
+            						label: 'Sim',
+            						className: 'btn-danger'
+        							},
+        					cancel: {
+            					label: 'Cancelar',
+            					className: 'btn-secondary'
+        						}
+    							},
+									callback:function(result){
+										if(result)
+												form.submit();
+
+									}});
+						});
+
+							$(".mensagem").fadeTo(2000, 500).slideUp(500, function(){
+									$(".mensagem").slideUp(500);
+								});
 
 							$('.bd-user-modal-sm').css("margin-left", $(window).width() - $('.modal-content').width()*2);
 
 							$('.bd-user-modal-sm').css("margin-top", $('.menu').height());
 							$('.op').css("margin",0) ;
-							console.log($(window).height()-$('.menu').height());
+
 
 			});
 
@@ -247,6 +292,11 @@
 			</div>
 
 			<div  class="conteudo col-10 col-sm-10">
+				@isset($mensagem)
+						<div class="mensagem alert alert-{{$status}} fade in">
+								{{$mensagem}}
+						</div>
+				@endisset
                     @yield('conteudo')
 			</div>
 

@@ -55,7 +55,7 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'cpf' => 'required|cpf|unique:users',
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['email','max:100', Rule::unique('users')->ignore('email' == null)],
+            'email' => 'max:100',
             'senha' => 'min:6|required',
             'confirme_senha' => 'min:6|same:senha',
             'telefone' =>'required|celular_com_ddd'

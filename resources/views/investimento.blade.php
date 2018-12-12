@@ -63,7 +63,8 @@
            <!-- Modal content-->
             <div class="modal-content">
             <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h5 class="modal-title" id="exampleModalLabel">Adicionar investimento</h5>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
               <form method="POST" id="investimento" action="/investimento">
@@ -129,6 +130,7 @@ function edit(elem) {
         $("form#investimento input[name='propriedade_id']").val(data.propriedade_id);
         var url = "/investimento/"+data.id;
         $("form#investimento input[name='_method']").val("PUT");
+        $("#exampleModalLabel").text("Editar investimento");
         $("form#investimento").attr('action',url);
         $("form#investimento").attr('id',"investimentoEdit");
         $("#exampleModal").modal('show');

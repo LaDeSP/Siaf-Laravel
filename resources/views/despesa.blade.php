@@ -3,7 +3,7 @@
 @section('conteudo')
     <div class="">
     	<div class="col-10 text-right">
-    		<a id="add" data-toggle="modal" data-target="#myModalAdd" class="btn btn-success">Adicionar</a>
+    		<a id="add" data-toggle="modal" data-target="#exampleModal" class="btn btn-success">Adicionar</a>
     	</div>
 			@if(empty($dados[0]))
 				<div class="text-center">
@@ -60,7 +60,10 @@
            <!-- Modal content-->
             <div class="modal-content">
 	            <div class="modal-header">
-	              <button type="button" class="close" data-dismiss="modal">&times;</button>
+	             <h5 class="modal-title" id="exampleModalLabel">Adicionar despesa</h5>
+            
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+
 	            </div>
 	            <div class="modal-body">
 	                <form method="POST" id="despesa" action="/despesa">
@@ -70,8 +73,8 @@
 	                        <div class="form-group col-md-6">
 	                            <label for="propriedade_id">Propriedade</label>
 	                            <select style="-moz-appearance: none; -webkit-appearance: none; appearance: none;" form="despesa" class="form-control-plaintext" name="propriedade_id" disabled>
-	                                        <option selected value="{{$propriedade->id}}" >{{$propriedade->nome}}</option>   
-	                                </select>
+	                               <option selected value="{{$propriedade->id}}" >{{$propriedade->nome}}</option>   
+	                            </select>
 	                        </div>
 	                        <div class="form-group col-md-6">
 	                            <label for="nome" class="control-label">Despesa<span style="color: red">*</span></label>
@@ -116,7 +119,6 @@ function edit(elem) {
     $.ajax({
         url: "api/despesa/"+my
     }).done(function(data){
-        console.log(data);
         $("form#despesa input[name='nome']").val(data.nome);
         $("form#despesa textarea[name='descricao']").val(data.descricao);
         $("form#despesa input[name='quantidade']").val(data.quantidade);
@@ -125,6 +127,7 @@ function edit(elem) {
         $("form#despesa input[name='propriedade_id']").val(data.propriedade_id);
         var url = "/despesa/"+data.id;
         $("form#despesa input[name='_method']").val("PUT");
+        $("#exampleModalLabel").text("Editar despesa");
         $("form#despesa").attr('action',url);
         $("form#despesa").attr('id',"despesaEdit");
         $("#exampleModal").modal('show');

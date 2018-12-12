@@ -14,7 +14,6 @@ class DespesaController extends Controller
      */
     public function index(Request $request)
     {
-        $this->setPropriedade($request,1);
         $propriedade = $this->getPropriedade($request);
         $despesas = Despesa::ler('propriedade_id', $propriedade->id);
         return view('despesa', ["propriedade" => $propriedade, "dados" => $despesas,"User"=>$this->getFirstName($this->usuario['name']), "Tela"=>"Despesas"]);
@@ -39,7 +38,17 @@ class DespesaController extends Controller
     public function store(Request $request)
     {
         if ($request != null) {
-            return Despesa::inserir($request->all());
+            $propriedade = $this->getPropriedade($request);
+            $despesa =  Despesa::inserir($request->all());
+            $despesas = Despesa::ler('propriedade_id', $propriedade->id);
+            if ($despesa == 200) {
+                $status='success';
+                $mensagem='Sucesso ao salvar a despesa!';
+            }else{
+                $status='danger';
+                $mensagem='Sucesso ao salvar a despesa';
+            }
+            return view('despesa', ["propriedade" => $propriedade, "dados" => $despesas,"User"=>$this->getFirstName($this->usuario['name']), "Tela"=>"Despesas", "status" => $status, "mensagem" => $mensagem]);
         }else{
             return 405;
         }
@@ -77,7 +86,17 @@ class DespesaController extends Controller
     public function update(Request $request, $id)
     {
         if ($request != null) {
-            return Despesa::alterar($request, $id);
+            $propriedade = $this->getPropriedade($request);
+            $despesa =  Despesa::alterar($request, $id);
+            $despesas = Despesa::ler('propriedade_id', $propriedade->id);
+            if ($despesa == 200) {
+                $status='success';
+                $mensagem='Sucesso ao editar a despesa!';
+            }else{
+                $status='danger';
+                $mensagem='Sucesso ao editar a despesa';
+            }
+            return view('despesa', ["propriedade" => $propriedade, "dados" => $despesas,"User"=>$this->getFirstName($this->usuario['name']), "Tela"=>"Despesas", "status" => $status, "mensagem" => $mensagem]);
         }else{
             return 405;
         }
@@ -89,10 +108,20 @@ class DespesaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
         if ($id != null) {
-            return  Despesa::excluir($id);
+            $propriedade = $this->getPropriedade($request);
+            $despesa =  Despesa::excluir($id);
+            $despesas = Despesa::ler('propriedade_id', $propriedade->id);
+            if ($despesa == 200) {
+                $status='success';
+                $mensagem='Sucesso ao editar a despesa!';
+            }else{
+                $status='danger';
+                $mensagem='Sucesso ao editar a despesa';
+            }
+            return view('despesa', ["propriedade" => $propriedade, "dados" => $despesas,"User"=>$this->getFirstName($this->usuario['name']), "Tela"=>"Despesas", "status" => $status, "mensagem" => $mensagem]);
         }
         return 405;
     }

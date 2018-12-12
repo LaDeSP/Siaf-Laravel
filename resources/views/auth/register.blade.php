@@ -7,6 +7,7 @@
                <div class='form-group'>
                   <label>
                   Nome
+                  <span style="color: red">*</span>
                   <input id="name" placeholder="Informe seu nome" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') }}" required autofocus>
                   @if ($errors->has('name'))
                   <span class="invalid-feedback" role="alert">
@@ -18,6 +19,7 @@
                <div class='form-group'>
                   <label>
                   CPF
+                  <span style="color: red">*</span>
                   <input id="cpf" placeholder="Informe seu CPF (somente numeros)" type="text" class="form-control{{ $errors->has('cpf') ? ' is-invalid' : '' }}" name="cpf" value="{{ old('cpf') }}" required autofocus>
                   @if ($errors->has('cpf'))
                   <span class="invalid-feedback" role="alert">
@@ -40,6 +42,7 @@
                <div class='form-group'>
                   <label>
                   Senha
+                  <span style="color: red">*</span>
                   <input id="senha" placeholder="Informe sua senha com no (mínimo 6 caracteres)" type="password" class="form-control{{ $errors->has('senha') ? ' is-invalid' : '' }}" name="senha" required>
                   @if ($errors->has('senha'))
                   <span class="invalid-feedback" role="alert">
@@ -51,6 +54,7 @@
                <div class='form-group'>
                   <label>
                   Confirme a senha
+                  <span style="color: red">*</span>
                   <input id="confirme_senha" placeholder="Confirme a senha fornecida" type="password" class="form-control {{ $errors->has('confirme_senha') ? ' is-invalid' : '' }}" name="confirme_senha" required>
                   @if ($errors->has('confirme_senha'))
                   <span class="invalid-feedback" role="alert">
@@ -62,30 +66,45 @@
                <div class='form-group'>
                   <label>
                   Telefone
+                  <span style="color: red">*</span>
                   <input id="telefone" placeholder="Informe seu telefone" type="text" class="form-control {{ $errors->has('telefone') ? ' is-invalid' : '' }}" name="telefone" value="{{ old('telefone') }}" required>
                   @if ($errors->has('telefone'))
                   <span class="invalid-feedback" role="alert">
                   <strong>{{ $errors->first('telefone') }}</strong>
                   </span>
                   @endif
+               </label>
                </div>
                <!-- .title Vamos montar a estrutura ideal para sua propriedade -->
                <div class='form-group'>
                   <label>
                   Nome da sua propriedade
-                  <input class="form-control" type='text' value='' placeholder="Informe o nome da sua propriedade" >
-                  </label>
+                  <span style="color: red">*</span>
+                  <input class="form-control {{ $errors->has('nome') ? ' is-invalid' : '' }}" type='text' value="{{ old('nome') }}" name="nome" placeholder="Informe o nome da sua propriedade" required>
+                  @if ($errors->has('nome'))
+                  <span class="invalid-feedback" role="alert">
+                  <strong>{{ $errors->first('nome') }}</strong>
+                  </span>
+                  @endif
+               </label>
                </div>
                <div class='form-group'>
                   <label>
                   Localização da sua propriedade
-                  <input class="form-control" placeholder="Informe a localização da sua propriedade"  type='text' value=''>
-                  </label>
+                  <span style="color: red">*</span>
+                  <input class="form-control {{ $errors->has('localizacao') ? ' is-invalid' : '' }}" placeholder="Informe a localização da sua propriedade"  name="localizacao" type='text' value="{{ old('localizacao') }}" required>
+                  @if ($errors->has('localizacao'))
+                  <span class="invalid-feedback" role="alert">
+                  <strong>{{ $errors->first('localizacao') }}</strong>
+                  </span>
+                  @endif
+               </label>
                </div>
                <div class='form-group'>
                   <label>
                      Estado
-                     <select class="custom-select" name="estados" id="uf">
+                     <span style="color: red">*</span>
+                     <select class="custom-select" name="estados" id="uf" required>
                         <option value="">Selecione o Estado...</option>
                         @foreach ($estados as $estado)
                         <option value={{$estado->id}}>{{ $estado->nome }}</option>
@@ -96,9 +115,15 @@
                <div class='form-group'>
                   <label>
                      Cidade
-                     <select class="custom-select" name="cidadess" id="cidade">
+                     <span style="color: red">*</span>
+                     <select class="custom-select {{ $errors->has('cidade') ? ' is-invalid' : '' }}" name="cidade" id="cidade" required>
                         <option value="">Selecione a cidade...</option>
                      </select>
+                     @if ($errors->has('cidade'))
+                  <span class="invalid-feedback" role="alert">
+                  <strong>{{ $errors->first('cidade') }}</strong>
+                  </span>
+                  @endif
                   </label>
                </div>
                <button class='active btn btn-success' id='submit-form' type='submit'>
@@ -111,9 +136,9 @@
             $('select[name=estados]').change(function () {
               var idEstado = $(this).val();
               $.get('/cidades/' + idEstado, function (cidades) {
-                $('select[name=cidadess]').empty();
+                $('select[name=cidade]').empty();
                 $.each(cidades, function (key, value) {
-                  $('select[name=cidadess]').append('<option value=' + value.id + '>' + value.nome + '</option>');
+                  $('select[name=cidade]').append('<option value=' + value.id + '>' + value.nome + '</option>');
                 });
               });
             });

@@ -38,16 +38,10 @@ class ComposerStaticInit01866e94038b84acd1c89df5cf260e47
         array (
             'phpDocumentor\\Reflection\\' => 25,
         ),
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
         'g' => 
         array (
             'geekcom\\ValidatorDocs\\' => 22,
         ),
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
         'Z' => 
         array (
             'Zend\\Diactoros\\' => 15,
@@ -177,16 +171,10 @@ class ComposerStaticInit01866e94038b84acd1c89df5cf260e47
             1 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
             2 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
         ),
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
         'geekcom\\ValidatorDocs\\' => 
         array (
             0 => __DIR__ . '/..' . '/geekcom/validator-docs/src/validator-docs',
         ),
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
         'Zend\\Diactoros\\' => 
         array (
             0 => __DIR__ . '/..' . '/zendframework/zend-diactoros/src',
@@ -4169,14 +4157,8 @@ class ComposerStaticInit01866e94038b84acd1c89df5cf260e47
         'Zend\\Diactoros\\Stream' => __DIR__ . '/..' . '/zendframework/zend-diactoros/src/Stream.php',
         'Zend\\Diactoros\\UploadedFile' => __DIR__ . '/..' . '/zendframework/zend-diactoros/src/UploadedFile.php',
         'Zend\\Diactoros\\Uri' => __DIR__ . '/..' . '/zendframework/zend-diactoros/src/Uri.php',
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
         'geekcom\\ValidatorDocs\\Validator' => __DIR__ . '/..' . '/geekcom/validator-docs/src/validator-docs/Validator.php',
         'geekcom\\ValidatorDocs\\ValidatorProvider' => __DIR__ . '/..' . '/geekcom/validator-docs/src/validator-docs/ValidatorProvider.php',
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
         'phpDocumentor\\Reflection\\DocBlock' => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src/DocBlock.php',
         'phpDocumentor\\Reflection\\DocBlockFactory' => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src/DocBlockFactory.php',
         'phpDocumentor\\Reflection\\DocBlockFactoryInterface' => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src/DocBlockFactoryInterface.php',

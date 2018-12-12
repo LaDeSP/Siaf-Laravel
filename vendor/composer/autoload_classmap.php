@@ -39,10 +39,12 @@ return array(
     'App\\Http\\Middleware\\TrustProxies' => $baseDir . '/app/Http/Middleware/TrustProxies.php',
     'App\\Http\\Middleware\\VerifyCsrfToken' => $baseDir . '/app/Http/Middleware/VerifyCsrfToken.php',
     'App\\Models\\Cidade' => $baseDir . '/app/Models/Cidade.php',
+    'App\\Models\\Despesa' => $baseDir . '/app/Models/Despesa.php',
     'App\\Models\\Estado' => $baseDir . '/app/Models/Estado.php',
     'App\\Models\\Estoque' => $baseDir . '/app/Models/Estoque.php',
     'App\\Models\\Investimento' => $baseDir . '/app/Models/Investimento.php',
     'App\\Models\\Manejo' => $baseDir . '/app/Models/Manejo.php',
+    'App\\Models\\ManejoPlantio' => $baseDir . '/app/Models/ManejoPlantio.php',
     'App\\Models\\Plantio' => $baseDir . '/app/Models/Plantio.php',
     'App\\Models\\Produto' => $baseDir . '/app/Models/Produto.php',
     'App\\Models\\Propriedade' => $baseDir . '/app/Models/Propriedade.php',
@@ -3724,14 +3726,8 @@ return array(
     'Zend\\Diactoros\\Stream' => $vendorDir . '/zendframework/zend-diactoros/src/Stream.php',
     'Zend\\Diactoros\\UploadedFile' => $vendorDir . '/zendframework/zend-diactoros/src/UploadedFile.php',
     'Zend\\Diactoros\\Uri' => $vendorDir . '/zendframework/zend-diactoros/src/Uri.php',
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
     'geekcom\\ValidatorDocs\\Validator' => $vendorDir . '/geekcom/validator-docs/src/validator-docs/Validator.php',
     'geekcom\\ValidatorDocs\\ValidatorProvider' => $vendorDir . '/geekcom/validator-docs/src/validator-docs/ValidatorProvider.php',
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
     'phpDocumentor\\Reflection\\DocBlock' => $vendorDir . '/phpdocumentor/reflection-docblock/src/DocBlock.php',
     'phpDocumentor\\Reflection\\DocBlockFactory' => $vendorDir . '/phpdocumentor/reflection-docblock/src/DocBlockFactory.php',
     'phpDocumentor\\Reflection\\DocBlockFactoryInterface' => $vendorDir . '/phpdocumentor/reflection-docblock/src/DocBlockFactoryInterface.php',

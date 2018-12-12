@@ -24,9 +24,9 @@ class EstoqueController extends Controller
           ->join('propriedade','estoque.propriedade_id','=','propriedade.id')
           ->join('plantio','plantio.id','=','estoque.plantio_id')
           ->join('talhao','plantio.talhao_id','=','talhao.id')
-          ->join('manejo','plantio.id')
+          ->join('manejoplantio','plantio.id','=','manejoplantio.plantio_id')
           ->where('estoque.propriedade_id','=',$propiedade->id)
-          ->get(['estoque.id','estoque.quantidade','estoque.produto_id','produto.nome as nomep','data','estoque.propriedade_id','propriedade.nome','plantio_id','plantio.data_semeadura','plantio.data_plantio','talhao.nome as nomet']);
+          ->get(['estoque.id','estoque.quantidade','estoque.produto_id','produto.nome as nomep','data','estoque.propriedade_id','propriedade.nome','estoque.plantio_id','plantio.data_semeadura','plantio.data_plantio','talhao.nome as nomet']);
 
         return $allEstoque;
 

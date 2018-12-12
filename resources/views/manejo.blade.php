@@ -81,7 +81,7 @@ $( document ).ready(function() {
         </div>
 
 
-    <div id="collapse{{$Plantio->id}}" class="collapse  @if($Mostrar==$Plantio->id) {{$show}} @endif" aria-labelledby="heading{{$Plantio->id}}" data-parent="#accordion">
+    <div id="collapse{{$Plantio->id}}" class="collapse @isset($Mostrar) @if($Mostrar==$Plantio->id) {{$show}} @endif @endisset" aria-labelledby="heading{{$Plantio->id}}" data-parent="#accordion">
       <div class="card-body">
 
         <div class="col-10 text-right adicionar">

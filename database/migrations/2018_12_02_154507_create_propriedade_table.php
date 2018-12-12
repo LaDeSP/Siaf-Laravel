@@ -15,13 +15,13 @@ class CreatePropriedadeTable extends Migration
     {
         Schema::create('propriedade', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('users_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade') ;
+            $table->string('users_id');
             $table->string('nome');
             $table->string('localizacao');
 
             $table->unsignedInteger('cidade_id');
             $table->foreign('cidade_id')->references('id')->on('cidade');
-
+            $table->foreign('users_id')->references('cpf')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }

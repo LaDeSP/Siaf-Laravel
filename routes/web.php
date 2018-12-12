@@ -27,5 +27,6 @@ Route::group(['middleware'=>['web', 'auth']], function()
     Route::resource('/plantio', "PlantioController");
     Route::get('/relatorio', "RelatorioController@index");
     Route::get('/venda', "VendasController@index");
+    Route::resource('/estoque', "EstoqueController");
     //Route::get('/estoque', "EstoqueController@create");
 });

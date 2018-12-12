@@ -14,7 +14,7 @@ class Propriedade extends Model
         $propriedade->users_id= $data['cpf'];
         $propriedade->nome=$data['nome'];
         $propriedade->localizacao= $data['localizacao'];
-        $propriedade->cidade_id= $data['cidadess'];
+        $propriedade->cidade_id= $data['cidade'];
         $propriedade->save();
     }
 }

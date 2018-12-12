@@ -3,11 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use \Illuminate\Database\Eloquent\SoftDeletes;
 
 class Estoque extends Model
 {
 
-    use \Illuminate\Database\Eloquent\SoftDeletes;
+
 	protected $table = 'estoque';
 	protected $primaryKey = 'ID';
 	public $incrementing = false;
@@ -29,7 +30,7 @@ class Estoque extends Model
 		'Plantio'
 	];
 
-
+/*
 	public function produto()
 	{
 		return $this->belongsTo(\App\Models\Produto::class, 'id');
@@ -43,7 +44,7 @@ class Estoque extends Model
 	public function propriedade()
 	{
 		return $this->belongsTo(\App\Models\Propriedade::class, 'id');
-	} 
+	}
 
 	public static function inserir($request)
 	{
@@ -54,7 +55,7 @@ class Estoque extends Model
 
 	public static function ler($id)
 	{
-		if ($id == null) 
+		if ($id == null)
 		{
 			$estoque = self::all();
 			return $estoque;
@@ -65,12 +66,12 @@ class Estoque extends Model
 	}
 
 	public static function excluir($id){
-		if ($id != null) 
+		if ($id != null)
 		{
 			$estoque = self::find($id);
-		    if (!empty($estoque)) 
+		    if (!empty($estoque))
 		    {
-		    	if ($estoque->forcedelete()) 
+		    	if ($estoque->forcedelete())
 		    	{
 		    		return ["Deletado com sucesso!", 200];
 		    	}
@@ -88,6 +89,6 @@ class Estoque extends Model
             $this->save();
         }
         return $this;
-    }
+    }*/
 
 }

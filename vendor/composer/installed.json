@@ -608,6 +608,8 @@
         ]
     },
     {
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
         "name": "geekcom/validator-docs",
         "version": "v1.3",
         "version_normalized": "1.3.0.0",
@@ -649,6 +651,10 @@
         "description": "Biblioteca para validação de Título de Eleitor, CPF, CNPJ e CNH"
     },
     {
+=======
+>>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
         "name": "guzzlehttp/guzzle",
         "version": "6.3.3",
         "version_normalized": "6.3.3.0",
@@ -1381,6 +1387,57 @@
         "homepage": "https://laravelcollective.com"
     },
     {
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+=======
+=======
+>>>>>>> Stashed changes
+        "name": "laravellegends/pt-br-validator",
+        "version": "5.1.3",
+        "version_normalized": "5.1.3.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/LaravelLegends/pt-br-validator.git",
+            "reference": "68ac76ee3b57c9ed887c97008e0e6908fcc306bf"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/LaravelLegends/pt-br-validator/zipball/68ac76ee3b57c9ed887c97008e0e6908fcc306bf",
+            "reference": "68ac76ee3b57c9ed887c97008e0e6908fcc306bf",
+            "shasum": ""
+        },
+        "require": {
+            "illuminate/support": "5.*"
+        },
+        "require-dev": {
+            "orchestra/testbench": "3.1.*",
+            "phpunit/phpunit": "4.8.*"
+        },
+        "time": "2017-07-24T16:48:53+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "LaravelLegends\\PtBrValidator\\": "src/pt-br-validator"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Wallace de Souza Vizerra",
+                "email": "wallacemaxters@gmail.com"
+            }
+        ],
+        "description": "Uma biblioteca contendo validações de formatos Brasileiros, para o Laravel 5"
+    },
+    {
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
         "name": "lcobucci/jwt",
         "version": "3.2.5",
         "version_normalized": "3.2.5.0",

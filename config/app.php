@@ -165,7 +165,8 @@ return [
         /*
          * Package Service Providers...
          */
-        geekcom\ValidatorDocs\ValidatorProvider::class,
+        //geekcom\ValidatorDocs\ValidatorProvider::class,
+        LaravelLegends\PtBrValidator\ValidatorProvider::class,
         /*
          * Application Service Providers...
          */

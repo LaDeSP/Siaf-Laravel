@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
+use App\Str;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\DB;
 
@@ -21,56 +23,61 @@ class RegisterController extends Controller
     | provide this functionality without requiring any additional code.
     |
     */
-
+    
     use RegistersUsers;
-
+    
     /**
-     * Where to redirect users after registration.
-     *
-     * @var string
-     */
+    * Where to redirect users after registration.
+    *
+    * @var string
+    */
     protected $redirectTo = '/home';
-
+    
     /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
+    * Create a new controller instance.
+    *
+    * @return void
+    */
     public function __construct()
     {
         $this->middleware('guest');
     }
-
+    
     /**
-     * Get a validator for an incoming registration request.
-     *
-     * @param  array  $data
-     * @return \Illuminate\Contracts\Validation\Validator
-     */
+    * Get a validator for an incoming registration request.
+    *
+    * @param  array  $data
+    * @return \Illuminate\Contracts\Validation\Validator
+    */
     protected function validator(array $data)
-    {
+    {   
+        $data['cpf'] = preg_replace("/[^0-9]/", "", $data['cpf']);
         return Validator::make($data, [
             'cpf' => 'required|cpf|unique:users',
             'name' => ['required', 'string', 'max:255'],
-            'email' => 'required|string|email|max:255|unique:users',
+            'email' => ['email','max:100', Rule::unique('users')->ignore('email' == null)],
             'senha' => 'min:6|required',
-            'confirme_senha' => 'min:6|same:senha'
-        ]);
-    }
-
-    /**
-     * Create a new user instance after a valid registration.
-     *
-     * @param  array  $data
-     * @return \App\User
-     */
-    protected function create(array $data)
-    {
-        return User::create([
-            'cpf' => $data['cpf'],
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['senha']),
-        ]);
-    }
-}
+            'confirme_senha' => 'min:6|same:senha',
+            'telefone' =>'required|celular_com_ddd'
+            ]);
+        }
+        
+        /**
+        * Create a new user instance after a valid registration.
+        *
+        * @param  array  $data
+        * @return \App\User
+        */
+        protected function create(array $data)
+        {
+            $data['cpf'] = preg_replace("/[^0-9]/", "", $data['cpf']);
+            return User::create([
+                'cpf' => $data['cpf'],
+                'name' => $data['name'],
+                'email' => $data['email'],
+                'password' => Hash::make($data['senha']),
+                'telefone' =>$data['telefone'],
+                ]);
+            }
+        }
+        

@@ -50,7 +50,7 @@
                   <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
                   </label>
                </div>
-               <button id='submit-form' type='submit'>
+               <button class='active btn btn-success' id='submit-form' type='submit'>
                Redefinir Senha
                </button>
             </div>

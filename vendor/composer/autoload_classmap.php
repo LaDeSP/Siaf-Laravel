@@ -1596,6 +1596,8 @@ return array(
     'JakubOnderka\\PhpConsoleColor\\InvalidStyleException' => $vendorDir . '/jakub-onderka/php-console-color/src/InvalidStyleException.php',
     'JakubOnderka\\PhpConsoleHighlighter\\Highlighter' => $vendorDir . '/jakub-onderka/php-console-highlighter/src/Highlighter.php',
     'JsonSerializable' => $vendorDir . '/nesbot/carbon/src/JsonSerializable.php',
+    'LaravelLegends\\PtBrValidator\\Validator' => $vendorDir . '/laravellegends/pt-br-validator/src/pt-br-validator/Validator.php',
+    'LaravelLegends\\PtBrValidator\\ValidatorProvider' => $vendorDir . '/laravellegends/pt-br-validator/src/pt-br-validator/ValidatorProvider.php',
     'Laravel\\Tinker\\ClassAliasAutoloader' => $vendorDir . '/laravel/tinker/src/ClassAliasAutoloader.php',
     'Laravel\\Tinker\\Console\\TinkerCommand' => $vendorDir . '/laravel/tinker/src/Console/TinkerCommand.php',
     'Laravel\\Tinker\\TinkerCaster' => $vendorDir . '/laravel/tinker/src/TinkerCaster.php',
@@ -3722,8 +3724,14 @@ return array(
     'Zend\\Diactoros\\Stream' => $vendorDir . '/zendframework/zend-diactoros/src/Stream.php',
     'Zend\\Diactoros\\UploadedFile' => $vendorDir . '/zendframework/zend-diactoros/src/UploadedFile.php',
     'Zend\\Diactoros\\Uri' => $vendorDir . '/zendframework/zend-diactoros/src/Uri.php',
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
     'geekcom\\ValidatorDocs\\Validator' => $vendorDir . '/geekcom/validator-docs/src/validator-docs/Validator.php',
     'geekcom\\ValidatorDocs\\ValidatorProvider' => $vendorDir . '/geekcom/validator-docs/src/validator-docs/ValidatorProvider.php',
+=======
+>>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
     'phpDocumentor\\Reflection\\DocBlock' => $vendorDir . '/phpdocumentor/reflection-docblock/src/DocBlock.php',
     'phpDocumentor\\Reflection\\DocBlockFactory' => $vendorDir . '/phpdocumentor/reflection-docblock/src/DocBlockFactory.php',
     'phpDocumentor\\Reflection\\DocBlockFactoryInterface' => $vendorDir . '/phpdocumentor/reflection-docblock/src/DocBlockFactoryInterface.php',

@@ -12,6 +12,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call([
+            ManejoSeeder::class,
             EstadoSeeder::class,
             CidadeSeeder::class,
             UserSeeder::class,
@@ -19,6 +20,7 @@ class DatabaseSeeder extends Seeder
             UnidadeSeeder::class,
             TalhaoSeeder::class,
             ProdutoSeeder::class
+
         ]);
     }
 }

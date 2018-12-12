@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
+
 class CreateEstoqueTable extends Migration
 {
     /**
@@ -21,9 +22,10 @@ class CreateEstoqueTable extends Migration
             $table->foreign('produto_id')->references('id')->on('produto');
             $table->unsignedInteger('propriedade_id');
             $table->foreign('propriedade_id')->references('id')->on('propriedade')->onDelete('cascade')->onUpdate('cascade');
-            $table->unsignedInteger('plantio_id')->nullable();
-            $table->foreign('plantio_id')->references('id')->on('plantio');
+            $table->unsignedInteger('manejoplantio_id')->nullable();
+            $table->foreign('manejoplantio_id')->references('id')->on('manejoplantio');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

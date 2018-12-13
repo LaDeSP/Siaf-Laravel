@@ -10,26 +10,26 @@
       <div class="modal-body">
 
         <div class="row linhaFrom">
-            <label class="col-5">Descricao:</label>
-            <input class="col-5" type="text" name="descricao" value="@isset($dados){{$dados->descricao}}@endisset">
+            <label class="col-5">Quantidade:</label>
+            <input class="col-5" type="number" min="1" name="quantidade" value="@isset($dados){{$dados->quantidade}}@endisset">
         </div>
+
+        <div class="row linhaFrom">
+           <label class="col-3">Produto:<span class="text-danger">*</span></label>
+           <select class="col-9" name="produto_id" required='required'>
+                   @foreach ($Propriedade['produto'] as $produto)
+                       <option  @isset($dados)@if($produto['id']== $dados->produto_id ) echo selected  @endif @endisset value="{{$produto['id']}}">{{$produto['nome']}}</option>
+                   @endforeach
+           </select>
+
+       </div>
+
         <div class="row linhaFrom">
             <label class="col-5">Data:<span class="text-danger">*</span></label>
-            <input class="col-5" type="date" name="data_hora" required='required' value="@isset($dados){{$dados->data_hora}}@endisset">
+            <input class="col-5" type="date" name="data" required='required' value="@isset($dados){{$dados->data}}@endisset">
         </div>
-        <div class="row linhaFrom">
-            <label class="col-5">Horas Utilizadas:</label>
-            <input class="col-5" type="number" min="1" name="horas_utilizadas" value="@isset($dados){{$dados->horas_utilizadas}}@endisset">
-        </div>
-        <div class="row linhaFrom">
-            <label class="col-3">Manejo:<span class="text-danger">*</span></label>
 
-            <select class="col-9" name="manejo_id" required='required'>
-                    @foreach ($Manejos as $manejo)
-                        <option  @isset($dados)@if($manejo['id']== $dados->id ) echo selected  @endif @endisset value="{{$manejo->id}}">{{$manejo->nome}}</option>
-                    @endforeach
-            </select>
-         </div>
+
          <input class="col-5" type="hidden"  name="plantio_id" value="@isset($Plantio){{$Plantio}}@endisset @isset($dados){{$dados->plantio_id}}@endisset">
 
     </div>

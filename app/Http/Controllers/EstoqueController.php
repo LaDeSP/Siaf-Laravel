@@ -35,11 +35,9 @@ class EstoqueController extends Controller
 
     public function create(Request $request){
             $propriedade=$this->getPropriedade($request);
-            $colheitas= Estoque::coleheitaPropriedade($propriedade->id);
             $produtos=Produto::all()->where('propriedade_id','=',$propriedade['id']);
-            $tmp = array("propriedade"=> $propriedade, "produto"=>$produtos ,'colehitas'=>$colheitas );
-            return $tmp;
-            return view('plantioForm', ["User"=>$this->getFirstName($this->usuario['name']) ,'Propriedade'=>$tmp , "Tela"=>"Adicionar Plantio" ,'Method'=>'post','Url'=>'/plantio']);
+            $tmp = array("propriedade"=> $propriedade, "produto"=>$produtos  );
+            return view('estoqueForm', ["User"=>$this->getFirstName($this->usuario['name']) ,'Propriedade'=>$tmp , "Tela"=>"Adicionar Plantio" ,'Method'=>'post','Url'=>'/plantio']);
     }
 
 

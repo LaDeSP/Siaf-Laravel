@@ -69,6 +69,13 @@
 				}
 			});
 
+			$('#accordionExample [type=date').each(function(e){
+				if(this.value===''){
+					this.value=moment().format('YYYY-MM-DD');
+				}
+			});
+
+
 					$(".confirm").on("click", function(e) {
 									e.preventDefault();
 									form=this.closest('form');
@@ -311,7 +318,7 @@
 
 		</div>
 		<div class="row ">
-			<div class="rodape col-12 text-center">Desenvolvido e mantido por <a href="http://leco.ufms.br">LECO</a> UFMS</div>
+			<div class="rodape col-12 text-center">Desenvolvido e mantido por Leco Ufms.</div>
 		</div>
 	</div>
 </body>

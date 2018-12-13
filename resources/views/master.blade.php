@@ -60,9 +60,22 @@
 
 			$('#exampleModal').on('shown.bs.modal', function () {
 				$('[type=date').each(function(e){
-					if(this.value==='')
-							this.value=moment().format('YYYY-MM-DD')
+					if(this.value===''){
+						this.value=moment().format('YYYY-MM-DD');
+					}
 				});
+			});
+			$('.data').each(function(e){
+				if(this.innerText != ''){
+					var d = new Date(this.innerText);
+					this.innerText= moment.utc(d).format("D/M/YYYY");
+				}
+			});
+
+			$('#accordionExample [type=date').each(function(e){
+				if(this.value===''){
+					this.value=moment().format('YYYY-MM-DD');
+				}
 			});
 
 
@@ -308,7 +321,7 @@
 
 		</div>
 		<div class="row ">
-			<div class="rodape col-12 text-center">Desenvolvido e mantido por <a href="http://leco.ufms.br">LECO</a> UFMS</div>
+			<div class="rodape col-12 text-center">Desenvolvido e mantido por Leco Ufms.</div>
 		</div>
 	</div>
 </body>

@@ -8,10 +8,14 @@
 $( document ).ready(function() {
   $('a[data-async="true"]').click(function(e){
       e.preventDefault();
+
       var self = $(this),
           url = self.data('endpoint'),
           target = self.data('target'),
           cache = self.data('cache');
+        if(self.attr("disabled")){
+          return 0;
+        }
 
       $.ajax({
           url: url,
@@ -129,17 +133,18 @@ $( document ).ready(function() {
                       <form  class="col-4 	" method="post" id="investimento" action="/manejo/{{$Manejo->id}}">
                         @method("DELETE")
                         @csrf
-                        <button  type="submit" class="btn btn-xs btn-danger delete confirm" msg='Tem certeza que deseja excluir o {{$Tela}} {{$Manejo->nome}} . '>Excluir</button>
+                        <button  @isset($Manejo->estoque) {{$disabled}}='{{$disabled}}' @endisset type="submit" class="btn btn-xs   btn-danger  delete confirm" msg='Tem certeza que deseja excluir o {{$Tela}} {{$Manejo->nome}} . '>Excluir</button>
                       </form>
 
                       @if($Manejo->manejo_id==4)
 
-                      <a class="btn  btn-primary col-3"
+                      <a class="btn  @if(! isset($Manejo->estoque)) btn-primary @else btn-primary  disabled @endif  col-3"
                         href="/manejo/estoque/{{$Manejo->id}}"
                         data-endpoint="/manejo/estoque/{{$Manejo->id}}"
                         data-target="exampleModal"
                         data-cache="false",
-                        data-async="true">Estoque</a>
+                        data-async="true"
+                        @isset($Manejo->estoque) {{$disabled}}='{{$disabled}}' @endisset>Estocar</a>
 
                     <!---  <form  class="col-4 	" method="get"  action="/manejo/estoque/{{$Manejo->id}}">
                         @csrf

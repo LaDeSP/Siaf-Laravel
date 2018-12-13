@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Despesa;
+use App\Models\Investimento;
+use Illuminate\Support\Facades\DB;
 
 class RelatorioController extends Controller
 {
@@ -11,9 +14,10 @@ class RelatorioController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('relatorio', ["User"=>$this->getFirstName($this->usuario['name']), "Tela"=>"Relatorio"]);
+    	$propriedade = $this->getPropriedade($request);
+    	return view('relatorio', ["User"=>$this->getFirstName($this->usuario['name']), "Tela"=>"Relatorio"]);
     }
 
     /**
@@ -34,16 +38,19 @@ class RelatorioController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if ($request['qual'] == "despesa") {
+        	$despesa = DB::table('despesa')->whereBetween('data', [$request['date-inicio'], $request['date-fim']])->get();;
+        	return $despesa;
+        }
+        return 405;
     }
-
     /**
      * Display the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, $qual)
     {
         //
     }

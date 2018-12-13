@@ -21,6 +21,8 @@ Route::group(['middleware'=>['web', 'auth']], function()
     Route::get('/usuario', "UsersController@index");
     Route::resource('/manejo', "ManejoController");
     Route::get('/manejo/create/{plantio}', "ManejoController@create");
+    Route::get('/manejo/estoque/{plantio}', "ManejoController@createEstoque");
+    Route::post('/manejo/estoque/{plantio}', "ManejoController@storeEstoque");
     Route::resource('/despesa', "DespesaController");
     Route::get('/manual', "ManualController@index");
     Route::resource('/investimento',"InvestimentoController");

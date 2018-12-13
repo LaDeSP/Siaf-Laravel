@@ -66,7 +66,9 @@
 					$(".confirm").on("click", function(e) {
 									e.preventDefault();
 									form=this.closest('form');
-								bootbox.confirm({ message:"Tem certeza que deseja excluir.",
+									msg=this.data;
+									msg=$(this).attr('msg');
+								bootbox.confirm({ message:msg,
 								buttons: {
         					confirm: {
             						label: 'Sim',

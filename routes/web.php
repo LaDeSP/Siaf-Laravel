@@ -6,12 +6,12 @@ Route::get('/cidades/{id}', 'CidadeController@show');
 Auth::routes();
 
 // route to show the login form
-Route::group(['prefix'=> 'api', 'middleware'=>['web', 'auth']], function (){
+/*Route::group(['prefix'=> 'api', 'middleware'=>['web', 'auth']], function (){
     Route::get('/{name}/{id?}/{variable?}', 'CrudController@show');
     Route::put('/{name}/{id?}', 'CrudController@update');
     Route::delete('/{name}/{id?}', 'CrudController@destroy');
     Route::post('/{name}', 'CrudController@store');
-});
+});*/
 
 Route::group(['middleware'=>['web', 'auth']], function()
 {
@@ -27,7 +27,7 @@ Route::group(['middleware'=>['web', 'auth']], function()
     Route::get('/manual', "ManualController@index");
     Route::resource('/investimento',"InvestimentoController");
     Route::resource('/plantio', "PlantioController");
-    Route::get('/relatorio', "RelatorioController@index");
+    Route::resource('/relatorio', "RelatorioController");
     Route::get('/venda', "VendasController@index");
     Route::resource('/estoque', "EstoqueController");
     //Route::get('/estoque', "EstoqueController@create");

@@ -30,13 +30,13 @@
                                     <td>{{$d->descricao}}</td>
                                     <td>{{$d->quantidade}}</td>
                                     <td>{{$d->valor_unit}}</td>
-                                    <td>{{ \Carbon\Carbon::parse($d->data)->format('d/m/Y')}}</td>
+                                    <td class="data">{{ $d->data}}</td>
                                     <td>
                                         <div class="row">
-                                            <div class="col-sm-4">
+                                            <div class="col-sm-6">
                                                 <a onclick="edit(this)" id ="editInvest" class="btn btn-xs btn-warning" data-id="{{$d->id}}">Editar</a>                    
                                             </div>
-                                            <div class="col-sm-4">
+                                            <div class="col-sm-6">
                                                 <form method="post" id="investimentoDelete" action="/investimento/{{$d->id}}">
                                                 @csrf
                                                 @method("DELETE")
@@ -120,7 +120,8 @@ $.ajaxSetup({
 function edit(elem) {
     var my = $(elem).attr('data-id');
     $.ajax({
-        url: "api/investimento/"+my
+        method: "GET",
+        url: "/investimento/"+my
     }).done(function(data){
         $("form#investimento input[name='nome']").val(data.nome);
         $("form#investimento textarea[name='descricao']").val(data.descricao);

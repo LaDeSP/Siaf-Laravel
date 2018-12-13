@@ -57,11 +57,17 @@
 
 			$('#exampleModal').on('shown.bs.modal', function () {
 				$('[type=date').each(function(e){
-					if(this.value==='')
-							this.value=moment().format('YYYY-MM-DD')
+					if(this.value===''){
+						this.value=moment().format('YYYY-MM-DD');
+					}
 				});
 			});
-
+			$('.data').each(function(e){
+				if(this.innerText != ''){
+					var d = new Date(this.innerText);
+					this.innerText= moment.utc(d).format("D/M/YYYY");
+				}
+			});
 
 					$(".confirm").on("click", function(e) {
 									e.preventDefault();

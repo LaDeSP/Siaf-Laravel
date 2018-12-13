@@ -31,7 +31,7 @@
                                     <td>{{$d->descricao}}</td>
                                     <td>{{$d->quantidade}}</td>
                                     <td>{{$d->valor_unit}}</td>
-                                    <td>{{ \Carbon\Carbon::parse($d->data)->format('d/m/Y')}}</td>
+                                    <td class="data">{{ $d->data}}</td>
                                     <td>
                                         <div class="row">
                                             <div class="col-sm-6">
@@ -117,7 +117,8 @@ $.ajaxSetup({
 function edit(elem) {
     var my = $(elem).attr('data-id');
     $.ajax({
-        url: "api/despesa/"+my
+        method: "GET",
+        url: "/despesa/"+my
     }).done(function(data){
         $("form#despesa input[name='nome']").val(data.nome);
         $("form#despesa textarea[name='descricao']").val(data.descricao);

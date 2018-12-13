@@ -41,7 +41,7 @@ class ManejoController extends Controller
     foreach ($talhoes as $key => $talhao) {
         $plantio=array(DB::table('plantio')->join('talhao', 'talhao.id', '=', 'plantio.talhao_id')->join('produto', 'produto.id', '=', 'plantio.produto_id') ->where('talhao_id','=',$talhao['id'])->get(['plantio.id','data_plantio','data_semeadura','quantidade_pantas','talhao_id','produto_id','talhao.nome as nomet','produto.nome as nomep'])->sortByDesc('data_plantio' )  );
         foreach ($plantio[0] as $key => $value) {
-          $value->manejo=DB::table('manejoplantio')->join('manejo','manejo.id','=','manejo_id')->where('plantio_id','=',$value->id)->get(['manejoplantio.id','manejoplantio.descricao','manejoplantio.data_hora','manejoplantio.horas_utilizadas','manejo.nome']);
+          $value->manejo=DB::table('manejoplantio')->join('manejo','manejo.id','=','manejo_id')->where('plantio_id','=',$value->id)->get(['manejoplantio.id','manejoplantio.descricao','manejoplantio.data_hora','manejoplantio.horas_utilizadas','manejo.nome','manejo.id as manejo_id']);
           array_push($plantios,$value);
         }
 
@@ -49,8 +49,10 @@ class ManejoController extends Controller
       return $plantios;
   }
 
+
     public function index(Request $request,$mensagem='',$status=''){
         $plantios=$this->plantiosManejos($request,$id='');
+        //return $plantios;
         return view('manejo', ["User"=>$this->getFirstName($this->usuario['name']), "Tela"=>"Manejo" ,'Plantios'=>$plantios  ]);
     }
 
@@ -82,7 +84,7 @@ class ManejoController extends Controller
       $Manejos=Manejo::all();
       $dados=ManejoPlantio::all()->where('id','=',$manejo);
       $dados=$dados->first();
-      return view('manejoForm', ["User"=>$this->getFirstName($this->usuario['name']) , "Tela"=>"Adicionar Manejo" ,'Method'=>'put','Url'=>'manejo/'.$manejo, 'Manejos'=>$Manejos,'dados'=>$dados]);
+      return view('manejoForm', ["User"=>$this->getFirstName($this->usuario['name']) , "Tela"=>"Adicionar Manejo" ,'Method'=>'put','Url'=>'manejo/'.$manejo, 'Manejos'=>$Manejos,'dados'=>$dados,'select'=>'selected']);
     }
 
     public function update(Request $request,$manejo){
@@ -120,6 +122,33 @@ class ManejoController extends Controller
           $plantios=$this->plantiosManejos($request,$id='');
           return view('manejo', ["User"=>$this->getFirstName($this->usuario['name']), "Tela"=>"Manejo" ,'Plantios'=>$plantios,'mensagem'=>$mensagem,'status'=>$status,'Mostrar'=>$result->plantio_id ,'show'=>'show']);
     }
+
+  public function createEstoque(Request $request,$manejo){
+    $Manejos=Manejo::all();
+    $dados=ManejoPlantio::all()->where('id','=',$manejo);
+    $dados=$dados->first();
+    return view('manejoForm', ["User"=>$this->getFirstName($this->usuario['name']) , "Tela"=>"Adicionar ao Estoque" ,'Method'=>'post','Url'=>'manejo/estoque/'.$manejo, 'Manejos'=>$Manejos,'dados'=>$dados ,'select'=>'selected','disabled'=>'disabled' ] );
+  }
+
+  public function storeEstoque(Request $request,$manejo){
+
+        $result=ManejoPlantio::where('id','=',$manejo)->get(['id','data_hora','plantio_id']);
+        $result[0]->numero_produdos=$request->numero_produdos;
+
+        return $result;
+
+
+        if($salva==true){
+          $status='success';
+          $mensagem='Sucesso ao excluir o manejo!';
+          }
+        else{
+            $status='danger';
+            $mensagem='Erro ao excluir o manejo!';
+            }
+        $plantios=$this->plantiosManejos($request,$id='');
+        return view('manejo', ["User"=>$this->getFirstName($this->usuario['name']), "Tela"=>"Manejo" ,'Plantios'=>$plantios,'mensagem'=>$mensagem,'status'=>$status,'Mostrar'=>$result->plantio_id ,'show'=>'show']);
+  }
 
 
 

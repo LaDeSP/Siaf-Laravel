@@ -118,7 +118,7 @@ $( document ).ready(function() {
 
 
 
-                      <a class="btn  btn-warning"
+                      <a class="btn  btn-warning col-3"
                         href="/manejo/{{$Manejo->id}}/edit"
                         data-endpoint="/manejo/{{$Manejo->id}}/edit"
                         data-target="exampleModal"
@@ -126,11 +126,28 @@ $( document ).ready(function() {
                         data-async="true">Editar</a>
 
 
-                      <form  class="col-sm-6 	" method="post" id="investimento" action="/manejo/{{$Manejo->id}}">
+                      <form  class="col-4 	" method="post" id="investimento" action="/manejo/{{$Manejo->id}}">
                         @method("DELETE")
                         @csrf
-                        <button  type="submit" class="btn btn-xs btn-danger delete confirm">Excluir</button>
+                        <button  type="submit" class="btn btn-xs btn-danger delete confirm" msg='Tem certeza que deseja excluir o {{$Tela}} {{$Manejo->nome}} . '>Excluir</button>
                       </form>
+
+                      @if($Manejo->manejo_id==4)
+
+                      <a class="btn  btn-primary col-3"
+                        href="/manejo/estoque/{{$Manejo->id}}"
+                        data-endpoint="/manejo/estoque/{{$Manejo->id}}"
+                        data-target="exampleModal"
+                        data-cache="false",
+                        data-async="true">Estoque</a>
+
+                    <!---  <form  class="col-4 	" method="get"  action="/manejo/estoque/{{$Manejo->id}}">
+                        @csrf
+                        <button  type="submit" class="btn btn-xs btn-primary  " msg='Tem certeza que deseja enviar a {{$Manejo->nome}} para Estoque . '>Estoque</button>
+                      </form>-->
+                      @endif
+
+
 
                     </div>
                   </td>

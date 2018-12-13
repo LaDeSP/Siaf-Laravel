@@ -305,7 +305,7 @@
 
 		</div>
 		<div class="row ">
-			<div class="rodape col-12 text-center">Desenvolvido e mantido por Leco Ufms.</div>
+			<div class="rodape col-12 text-center">Desenvolvido e mantido por <a href="http://leco.ufms.br">LECO</a> UFMS</div>
 		</div>
 	</div>
 </body>

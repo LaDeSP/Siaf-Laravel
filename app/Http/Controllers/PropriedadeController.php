@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Produto;
 use App\Models\Propriedade;
 use App\Models\Talhao;
+use App\Models\Unidade;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PropriedadeController extends Controller
 {
@@ -14,15 +16,15 @@ class PropriedadeController extends Controller
      *
      * @return Propriedade[]|\Illuminate\Database\Eloquent\Collection
      */
-    public function index()
+    public function index(Request $request)
     {
-        $props = $this->show($this->usuario['cpf']);
-        $props_prod = [];
-        foreach ($props as $p){
-            $tmp = array("propriedade"=> $p, "produtos"=> Produto::all()->where('propriedade_id','=',$p['id']), 'talhao' => Talhao::all()->where('propriedade_id','=',$p['id']));
-            $props_prod[]= $tmp;
+        $prop = $this->getPropriedade($request);
+        $talhao = Talhao::all()->where('propriedade_id','=',$prop['id']) ;
+        $produto = Produto::all()->where('propriedade_id','=',$prop['id']);
+        foreach ($produto as $p){
+            $p['unidade_id'] = DB::table('unidade')->where('id', $p['unidade_id'])->value('nome');
         }
-        return view('propriedades', ["propriedades"=>$props_prod,"User"=>$this->getFirstName($this->usuario['name']), "Tela"=>"Minhas Propriedades"]);
+        return view('propriedades', ["propriedade"=>$prop,"talhao"=>$talhao, "produto"=>$produto, "User"=>$this->getFirstName($this->usuario['name']), "Tela"=>"Propriedade"]);
     }
 
     /**

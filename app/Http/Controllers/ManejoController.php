@@ -22,6 +22,7 @@ use App\Models\Propriedade;
 use App\Models\Manejo;
 use App\Models\ManejoPlantio;
 use App\Models\Talhao;
+use App\Models\Estoque;
 use Illuminate\Support\Facades\DB;
 
 use Illuminate\Http\Request;
@@ -42,10 +43,21 @@ class ManejoController extends Controller
         $plantio=array(DB::table('plantio')->join('talhao', 'talhao.id', '=', 'plantio.talhao_id')->join('produto', 'produto.id', '=', 'plantio.produto_id') ->where('talhao_id','=',$talhao['id'])->get(['plantio.id','data_plantio','data_semeadura','quantidade_pantas','talhao_id','produto_id','talhao.nome as nomet','produto.nome as nomep'])->sortByDesc('data_plantio' )  );
         foreach ($plantio[0] as $key => $value) {
           $value->manejo=DB::table('manejoplantio')->join('manejo','manejo.id','=','manejo_id')->where('plantio_id','=',$value->id)->get(['manejoplantio.id','manejoplantio.descricao','manejoplantio.data_hora','manejoplantio.horas_utilizadas','manejo.nome','manejo.id as manejo_id']);
+          foreach ($value->manejo as $key => $val) {
+
+              if($val->manejo_id==4){
+                $estoque=Estoque::where('manejoplantio_id','=',$val->id)->get(['id'])->first();
+                if(isset($estoque))
+                  $val->estoque=$estoque->id;
+              }
+
+          }
+
           array_push($plantios,$value);
         }
 
       }
+      //dd($plantios);
       return $plantios;
   }
 
@@ -53,7 +65,7 @@ class ManejoController extends Controller
     public function index(Request $request,$mensagem='',$status=''){
         $plantios=$this->plantiosManejos($request,$id='');
         //return $plantios;
-        return view('manejo', ["User"=>$this->getFirstName($this->usuario['name']), "Tela"=>"Manejo" ,'Plantios'=>$plantios  ]);
+        return view('manejo', ["User"=>$this->getFirstName($this->usuario['name']), "Tela"=>"Manejo" ,'Plantios'=>$plantios  ,'disabled'=>'disabled' ]);
     }
 
 
@@ -77,7 +89,7 @@ class ManejoController extends Controller
       }
 
       $plantios=$this->plantiosManejos($request,$id='');
-      return view('manejo', ["User"=>$this->getFirstName($this->usuario['name']), "Tela"=>"Manejo" ,'Plantios'=>$plantios,'mensagem'=>$mensagem,'status'=>$status ,'Mostrar'=>$manejo->plantio_id,'show'=>'show'  ]);
+      return view('manejo', ["User"=>$this->getFirstName($this->usuario['name']), "Tela"=>"Manejo" ,'Plantios'=>$plantios,'mensagem'=>$mensagem,'status'=>$status ,'Mostrar'=>$manejo->plantio_id,'show'=>'show','disabled'=>'disabled'  ]);
     }
 
     public function edit(Request $request,$manejo){
@@ -104,7 +116,7 @@ class ManejoController extends Controller
       }
 
       $plantios=$this->plantiosManejos($request,$id='');
-      return view('manejo', ["User"=>$this->getFirstName($this->usuario['name']), "Tela"=>"Manejo" ,'Plantios'=>$plantios,'mensagem'=>$mensagem,'status'=>$status,'Mostrar'=>$Manejo->plantio_id,'show'=>'show'  ]);
+      return view('manejo', ["User"=>$this->getFirstName($this->usuario['name']), "Tela"=>"Manejo" ,'Plantios'=>$plantios,'mensagem'=>$mensagem,'status'=>$status,'Mostrar'=>$Manejo->plantio_id,'show'=>'show' ,'disabled'=>'disabled' ]);
 
     }
 
@@ -120,7 +132,7 @@ class ManejoController extends Controller
               $mensagem='Erro ao excluir o manejo!';
               }
           $plantios=$this->plantiosManejos($request,$id='');
-          return view('manejo', ["User"=>$this->getFirstName($this->usuario['name']), "Tela"=>"Manejo" ,'Plantios'=>$plantios,'mensagem'=>$mensagem,'status'=>$status,'Mostrar'=>$result->plantio_id ,'show'=>'show']);
+          return view('manejo', ["User"=>$this->getFirstName($this->usuario['name']), "Tela"=>"Manejo" ,'Plantios'=>$plantios,'mensagem'=>$mensagem,'status'=>$status,'Mostrar'=>$result->plantio_id ,'show'=>'show','disabled'=>'disabled']);
     }
 
   public function createEstoque(Request $request,$manejo){
@@ -132,22 +144,26 @@ class ManejoController extends Controller
 
   public function storeEstoque(Request $request,$manejo){
 
-        $result=ManejoPlantio::where('id','=',$manejo)->get(['id','data_hora','plantio_id']);
-        $result[0]->numero_produdos=$request->numero_produdos;
 
-        return $result;
-
+        $result=ManejoPlantio::where('id','=',$manejo)->get(['id as manejoplantio_id','data_hora as data','plantio_id'])->first();
+        $result->quantidade=$request->numero_produdos;
+        $plantio=Plantio::where('id','=',$result->plantio_id)->get()->first();
+        $result->produto_id=$plantio->produto_id;
+        $result->propriedade_id=$propiedade=$this->getPropriedade($request)->id;
+        $result=$result->toArray();
+        $estoque = new Estoque($result);
+        $salva=$estoque->save();
 
         if($salva==true){
           $status='success';
-          $mensagem='Sucesso ao excluir o manejo!';
+          $mensagem='Sucesso ao salvar estoque do manejo!';
           }
         else{
             $status='danger';
-            $mensagem='Erro ao excluir o manejo!';
+            $mensagem='Erro ao salvar estoque do manejo!';
             }
         $plantios=$this->plantiosManejos($request,$id='');
-        return view('manejo', ["User"=>$this->getFirstName($this->usuario['name']), "Tela"=>"Manejo" ,'Plantios'=>$plantios,'mensagem'=>$mensagem,'status'=>$status,'Mostrar'=>$result->plantio_id ,'show'=>'show']);
+        return view('manejo', ["User"=>$this->getFirstName($this->usuario['name']), "Tela"=>"Manejo" ,'Plantios'=>$plantios,'mensagem'=>$mensagem,'status'=>$status,'Mostrar'=>$result['plantio_id'] ,'show'=>'show' ,'disabled'=>'disabled']);
   }
 
 

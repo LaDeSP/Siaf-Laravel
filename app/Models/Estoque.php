@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use \Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\DB;
 use App\Models\Venda;
 
 class Estoque extends Model
@@ -23,13 +24,14 @@ class Estoque extends Model
 	];
 
 	protected $fillable = [
-		'ID',
-		'Data',
-		'Quantidade',
-		'Produto',
-		'Propriedade',
-		'Plantio'
+		'ID'=>'id',
+		'Data'=>'data',
+		'Quantidade'=>'quantidade',
+		'Produto_id'=>'produto_id',
+		'Propriedade_id'=>'propriedade_id',
+		'Manejoplantio_id'=>'manejoplantio_id'
 	];
+
 	public static function produtosDisponiveis($idEstoque ){
 		$venda = Venda::all()->where('estoque_id','=',$idEstoque)->sum('quantidade');
 		$estoque = Estoque::all()->where('id','=',$idEstoque)->sum('quantidade');
@@ -37,6 +39,17 @@ class Estoque extends Model
 
 
 
+	}
+
+
+	public static function estoquesPropriedade($idPropriedade){
+		 return DB::table('estoque')
+			->join('produto', 'estoque.produto_id', '=', 'produto.id')
+			->join('manejoplantio','estoque.manejoplantio_id','=','manejoplantio.id')
+			->join('plantio','plantio.id','=','manejoplantio.plantio_id')
+			->join('talhao','plantio.talhao_id','=','talhao.id')
+			->where('estoque.propriedade_id','=',$idPropriedade)
+			->get(['estoque.id','estoque.quantidade','estoque.produto_id','produto.nome as nomep','data','estoque.propriedade_id','manejoplantio.plantio_id','plantio.data_semeadura','plantio.data_plantio','talhao.nome as nomet','manejoplantio.id as manejo_plantio_id','manejoplantio.descricao','manejoplantio.data_hora']);
 	}
 
 	public static function coleheitaPropriedade($idPropriedade ){

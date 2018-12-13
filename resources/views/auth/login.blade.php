@@ -4,7 +4,7 @@
     @csrf
     <div class='step login-step'>
     <div class='title'>
-        Digite seu cpf e sua senha
+        Digite seu CPF e sua senha
         @if ($message = Session::get('error'))
         <div class="alert alert-danger alert-block browser_alert_login">
             <strong>{{$message}}</strong>

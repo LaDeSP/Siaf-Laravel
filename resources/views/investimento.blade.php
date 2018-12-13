@@ -10,7 +10,7 @@
         </div>
             @if((!empty($dados[0])))
                 <div class="conteiner col-10">
-                    <table class="table">
+                    <table class="table table-hover ">
                         <thead>
                             <tr>
                                 <th>Propriedade</th>

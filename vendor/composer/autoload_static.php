@@ -457,7 +457,7 @@ class ComposerStaticInit01866e94038b84acd1c89df5cf260e47
         'App\\Http\\Controllers\\ManualController' => __DIR__ . '/../..' . '/app/Http/Controllers/ManualController.php',
         'App\\Http\\Controllers\\PerdaController' => __DIR__ . '/../..' . '/app/Http/Controllers/PerdaController.php',
         'App\\Http\\Controllers\\PlantioController' => __DIR__ . '/../..' . '/app/Http/Controllers/PlantioController.php',
-        'App\\Http\\Controllers\\ProdutoController' => __DIR__ . '/../..' . '/app/Http/Controllers/ProdutoController.php',
+        'App\\Http\\Controllers\\PrdutoController' => __DIR__ . '/../..' . '/app/Http/Controllers/PrdutoController.php',
         'App\\Http\\Controllers\\PropriedadeController' => __DIR__ . '/../..' . '/app/Http/Controllers/PropriedadeController.php',
         'App\\Http\\Controllers\\RelatorioController' => __DIR__ . '/../..' . '/app/Http/Controllers/RelatorioController.php',
         'App\\Http\\Controllers\\TalhaoController' => __DIR__ . '/../..' . '/app/Http/Controllers/TalhaoController.php',

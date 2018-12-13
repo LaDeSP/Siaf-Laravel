@@ -24,7 +24,11 @@ class PropriedadeController extends Controller
         foreach ($produto as $p){
             $p['unidade_id'] = DB::table('unidade')->where('id', $p['unidade_id'])->value('nome');
         }
-        return view('propriedades', ["propriedade"=>$prop,"talhao"=>$talhao, "produto"=>$produto, "User"=>$this->getFirstName($this->usuario['name']), "Tela"=>"Propriedade"]);
+        if($request['mensagem']){
+            return view('propriedades', ["propriedade"=>$prop,"talhao"=>$talhao, "unidades"=>Unidade::get(["id","nome"]),"produto"=>$produto, "User"=>$this->getFirstName($this->usuario['name']), "Tela"=>"Propriedade", 'mensagem'=>$request['mensagem'],'status'=>$request['status']]);
+        }else{
+            return view('propriedades', ["propriedade"=>$prop,"talhao"=>$talhao, "unidades"=>Unidade::get(["id","nome"]),"produto"=>$produto, "User"=>$this->getFirstName($this->usuario['name']), "Tela"=>"Propriedade"]);
+        }
     }
 
     /**

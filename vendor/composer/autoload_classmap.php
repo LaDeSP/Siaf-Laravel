@@ -24,7 +24,7 @@ return array(
     'App\\Http\\Controllers\\ManualController' => $baseDir . '/app/Http/Controllers/ManualController.php',
     'App\\Http\\Controllers\\PerdaController' => $baseDir . '/app/Http/Controllers/PerdaController.php',
     'App\\Http\\Controllers\\PlantioController' => $baseDir . '/app/Http/Controllers/PlantioController.php',
-    'App\\Http\\Controllers\\ProdutoController' => $baseDir . '/app/Http/Controllers/ProdutoController.php',
+    'App\\Http\\Controllers\\PrdutoController' => $baseDir . '/app/Http/Controllers/PrdutoController.php',
     'App\\Http\\Controllers\\PropriedadeController' => $baseDir . '/app/Http/Controllers/PropriedadeController.php',
     'App\\Http\\Controllers\\RelatorioController' => $baseDir . '/app/Http/Controllers/RelatorioController.php',
     'App\\Http\\Controllers\\TalhaoController' => $baseDir . '/app/Http/Controllers/TalhaoController.php',

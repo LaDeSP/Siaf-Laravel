@@ -80,7 +80,8 @@
 				<thead>
 					<tr>
               <th>Produto</th>
-        		<th>Quantidade</th>
+            <th>Quantidade</th>
+            <th>Unidade</th>
         		<th>Nota</th>
         		<th>Valor R$</th>
         		<th>Destino</th>
@@ -94,27 +95,28 @@
 					    <tr>
                 <td>{{$venda->produto}}</td>
                 <td>{{$venda->quantidade}}</td>
+                <td>{{$venda->unidade}}</td>
                 <td class="p">{{$venda->nota}}</td>
                 <td>{{$venda->valor_unit}}</td>
                 <td>{{$venda->nome}}</td>
                 <td class="data">{{$venda->data}}</td>
 								<td>
                     <div class="row">
-                        <div class="col-sm-4">
+                        
                           <a class="btn  btn-warning"
                           href="/venda/{{$venda->id}}/edit"
                           data-endpoint="/venda/{{$venda->id}}/edit"
                           data-target="exampleModal"
                           data-cache="false",
                           data-async="true">Editar</a>                    
-                        </div>
-                        <div class="col-sm-6">
-                            <form method="post" id="investimentoDelete" action="">
-                            @csrf
+                        
+                        
+                          <form  class="col-sm-6 	" method="post"  action="/venda/{{$venda->id}}">
                             @method("DELETE")
-                            <button type="submit" id="regitrarInves" class="btn btn-xs btn-danger delete confirm" name="salvar">Excluir</button>
-                        </form>
-                        </div>
+                            @csrf
+                            <button  type="submit" msg="Tem certeza que deseja Excluir essa Venda?" class="btn btn-xs btn-danger delete confirm">Excluir</button>
+                          </form>
+                        
                     </div>
 								</td>
 							</tr>

@@ -87,8 +87,8 @@ $( document ).ready(function() {
 
 			       @foreach ($Plantios as $Plantio)
 					    <tr>
-                <td>{{$Plantio->data_semeadura}}</td>
-                <td>{{$Plantio->data_plantio}}</td>
+                <td class='data'>{{$Plantio->data_semeadura}}</td>
+                <td class='data'>{{$Plantio->data_plantio}}</td>
                 <td>{{$Plantio->quantidade_pantas}}</td>
                 <td>{{$Plantio->nomet}}</td>
                 <td>{{$Plantio->nomep}}</td>

@@ -41,7 +41,7 @@
                                                 <form method="post" id="investimentoDelete" action="/despesa/{{$d->id}}">
                                                     @csrf
                                                     @method("DELETE")
-                                                    <button type="submit" id="" class="btn btn-xs btn-danger delete confirm" name="salvar">Excluir</button>
+                                                    <button type="submit" id="" class="btn btn-xs btn-danger delete confirm" msg="Tem certeza que deseja excluir a {{$Tela}} {{$d->nome}} . " name="salvar">Excluir</button>
                                                 </form>
                                             </div>
                                         </div>
@@ -130,6 +130,8 @@ function edit(elem) {
         $("form#despesa input[name='_method']").val("PUT");
         $("#exampleModalLabel").text("Editar despesa");
         $("form#despesa").attr('action',url);
+        $("form#despesa [name=propriedade_id] option").text();
+        $("form#despesa [name=propriedade_id] option").val(data.propriedade_id);
         $("form#despesa").attr('id',"despesaEdit");
         $("#exampleModal").modal('show');
     });      

@@ -3,11 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Cidade extends Model
 {
     protected $table = "cidade";
-    
+    use SoftDeletes;
     static function cordenadas($id)
     {
         $cidades=self::all()->where('id','=',$id);

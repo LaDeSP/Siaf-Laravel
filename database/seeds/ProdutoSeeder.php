@@ -14,25 +14,21 @@ class ProdutoSeeder extends Seeder
     {
         $toInsert = array(
             array('nome'              => 'tomate',
-                  'status'            => 1,
                   'propriedade_id'    => 1,
                   'unidade_id'        => 1,
                   'plantavel'         => 1),
 
             array('nome'            => 'cenoura',
-                'status'            => 1,
                 'propriedade_id'    => 1,
                 'unidade_id'        => 3,
                 'plantavel'         => 1),
 
             array('nome'            => 'queijo',
-                'status'            => 1,
                 'propriedade_id'    => 2,
                 'unidade_id'        => 4,
                 'plantavel'         => 0),
 
             array('nome'            => 'milho',
-                'status'            => 1,
                 'propriedade_id'    => 2,
                 'unidade_id'        => 4,
                 'plantavel'         => 1),

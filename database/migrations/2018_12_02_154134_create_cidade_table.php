@@ -21,6 +21,7 @@ class CreateCidadeTable extends Migration
             $table->foreign('estado_id')->references('id')->on('estado')->onDelete('cascade')->onUpdate('cascade');
             $table->string('nome');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

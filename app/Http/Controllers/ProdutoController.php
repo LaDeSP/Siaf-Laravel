@@ -120,6 +120,17 @@ class ProdutoController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try{
+            $p = Produto::find($id);
+            $p->delete();
+            $status='success';
+            $mensagem='Produto removido com sucesso!';
+            return redirect()->action('PropriedadeController@index', ['mensagem'=>$mensagem,'status'=>$status]);
+        }catch (\Exception $e){
+            $status='danger';
+            $mensagem='Ocorreu um erro ao remover   este produto!';
+            return redirect()->action('PropriedadeController@index', ['mensagem'=>$mensagem,'status'=>$status]);
+        }
+
     }
 }

@@ -9,7 +9,7 @@ Route::group(['middleware'=>['web', 'auth']], function()
 {
     Route::get('/home', 'HomeController@index')->name('home');
     Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
-    Route::get('/propriedade', "PropriedadeController@index");
+    Route::resource('/propriedade', "PropriedadeController");
     Route::get('/usuario', "UsersController@index");
     Route::resource('/manejo', "ManejoController");
     Route::get('/manejo/create/{plantio}', "ManejoController@create");
@@ -23,5 +23,5 @@ Route::group(['middleware'=>['web', 'auth']], function()
     Route::get('/venda', "VendasController@index");
     Route::resource('/estoque', "EstoqueController");
     Route::resource('/produto', "ProdutoController");
-    //Route::get('/estoque', "EstoqueController@create");
+    Route::resource('/talhao', "TalhaoController");
 });

@@ -39,8 +39,17 @@ class RelatorioController extends Controller
     public function store(Request $request)
     {
         if ($request['qual'] == "despesa") {
-        	$despesa = DB::table('despesa')->whereBetween('data', [$request['date-inicio'], $request['date-fim']])->get();;
-        	return $despesa;
+        	$despesa = DB::table('despesa')->whereBetween('data', [$request['date-inicio'], $request['date-fim']])->groupBy('data')->value(DB::raw("SUM(valor_unit*quantidade)"))->get(['despesa.nome', 'despesa.quantidade', 'despesa.valor_unit', 'despesa.data', 'despesa.descricao']);
+        	$topo= '<tr><th>Despesa</th><th>Quantidade</th><th>Valor Unitário</th><th>Data</th><th>Descrição</th></tr>';
+        	$topoGraph= '<tr><th>Data</th><th>Valor</tr>';
+        	$dado='';
+        	$dadoGraph='';
+        	foreach ($despesa as  $key => $value) {
+        		$dado=$dado.'<tr><td>'. $value->nome .'</td><td>'. $value->quantidade .'</td><td>'.$value->valor_unit.'</td><td class="data">'.\Carbon\Carbon::parse($value->data)->format('d/m/Y').'</td><td>'.$value->descricao.'</td></tr>';
+        		$dadoGraph=$dadoGraph.'<tr><td class="data">'.\Carbon\Carbon::parse($value->data)->format('d/m/Y') .'</td><td>'.($value->valor_unit * $value->quantidade).'</td></tr>';
+        	}
+        	$todo= array('dado' => $dado, 'topo'=> $topo,'dadoGraph' => $dadoGraph, 'topoGraph'=> $topoGraph );
+        	return $todo;
         }
         return 405;
     }

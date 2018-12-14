@@ -28,14 +28,44 @@ class Venda extends Model
 		'Valor'=>"valor_unit",
 		'Data'=>'data',
 		'Nota'=>"nota",
-		'Destino'=>'destino',
+		'Destino'=>'destino_id',
 		'Estoque'=>"estoque_id"
 	];
 
-	public function estoque()
+	public static function destino()
 	{
-		return $this->belongsTo(\App\Models\Estoque::class, 'id');
-	} 
+		$destinos = DB::table('destino')
+            ->select('destino.id', 'nome AS destino')
+			->get();
+        return $destinos;
+	}
+	
+	public static function vendas($propriedade, $id)
+	{
+		if($id)
+		{
+			$venda = DB::table('venda')
+            ->join('estoque', 'estoque.id', '=', 'estoque_id')
+            ->join('produto', 'produto.id', '=', 'estoque.produto_id')
+            ->join('propriedade', 'propriedade.id', '=', 'estoque_id')
+            ->join('destino', 'destino.id', '=', 'destino_id')
+            ->select('venda.id','produto.nome AS produto','venda.quantidade', 'venda.valor_unit', 'venda.data','venda.nota',
+            'destino.nome', 'destino.id','venda.estoque_id','venda.destino_id')
+			->where('propriedade.users_id', '=', $propriedade->users_id)->where('venda.id', '=', $id)
+			->first();
+			return $venda;
+		}
+		$allVenda = DB::table('venda')
+            ->join('estoque', 'estoque.id', '=', 'estoque_id')
+            ->join('produto', 'produto.id', '=', 'estoque.produto_id')
+            ->join('propriedade', 'propriedade.id', '=', 'estoque_id')
+            ->join('destino', 'destino.id', '=', 'destino_id')
+            ->select('venda.id','produto.nome AS produto','venda.quantidade', 'venda.valor_unit', 'venda.data','venda.nota',
+            'destino.nome', 'venda.destino_id')
+			->where('propriedade.users_id', '=', $propriedade->users_id)
+			->get();
+		return $allVenda;
+	}
 
 	public static function inserir($request)
 	{

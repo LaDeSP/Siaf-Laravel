@@ -97,7 +97,7 @@ $( document ).ready(function() {
 
 
 
-                    <a class="btn  btn-warning"
+                    <a class="btn btn-warning"
                       href="/plantio/{{$Plantio->id}}/edit"
                       data-endpoint="/plantio/{{$Plantio->id}}/edit"
                       data-target="exampleModal"

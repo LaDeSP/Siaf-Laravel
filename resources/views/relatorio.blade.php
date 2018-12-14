@@ -32,7 +32,7 @@
 		      </h5>
 		    </div>
 		    <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
-		      <div class="card-body">
+
                     <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
 		      	<table id="informacoes" class="table">
                         <thead>
@@ -49,7 +49,7 @@
 					        
 					    </tbody>
 					</table>
-		      </div>
+
 		    </div>
 	  	</div>
 	</div>

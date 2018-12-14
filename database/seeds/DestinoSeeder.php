@@ -14,7 +14,7 @@ class DestinoSeeder extends Seeder
         //Tipo 0 = Estoque
         //Tipo 1 = Venda
         $toInsert = array(
-            array('nome'               =>"Escola",
+            array('nome'              =>"Escola",
                   'tipo'              =>1,
                   ),
   

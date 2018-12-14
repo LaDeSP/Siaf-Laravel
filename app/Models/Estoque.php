@@ -22,9 +22,10 @@ class Estoque extends Model
     protected $table = 'estoque';
     protected $primaryKey = 'ID';
     public $incrementing = false;
-
+]
 
     protected $casts = [
+
 		'ID' => 'int'
 	];
 

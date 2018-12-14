@@ -12,9 +12,8 @@ class Produto extends Model
 
     public static function insere($request){
         try{
-            $prod = new Produto;
+            $prod = new Produto();
             $prod->nome = $request->nome;
-            $prod->status = 1;
             $prod->plantavel = ($request->plantavel=='on'? 1:0);
             $prod->propriedade_id = $request->propriedade_id;
             $prod->unidade_id = $request->unidade_id;

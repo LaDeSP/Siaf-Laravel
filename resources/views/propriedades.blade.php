@@ -80,6 +80,11 @@
                                         @endforeach
                                     </tbody>
                                 </table>
+                            @if(($talhao->isEmpty()))
+                                <div class="text-center">
+                                    <p>Por favor, adicione um talhão!</p>
+                                </div>
+                            @endif
                         </blockquote>
                     </div>
                 </div>
@@ -127,6 +132,12 @@
                                     @endforeach
                                 </tbody>
                             </table>
+                            @if(($produto->isEmpty()))
+                                <div class="text-center">
+                                    <p>Por favor, adicione um produto!</p>
+                                </div>
+                            @endif
+
                         </blockquote>
                     </div>
                 </div>
@@ -244,7 +255,7 @@
                          </div>
                          <div class="form-group col-md-6">
                              <label for="nome" class="control-label">Talhão<span style="color: red">*</span></label>
-                             <input type="text" class="form-control " pattern="[A-Za-zÀ-ú ]{6,255}$" id="nome" name="nome" placeholder="Nome" value="{{ isset($dados->nome) ? $dados->nome : '' }}" required>
+                             <input type="text" class="form-control " pattern="[A-Za-zÀ-ú ]{2,255}$" id="nome" name="nome" placeholder="Nome" value="{{ isset($dados->nome) ? $dados->nome : '' }}" required>
                          </div>
                      </div>
                      <div class="form-group">

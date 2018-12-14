@@ -30,7 +30,7 @@
         </div>
 
 
-         <input class="col-5" type="hidden"  name="plantio_id" value="@isset($Plantio){{$Plantio}}@endisset @isset($dados){{$dados->plantio_id}}@endisset">
+         <input class="col-5" type="hidden"  name="propriedade_id" value="@isset($Propriedade){{$Propriedade['propriedade']->id}}@endisset ">
 
     </div>
 

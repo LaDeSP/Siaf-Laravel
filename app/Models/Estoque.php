@@ -49,7 +49,7 @@ class Estoque extends Model
 			->leftJoin('plantio','plantio.id','=','manejoplantio.plantio_id')
 			->leftJoin('talhao','plantio.talhao_id','=','talhao.id')
 			->where('estoque.propriedade_id','=',$idPropriedade)
-			->get(['estoque.id','estoque.quantidade','estoque.produto_id','produto.nome as nomep','data','estoque.propriedade_id','manejoplantio.plantio_id','plantio.data_semeadura','plantio.data_plantio','talhao.nome as nomet','manejoplantio.id as manejo_plantio_id','manejoplantio.descricao','manejoplantio.data_hora']);
+			->get(['estoque.id','estoque.quantidade','estoque.produto_id','produto.nome as nomep','produto.plantavel','data','estoque.propriedade_id','manejoplantio.plantio_id','plantio.data_semeadura','plantio.data_plantio','talhao.nome as nomet','manejoplantio.id as manejo_plantio_id','manejoplantio.descricao','manejoplantio.data_hora']);
 	}
 
 	public static function coleheitaPropriedade($idPropriedade ){

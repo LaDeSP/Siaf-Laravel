@@ -35,11 +35,38 @@ class EstoqueController extends Controller
 
     public function create(Request $request){
             $propriedade=$this->getPropriedade($request);
-            $produtos=Produto::all()->where('propriedade_id','=',$propriedade['id']);
+            $produtos=Produto::all()->where('propriedade_id','=',$propriedade['id'])->where('plantavel','=',0);
             $tmp = array("propriedade"=> $propriedade, "produto"=>$produtos  );
-            return view('estoqueForm', ["User"=>$this->getFirstName($this->usuario['name']) ,'Propriedade'=>$tmp , "Tela"=>"Adicionar Plantio" ,'Method'=>'post','Url'=>'/plantio']);
+
+            return view('estoqueForm', ["User"=>$this->getFirstName($this->usuario['name']) ,'Propriedade'=>$tmp , "Tela"=>"Adicionar Estoque" ,'Method'=>'post','Url'=>'/estoque']);
     }
 
+    public function store(Request $request){
+      $post = array_except($request,['_token'])->toArray();
+      $plantio = new Estoque($post);
+      $salva=$plantio->save();
+      if($salva==true){
+        $status='success';
+        $mensagem='Sucesso ao salvar o Estoque!';
+      }
+      else{
+        $status='danger';
+        $mensagem='Erro ao salvar o Estoque!';
+      }
+      $propriedade=$this->getPropriedade($request);
+      $Estoques = Estoque::estoquesPropriedade($propriedade->id);
+
+        foreach ($Estoques as $key => $Estoque) {
+          $Estoque->disponivel=Estoque::produtosDisponiveis($Estoque->id);
+        }
+
+      return view('estoque', ["User"=>$this->getFirstName($this->usuario['name']) ,'Estoques'=>$Estoques , "Tela"=>"Estoque",'mensagem'=>$mensagem,'status'=>$status]);
+
+
+    }
+
+
+    
 
 
 }

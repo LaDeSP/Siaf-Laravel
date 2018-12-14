@@ -103,18 +103,18 @@ $( document ).ready(function() {
 
 
 
-                    <a class="btn  btn-warning"
-                      href="/plantio/{{$Estoque->id}}/edit"
-                      data-endpoint="/plantio/{{$Estoque->id}}/edit"
+                    <a class="btn  btn-warning @if($Estoque->plantavel)  disabled @endif"
+                      href="/estoque/{{$Estoque->id}}/edit"
+                      data-endpoint="/estoque/{{$Estoque->id}}/edit"
                       data-target="exampleModal"
                       data-cache="false",
                       data-async="true">Editar</a>
 
 
-										<form  class="col-sm-6 	" method="post" id="investimento" action="/plantio/{{$Estoque->id}}">
+										<form  class="col-sm-6 	" method="post" id="investimento" action="/estoque/{{$Estoque->id}}">
 											@method("DELETE")
 											@csrf
-											<button  type="submit" class="btn btn-xs btn-danger delete confirm">Excluir</button>
+											<button  type="submit" class="btn btn-xs btn-danger delete @if($Estoque->plantavel)  disabled @endif confirm">Excluir</button>
 										</form>
 
 									</div>

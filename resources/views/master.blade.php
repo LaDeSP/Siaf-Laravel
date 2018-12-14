@@ -11,8 +11,11 @@
 	<script src="/bootstrap/js/bootstrap.bundle.min.js"></script>
 	<script src="/bootbox/bootbox.min.js"></script>
 	<script src="/js/moment-with-locales.min.js"></script>
-
-
+	<script src="/js/highcharts/highcharts.js"></script>
+	<script src="/js/highcharts/modules/data.js"></script>
+	<script src="/js/highcharts/modules/exporting.js"></script>
+	<script src="/js/highcharts/modules/export-data.js"></script>
+	<script type="text/javascript" src="/js/highcharts/jquery.highchartTable.js"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<style type="text/css">
 		.table-hover tbody tr:hover td, .table-hover tbody tr:hover th {

@@ -27,13 +27,14 @@
 		        	</div>
 					<input class="col-2" type="date" name="date-inicio">
 					<input class="col-2" type="date" name="date-final">
-					<button id="gerar" data-myCollapse="One" class="col-1 btn btn-info"  class="btn btn-link" type="button"  aria-expanded="true" onclick=" gera(this);"> Gerar</button>
+					<button id="gerar" class="col-1 btn btn-info"  class="btn btn-link" type="button"  aria-expanded="true" onclick=" gera(this);"> Gerar</button>
 				</div>
 		      </h5>
 		    </div>
-		    <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
 
-                    <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+
+
+                    <div id="container"></div>
 		      	<table id="informacoes" class="table">
                         <thead>
                         	
@@ -68,32 +69,35 @@ function gera(elem) {
 	var qual = $("[name=relatorio] option:selected").attr("data-name");
 	console.log(inicio.val());
 	console.log(fim.val());
-	var collapse = $(elem).attr('data-myCollapse');
-	var cardBody = $("#collapse"+collapse+" .card-body");
-	var cardBodyTtopo = $("#collapse"+collapse+" .card-body table tread");
-	if ($("#collapse"+collapse).attr("class") == "collapse") {
-		$.ajax({
-			method: "POST",
-			url: "/relatorio",
-			data: {
-				"qual": qual,
-				"date-inicio" : inicio.val(),
-				"date-fim" : fim.val()
-			}
-		}).done(function (data) {
-			console.log(data);
-			$("#collapse"+"One"+" #informacoes.table thead").html(data.topo);
-			$("#collapse"+collapse+" #informacoes.table tbody").html(data.dado);
-			$("#collapse"+collapse+" #datatable thead").html(data.topoGraph);
-			$("#collapse"+collapse+" #datatable tbody").html(data.dadoGraph);
-			$('table.highchart').highchartTable();
-			$("#collapse"+collapse).collapse('show');
-		}).fail(function(error){
-			console.log(error);
-		});
+	var cardBody = $("#collapse .card-body");
+	var cardBodyTtopo = $("#collapse .card-body table tread");
+	if ($("#collapse").attr("class") == "collapse") {
+	 	$.ajax({
+	 		method: "POST",
+	 		url: "/relatorio",
+	 		data: {
+	 			"qual": qual,
+	 			"date-inicio" : inicio.val(),
+	 			"date-fim" : fim.val()
+	 		}
+	 	}).done(function (data) {
+	 		console.log(data);
+	 		$("#informacoes.table thead").html(data.topo);
+	 		$("#informacoes.table tbody").html(data.dado);
+	 		$("#datatable thead").html(data.topoGraph);
+	 		$("#datatable tbody").html(data.dadoGraph);
+	 		console.log(data.dado);
+	 		// if (data.dado != 'undefined') {
+	 			// $('table.highchart').highchartTable();
+				// $("#container").css({"min-width": "310px", "height": "400px", "margin": "0 auto"});
+	 		// }
+	 		$("#collapse").collapse('show');
+	 	}).fail(function(error){
+	 		console.log(error);
+	 	});
 
 	}else{
-		$("#collapse"+collapse).collapse('hide');
+	 	$("#collapse").collapse('hide');
 	}
 }
 

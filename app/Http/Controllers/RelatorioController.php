@@ -48,10 +48,10 @@ class RelatorioController extends Controller
         	$topoGraph= '<tr><th>Data</th><th>Valor</tr>';
         	$dado='';
         	$dadoGraph='';
-        	foreach ($despesa as  $key => $value) {
-        		$dado=$dado.'<tr><td>'. $value->nome .'</td><td>'. $value->quantidade .'</td><td>'.$value->valor_unit.'</td><td class="data">'.\Carbon\Carbon::parse($value->data)->format('d/m/Y').'</td><td>'.$value->descricao.'</td></tr>';
-        		$dadoGraph=$dadoGraph.'<tr><td class="data">'.\Carbon\Carbon::parse($value->data)->format('d/m/Y') .'</td><td>'.($value->valor_unit * $value->quantidade).'</td></tr>';
-        	}
+        	// foreach ($despesa as  $key => $value) {
+        	// 	$dado=$dado.'<tr><td>'. $value->nome .'</td><td>'. $value->quantidade .'</td><td>'.$value->valor_unit.'</td><td class="data">'.\Carbon\Carbon::parse($value->data)->format('d/m/Y').'</td><td>'.$value->descricao.'</td></tr>';
+        	// 	$dadoGraph=$dadoGraph.'<tr><td class="data">'.\Carbon\Carbon::parse($value->data)->format('d/m/Y') .'</td><td>'.($value->valor_unit * $value->quantidade).'</td></tr>';
+        	// }
         	$todo= array('dado' => $dado, 'topo'=> $topo,'dadoGraph' => $dadoGraph, 'topoGraph'=> $topoGraph );
         	return $todo;
         }

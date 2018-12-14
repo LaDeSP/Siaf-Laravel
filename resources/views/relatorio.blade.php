@@ -59,33 +59,5 @@
 		    </div>
 	</div>
 </div>
-<script type="text/javascript">
-$.ajaxSetup({
-    headers: {
-        'X-CSRF-TOKEN': $("input[name=_token]").val()
-    }
-});
-
-function gera(elem) {
-	var pai = $(elem).parent();
-	var inicio = $(pai).find("input[name=date-inicio]");
-	var fim = $(pai).find("input[name=date-final]");
-	var qual = $("[name=relatorio] option:selected").attr("data-name");
-	console.log(inicio.val());
-	console.log(qual);
-	$.ajax({
-	   method: "POST",
-		url: "/relatorio",
-		data: {
-			"qual": qual,
-			"date-inicio": inicio.val(),
-			"date-fim": fim.val()
-		}
-	}).done(function (data) {
-        console.log(data);
-    });
-}
-
-</script>
 
 @endsection

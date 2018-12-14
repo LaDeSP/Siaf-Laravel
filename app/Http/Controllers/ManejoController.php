@@ -34,15 +34,15 @@ class ManejoController extends Controller
   public function plantiosManejos(Request $request,$id=''){
     $propiedade=$this->getPropriedade($request);
     if ($id){
-      $plantio=array(DB::table('plantio')->join('talhao', 'talhao.id', '=', 'plantio.talhao_id')->join('produto', 'produto.id', '=', 'plantio.produto_id') ->where('plantio.id','=',$id)->get(['plantio.id','data_plantio','data_semeadura','quantidade_pantas','talhao_id','produto_id','talhao.nome as nomet','produto.nome as nomep'])->sortByDesc('data_plantio' )  );
+      $plantio=array(DB::table('plantio')->join('talhao', 'talhao.id', '=', 'plantio.talhao_id')->join('produto', 'produto.id', '=', 'plantio.produto_id') ->where('plantio.id','=',$id)->where('plantio.deleted_at','=',null)->get(['plantio.id','data_plantio','data_semeadura','quantidade_pantas','talhao_id','produto_id','talhao.nome as nomet','produto.nome as nomep'])->sortByDesc('data_plantio' )  );
       return $plantio[0];
     }
     $talhoes=Talhao::all()->where('propriedade_id','=',$propiedade['id']);
     $plantios = array();
     foreach ($talhoes as $key => $talhao) {
-        $plantio=array(DB::table('plantio')->join('talhao', 'talhao.id', '=', 'plantio.talhao_id')->join('produto', 'produto.id', '=', 'plantio.produto_id') ->where('talhao_id','=',$talhao['id'])->get(['plantio.id','data_plantio','data_semeadura','quantidade_pantas','talhao_id','produto_id','talhao.nome as nomet','produto.nome as nomep'])->sortByDesc('data_plantio' )  );
+        $plantio=array(DB::table('plantio')->join('talhao', 'talhao.id', '=', 'plantio.talhao_id')->join('produto', 'produto.id', '=', 'plantio.produto_id') ->where('talhao_id','=',$talhao['id'])->where('talhao.deleted_at','=',null)->get(['plantio.id','data_plantio','data_semeadura','quantidade_pantas','talhao_id','produto_id','talhao.nome as nomet','produto.nome as nomep'])->sortByDesc('data_plantio' )  );
         foreach ($plantio[0] as $key => $value) {
-          $value->manejo=DB::table('manejoplantio')->join('manejo','manejo.id','=','manejo_id')->where('plantio_id','=',$value->id)->get(['manejoplantio.id','manejoplantio.descricao','manejoplantio.data_hora','manejoplantio.horas_utilizadas','manejo.nome','manejo.id as manejo_id']);
+          $value->manejo=DB::table('manejoplantio')->join('manejo','manejo.id','=','manejo_id')->where('plantio_id','=',$value->id)->where('manejoplantio.deleted_at','=',null)->get(['manejoplantio.id','manejoplantio.descricao','manejoplantio.data_hora','manejoplantio.horas_utilizadas','manejo.nome','manejo.id as manejo_id']);
           foreach ($value->manejo as $key => $val) {
 
               if($val->manejo_id==4){

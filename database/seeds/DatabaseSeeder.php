@@ -19,8 +19,8 @@ class DatabaseSeeder extends Seeder
             PropriedadeSeeder::class,
             UnidadeSeeder::class,
             TalhaoSeeder::class,
-            ProdutoSeeder::class
-
+            ProdutoSeeder::class,
+            DestinoSeeder::class
         ]);
     }
 }

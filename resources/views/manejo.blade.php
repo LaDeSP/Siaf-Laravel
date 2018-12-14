@@ -77,7 +77,7 @@ $( document ).ready(function() {
         <div class="card-header"  id="heading{{$Plantio->id}}">
           <a  data-toggle="collapse" data-target="#collapse{{$Plantio->id}}" aria-expanded="fase" aria-controls="collapse{{$Plantio->id}}">
             <div class="row">
-              <div class="col-2">{{$Plantio->data_plantio}}</div>
+              <div class="col-2 data">{{$Plantio->data_plantio}}</div>
               <div class="col-6">{{$Plantio->nomet}}</div>
               <div class="col-3">{{$Plantio->nomep}}</div>
             </div>
@@ -114,7 +114,7 @@ $( document ).ready(function() {
 
                 <tr>
                   <td>{{$Manejo->descricao}}</td>
-                  <td>{{$Manejo->data_hora}}</td>
+                  <td class='data'>{{$Manejo->data_hora}}</td>
                   <td>{{$Manejo->horas_utilizadas}}</td>
                   <td>{{$Manejo->nome}}</td>
                   <td>

@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 
 class Venda extends Model
 {
-    
+
     use \Illuminate\Database\Eloquent\SoftDeletes;
 	protected $table = 'venda';
 	protected $primaryKey = 'id';
@@ -36,10 +36,11 @@ class Venda extends Model
 	{
 		$destinos = DB::table('destino')
             ->select('destino.id', 'nome AS destino')
-			->get();
+            ->where('destino.deleted_at','=',null)
+			      ->get();
         return $destinos;
 	}
-	
+
 	public static function vendas($propriedade, $id)
 	{
 		if($id)
@@ -51,7 +52,9 @@ class Venda extends Model
             ->join('destino', 'destino.id', '=', 'destino_id')
             ->select('venda.id','produto.nome AS produto','venda.quantidade', 'venda.valor_unit', 'venda.data','venda.nota',
             'destino.nome', 'destino.id','venda.estoque_id','venda.destino_id')
-			->where('propriedade.users_id', '=', $propriedade->users_id)->where('venda.id', '=', $id)
+			->where('propriedade.users_id', '=', $propriedade->users_id)
+      ->where('venda.id', '=', $id)
+      ->where('venda.deleted_at','=',null)
 			->first();
 			return $venda;
 		}
@@ -63,6 +66,7 @@ class Venda extends Model
             ->select('venda.id','produto.nome AS produto','venda.quantidade', 'venda.valor_unit', 'venda.data','venda.nota',
             'destino.nome', 'venda.destino_id')
 			->where('propriedade.users_id', '=', $propriedade->users_id)
+      ->where('venda.deleted_at','=',null)
 			->get();
 		return $allVenda;
 	}
@@ -77,7 +81,7 @@ class Venda extends Model
 	public static function ler($id)
 	{
         $venda = null;
-		if ($id == null) 
+		if ($id == null)
 		{
 			$venda = self::all();
 			return $venda;
@@ -88,10 +92,10 @@ class Venda extends Model
 	}
 
 	public static function excluir($id){
-		if ($id != null) 
+		if ($id != null)
 		{
 			$venda = self::find($id);
-		    if (!empty($venda)) 
+		    if (!empty($venda))
 		    {
 		    	if ($venda->delete())
 		    	{

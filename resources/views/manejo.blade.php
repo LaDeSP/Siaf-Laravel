@@ -114,7 +114,7 @@ $( document ).ready(function() {
 
                 <tr>
                   <td>{{$Manejo->descricao}}</td>
-                  <td>{{$Manejo->data_hora}}</td>
+                  <td class='data'>{{$Manejo->data_hora}}</td>
                   <td>{{$Manejo->horas_utilizadas}}</td>
                   <td>{{$Manejo->nome}}</td>
                   <td>

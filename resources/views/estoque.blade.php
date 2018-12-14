@@ -92,7 +92,7 @@ $( document ).ready(function() {
 					    <tr>
                 <td>{{$Estoque->disponivel}}</td>
                 <td>{{$Estoque->nomep}}</td>
-                <td>{{$Estoque->data}}</td>
+                <td class='data'>{{$Estoque->data}}</td>
                 <td>{{$Estoque->data_semeadura}}</td>
                 <td>{{$Estoque->data_plantio}}</td>
                 <td>{{$Estoque->nomet}}</td>

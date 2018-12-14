@@ -50,7 +50,7 @@
                     </table>
                 </div>
         @if(($dados->isEmpty()))
-                <div class="text-center">
+                <div class="">
                     <p>Por favor, adicione investimentos!</p>
                 </div>
             @endif

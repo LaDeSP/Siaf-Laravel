@@ -6,7 +6,7 @@
     		<a id="add" data-toggle="modal" data-target="#exampleModal" class="btn btn-success">Adicionar</a>
     	</div>
 			@if(empty($dados[0]))
-				<div class="text-center">
+				<div class="">
 					<p>Por favor, adicione despesas!</p>
 				</div>
 			@else

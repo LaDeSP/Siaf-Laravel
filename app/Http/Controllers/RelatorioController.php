@@ -39,7 +39,7 @@ class RelatorioController extends Controller
     public function store(Request $request)
     {
         if ($request['qual'] == "despesa") {
-        	$despesa = DB::table('despesa')->whereBetween('data', [$request['date-inicio'], $request['date-fim']])->groupBy('data')->value(DB::raw("SUM(valor_unit*quantidade)"))->get(['despesa.nome', 'despesa.quantidade', 'despesa.valor_unit', 'despesa.data', 'despesa.descricao']);
+        	$despesa = DB::table('despesa')->whereBetween('data', [$request['date-inicio'], $request['date-fim']])->get(['despesa.nome', 'despesa.quantidade', 'despesa.valor_unit', 'despesa.data', 'despesa.descricao']);
         	$topo= '<tr><th>Despesa</th><th>Quantidade</th><th>Valor Unitário</th><th>Data</th><th>Descrição</th></tr>';
         	$topoGraph= '<tr><th>Data</th><th>Valor</tr>';
         	$dado='';

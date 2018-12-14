@@ -31,11 +31,9 @@
 				</div>
 		      </h5>
 		    </div>
-		    
-			<div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+		    <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
 		      <div class="card-body">
                     <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
-
 		      	<table id="informacoes" class="table">
                         <thead>
                         	
@@ -43,14 +41,14 @@
                         <tbody>
                         </tbody>
                     </table>
-<table id="datatable" class="highchart" data-graph-container-before="1" data-graph-type="column" style="display: none">
-    <thead>
-       
-    </thead>
-    <tbody>
-        
-    </tbody>
-</table>
+					<table id="datatable" class="highchart" data-graph-container-before="1" data-graph-type="column" style="display: none">
+					    <thead>
+					       
+					    </thead>
+					    <tbody>
+					        
+					    </tbody>
+					</table>
 		      </div>
 		    </div>
 	  	</div>
@@ -62,6 +60,7 @@ $.ajaxSetup({
         'X-CSRF-TOKEN': $("input[name=_token]").val()
     }
 });
+
 function gera(elem) {
 	var pai = $(elem).parent();
 	var inicio = $(pai).find("input[name=date-inicio]");

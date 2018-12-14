@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Perda extends Model
 {
@@ -11,7 +12,7 @@ class Perda extends Model
 	protected $table = 'venda';
 	protected $primaryKey = 'ID';
 	public $incrementing = false;
-
+    use SoftDeletes;
 	protected $casts = [
 		'ID' => 'int'
 	];

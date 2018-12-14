@@ -23,6 +23,7 @@ class CreatePropriedadeTable extends Migration
             $table->foreign('cidade_id')->references('id')->on('cidade');
             $table->foreign('users_id')->references('cpf')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

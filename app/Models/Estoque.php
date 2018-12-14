@@ -10,12 +10,12 @@ use App\Models\Venda;
 class Estoque extends Model
 {
 
+    protected $table = 'estoque';
+    protected $primaryKey = 'ID';
+    public $incrementing = false;
+    use SoftDeletes;
 
-	protected $table = 'estoque';
-	protected $primaryKey = 'ID';
-	public $incrementing = false;
-
-	protected $casts = [
+    protected $casts = [
 		'ID' => 'int'
 	];
 

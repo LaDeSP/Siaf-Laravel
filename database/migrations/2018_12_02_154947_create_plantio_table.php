@@ -23,6 +23,7 @@ class CreatePlantioTable extends Migration
             $table->unsignedInteger('produto_id');
             $table->foreign('produto_id')->references('id')->on('produto')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

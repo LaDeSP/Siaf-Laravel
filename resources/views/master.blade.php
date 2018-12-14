@@ -16,7 +16,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<style type="text/css">
 		.table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
-			background-color: rgba(75, 214, 203, 0.2);
+			background-color: rgba(97, 255, 240, 0.12);
 		}
 		a:hover,a{
   			color: inherit; /* blue colors for links too */

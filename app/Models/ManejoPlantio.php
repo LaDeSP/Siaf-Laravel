@@ -3,11 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ManejoPlantio extends Model
 {
   protected $table = "manejoplantio";
-
+    use SoftDeletes;
   protected $casts = [
     'ID' => 'int',
     'data_hora'=>'datetime:Y-m-d',

@@ -105,7 +105,7 @@ $( document ).ready(function() {
                       data-async="true">Editar</a>
 
 
-										<form  class="col-sm-6 	" method="post" id="investimento" action="/plantio/{{$Plantio->id}}">
+										<form  class="col-sm-6 	" method="post"  action="/plantio/{{$Plantio->id}}">
 											@method("DELETE")
 											@csrf
 											<button  type="submit" class="btn btn-xs btn-danger delete confirm">Excluir</button>

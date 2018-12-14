@@ -16,11 +16,11 @@ class CreateTalhaoTable extends Migration
         Schema::create('talhao', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('area');
-            $table->boolean('status');
             $table->string('nome');
             $table->unsignedInteger('propriedade_id');
             $table->foreign('propriedade_id')->references('id')->on('propriedade')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

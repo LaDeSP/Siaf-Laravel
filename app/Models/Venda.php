@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\DB;
 
 class Venda extends Model
@@ -12,7 +13,7 @@ class Venda extends Model
 	protected $table = 'venda';
 	protected $primaryKey = 'id';
 	public $incrementing = false;
-
+    use SoftDeletes;
 	protected $casts = [
 		'ID' => 'int'
 	];

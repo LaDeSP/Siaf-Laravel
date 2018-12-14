@@ -60,7 +60,7 @@ class PropriedadeController extends Controller
      */
     public function show($id)
     {
-        return Propriedade::all()->where('users_id', '=', $id);
+        return Propriedade::find($id);
     }
 
     /**
@@ -83,7 +83,20 @@ class PropriedadeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        if ($request != null and $id != null) {
+            $ret = Propriedade::atualizar($request, $id);
+            if( $ret == 200){
+                $status='success';
+                $mensagem='Propriedade atualizada com sucesso!';
+            }else{
+                $status='danger';
+                $mensagem='Ocorreu um erro ao atualizar sua propriedade!';
+            }
+            $this->setPropriedade($request, $id);
+            return redirect()->action('PropriedadeController@index', ['mensagem'=>$mensagem,'status'=>$status]);
+        }else{
+            return redirect()->action('PropriedadeController@index');
+        }
     }
 
     /**

@@ -8,7 +8,6 @@
         <div class="col-10 text-right">
             <a id="add" data-toggle="modal" data-target="#exampleModal" class="btn btn-success">Adicionar</a>
         </div>
-            @if((!empty($dados[0])))
                 <div class="conteiner col-10">
                     <table class="table table-hover ">
                         <thead>
@@ -50,11 +49,12 @@
                         </tbody>
                     </table>
                 </div>
-            @else
+        @if((empty($dados[0])))
                 <div class="text-center">
                     <p>Por favor, adicione investimentos!</p>
                 </div>
             @endif
+
     </div>  
     <!-- Modal add -->
     <div class="modal fade" id="exampleModal" role="dialog">

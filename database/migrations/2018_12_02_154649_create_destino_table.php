@@ -18,6 +18,7 @@ class CreateDestinoTable extends Migration
             $table->string('nome');
             $table->unsignedInteger('tipo');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -23,6 +23,7 @@ class CreatePerdaTable extends Migration
             $table->unsignedInteger('destino_id');
             $table->foreign('destino_id')->references('id')->on('destino');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

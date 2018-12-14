@@ -4,11 +4,12 @@ namespace App\Models;
 
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Plantio extends Model
 {
     protected $table = "plantio";
-
+    use SoftDeletes;
     protected $casts = [
   		'ID' => 'int',
       'data_semeadura'=>'date:d-m-Y',

@@ -13,7 +13,7 @@
                     <label class="col-3">Estoque:<span class="text-danger">*</span></label>
                 <select class="col-7 form-control" name="estoque_id" required='required'>
                     @foreach ($estoques as $estoque)
-                    <option  @isset($Vendas)@if($estoque->id == $Vendas->estoque_id) echo selected  @endif @endisset value="{{$estoque->id}}">{{$estoque->nomep}} / {{ $estoque->data}}</option>
+                    <option  @isset($Vendas)@if($estoque->id == $Vendas->estoque_id) echo selected  @endif @endisset value="{{$estoque->id}}">{{$estoque->nomep}} - {{ \Carbon\Carbon::parse($estoque->data)->format('d/m/Y')}}</option>
                     @endforeach
                 </select>
             </div>

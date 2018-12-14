@@ -60,6 +60,7 @@ $.ajaxSetup({
         'X-CSRF-TOKEN': $("input[name=_token]").val()
     }
 });
+
 function gera(elem) {
 	var pai = $(elem).parent();
 	var inicio = $(pai).find("input[name=date-inicio]");

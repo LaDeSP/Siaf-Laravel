@@ -16,7 +16,7 @@ class CreateManejoplantioTable extends Migration
         Schema::create('manejoplantio', function (Blueprint $table) {
             $table->increments('id');
             $table->longText('descricao')->nullable();
-            $table->dateTime('data_hora');
+            $table->date('data_hora');
             $table->unsignedInteger('horas_utilizadas');
             $table->unsignedInteger('plantio_id');
             $table->foreign('plantio_id')->references('id')->on('plantio');

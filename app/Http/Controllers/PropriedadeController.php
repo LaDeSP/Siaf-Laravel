@@ -22,7 +22,7 @@ class PropriedadeController extends Controller
         $talhao = Talhao::all()->where('propriedade_id','=',$prop['id']) ;
         $produto = Produto::all()->where('propriedade_id','=',$prop['id']);
         foreach ($produto as $p){
-            $p['unidade_id'] = DB::table('unidade')->where('id', $p['unidade_id'])->value('nome');
+            $p['unidade_id'] = DB::table('unidade')->where('id', $p['unidade_id'])->where('unidade.deleted_at','=',null)->value('nome');
         }
         if($request['mensagem']){
             return view('propriedades', ["propriedade"=>$prop,"talhao"=>$talhao, "unidades"=>Unidade::get(["id","nome"]),"produto"=>$produto, "User"=>$this->getFirstName($this->usuario['name']), "Tela"=>"Propriedade", 'mensagem'=>$request['mensagem'],'status'=>$request['status']]);

@@ -111,10 +111,10 @@ $( document ).ready(function() {
                       data-async="true">Editar</a>
 
 
-										<form  class="col-sm-6 	" method="post" id="investimento" action="/estoque/{{$Estoque->id}}">
+										<form  class="col-sm-6 	" method="post" id="investimento"  action="/estoque/{{$Estoque->id}}">
 											@method("DELETE")
 											@csrf
-											<button  type="submit" class="btn btn-xs btn-danger delete @if($Estoque->plantavel)  disabled @endif confirm">Excluir</button>
+											<button  type="submit" msg='Tem certeza que deseja Excluir esse Estoque. ' class="btn btn-xs btn-danger delete @if($Estoque->plantavel)  disabled @endif confirm">Excluir</button>
 										</form>
 
 									</div>
@@ -126,7 +126,7 @@ $( document ).ready(function() {
 				</tbody>
 			</table>
       @if(count($Estoques)==0)
-        Por favor, adicione novos Plantios!
+        Por favor, adicione novos Estoques!
       @endif
 	</div>
 

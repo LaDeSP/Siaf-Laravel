@@ -980,6 +980,53 @@
         "description": "Highlight PHP code in terminal"
     },
     {
+        "name": "laravel/elixir",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/laravel/elixir.git",
+            "reference": "e1a8b0580c0f66b595a228eb2e34585f570eb771"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/laravel/elixir/zipball/e1a8b0580c0f66b595a228eb2e34585f570eb771",
+            "reference": "e1a8b0580c0f66b595a228eb2e34585f570eb771",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.4.0"
+        },
+        "time": "2014-10-14T17:59:08+00:00",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "1.0-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "files": [
+                "helpers.php"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Jeffrey Way",
+                "email": "jeffrey@laracasts.com"
+            },
+            {
+                "name": "Taylor Otwell",
+                "email": "taylorotwell@gmail.com"
+            }
+        ],
+        "abandoned": true
+    },
+    {
         "name": "laravel/framework",
         "version": "v5.7.17",
         "version_normalized": "5.7.17.0",

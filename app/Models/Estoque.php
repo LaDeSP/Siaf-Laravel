@@ -10,17 +10,21 @@ use App\Models\Venda;
 class Estoque extends Model
 {
 
-    protected $table = 'estoque';
-    protected $primaryKey = 'ID';
-    public $incrementing = false;
-    use SoftDeletes;
+
+	use SoftDeletes;
+
+	protected $table = 'estoque';
+
+
+
 
     protected $casts = [
+
 		'ID' => 'int'
 	];
 
 	protected $dates = [
-		'Data'
+		'Data'=>'date:d-m-Y'
 	];
 
 	protected $fillable = [
@@ -49,6 +53,7 @@ class Estoque extends Model
 			->leftJoin('plantio','plantio.id','=','manejoplantio.plantio_id')
 			->leftJoin('talhao','plantio.talhao_id','=','talhao.id')
 			->where('estoque.propriedade_id','=',$idPropriedade)
+			->where('estoque.deleted_at','=',null)
 			->get(['estoque.id','estoque.quantidade','estoque.produto_id','produto.nome as nomep','produto.plantavel','data','estoque.propriedade_id','manejoplantio.plantio_id','plantio.data_semeadura','plantio.data_plantio','talhao.nome as nomet','manejoplantio.id as manejo_plantio_id','manejoplantio.descricao','manejoplantio.data_hora']);
 	}
 

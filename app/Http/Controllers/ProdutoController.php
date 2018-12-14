@@ -51,7 +51,7 @@ class ProdutoController extends Controller
             $talhao = Talhao::all()->where('propriedade_id','=',$prop['id']) ;
             $produto = Produto::all()->where('propriedade_id','=',$prop['id']);
             foreach ($produto as $p){
-                $p['unidade_id'] = DB::table('unidade')->where('id', $p['unidade_id'])->value('nome');
+                $p['unidade_id'] = DB::table('unidade')->where('id', $p['unidade_id'])->where('unidade.deleted_at','=',null)->value('nome');
             }
             return redirect()->action('PropriedadeController@index', ['mensagem'=>$mensagem,'status'=>$status]);// ["propriedade"=>$prop,"talhao"=>$talhao, "unidades"=>Unidade::get(["id","nome"]),"produto"=>$produto, "User"=>$this->getFirstName($this->usuario['name']), "Tela"=>"Propriedade", ]);
         }else{
@@ -104,7 +104,7 @@ class ProdutoController extends Controller
             $talhao = Talhao::all()->where('propriedade_id','=',$prop['id']) ;
             $produto = Produto::all()->where('propriedade_id','=',$prop['id']);
             foreach ($produto as $p){
-                $p['unidade_id'] = DB::table('unidade')->where('id', $p['unidade_id'])->value('nome');
+                $p['unidade_id'] = DB::table('unidade')->where('id', $p['unidade_id'])->where('unidade.deleted_at','=',null)->value('nome');
             }
             return redirect()->action('PropriedadeController@index', ['mensagem'=>$mensagem,'status'=>$status]);// ["propriedade"=>$prop,"talhao"=>$talhao, "unidades"=>Unidade::get(["id","nome"]),"produto"=>$produto, "User"=>$this->getFirstName($this->usuario['name']), "Tela"=>"Propriedade", ]);
         }else{

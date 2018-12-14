@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Venda;
 use Illuminate\Http\Request;
 use App\Models\Despesa;
 use App\Models\Investimento;
@@ -39,7 +40,7 @@ class RelatorioController extends Controller
     public function store(Request $request)
     {
         if ($request['qual'] == "despesa") {
-        	$despesa = DB::table('despesa')->whereBetween('data', [$request['date-inicio'], $request['date-fim']])->get(['despesa.nome', 'despesa.quantidade', 'despesa.valor_unit', 'despesa.data', 'despesa.descricao']);
+        	$despesa = DB::table('despesa')->whereBetween('data', [$request['date-inicio'], $request['date-fim']])->where('despesa.deleted_at','=',null)->get(['despesa.nome', 'despesa.quantidade', 'despesa.valor_unit', 'despesa.data', 'despesa.descricao']);
         	$topo= '<tr><th>Despesa</th><th>Quantidade</th><th>Valor Unitário</th><th>Data</th><th>Descrição</th></tr>';
         	$topoGraph= '<tr><th>Data</th><th>Valor</tr>';
         	$dado='';
@@ -51,7 +52,24 @@ class RelatorioController extends Controller
         	$todo= array('dado' => $dado, 'topo'=> $topo,'dadoGraph' => $dadoGraph, 'topoGraph'=> $topoGraph );
         	return $todo;
         }
+        else if($request['qual'] == "vendas"){
+            return $this->vendas($request);
+        }
         return 405;
+    }
+
+    public function vendas(Request $request){
+           $v = Venda::with(['estoque_id', 'quantidade'])
+                        ->whereBetween('data', [$request['date-inicio'], $request['date-fim']])
+                        ->select(DB::raw('*'));
+         /*   $despesa = DB::table('despesa')->whereBetween()->get(['despesa.nome', 'despesa.quantidade', 'despesa.valor_unit', 'despesa.data', 'despesa.descricao']);*/
+            $topoGraph= '<tr><th>Estoque</th><th>Quantidade</tr>';
+            $dadoGraph='';
+            foreach ($v as  $key => $value) {
+                $dadoGraph=$dadoGraph.'<tr><td>'.($value->estoque_id).'</td><td>'.$value->quantidade.'</td></tr>';
+            }
+            $todo= array('dadoGraph' => $dadoGraph, 'topoGraph'=> $topoGraph );
+            return $todo;
     }
     /**
      * Display the specified resource.

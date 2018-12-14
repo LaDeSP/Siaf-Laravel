@@ -20,7 +20,8 @@ Route::group(['middleware'=>['web', 'auth']], function()
     Route::resource('/investimento',"InvestimentoController");
     Route::resource('/plantio', "PlantioController");
     Route::resource('/relatorio', "RelatorioController");
-    Route::get('/venda', "VendasController@index");
+    Route::resource('/venda', "VendasController");
+
     Route::resource('/estoque', "EstoqueController");
     Route::resource('/produto', "ProdutoController");
     Route::resource('/talhao', "TalhaoController");

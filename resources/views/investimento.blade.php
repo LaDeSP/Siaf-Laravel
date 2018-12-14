@@ -6,7 +6,7 @@
 @section('conteudo')
     <div class="">
         <div class="col-10 text-right">
-            <a id="add" data-toggle="modal" data-target="#exampleModal" class="btn btn-success">Adicionar</a>
+            <a id="add" data-toggle="modal" data-target="#exampleModal" class="btn btn-success text-light">Adicionar</a>
         </div>
                 <div class="conteiner col-10">
                     <table class="table table-hover ">
@@ -49,7 +49,7 @@
                         </tbody>
                     </table>
                 </div>
-        @if((empty($dados[0])))
+        @if(($dados->isEmpty()))
                 <div class="text-center">
                     <p>Por favor, adicione investimentos!</p>
                 </div>

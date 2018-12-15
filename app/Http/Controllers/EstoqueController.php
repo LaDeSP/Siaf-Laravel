@@ -9,6 +9,7 @@ use App\Models\Talhao;
 use App\Models\Plantio;
 use App\Models\Propriedade;
 use App\Models\ManejoPlantio;
+use App\Models\Perda;
 use Illuminate\Support\Facades\DB;
 
 
@@ -29,8 +30,7 @@ class EstoqueController extends Controller
           foreach ($Estoques as $key => $Estoque) {
             $Estoque->disponivel=Estoque::produtosDisponiveis($Estoque->id);
           }
-          
-          return view('estoque', ["User"=>$this->getFirstName($this->usuario['name']) ,'Estoques'=>$Estoques , "Tela"=>"Estoque"]);
+        return view('estoque', ["User"=>$this->getFirstName($this->usuario['name']) ,'Estoques'=>$Estoques , "Tela"=>"Estoque", 'mensagem'=>$request->mensagem,'status'=>$request->status]);
 
 
     }
@@ -55,15 +55,7 @@ class EstoqueController extends Controller
         $status='danger';
         $mensagem='Erro ao salvar o Estoque!';
       }
-      $propriedade=$this->getPropriedade($request);
-      $Estoques = Estoque::estoquesPropriedade($propriedade->id);
-
-        foreach ($Estoques as $key => $Estoque) {
-          $Estoque->disponivel=Estoque::produtosDisponiveis($Estoque->id);
-        }
-
-      return view('estoque', ["User"=>$this->getFirstName($this->usuario['name']) ,'Estoques'=>$Estoques , "Tela"=>"Estoque",'mensagem'=>$mensagem,'status'=>$status]);
-
+      return redirect()->action('EstoqueController@index', ['mensagem'=>$mensagem,'status'=>$status]);
 
     }
 public function edit(Request $request,$id){
@@ -90,15 +82,7 @@ public function update(Request $request,$id){
           $status='danger';
           $mensagem='Erro ao editar o Estoque!';
         }
-
-        $propriedade=$this->getPropriedade($request);
-        $Estoques = Estoque::estoquesPropriedade($propriedade->id);
-
-          foreach ($Estoques as $key => $Estoque) {
-            $Estoque->disponivel=Estoque::produtosDisponiveis($Estoque->id);
-          }
-        //redirect()->action($this->index(new Request),[$status,$mensagem]);
-        return view('estoque', ["User"=>$this->getFirstName($this->usuario['name']) ,'Estoques'=>$Estoques , "Tela"=>"Estoque",'mensagem'=>$mensagem,'status'=>$status]);
+        return redirect()->action('EstoqueController@index', ['mensagem'=>$mensagem,'status'=>$status]);
       }
 
       public function destroy(Request $request,$id){
@@ -112,14 +96,7 @@ public function update(Request $request,$id){
                         $mensagem='Erro ao excluir o Estoque!';
                       }
 
-                      $propriedade=$this->getPropriedade($request);
-                      $Estoques = Estoque::estoquesPropriedade($propriedade->id);
-
-                        foreach ($Estoques as $key => $Estoque) {
-                          $Estoque->disponivel=Estoque::produtosDisponiveis($Estoque->id);
-                        }
-                      //redirect()->action($this->index(new Request),[$status,$mensagem]);
-                      return view('estoque', ["User"=>$this->getFirstName($this->usuario['name']) ,'Estoques'=>$Estoques , "Tela"=>"Estoque",'mensagem'=>$mensagem,'status'=>$status]);
+                      return redirect()->action('EstoqueController@index', ['mensagem'=>$mensagem,'status'=>$status]);
       }
 
 

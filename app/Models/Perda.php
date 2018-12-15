@@ -1,15 +1,16 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
+use \Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\DB;
+
 
 class Perda extends Model
 {
   use SoftDeletes;
-
-	protected $table = 'Perda';
+  protected $table = 'perda';
 
 
 	protected $casts = [
@@ -21,50 +22,11 @@ class Perda extends Model
 	];
 
 	protected $fillable = [
-		'ID',
-		'Descricao',
-		'Quantidade',
-		'Data',
-		'Estoque_id'
-    'Destino_id'
+		'ID'=>'id',
+		'Descricao'=>'descricao',
+		'Quantidade'=>'quantidade',
+		'Data'=>'data',
+		'Estoque_id'=>'estoque_id',
+    'Destino_id'=>'destino_id'
 	];
-
-	public function estoque()
-	{
-		return $this->belongsTo(\App\Models\Estoque::class, 'id');
-	}
-
-	public static function inserir($request)
-	{
-        $venda = self::firstOrCreate(['ID'=> $request['id'], 'Quantidade' => $request['quantidade'],'Valor' => $request['valor_unit'], 'Data' => $request['data'], 'Nota' => $request['nota'], 'Destino' => $request['destino'], 'Estoque' => $request['estoque_id']]);
-
-        return [$venda, 200];
-	}
-
-	public static function ler($id)
-	{
-		if ($id == null)
-		{
-			$venda = self::all();
-			return $venda;
-		}
-
-		$venad = self::find($id);
-		return [$venda, 200];
-	}
-
-	public static function excluir($id){
-		if ($id != null)
-		{
-			$venda = self::find($id);
-		    if (!empty($venda))
-		    {
-		    	if ($venda->forcedelete())
-		    	{
-		    		return ["Deletado com sucesso!", 200];
-		    	}
-			}
-		}
-		return ["Ocorreu um problema.", 403];
-	}
 }

@@ -105,20 +105,22 @@ $( document ).ready(function() {
 									<div class="row">
 
 
-
+                    <div class="col-6">
                     <a class="btn  btn-warning @if($Estoque->plantavel || ($Estoque->quantidade!=$Estoque->disponivel )  )  disabled @endif"
                       href="/estoque/{{$Estoque->id}}/edit"
                       data-endpoint="/estoque/{{$Estoque->id}}/edit"
                       data-target="exampleModal"
                       data-cache="false",
                       data-async="true">Editar</a>
-
-                    <a class="btn btn-xs btn-danger @if($Estoque->disponivel <= 0 )  disabled @endif"
+                    </div>
+                    <div class="col-6">
+                    <a  class="btn btn-xs btn-danger @if($Estoque->disponivel <= 0 )  disabled @endif"
                         href="/perda/{{$Estoque->id}}"
                         data-endpoint="/perda/{{$Estoque->id}}"
                         data-target="exampleModal"
                         data-cache="false",
                         data-async="true">Perder</a>
+                   <div>
                   <!--
 										<form  class="col-sm-6 	" method="post" id="investimento"  action="/estoque/{{$Estoque->id}}">
 											@method("DELETE")

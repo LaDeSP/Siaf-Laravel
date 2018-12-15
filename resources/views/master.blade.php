@@ -83,7 +83,6 @@
 							texto=texto.replace(':','');
 							texto=texto.replace('*','');
 							msg='Adicione um '+texto;
-							console.log(msg);
 							$(this).append('<option value="">'+msg+'</option>')
 							$(this).prop( "disabled", true );
 							$(this).closest('form').find(':submit').prop( "disabled", true );

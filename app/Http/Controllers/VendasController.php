@@ -32,7 +32,6 @@ class VendasController extends Controller
     public function create(Request $request){
         $destinos = Venda::destino();
         $p=$this->getPropriedade($request);
-        //$quantidade = Estoque::produtosDisponiveis($idEstoque);
         $estoques = Estoque::estoquesPropriedade($p->id);
         foreach ($estoques as $key => $estoque) {
             $estoque->quantidadedisponivel=Estoque::produtosDisponiveis($estoque->id);
@@ -93,6 +92,10 @@ class VendasController extends Controller
         $propriedade = $this->getPropriedade($request);
         $estoques = Estoque::estoquesPropriedade($propriedade->id);
         $venda = Venda::vendas($propriedade,$id);
+
+        foreach ($estoques as $key => $estoque) {
+            $estoque->quantidadedisponivel=Estoque::produtosDisponiveis($estoque->id);
+        }
         return view('vendaForm', ["User"=>$this->getFirstName($this->usuario['name']), 'Vendas'=>$venda, 'estoques'=>$estoques, 'destinos'=>$destinos, "Tela"=>"Editar Venda" ,'Method'=>'put','Url'=>'/venda'.'/'.$id]);
     }
     

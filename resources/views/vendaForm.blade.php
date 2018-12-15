@@ -12,7 +12,6 @@
             <div class="row linhaFrom">
                 <label class="col-3">Estoque:<span class="text-danger">*</span></label>
                 <select class="col-7 form-control" name="estoque_id" required='required'>
-                    <option value="">Selecione um estoque</option>
                     @foreach ($estoques as $estoque)
             
                     @if($estoque->quantidadedisponivel>0)

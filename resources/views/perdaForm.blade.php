@@ -32,7 +32,9 @@
     </button>
   </div>
   <div class="modal-body">
-
+    <div class="row linhaFrom">
+        <h6>Produto: {{$Produto}} - {{$Max}} {{$Unidade}}  <h6>
+    </div>
         <div class="row linhaFrom">
             <label class="col-3">Descricao:</label>
             <input class="col-7" type="text" name="descricao" value="">
@@ -62,7 +64,7 @@
 
     <div class="row linhaFrom">
         <label class="col-3">Quantidade:</label>
-        <input  id='tentacles' class="col-7" type="number" name="quantidade" min=0 max={{$Max}} value="">
+        <input  id='tentacles' class="col-7" type="number" name="quantidade" min=1 max={{$Max}} value="">
     </div>
 
     <div class="modal-footer">

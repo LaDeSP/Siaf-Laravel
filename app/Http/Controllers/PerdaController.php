@@ -35,7 +35,14 @@ class PerdaController extends Controller
               ->where('destino.tipo','=',0)
   			      ->get();
       $max=Estoque::produtosDisponiveis($id);
-      return view('perdaForm', ["User"=>$this->getFirstName($this->usuario['name']) , "Tela"=>"Perda", 'Url'=>'/perda','Method'=>'post','Estoque'=>$id,'Destinos'=>$destinos,'Max'=>$max ]);
+      $estoque=DB::table('estoque')
+ 			->join('produto', 'estoque.produto_id', '=', 'produto.id')
+ 			->join('unidade', 'unidade.id', '=', 'produto.unidade_id')
+      ->where('estoque.deleted_at','=',null)
+      ->where('estoque.id','=',$id)
+      ->get(['produto.nome as nomep','unidade.nome as nomeu']);
+      $estoque=$estoque->first();
+      return view('perdaForm', ["User"=>$this->getFirstName($this->usuario['name']) , "Tela"=>"Perda", 'Url'=>'/perda','Method'=>'post','Estoque'=>$id,'Destinos'=>$destinos,'Max'=>$max,'Produto'=>$estoque->nomep,'Unidade'=>$estoque->nomeu ]);
     }
 
     public function create(Request $request){

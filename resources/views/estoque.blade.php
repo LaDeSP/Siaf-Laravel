@@ -91,6 +91,7 @@ $( document ).ready(function() {
 				<tbody>
 
 			       @foreach ($Estoques as $Estoque)
+             @if($Estoque->disponivel>0)
 					    <tr>
                 <td>{{$Estoque->nomep}}</td>
                 <td>{{$Estoque->disponivel}}</td>
@@ -131,6 +132,7 @@ $( document ).ready(function() {
 									</div>
 								</td>
 							</tr>
+          @endif
 					@endforeach
 
 

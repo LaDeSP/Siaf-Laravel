@@ -12,6 +12,7 @@ Route::group(['middleware'=>['web', 'auth']], function()
     Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
     Route::resource('/propriedade', "PropriedadeController");
     Route::get('/usuario', "UsersController@index");
+    Route::post('/usuario', "UsersController@update");
     Route::resource('/manejo', "ManejoController");
     Route::get('/manejo/create/{plantio}', "ManejoController@create");
     Route::get('/manejo/estoque/{plantio}', "ManejoController@createEstoque");

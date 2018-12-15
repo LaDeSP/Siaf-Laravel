@@ -5,6 +5,7 @@
 	<title> SIAF </title>
 	<link rel="icon" href="/images/icon.png">
 	<script src="/js/JQuery/jquery-2.2.4.min.js"></script>
+    <script src="/js/validator/jQuery.mask1.14.11.min.js"></script>
 	<script src="/bootstrap/js/popper.min.js"></script>
 	<link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 	<script src="/bootstrap/js/bootstrap.min.js"></script>
@@ -123,6 +124,7 @@
 				$('.bd-user-modal-sm').css("margin-top", $('.menu').height());
 				$('.op').css("margin",0) ;
 				
+				$("#telefone, #celular").mask("(00)00000-0000");
 				
 			});
 			

@@ -66,8 +66,7 @@
                <div class='form-group'>
                   <label>
                   Telefone
-                  <span style="color: red">*</span>
-                  <input id="telefone" placeholder="Informe seu telefone" type="text" class="form-control {{ $errors->has('telefone') ? ' is-invalid' : '' }}" name="telefone" value="{{ old('telefone') }}" required>
+                  <input id="telefone" placeholder="Informe seu telefone" type="text" class="form-control {{ $errors->has('telefone') ? ' is-invalid' : '' }}" name="telefone" value="{{ old('telefone') }}">
                   @if ($errors->has('telefone'))
                   <span class="invalid-feedback" role="alert">
                   <strong>{{ $errors->first('telefone') }}</strong>

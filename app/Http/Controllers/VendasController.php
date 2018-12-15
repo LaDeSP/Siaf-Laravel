@@ -32,7 +32,12 @@ class VendasController extends Controller
     public function create(Request $request){
         $destinos = Venda::destino();
         $p=$this->getPropriedade($request);
+        //$quantidade = Estoque::produtosDisponiveis($idEstoque);
         $estoques = Estoque::estoquesPropriedade($p->id);
+        foreach ($estoques as $key => $estoque) {
+            $estoque->quantidadedisponivel=Estoque::produtosDisponiveis($estoque->id);
+        }
+        
         return view('vendaForm', ["User"=>$this->getFirstName($this->usuario['name']), 'estoques'=>$estoques, 'destinos'=>$destinos, "Tela"=>"Adicionar Venda" ,'Method'=>'post','Url'=>'/venda']);
     }
     
@@ -142,5 +147,11 @@ class VendasController extends Controller
         $allVenda = Venda::vendas($propriedade, $id='');
         
         return view('venda', ["User"=>$this->getFirstName($this->usuario['name']) ,'Vendas'=>$allVenda , "Tela"=>"Plantio",'mensagem'=>$mensagem,'status'=>$status]);
+    }
+
+    public function quantidadeProduto($idEstoque)
+    {
+        $quantidade = Estoque::produtosDisponiveis($idEstoque);
+        return $quantidade;
     }
 }

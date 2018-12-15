@@ -67,7 +67,7 @@ class Venda extends Model
             ->join('destino', 'destino.id', '=', 'destino_id')
             ->select('unidade.nome AS unidade', 'venda.id','produto.nome AS produto','venda.quantidade', 'venda.valor_unit', 'venda.data','venda.nota',
             'destino.nome', 'venda.destino_id')
-			->where('propriedade.users_id', '=', $propriedade->users_id)
+			->where('estoque.propriedade_id', '=', $propriedade->id)
       ->where('venda.deleted_at','=',null)
 			->get();
 		return $allVenda;

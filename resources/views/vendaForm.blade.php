@@ -33,22 +33,22 @@
             
             <div class="row linhaFrom">
                 <label class="col-3">Quantidade:<span class="text-danger">*</span></label></label>
-                <input id="tentacles" class="col-5" type="number" min="1" max="10" name="quantidade" value="@isset($Vendas){{$Vendas->quantidade}}@endisset" required>
+                <input id="tentacles" class="col-7" type="number" min="1" max="10" name="quantidade" value="@isset($Vendas){{$Vendas->quantidade}}@endisset" required>
             </div>
             
             <div class="row linhaFrom">
                 <label class="col-3">Valor:<span class="text-danger">*</span></label></label>
-                <input type="number" min="1" step="0.01" pattern="[0-9]$" id="valor" name="valor_unit" value="@isset($Vendas){{$Vendas->valor_unit}}@endisset" required>
+                <input class="col-7" type="number" min="1" step="0.01" pattern="[0-9]$" id="valor" name="valor_unit" value="@isset($Vendas){{$Vendas->valor_unit}}@endisset" required>
             </div>
             
             <div class="row linhaFrom">
                 <label class="col-3">Data da Venda:<span class="text-danger">*</span></label>
-                <input class="col-5" type="date" name="data" value="@isset($Vendas){{$Vendas->data}}@endisset" required>
+                <input class="col-7" type="date" name="data" value="@isset($Vendas){{$Vendas->data}}@endisset" required>
             </div>
             
             <div class="row linhaFrom">
                 <label class="col-3">Nota:</label>
-                <input class="col-5" type="text" name="nota" value="@isset($Vendas){{$Vendas->nota}}@endisset">
+                <input class="col-7" type="text" name="nota" value="@isset($Vendas){{$Vendas->nota}}@endisset">
             </div>
         </div>
         

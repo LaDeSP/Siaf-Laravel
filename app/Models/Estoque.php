@@ -49,12 +49,13 @@ class Estoque extends Model
 	public static function estoquesPropriedade($idPropriedade){
 		 return DB::table('estoque')
 			->join('produto', 'estoque.produto_id', '=', 'produto.id')
+			->join('unidade', 'unidade.id', '=', 'produto.unidade_id')
 			->leftJoin('manejoplantio','estoque.manejoplantio_id','=','manejoplantio.id')
 			->leftJoin('plantio','plantio.id','=','manejoplantio.plantio_id')
 			->leftJoin('talhao','plantio.talhao_id','=','talhao.id')
 			->where('estoque.propriedade_id','=',$idPropriedade)
 			->where('estoque.deleted_at','=',null)
-			->get(['estoque.id','estoque.quantidade','estoque.produto_id','produto.nome as nomep','produto.plantavel','data','estoque.propriedade_id','manejoplantio.plantio_id','plantio.data_semeadura','plantio.data_plantio','talhao.nome as nomet','manejoplantio.id as manejo_plantio_id','manejoplantio.descricao','manejoplantio.data_hora']);
+			->get(['estoque.id','estoque.quantidade','estoque.produto_id','produto.nome as nomep','unidade.nome as unidade','produto.plantavel','data','estoque.propriedade_id','manejoplantio.plantio_id','plantio.data_semeadura','plantio.data_plantio','talhao.nome as nomet','manejoplantio.id as manejo_plantio_id','manejoplantio.descricao','manejoplantio.data_hora']);
 	}
 
 	public static function coleheitaPropriedade($idPropriedade ){

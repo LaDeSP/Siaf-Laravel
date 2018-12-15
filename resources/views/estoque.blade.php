@@ -77,21 +77,24 @@ $( document ).ready(function() {
 			<table class="table">
 				<thead>
 					<tr>
+            <th>Produto</th>
             <th>Quantidade</th>
-        		<th>Produto</th>
+            <th>Unidade</th>
         		<th>Data Estoque</th>
         		<th>Data Semeadura</th>
             <th>Data Plantio</th>
             <th>Talhao</th>
 						<th>Data Colheita</th>
+            <th>Ações</th>
 					</tr>
 				</thead>
 				<tbody>
 
 			       @foreach ($Estoques as $Estoque)
 					    <tr>
-                <td>{{$Estoque->disponivel}}</td>
                 <td>{{$Estoque->nomep}}</td>
+                <td>{{$Estoque->disponivel}}</td>
+                <td>{{$Estoque->unidade}}</td>
                 <td class='data'>{{$Estoque->data}}</td>
                 <td>{{$Estoque->data_semeadura}}</td>
                 <td>{{$Estoque->data_plantio}}</td>
@@ -103,20 +106,26 @@ $( document ).ready(function() {
 
 
 
-                    <a class="btn  btn-warning @if($Estoque->plantavel)  disabled @endif"
+                    <a class="btn  btn-warning @if($Estoque->plantavel || ($Estoque->quantidade!=$Estoque->disponivel )  )  disabled @endif"
                       href="/estoque/{{$Estoque->id}}/edit"
                       data-endpoint="/estoque/{{$Estoque->id}}/edit"
                       data-target="exampleModal"
                       data-cache="false",
                       data-async="true">Editar</a>
 
-
+                    <a class="btn btn-xs btn-danger @if($Estoque->disponivel <= 0 )  disabled @endif"
+                        href="/perda/{{$Estoque->id}}"
+                        data-endpoint="/perda/{{$Estoque->id}}"
+                        data-target="exampleModal"
+                        data-cache="false",
+                        data-async="true">Perder</a>
+                  <!--
 										<form  class="col-sm-6 	" method="post" id="investimento"  action="/estoque/{{$Estoque->id}}">
 											@method("DELETE")
 											@csrf
-											<button  type="submit" msg='Tem certeza que deseja Excluir esse Estoque. ' class="btn btn-xs btn-danger delete @if($Estoque->plantavel)  disabled @endif confirm">Excluir</button>
+											<button  type="submit" msg='Tem certeza que deseja Excluir esse Estoque. ' class="btn btn-xs btn-danger delete @if($Estoque->plantavel)  disabled @endif confirm">Perder</button>
 										</form>
-
+                -->
 									</div>
 								</td>
 							</tr>

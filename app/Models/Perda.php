@@ -7,12 +7,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Perda extends Model
 {
-       
-    use \Illuminate\Database\Eloquent\SoftDeletes;
-	protected $table = 'venda';
-	protected $primaryKey = 'ID';
-	public $incrementing = false;
-    use SoftDeletes;
+  use SoftDeletes;
+
+	protected $table = 'Perda';
+
+
 	protected $casts = [
 		'ID' => 'int'
 	];
@@ -23,18 +22,17 @@ class Perda extends Model
 
 	protected $fillable = [
 		'ID',
+		'Descricao',
 		'Quantidade',
-		'Valor',
 		'Data',
-		'Nota',
-		'Destino',
-		'Estoque'
+		'Estoque_id'
+    'Destino_id'
 	];
 
 	public function estoque()
 	{
 		return $this->belongsTo(\App\Models\Estoque::class, 'id');
-	} 
+	}
 
 	public static function inserir($request)
 	{
@@ -45,7 +43,7 @@ class Perda extends Model
 
 	public static function ler($id)
 	{
-		if ($id == null) 
+		if ($id == null)
 		{
 			$venda = self::all();
 			return $venda;
@@ -56,12 +54,12 @@ class Perda extends Model
 	}
 
 	public static function excluir($id){
-		if ($id != null) 
+		if ($id != null)
 		{
 			$venda = self::find($id);
-		    if (!empty($venda)) 
+		    if (!empty($venda))
 		    {
-		    	if ($venda->forcedelete()) 
+		    	if ($venda->forcedelete())
 		    	{
 		    		return ["Deletado com sucesso!", 200];
 		    	}

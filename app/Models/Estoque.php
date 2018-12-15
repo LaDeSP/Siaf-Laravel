@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use \Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\DB;
 use App\Models\Venda;
+use App\Models\Perda;
 
 class Estoque extends Model
 {
@@ -38,11 +39,9 @@ class Estoque extends Model
 
 	public static function produtosDisponiveis($idEstoque ){
 		$venda = Venda::all()->where('estoque_id','=',$idEstoque)->sum('quantidade');
+		$perda = Perda::all()->where('estoque_id','=',$idEstoque)->sum('quantidade');
 		$estoque = Estoque::all()->where('id','=',$idEstoque)->sum('quantidade');
-		return $estoque-$venda;
-
-
-
+		return $estoque-($venda+$perda);
 	}
 
 

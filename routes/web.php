@@ -26,5 +26,5 @@ Route::group(['middleware'=>['web', 'auth']], function()
     Route::resource('/produto', "ProdutoController");
     Route::resource('/talhao', "TalhaoController");
     Route::get('/perda/{id}', "PerdaController@index");
-    Route::post('/perda', "PerdaController@crate");
+    Route::post('/perda', "PerdaController@create");
 });

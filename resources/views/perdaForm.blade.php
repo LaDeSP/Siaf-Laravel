@@ -1,4 +1,28 @@
-<div class="modal-dialog" role="document">
+<script type="text/javascript">
+    $( document ).ready(function() {
+
+        $('select[name=estoque_id]').change(function () {
+            var idEstoque = $(this).val();
+            $.get('/quantidade/' + idEstoque, function (quantidade) {
+                var input=$('#tentacles')
+                input.val('');
+                input.attr({'max':quantidade})
+            });
+        });
+
+        $('#tentacles').change(function (){
+            if(( parseInt( $(this).val(),10 ) > parseInt( $(this).attr('max') ,10) )   ) {
+                $(this).val($(this).attr('max') )
+            }
+            if($(this).val()< $(this).attr('min')  ) {
+                $(this).val($(this).attr('min'))
+            }
+        });
+    });
+
+</script>
+
+<div class="modal-dialog modal-lg" role="document">
   <div class="modal-content">
     {{ Form::open(array('url'=>$Url, 'method' => $Method, 'class'=>'col-md-12')) }}
   <div class="modal-header">
@@ -10,33 +34,35 @@
   <div class="modal-body">
 
         <div class="row linhaFrom">
-            <label class="col-5">Descricao:</label>
-            <input class="col-5" type="text" name="descricao" value="">
+            <label class="col-3">Descricao:</label>
+            <input class="col-7" type="text" name="descricao" value="">
         </div>
 
         <div class="row linhaFrom">
-            <label class="col-5">Quantidade:</label>
-            <input class="col-5" type="number" name="quantidade" value="">
+            <label class="col-3">Data:</label>
+            <input class="col-7" type="date" name="data" value="">
         </div>
 
-        <div class="row linhaFrom">
-                <label class="col-3">Estoque:<span class="text-danger">*</span></label>
-            <select class="col-7 form-control" name="estoque_id" required='required'>
-                @foreach ($estoques as $estoque)
-                <option  @isset($Vendas)@if($estoque->id == $Vendas->estoque_id) echo selected  @endif @endisset value="{{$estoque->id}}">{{$estoque->nomep}} / {{ $estoque->data}}</option>
-                @endforeach
-            </select>
-        </div>
+
+
+
+
+          <input  type="hidden" name='estoque_id' value="{{$Estoque}}">
 
         <div class="row linhaFrom">
             <label class="col-3">Destino:<span class="text-danger">*</span></label>
             <select class="col-7 form-control" name="destino_id" required='required'>
-                @foreach ($destinos as $destino)
+                @foreach ($Destinos as $destino)
                 <option  @isset($Vendas)@if($destino->id == $Vendas->destino_id) echo selected  @endif @endisset value="{{$destino->id}}">{{$destino->destino}}</option>
                 @endforeach
             </select>
         </div>
 
+    </div>
+
+    <div class="row linhaFrom">
+        <label class="col-3">Quantidade:</label>
+        <input  id='tentacles' class="col-7" type="number" name="quantidade" min=0 max={{$Max}} value="">
     </div>
 
     <div class="modal-footer">

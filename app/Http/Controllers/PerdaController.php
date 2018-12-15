@@ -29,17 +29,32 @@ class PerdaController extends Controller
     public function index(Request $request,$id)
     {
       $propriedade=$this->getPropriedade($request);
-      $Estoques=Estoque::estoquesPropriedade($propriedade->id);
-      foreach ($Estoques as $key => $Estoque) {
-        $Estoque->disponivel=Estoque::produtosDisponiveis($Estoque->id);
-      }
       $destinos=$destinos = DB::table('destino')
               ->select('destino.id', 'nome AS destino')
               ->where('destino.deleted_at','=',null)
               ->where('destino.tipo','=',0)
   			      ->get();
-
-
-      return view('perdaForm', ["User"=>$this->getFirstName($this->usuario['name']) , "Tela"=>"Perda", 'Url'=>'url','Method'=>'post','estoques'=>$Estoques,'destinos'=>$destinos ]);
+      $max=Estoque::produtosDisponiveis($id);
+      return view('perdaForm', ["User"=>$this->getFirstName($this->usuario['name']) , "Tela"=>"Perda", 'Url'=>'/perda','Method'=>'post','Estoque'=>$id,'Destinos'=>$destinos,'Max'=>$max ]);
     }
+
+    public function create(Request $request){
+      $post = array_except($request,['_token'])->toArray();
+
+      $plantio = new Perda($post);
+
+      $salva=$plantio->save();
+      if($salva==true){
+        $status='success';
+        $mensagem='Sucesso ao salvar o Perda!';
+      }
+      else{
+        $status='danger';
+        $mensagem='Erro ao salvar o Perda!';
+      }
+
+      return redirect()->action('EstoqueController@index', ['mensagem'=>$mensagem,'status'=>$status]);
+
+    }
+
 }

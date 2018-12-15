@@ -8,6 +8,7 @@ Auth::routes();
 Route::group(['middleware'=>['web', 'auth']], function()
 {
     Route::get('/home', 'HomeController@index')->name('home');
+    Route::get('/quantidade/{estoque}', 'VendasController@quantidadeProduto');
     Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
     Route::resource('/propriedade', "PropriedadeController");
     Route::get('/usuario', "UsersController@index");

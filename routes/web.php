@@ -21,8 +21,9 @@ Route::group(['middleware'=>['web', 'auth']], function()
     Route::resource('/plantio', "PlantioController");
     Route::resource('/relatorio', "RelatorioController");
     Route::resource('/venda', "VendasController");
-
     Route::resource('/estoque', "EstoqueController");
     Route::resource('/produto', "ProdutoController");
     Route::resource('/talhao', "TalhaoController");
+    Route::get('/perda/{id}', "PerdaController@index");
+    Route::post('/perda', "PerdaController@crate");
 });

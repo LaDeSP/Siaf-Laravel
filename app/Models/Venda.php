@@ -37,6 +37,7 @@ class Venda extends Model
 		$destinos = DB::table('destino')
             ->select('destino.id', 'nome AS destino')
             ->where('destino.deleted_at','=',null)
+            ->where('destino.tipo','=',1)
 			      ->get();
         return $destinos;
 	}

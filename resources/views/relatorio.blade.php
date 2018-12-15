@@ -49,6 +49,7 @@
 							@foreach($conteudo as $c)
                                 <tr>
                                     @foreach($c as $cc)
+									{{$cc}}
                                         <td>{{$cc}}</td>
                                     @endforeach
                                 </tr>

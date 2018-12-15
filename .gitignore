@@ -14,4 +14,3 @@ yarn-error.log
 .env
 .phpunit.result.cache
 .env
-/resources/views/master.blade.php

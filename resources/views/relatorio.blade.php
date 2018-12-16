@@ -22,8 +22,8 @@
                                 <option value="colheitas" class="col-4"> Listar colheitas realizadas por período </option>
                                 <option value="talhão" class="col-4"> Listar talhões por propriedade</option>
                                 <option value="produtos-propriedade" class="col-4"> Listar produtos ativos e inativos por propriedade</option>
-                                <option value="vendas" class="col-4"> Listar histórico de manejo por plantio</option>
-                                <option value="vendas" class="col-4"> Listar estoque por propriedade por período </option>
+                                <option value="historico-manejo-plantio" class="col-4"> Listar histórico de manejo por plantio</option>
+                                <option value="estoque-propriedade" class="col-4"> Listar estoque por propriedade por período </option>
                             </select>
                         </div>
                         <input class="col-2" type="date" name="date-inicio">
@@ -34,58 +34,50 @@
                 </div>
             </form>
             <div class="card-body">
-            	
-				<div id="container" ></div>
-			      		@if(isset($topo))
-			      			<h4 id="tituloTab" ></h4>
-			      		@endif
-			      	<table id="informacoes" class="table">
-	                        <thead class="thead-light">
-								@if(isset($topo))
-									@foreach($topo as $t)
-
-										    <th>{{$t}}</th>
-									@endforeach
-								@endif
-	                        </thead>
-	                        <tbody>
-							@if(isset($conteudo))
-								@foreach($conteudo as $c)
-	                                <tr>
+            	@if(isset($topo))
+			    	<h4 id="tituloTab" ></h4>
+			    	<table id="informacoes" class="table">
+	                    <thead class="thead-light">
+							@foreach($topo as $t)
+							    <th>{{$t}}</th>
+							@endforeach					
+	                    </thead>
+	                    <tbody>
+							@foreach($conteudo as $c)
+	                            <tr>
 									@foreach($topo as $cp)
 										@if($cp == 'Data')
 											<td class="data">{{$c->{$cp} }}</td>
 										@else
-		                           			<td>{{$c->{$cp} }}</td>
+			                       			<td>{{$c->{$cp} }}</td>
 										@endif
 									@endforeach
-	                                </tr>
-	                                @if ($loop->last)
-								    @endif
-								@endforeach
-							@endif
-	                        </tbody>
+	                            </tr>
+							@endforeach
+	                    </tbody>
+	                </table>
+	                <br>
+	                <table class="table">
+	                  	<thead class="thead-light">
+	                      	@foreach($lastLine as $campoLast)
+					            <th colspan="{{(count($topo)/2)}}" scope="col">{{$campoLast}}</th>   
+						    @endforeach
+	                   	</thead>
+	                   	<tbody>	                                
+		                    @foreach($totalG as $total)
+								<tr>
+		                           	@foreach($lastLine as $campoLast)
+										<td colspan="{{(count($topo)/2)}}">{{$total->{$campoLast} }}</td>
+									@endforeach
+								</tr>
+							@endforeach
+	                   	</tbody>
 	                    </table>
-	                    <br>
-	                    <table class="table">
-	                    	<thead class="thead-light">
-	                                	@foreach($lastLine as $campoLast)
-										            <th colspan="{{(count($topo)/2)}}" scope="col">{{$campoLast}}</th>   
-									    @endforeach
-	                    	</thead>
-	                    	<tbody>	                                
-												<tr>
-		                                @foreach($totalG as $total)
-		                                	@foreach($lastLine as $campoLast)
-													<td colspan="{{(count($topo)/2)}}">{{$total->{$campoLast} }}</td>
-											@endforeach
-												</tr>
-										@endforeach
-	                    	</tbody>
-	                    </table>
-		</div>
-            </div>
-</div>
+			    @endif
+				<div id="container" ></div>
+			</div>
+        </div>
+	</div>
 <script type="text/javascript">
 @isset($conteudo)
 	$( document ).ready(function() {

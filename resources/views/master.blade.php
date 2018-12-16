@@ -98,7 +98,7 @@
 				}
 			});
 
-			$('#accordionExample [type=date').each(function(e){
+			$('#relatorio [type=date').each(function(e){
 				if(this.value===''){
 					this.value=moment().format('YYYY-MM-DD');
 				}

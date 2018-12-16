@@ -54,10 +54,27 @@ class RelatorioController extends Controller
     }
     public function vendas(Request $request){
         $propriedade = $this->getPropriedade($request);
-        $topo = ['Quantidade', 'Valor','Data','Nota','Destino','Estoque'];
-        $d = Venda::whereBetween('data', [$request['date-inicio'], $request['date-final']])->where('propriedade_id', '=',$propriedade->id)->get();
-        
-         return view('relatorio', ["User"=>$this->getFirstName($this->usuario['name']), "Tela"=>"Relatório", "topo"=>$topo, "conteudo"=>$d, "campos" => $t, "tipo" => $request["tipo"], "inicio"=>$request['date-inicio'], "final"=>$request['date-final']]);
+        $topo = ['Produto','Quantidade', 'Valor','Total','Data','Nota','Destino'];
+        $lastLine= ['Produto','Total','Quantidade'];
+        $vendas = Venda::join('destino', 'venda.destino_id','=','destino.id')
+        ->join('estoque', 'venda.estoque_id','=','estoque.id')
+        ->leftJoin('produto', 'estoque.produto_id','=','produto.id')
+        ->select('produto.nome as Produto','venda.quantidade as Quantidade', 'venda.valor_unit as Valor', 'venda.data as Data', 'venda.nota as Nota','destino.nome as Destino', (DB::raw('sum(venda.quantidade * venda.valor_unit) as Total')))
+        ->whereBetween('venda.data', [$request['date-inicio'], $request['date-final']])
+        ->where('estoque.propriedade_id', '=',$propriedade->id)
+        ->where('destino.tipo', '=',1)
+        ->groupBy('venda.id')
+        ->get();
+        $totalG= Venda::join('destino', 'venda.destino_id','=','destino.id')
+        ->join('estoque', 'venda.estoque_id','=','estoque.id')
+        ->leftJoin('produto', 'estoque.produto_id','=','produto.id')
+        ->select((DB::raw('produto.nome as Produto, SUM(venda.quantidade * venda.valor_unit) as Total, SUM(venda.quantidade) as Quantidade' )))
+        ->whereBetween('venda.data', [$request['date-inicio'], $request['date-final']])
+        ->where('estoque.propriedade_id', '=',$propriedade->id)
+        ->where('destino.tipo', '=',1)
+        ->groupBy('produto.id')
+        ->get();
+         return view('relatorio', ["User"=>$this->getFirstName($this->usuario['name']), "Tela"=>"Relatório", "topo"=>$topo, "conteudo"=>$vendas, "tipo" => $request["tipo"], "inicio"=>$request['date-inicio'], "final"=>$request['date-final'],'lastLine'=>$lastLine, 'totalG'=> $totalG]);
 
         //    $v = Venda::with(['estoque_id', 'quantidade'])
         //                 ->whereBetween('data', [$request['date-inicio'], $request['date-fim']])

@@ -32,7 +32,10 @@
 		.rodape{
 			background-color: #80808099;
 			border-top: 1px solid #2e54678f;
-			padding: 20px
+		}
+		.rodape img{
+			width: 150px;
+			top: 0%;
 		}
 		.conteudo{
 					border-left: 1px solid #6178844f;
@@ -323,9 +326,14 @@
 
 
 		</div>
-		<div class="row ">
-			<div class="rodape col-12 text-center">Desenvolvido e mantido por Leco Ufms.</div>
+		<div class="row rodape col-12 ">
+				<div class="col-9">
+					<p class="lead text-justify">Todos os direitos reservados. Universidade Federal de Mato Grosso do Sul. Copyright © 2018 <br>Corumbá/MS</p>
+				</div>
+				<div class="col float-none">
+					<img src="images/Logo_menor.png">
+				</div>
+			</div>
 		</div>
-	</div>
 </body>
 </html>

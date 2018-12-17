@@ -32,8 +32,8 @@
          </div>
          @isset($disabled)
          <div class="row linhaFrom">
-             <label class="col-4">Produtos Colhidos:</label>
-             <input class="col-7" type="number" min="1" name="numero_produdos" value="">
+             <label class="col-4">Produtos Colhidos:<span class="text-danger">*</span></label>
+             <input  required='required' min=0 class="col-7" type="number" min="1" name="numero_produdos" value="">
          </div>
          @endisset
          <input class="col-5" type="hidden"  name="plantio_id" value="@isset($Plantio){{$Plantio}}@endisset @isset($dados){{$dados->plantio_id}}@endisset">

@@ -40,7 +40,7 @@ class ManejoController extends Controller
     $talhoes=Talhao::all()->where('propriedade_id','=',$propiedade['id']);
     $plantios = array();
     foreach ($talhoes as $key => $talhao) {
-        $plantio=array(DB::table('plantio')->join('talhao', 'talhao.id', '=', 'plantio.talhao_id')->join('produto', 'produto.id', '=', 'plantio.produto_id') ->where('talhao_id','=',$talhao['id'])->where('talhao.deleted_at','=',null)->get(['plantio.id','data_plantio','data_semeadura','quantidade_pantas','talhao_id','produto_id','talhao.nome as nomet','produto.nome as nomep'])->sortByDesc('data_plantio' )  );
+        $plantio=array(DB::table('plantio')->join('talhao', 'talhao.id', '=', 'plantio.talhao_id')->join('produto', 'produto.id', '=', 'plantio.produto_id')->where('plantio.deleted_at','=',null) ->where('talhao_id','=',$talhao['id'])->where('talhao.deleted_at','=',null)->get(['plantio.id','data_plantio','data_semeadura','quantidade_pantas','talhao_id','produto_id','talhao.nome as nomet','produto.nome as nomep'])->sortByDesc('data_plantio' )  );
         foreach ($plantio[0] as $key => $value) {
           $value->manejo=DB::table('manejoplantio')->join('manejo','manejo.id','=','manejo_id')->where('plantio_id','=',$value->id)->where('manejoplantio.deleted_at','=',null)->get(['manejoplantio.id','manejoplantio.descricao','manejoplantio.data_hora','manejoplantio.horas_utilizadas','manejo.nome','manejo.id as manejo_id']);
           foreach ($value->manejo as $key => $val) {
@@ -62,10 +62,10 @@ class ManejoController extends Controller
   }
 
 
-    public function index(Request $request,$mensagem='',$status=''){
+    public function index(Request $request){
         $plantios=$this->plantiosManejos($request,$id='');
         //return $plantios;
-        return view('manejo', ["User"=>$this->getFirstName($this->usuario['name']), "Tela"=>"Manejo" ,'Plantios'=>$plantios  ,'disabled'=>'disabled' ]);
+        return view('manejo', ["User"=>$this->getFirstName($this->usuario['name']), "Tela"=>"Manejo" ,'Plantios'=>$plantios  ,'disabled'=>'disabled','mensagem'=>$request->Mensagem,'status'=>$request->Status ,'Mostrar'=>$request->Mostrar,'show'=>'show' ]);
     }
 
 
@@ -88,8 +88,9 @@ class ManejoController extends Controller
         $mensagem='Erro ao salvar o manejo!';
       }
 
-      $plantios=$this->plantiosManejos($request,$id='');
-      return view('manejo', ["User"=>$this->getFirstName($this->usuario['name']), "Tela"=>"Manejo" ,'Plantios'=>$plantios,'mensagem'=>$mensagem,'status'=>$status ,'Mostrar'=>$manejo->plantio_id,'show'=>'show','disabled'=>'disabled'  ]);
+      //$plantios=$this->plantiosManejos($request,$id='');
+      //return view('manejo', ["User"=>$this->getFirstName($this->usuario['name']), "Tela"=>"Manejo" ,'Plantios'=>$plantios,'mensagem'=>$mensagem,'status'=>$status ,'Mostrar'=>$manejo->plantio_id,'show'=>'show','disabled'=>'disabled'  ]);
+      return redirect()->action('ManejoController@index', ['Mensagem'=>$mensagem,'Status'=>$status,'Mostrar'=>$manejo->plantio_id]);
     }
 
     public function edit(Request $request,$manejo){
@@ -115,8 +116,9 @@ class ManejoController extends Controller
         $mensagem='Erro ao editar o manejo!';
       }
 
-      $plantios=$this->plantiosManejos($request,$id='');
-      return view('manejo', ["User"=>$this->getFirstName($this->usuario['name']), "Tela"=>"Manejo" ,'Plantios'=>$plantios,'mensagem'=>$mensagem,'status'=>$status,'Mostrar'=>$Manejo->plantio_id,'show'=>'show' ,'disabled'=>'disabled' ]);
+      //$plantios=$this->plantiosManejos($request,$id='');
+      //return view('manejo', ["User"=>$this->getFirstName($this->usuario['name']), "Tela"=>"Manejo" ,'Plantios'=>$plantios,'mensagem'=>$mensagem,'status'=>$status,'Mostrar'=>$Manejo->plantio_id,'show'=>'show' ,'disabled'=>'disabled' ]);
+      return redirect()->action('ManejoController@index', ['Mensagem'=>$mensagem,'Status'=>$status,'Mostrar'=>$Manejo->plantio_id]);
 
     }
 
@@ -131,8 +133,9 @@ class ManejoController extends Controller
               $status='danger';
               $mensagem='Erro ao excluir o manejo!';
               }
-          $plantios=$this->plantiosManejos($request,$id='');
-          return view('manejo', ["User"=>$this->getFirstName($this->usuario['name']), "Tela"=>"Manejo" ,'Plantios'=>$plantios,'mensagem'=>$mensagem,'status'=>$status,'Mostrar'=>$result->plantio_id ,'show'=>'show','disabled'=>'disabled']);
+          //$plantios=$this->plantiosManejos($request,$id='');
+          //return view('manejo', ["User"=>$this->getFirstName($this->usuario['name']), "Tela"=>"Manejo" ,'Plantios'=>$plantios,'mensagem'=>$mensagem,'status'=>$status,'Mostrar'=>$result->plantio_id ,'show'=>'show','disabled'=>'disabled']);
+          return redirect()->action('ManejoController@index', ['Mensagem'=>$mensagem,'Status'=>$status,'Mostrar'=>$result->plantio_id]);
     }
 
   public function createEstoque(Request $request,$manejo){
@@ -143,8 +146,6 @@ class ManejoController extends Controller
   }
 
   public function storeEstoque(Request $request,$manejo){
-
-
         $result=ManejoPlantio::where('id','=',$manejo)->get(['id as manejoplantio_id','data_hora as data','plantio_id'])->first();
         $result->quantidade=$request->numero_produdos;
         $plantio=Plantio::where('id','=',$result->plantio_id)->get()->first();
@@ -162,8 +163,9 @@ class ManejoController extends Controller
             $status='danger';
             $mensagem='Erro ao salvar estoque do manejo!';
             }
-        $plantios=$this->plantiosManejos($request,$id='');
-        return view('manejo', ["User"=>$this->getFirstName($this->usuario['name']), "Tela"=>"Manejo" ,'Plantios'=>$plantios,'mensagem'=>$mensagem,'status'=>$status,'Mostrar'=>$result['plantio_id'] ,'show'=>'show' ,'disabled'=>'disabled']);
+        //$plantios=$this->plantiosManejos($request,$id='');
+        //return view('manejo', ["User"=>$this->getFirstName($this->usuario['name']), "Tela"=>"Manejo" ,'Plantios'=>$plantios,'mensagem'=>$mensagem,'status'=>$status,'Mostrar'=>$result['plantio_id'] ,'show'=>'show' ,'disabled'=>'disabled']);
+        return redirect()->action('ManejoController@index', ['Mensagem'=>$mensagem,'Status'=>$status,'Mostrar'=>$result['plantio_id']]);
   }
 
 

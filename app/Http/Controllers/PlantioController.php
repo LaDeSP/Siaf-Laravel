@@ -13,12 +13,8 @@ use Illuminate\Http\Request;
 class PlantioController extends Controller
 {
     public function index(Request $request,$mensagem='',$status=''){
-            //return Plantio::get();
-
             $plantios=$this->plantios($request);
-            return view('plantio', ["User"=>$this->getFirstName($this->usuario['name']) ,'Plantios'=>$plantios , "Tela"=>"Plantio"]);
-
-
+            return view('plantio', ["User"=>$this->getFirstName($this->usuario['name']) ,'Plantios'=>$plantios , "Tela"=>"Plantio",'mensagem'=>$request->mensagem,'status'=>$request->satus]);
     }
 
     public function plantios(Request $request,$id=''){
@@ -33,7 +29,8 @@ class PlantioController extends Controller
           $plantio=array(DB::table('plantio')->join('talhao', 'talhao.id', '=', 'plantio.talhao_id')->join('produto', 'produto.id', '=', 'plantio.produto_id')->where('talhao_id','=',$talhao['id'])->where('plantio.deleted_at','=',null)->get(['plantio.id','data_plantio','data_semeadura','quantidade_pantas','talhao_id','produto_id','talhao.nome as nomet','produto.nome as nomep'])->sortByDesc('data_plantio' )  );
           foreach ($plantio[0] as $key => $value) {
             $manejopalantio=ManejoPlantio::where('plantio_id','=',$value->id)->get(['id'])->first();
-            $value->manejopalantio=$manejopalantio->id;
+            if(isset($manejopalantio))
+              $value->manejopalantio=$manejopalantio->id;
             array_push($plantios,$value);
           }
 
@@ -68,9 +65,10 @@ class PlantioController extends Controller
               $status='danger';
               $mensagem='Erro ao salvar o plantio!';
             }
-            $plantios=$this->plantios($request);
+            //$plantios=$this->plantios($request);
 
-            return view('plantio', ["User"=>$this->getFirstName($this->usuario['name']) ,'Plantios'=>$plantios , "Tela"=>"Plantio",'mensagem'=>$mensagem,'status'=>$status]);
+            //return view('plantio', ["User"=>$this->getFirstName($this->usuario['name']) ,'Plantios'=>$plantios , "Tela"=>"Plantio",'mensagem'=>$mensagem,'status'=>$status]);
+            return redirect()->action('PlantioController@index', ['mensagem'=>$mensagem,'status'=>$status]);
 
     }
 
@@ -88,9 +86,9 @@ class PlantioController extends Controller
               $mensagem='Erro ao editar o plantio!';
             }
 
-            $plantios=$this->plantios($request);
-
-            return view('plantio', ["User"=>$this->getFirstName($this->usuario['name']) ,'Plantios'=>$plantios , "Tela"=>"Plantio",'mensagem'=>$mensagem,'status'=>$status]);
+            //$plantios=$this->plantios($request);
+            //return view('plantio', ["User"=>$this->getFirstName($this->usuario['name']) ,'Plantios'=>$plantios , "Tela"=>"Plantio",'mensagem'=>$mensagem,'status'=>$status]);
+            return redirect()->action('PlantioController@index', ['mensagem'=>$mensagem,'status'=>$status]);
           }
 
     public function destroy(Request $request,$id){
@@ -104,9 +102,9 @@ class PlantioController extends Controller
                       $mensagem='Erro ao excluir o plantio!';
                     }
 
-                    $plantios=$this->plantios($request);
-
-                    return view('plantio', ["User"=>$this->getFirstName($this->usuario['name']) ,'Plantios'=>$plantios , "Tela"=>"Plantio",'mensagem'=>$mensagem,'status'=>$status]);
+                    //$plantios=$this->plantios($request);
+                    //return view('plantio', ["User"=>$this->getFirstName($this->usuario['name']) ,'Plantios'=>$plantios , "Tela"=>"Plantio",'mensagem'=>$mensagem,'status'=>$status]);
+                    return redirect()->action('PlantioController@index', ['mensagem'=>$mensagem,'status'=>$status]);
     }
 
 }

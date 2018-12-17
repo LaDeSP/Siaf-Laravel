@@ -30,6 +30,7 @@ class EstoqueController extends Controller
           foreach ($Estoques as $key => $Estoque) {
             $Estoque->disponivel=Estoque::produtosDisponiveis($Estoque->id);
           }
+
         return view('estoque', ["User"=>$this->getFirstName($this->usuario['name']) ,'Estoques'=>$Estoques , "Tela"=>"Estoque", 'mensagem'=>$request->mensagem,'status'=>$request->status]);
 
 

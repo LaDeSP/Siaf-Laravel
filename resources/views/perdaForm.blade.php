@@ -36,13 +36,13 @@
         <h6>Produto: {{$Produto}} - {{$Max}} {{$Unidade}}  <h6>
     </div>
         <div class="row linhaFrom">
-            <label class="col-5">Descricao:</label>
-            <input class="col-5" type="text" name="descricao" value="">
+            <label class="col-4">Descricao:</label>
+            <input class="col-7" type="text" name="descricao" value="">
         </div>
 
         <div class="row linhaFrom">
-            <label class="col-5">Data:</label>
-            <input class="col-5" type="date" name="data" value="">
+            <label class="col-4">Data:</label>
+            <input class="col-7" type="date" name="data" value="">
         </div>
 
 
@@ -52,8 +52,8 @@
           <input  type="hidden" name='estoque_id' value="{{$Estoque}}">
 
         <div class="row linhaFrom">
-            <label class="col-5">Destino:<span class="text-danger">*</span></label>
-            <select class="col-5 form-control" name="destino_id" required='required'>
+            <label class="col-4">Destino:<span class="text-danger">*</span></label>
+            <select class="col-7 form-control" name="destino_id" required='required'>
                 @foreach ($Destinos as $destino)
                 <option  @isset($Vendas)@if($destino->id == $Vendas->destino_id) echo selected  @endif @endisset value="{{$destino->id}}">{{$destino->destino}}</option>
                 @endforeach
@@ -63,8 +63,8 @@
     </div>
 
     <div class="row linhaFrom">
-        <label class="col-5">Quantidade:</label>
-        <input  id='tentacles' class="col-5" type="number" name="quantidade" min=1 max={{$Max}} value="">
+        <label class="col-4">Quantidade:</label>
+        <input  id='tentacles' class="col-7" type="number" name="quantidade" min=1 max={{$Max}} value="">
     </div>
 
     <div class="modal-footer">

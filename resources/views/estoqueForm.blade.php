@@ -10,13 +10,13 @@
       <div class="modal-body">
 
         <div class="row linhaFrom">
-            <label class="col-5">Quantidade:</label>
-            <input class="col-5" type="number" min="1" name="quantidade" value="@isset($dados){{$dados->quantidade}}@endisset">
+            <label class="col-4">Quantidade:</label>
+            <input class="col-7" type="number" min="1" name="quantidade" value="@isset($dados){{$dados->quantidade}}@endisset">
         </div>
 
         <div class="row linhaFrom">
-           <label class="col-5">Produto:<span class="text-danger">*</span></label>
-           <select class="col-5" name="produto_id" required='required'>
+           <label class="col-4">Produto:<span class="text-danger">*</span></label>
+           <select class="col-7" name="produto_id" required='required'>
                    @foreach ($Propriedade['produto'] as $produto)
                        <option  @isset($dados)@if($produto['id']== $dados->produto_id ) echo selected  @endif @endisset value="{{$produto['id']}}">{{$produto['nome']}}</option>
                    @endforeach
@@ -25,8 +25,8 @@
        </div>
 
         <div class="row linhaFrom">
-            <label class="col-5">Data:<span class="text-danger">*</span></label>
-            <input class="col-5" type="date" name="data" required='required' value="@isset($dados){{$dados->data}}@endisset">
+            <label class="col-4">Data:<span class="text-danger">*</span></label>
+            <input class="col-7" type="date" name="data" required='required' value="@isset($dados){{$dados->data}}@endisset">
         </div>
 
 

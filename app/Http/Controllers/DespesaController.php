@@ -16,7 +16,7 @@ class DespesaController extends Controller
     {
         $propriedade = $this->getPropriedade($request);
         $despesas = Despesa::ler('propriedade_id', $propriedade->id);
-        return view('despesa', ["propriedade" => $propriedade, "dados" => $despesas,"User"=>$this->getFirstName($this->usuario['name']), "Tela"=>"Despesa"]);
+        return view('despesa', ["propriedade" => $propriedade, "dados" => $despesas,"User"=>$this->getFirstName($this->usuario['name']), "Tela"=>"Despesas"]);
     }
 
     /**
@@ -48,7 +48,7 @@ class DespesaController extends Controller
                 $status='danger';
                 $mensagem='Sucesso ao salvar a despesa';
             }
-            return view('despesa', ["propriedade" => $propriedade, "dados" => $despesas,"User"=>$this->getFirstName($this->usuario['name']), "Tela"=>"Despesa", "status" => $status, "mensagem" => $mensagem]);
+            return view('despesa', ["propriedade" => $propriedade, "dados" => $despesas,"User"=>$this->getFirstName($this->usuario['name']), "Tela"=>"Despesas", "status" => $status, "mensagem" => $mensagem]);
         }else{
             return 405;
         }
@@ -96,7 +96,7 @@ class DespesaController extends Controller
                 $status='danger';
                 $mensagem='Sucesso ao editar a despesa';
             }
-            return view('despesa', ["propriedade" => $propriedade, "dados" => $despesas,"User"=>$this->getFirstName($this->usuario['name']), "Tela"=>"Despesa", "status" => $status, "mensagem" => $mensagem]);
+            return view('despesa', ["propriedade" => $propriedade, "dados" => $despesas,"User"=>$this->getFirstName($this->usuario['name']), "Tela"=>"Despesas", "status" => $status, "mensagem" => $mensagem]);
         }else{
             return 405;
         }
@@ -121,7 +121,7 @@ class DespesaController extends Controller
                 $status='danger';
                 $mensagem='Sucesso ao excluir a despesa';
             }
-            return view('despesa', ["propriedade" => $propriedade, "dados" => $despesas,"User"=>$this->getFirstName($this->usuario['name']), "Tela"=>"Despesa", "status" => $status, "mensagem" => $mensagem]);
+            return view('despesa', ["propriedade" => $propriedade, "dados" => $despesas,"User"=>$this->getFirstName($this->usuario['name']), "Tela"=>"Despesas", "status" => $status, "mensagem" => $mensagem]);
         }
         return 405;
     }

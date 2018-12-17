@@ -5,13 +5,8 @@
     	<div class="col-10 text-right">
     		<a id="add" data-toggle="modal" data-target="#exampleModal" class="btn btn-success">Adicionar</a>
     	</div>
-			@if(empty($dados[0]))
-				<div class="">
-					<p>Por favor, adicione despesas!</p>
-				</div>
-			@else
-				<div class="col-10" >
-					<table class="table">
+                <div class="col-10" >
+                    <table class="table">
                         <thead>
                             <tr>
                                 <th>Propriedade</th>
@@ -24,6 +19,11 @@
                             </tr>
                         </thead>
                         <tbody>
+                         @if(($dados->isEmpty()))
+                            <div class="">
+                                <p>Por favor, adicione despesas!</p>
+                            </div>
+			             @endif
                             @foreach ($dados as $d)
                                 <tr>
                                     <td> {{$propriedade->nome}} </td>
@@ -50,8 +50,7 @@
                             @endforeach
                         </tbody>
                     </table>
-				</div>
-			@endif
+                </div>
 	</div>
 
     <!-- Modal add -->

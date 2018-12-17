@@ -20,7 +20,7 @@ class VendasController extends Controller
     public function index(Request $request)
     {
         $propriedade = $this->getPropriedade($request);
-        $allVenda = Venda::vendas($propriedade,$id='');
+        $allVenda = Venda::vendas($propriedade, $id='');
         return view('venda', ["User"=>$this->getFirstName($this->usuario['name']) ,'Vendas'=>$allVenda , "Tela"=>"Venda"]);
     }
     
@@ -91,7 +91,7 @@ class VendasController extends Controller
         $destinos = Venda::destino();
         $propriedade = $this->getPropriedade($request);
         $estoques = Estoque::estoquesPropriedade($propriedade->id);
-        $venda = Venda::vendas($propriedade,$id);
+        $venda = Venda::vendas($propriedade, $id);        
 
         foreach ($estoques as $key => $estoque) {
             $estoque->quantidadedisponivel=Estoque::produtosDisponiveis($estoque->id);

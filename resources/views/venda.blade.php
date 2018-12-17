@@ -82,8 +82,8 @@
               <th>Produto</th>
             <th>Quantidade</th>
             <th>Unidade</th>
-        		<th>Nota</th>
-        		<th>Valor R$</th>
+            <th>Valor unitário R$</th>
+            <th>Total R$</th>
         		<th>Destino</th>
             <th>Data</th>
             <th>Ações</th>
@@ -96,8 +96,8 @@
                 <td>{{$venda->produto}}</td>
                 <td>{{$venda->quantidade}}</td>
                 <td>{{$venda->unidade}}</td>
-                <td class="p">{{$venda->nota}}</td>
                 <td>{{$venda->valor_unit}}</td>
+                <td>{{$venda->quantidade * $venda->valor_unit}}</td>
                 <td>{{$venda->nome}}</td>
                 <td class="data">{{$venda->data}}</td>
 								<td>

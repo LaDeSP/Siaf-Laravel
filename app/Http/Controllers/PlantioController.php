@@ -5,6 +5,7 @@ use App\Models\Plantio;
 use App\Models\Propriedade;
 use App\Models\Produto;
 use App\Models\Talhao;
+use App\Models\ManejoPlantio;
 use Illuminate\Support\Facades\DB;
 
 use Illuminate\Http\Request;
@@ -17,6 +18,7 @@ class PlantioController extends Controller
             $plantios=$this->plantios($request);
             return view('plantio', ["User"=>$this->getFirstName($this->usuario['name']) ,'Plantios'=>$plantios , "Tela"=>"Plantio"]);
 
+
     }
 
     public function plantios(Request $request,$id=''){
@@ -28,8 +30,10 @@ class PlantioController extends Controller
       $talhoes=Talhao::all()->where('propriedade_id','=',$propiedade['id']);
       $plantios = array();
       foreach ($talhoes as $key => $talhao) {
-          $plantio=array(DB::table('plantio')->join('talhao', 'talhao.id', '=', 'plantio.talhao_id')->join('produto', 'produto.id', '=', 'plantio.produto_id') ->where('talhao_id','=',$talhao['id'])->where('plantio.deleted_at','=',null)->get(['plantio.id','data_plantio','data_semeadura','quantidade_pantas','talhao_id','produto_id','talhao.nome as nomet','produto.nome as nomep'])->sortByDesc('data_plantio' )  );
+          $plantio=array(DB::table('plantio')->join('talhao', 'talhao.id', '=', 'plantio.talhao_id')->join('produto', 'produto.id', '=', 'plantio.produto_id')->where('talhao_id','=',$talhao['id'])->where('plantio.deleted_at','=',null)->get(['plantio.id','data_plantio','data_semeadura','quantidade_pantas','talhao_id','produto_id','talhao.nome as nomet','produto.nome as nomep'])->sortByDesc('data_plantio' )  );
           foreach ($plantio[0] as $key => $value) {
+            $manejopalantio=ManejoPlantio::where('plantio_id','=',$value->id)->get(['id'])->first();
+            $value->manejopalantio=$manejopalantio->id;
             array_push($plantios,$value);
           }
 

@@ -108,7 +108,7 @@ $( document ).ready(function() {
 										<form  class="col-sm-6 	" method="post"  action="/plantio/{{$Plantio->id}}">
 											@method("DELETE")
 											@csrf
-											<button msg='Tem certeza que deseja excluir o Plantio .'  type="submit" class="btn btn-xs btn-danger delete confirm">Excluir</button>
+											<button @isset($Plantio->manejopalantio)  disabled @endisset msg='Tem certeza que deseja excluir o Plantio .'  type="submit" class="btn btn-xs btn-danger delete confirm">Excluir</button>
 										</form>
 
 									</div>

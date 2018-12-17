@@ -57,10 +57,10 @@
 </div>
 <script type="text/javascript">
    $( document ).ready(function() {
-      
       $('select[name=estoque_id]').change(function () {
          var idEstoque = $(this).val();
          $.get('/quantidade/' + idEstoque, function (quantidade) {
+            console.log(quantidade);
             var input=$('#tentacles')
             input.val('');
             input.attr({'max':quantidade})
@@ -68,7 +68,7 @@
       });
       
       $('#tentacles').change(function (){
-         if(( parseInt( $(this).val(),10 ) > parseInt( $(this).attr('max') ,10) )   ) {
+         if(( parseInt( $(this).val(),10 ) > parseInt( $(this).attr('max'), 10) )   ) {
             $(this).val($(this).attr('max') )
          }
          if($(this).val()< $(this).attr('min')  ) {

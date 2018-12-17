@@ -92,7 +92,7 @@ class VendasController extends Controller
         $propriedade = $this->getPropriedade($request);
         $estoques = Estoque::estoquesPropriedade($propriedade->id);
         $venda = Venda::vendas($propriedade, $id);        
-
+        
         foreach ($estoques as $key => $estoque) {
             $estoque->quantidadedisponivel=Estoque::produtosDisponiveis($estoque->id);
         }
@@ -137,11 +137,13 @@ class VendasController extends Controller
     public function destroy(Request $request,$id)
     {
         $salva=Venda::where('id',$id)->delete();
-        if($salva==true){
+        if($salva==true)
+        {
             $status='success';
             $mensagem='Sucesso ao excluir a venda!';
         }
-        else{
+        else
+        {
             $status='danger';
             $mensagem='Erro ao excluir a venda!';
         }
@@ -151,7 +153,7 @@ class VendasController extends Controller
         
         return view('venda', ["User"=>$this->getFirstName($this->usuario['name']) ,'Vendas'=>$allVenda , "Tela"=>"Plantio",'mensagem'=>$mensagem,'status'=>$status]);
     }
-
+    
     public function quantidadeProduto($idEstoque)
     {
         $quantidade = Estoque::produtosDisponiveis($idEstoque);

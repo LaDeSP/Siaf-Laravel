@@ -1,4 +1,4 @@
-<div class="modal-dialog" role="document">
+<div class="modal-dialog modal-lg" role="document">
   <div class="modal-content">
     {{ Form::open(array('url'=>$Url, 'method' => $Method, 'class'=>'col-md-12')) }}
   <div class="modal-header">
@@ -15,8 +15,8 @@
         </div>
 
         <div class="row linhaFrom">
-           <label class="col-3">Produto:<span class="text-danger">*</span></label>
-           <select class="col-9" name="produto_id" required='required'>
+           <label class="col-5">Produto:<span class="text-danger">*</span></label>
+           <select class="col-5" name="produto_id" required='required'>
                    @foreach ($Propriedade['produto'] as $produto)
                        <option  @isset($dados)@if($produto['id']== $dados->produto_id ) echo selected  @endif @endisset value="{{$produto['id']}}">{{$produto['nome']}}</option>
                    @endforeach

@@ -1,4 +1,4 @@
-<div class="modal-dialog" role="document">
+<div class="modal-dialog modal-lg" role="document">
   <div class="modal-content">
     {{ Form::open(array('url'=>$Url, 'method' => $Method, 'class'=>'col-md-12')) }}
   <div class="modal-header">
@@ -22,9 +22,9 @@
             <input class="col-5" @isset($disabled){{$disabled}}@endisset type="number" min="1" name="horas_utilizadas" value="@isset($dados){{$dados->horas_utilizadas}}@endisset">
         </div>
         <div class="row linhaFrom">
-            <label class="col-3">Manejo:<span class="text-danger">*</span></label>
+            <label class="col-5">Manejo:<span class="text-danger">*</span></label>
 
-            <select class="col-9" @isset($disabled){{$disabled}}@endisset name="manejo_id" required='required'>
+            <select class="col-5" @isset($disabled){{$disabled}}@endisset name="manejo_id" required='required'>
                     @foreach ($Manejos as $manejo)
                         <option  @isset($dados)@if($manejo['id']== $dados->manejo_id ) {{$select}}  @endif @endisset value="{{$manejo->id}}">{{$manejo->nome}}</option>
                     @endforeach

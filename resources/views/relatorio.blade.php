@@ -10,10 +10,9 @@
                 @csrf
                 <div class="card-header">
                   <h5 class="mb-0">
-                    <div class="row">
-                        <div class="">
-                            <select  form="relatorio" id="tipo" name="tipo" class="custom-select col-12" >
-                                <option selected value="vendas" class="col-4"> Listar vendas realizadas por período</option>
+                    <div class="row align-center">
+                            <select  form="relatorio" id="tipo" name="tipo" class="custom-select col-8 p-0 offset-2" >
+                                <option hidden selected>Selecione uma opção</option>
                                 <option value="investimentos" class="col-4"> Listar investimentos realizados por período </option>
                                 <option value="despesa" class="col-4"> Listar despesa realizadas por período</option>
                                 <option value="plantios" class="col-4"> Listar plantios realizados por período</option>
@@ -24,11 +23,19 @@
                                 <option value="produtos-propriedade" class="col-4"> Listar produtos ativos e inativos por propriedade</option>
                                 <option value="historico-manejo-plantio" class="col-4"> Listar histórico de manejo por plantio</option>
                                 <option value="estoque-propriedade" class="col-4"> Listar estoque por propriedade por período </option>
+                                <option value="vendas" class="col-4"> Listar vendas realizadas por período</option>
+                                <option value="perdas" class="col-4"> Listar perdas por período</option>
                             </select>
+                            <select form="relatorio" id="propriedade" name="propriedade_id" class="custom-select col-8 p-0 offset-2"@if(count($propriedades)==1) style="-moz-appearance: none; -webkit-appearance: none; appearance: none; display: none" @else style="display: none" @endif>   
+                                	@foreach ($propriedades as $propriedade)
+										<option value="{{$propriedade->id}}"> {{$propriedade->nome}}</option>
+									@endforeach
+						     </select>
+                        <input class="col-3 p-0 offset-2" type="date" name="date-inicio">
+                        <input class="col-3 p-0 offset-2" type="date" name="date-final">
+                        <div class="col-10">
+                        	<button id="gerar" class="col-2 btn btn-info"  class="btn btn-link" type="submit"> Gerar</button>  	
                         </div>
-                        <input class="col-2" type="date" name="date-inicio">
-                        <input class="col-2" type="date" name="date-final">
-                        <button id="gerar" class="col-1 btn btn-info"  class="btn btn-link" type="submit"> Gerar</button>
                     </div>
                   </h5>
                 </div>
@@ -39,7 +46,13 @@
 			    	<table id="informacoes" class="table">
 	                    <thead class="thead-light">
 							@foreach($topo as $t)
-							    <th>{{$t}}</th>
+							    <th>{{$t}} 
+							    	@if($t == 'Área') 
+										(m²)
+									@elseif($t == 'Total' || $t == 'Valor Unitário')
+										(R$)
+									@endif
+							    </th>
 							@endforeach					
 	                    </thead>
 	                    <tbody>
@@ -60,14 +73,20 @@
 	                <table class="table">
 	                  	<thead class="thead-light">
 	                      	@foreach($lastLine as $campoLast)
-					            <th colspan="{{(count($topo)/2)}}" scope="col">{{$campoLast}}</th>   
+					            <th colspan="{{(count($topo)/2)}}" scope="col">{{$campoLast}} 
+					            	@if($campoLast == 'Área') 
+										Total (m²)
+									@elseif($campoLast == 'Total' || $campoLast == 'Valor Unitário')
+										(R$)
+									@endif
+					            </th>   
 						    @endforeach
 	                   	</thead>
 	                   	<tbody>	                                
 		                    @foreach($totalG as $total)
 								<tr>
 		                           	@foreach($lastLine as $campoLast)
-										<td colspan="{{(count($topo)/2)}}">{{$total->{$campoLast} }}</td>
+										<td colspan="{{(count($topo)/2)}}">{{$total->{$campoLast} }} </td>
 									@endforeach
 								</tr>
 							@endforeach
@@ -82,15 +101,36 @@
 @isset($conteudo)
 	$( document ).ready(function() {
 		$('option').each(function(e){
-				if(this.value === '{{$tipo}}'){
-					this.selected=true;
-					texto = $(this).text().replace('Listar ','');
-					$("#tituloTab").text(texto.charAt(1).toUpperCase()+texto.substr(2));
-				}
-			});
+			if(this.value === '{{$tipo}}'){
+				this.selected=true;
+				texto = $(this).text().replace('Listar ','');
+				$("#tituloTab").text(texto.charAt(1).toUpperCase()+texto.substr(2));
+			}
+		});
 		$("input[name=date-inicio]").val('{{$inicio}}');
 		$("input[name=date-final]").val('{{$final}}');
+		$("select [name=tipo]" ).change(function () {
+	   		if($('option:selected').val()=='talhão'){
+	   			console.log('talhão');
+	   		}
+	   		console.log('t');
+	  	});
 	});
 @endisset
+	$( document ).ready(function() {
+		$("select[name=tipo]").change(function () {
+	   		if($('option:selected').val()=='talhão'){
+	   			console.log('talhão');
+	   			$("input[name=date-inicio]").css('display','none');
+				$("input[name=date-final]").css('display','none');
+				$("select[name=propriedade_id]").show();
+				
+	   		}else{
+	   			$("input[name=date-inicio]").css('display','block');
+				$("input[name=date-final]").css('display','block');
+				$("select[name=propriedade_id]").css('display','none');
+	   		}
+	  	});
+	}).change();
 </script>
 @endsection

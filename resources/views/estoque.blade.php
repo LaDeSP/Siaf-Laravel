@@ -75,6 +75,7 @@ $( document ).ready(function() {
 
 
 			<table class="table">
+        @isset($Estoques[0]->id)
 				<thead>
 					<tr>
             <th>Produto</th>
@@ -88,6 +89,7 @@ $( document ).ready(function() {
             <th>Ações</th>
 					</tr>
 				</thead>
+        @endisset
 				<tbody>
 
 			       @foreach ($Estoques as $Estoque)
@@ -139,7 +141,9 @@ $( document ).ready(function() {
 				</tbody>
 			</table>
       @if(count($Estoques)==0)
-        Por favor, adicione novos Estoques!
+        <div class='text-center'>
+          Por favor, adicione novos Estoques!
+        </div>
       @endif
 	</div>
 

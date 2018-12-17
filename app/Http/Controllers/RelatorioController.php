@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\DB;
 
 class RelatorioController extends Controller
 {
+    
     /**
      * Display a listing of the resource.
      *
@@ -17,11 +18,13 @@ class RelatorioController extends Controller
      */
     public function index(Request $request)
     {
-    	$propriedade = $this->getPropriedade($request);
-    	if($request['todo']['conteudo']){
-            return view('relatorio', ["User"=>$this->getFirstName($this->usuario['name']), "Tela"=>"Relatório", "topo"=>$request['todo']['topo'], "conteudo"=>$request['todo']['conteudo']]);
-        }else
+        // dd($request);
+    	// if($request['topo']){
+     //        return $request;
+     //        // return view('relatorio', ["User"=>$this->getFirstName($this->usuario['name']), "Tela"=>"Relatório", "topo"=>$request['todo']['topo'], "conteudo"=>$request['todo']['conteudo']]);
+     //    }else{
             return view('relatorio', ["User"=>$this->getFirstName($this->usuario['name']), "Tela"=>"Relatório"]);
+        // }
     }
 
     /**
@@ -43,30 +46,49 @@ class RelatorioController extends Controller
     public function store(Request $request)
     {
         if ($request['tipo'] == "despesa") {
-        	$despesa = DB::table('despesa')->whereBetween('data', [$request['date-inicio'], $request['date-fim']])->get(['despesa.nome', 'despesa.quantidade', 'despesa.valor_unit', 'despesa.data', 'despesa.descricao']);
-        	$topo= '<tr><th>Despesa</th><th>Quantidade</th><th>Valor Unitário</th><th>Data</th><th>Descrição</th></tr>';
-        	$topoGraph= '<tr><th>Data</th><th>Valor</tr>';
-        	$dado='';
-        	$dadoGraph='';
-        	// foreach ($despesa as  $key => $value) {
-        	// 	$dado=$dado.'<tr><td>'. $value->nome .'</td><td>'. $value->quantidade .'</td><td>'.$value->valor_unit.'</td><td class="data">'.\Carbon\Carbon::parse($value->data)->format('d/m/Y').'</td><td>'.$value->descricao.'</td></tr>';
-        	// 	$dadoGraph=$dadoGraph.'<tr><td class="data">'.\Carbon\Carbon::parse($value->data)->format('d/m/Y') .'</td><td>'.($value->valor_unit * $value->quantidade).'</td></tr>';
-        	// }
-        	$todo= array('dado' => $dado, 'topo'=> $topo,'dadoGraph' => $dadoGraph, 'topoGraph'=> $topoGraph );
-        	return $todo;
-        }
-        else if($request['tipo'] == "vendas"){
-            return $this->vendas($request);
+            return $this->despesas($request);
+        } else if($request['tipo'] == "vendas"){
+             return $this->vendas($request);
         }
         return 405;
     }
-
     public function vendas(Request $request){
-           /*$v = Venda::with(['estoque_id', 'quantidade'])
-                        ->whereBetween('data', [$request['date-inicio'], $request['date-fim']])
-                        ->select(DB::raw('*'));*/
-        $todo = array("topo"=>["Estoque","Quantidade"],"conteudo"=>[["1",50],["3", 100]]);
-        return redirect()->action("RelatorioController@index",["todo" => $todo]);
+        $propriedade = $this->getPropriedade($request);
+        $topo = ['Produto','Quantidade', 'Valor','Total','Data','Nota','Destino'];
+        $lastLine= ['Produto','Total','Quantidade'];
+        $vendas = Venda::join('destino', 'venda.destino_id','=','destino.id')
+        ->join('estoque', 'venda.estoque_id','=','estoque.id')
+        ->leftJoin('produto', 'estoque.produto_id','=','produto.id')
+        ->select('produto.nome as Produto','venda.quantidade as Quantidade', 'venda.valor_unit as Valor', 'venda.data as Data', 'venda.nota as Nota','destino.nome as Destino', (DB::raw('sum(venda.quantidade * venda.valor_unit) as Total')))
+        ->whereBetween('venda.data', [$request['date-inicio'], $request['date-final']])
+        ->where('estoque.propriedade_id', '=',$propriedade->id)
+        ->where('destino.tipo', '=',1)
+        ->groupBy('venda.id')
+        ->get();
+        $totalG= Venda::join('destino', 'venda.destino_id','=','destino.id')
+        ->join('estoque', 'venda.estoque_id','=','estoque.id')
+        ->leftJoin('produto', 'estoque.produto_id','=','produto.id')
+        ->select((DB::raw('produto.nome as Produto, SUM(venda.quantidade * venda.valor_unit) as Total, SUM(venda.quantidade) as Quantidade' )))
+        ->whereBetween('venda.data', [$request['date-inicio'], $request['date-final']])
+        ->where('estoque.propriedade_id', '=',$propriedade->id)
+        ->where('destino.tipo', '=',1)
+        ->groupBy('produto.id')
+        ->get();
+         return view('relatorio', ["User"=>$this->getFirstName($this->usuario['name']), "Tela"=>"Relatório", "topo"=>$topo, "conteudo"=>$vendas, "tipo" => $request["tipo"], "inicio"=>$request['date-inicio'], "final"=>$request['date-final'],'lastLine'=>$lastLine, 'totalG'=> $totalG]);
+
+        //    $v = Venda::with(['estoque_id', 'quantidade'])
+        //                 ->whereBetween('data', [$request['date-inicio'], $request['date-fim']])
+        //                 ->select(DB::raw('*'));
+        // $todo = array("topo"=>["Estoque","Quantidade"],"conteudo"=>$v);
+        // return redirect()->action("RelatorioController@index",["todo" => $todo]);
+    }
+    function despesas(Request $request){
+        $propriedade = $this->getPropriedade($request);
+        $topo = ['Despesa', 'Quantidade', 'Data','Valor Unitário','Total',  'Descrição'];
+        $lastLine= ['Total','Quantidade'];
+        $despesas = Despesa::select('despesa.nome as Despesa', 'despesa.quantidade as Quantidade','despesa.valor_unit as Valor Unitário', 'despesa.data as Data', 'despesa.descricao as Descrição', (DB::raw('sum(valor_unit*quantidade) as Total')))->whereBetween('data', [$request['date-inicio'], $request['date-final']])->where('propriedade_id', '=',$propriedade->id)->groupBy('id')->get();
+        $totalG= Despesa::select((DB::raw(' SUM(valor_unit*quantidade) as Total, SUM(quantidade) as Quantidade')))->whereBetween('data', [$request['date-inicio'], $request['date-final']])->where('propriedade_id', '=',$propriedade->id)->get();
+         return view('relatorio', ["User"=>$this->getFirstName($this->usuario['name']), "Tela"=>"Relatório", "topo"=>$topo, "conteudo"=>$despesas, "tipo" => $request["tipo"], "inicio"=>$request['date-inicio'], "final"=>$request['date-final'],'lastLine'=>$lastLine, 'totalG'=> $totalG]);
     }
     /**
      * Display the specified resource.

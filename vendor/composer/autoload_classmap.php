@@ -52,7 +52,7 @@ return array(
     'App\\Models\\Unidade' => $baseDir . '/app/Models/Unidade.php',
     'App\\Models\\Venda' => $baseDir . '/app/Models/Venda.php',
     'App\\Notifications\\ResetPassword' => $baseDir . '/app/Notifications/ResetPassword.php',
-    'App\\Perda' => $baseDir . '/app/Models/Perda.php',
+    'App\\Perda' => $baseDir . '/app/Perda.php',
     'App\\Providers\\AppServiceProvider' => $baseDir . '/app/Providers/AppServiceProvider.php',
     'App\\Providers\\AuthServiceProvider' => $baseDir . '/app/Providers/AuthServiceProvider.php',
     'App\\Providers\\BroadcastServiceProvider' => $baseDir . '/app/Providers/BroadcastServiceProvider.php',

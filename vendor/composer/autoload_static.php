@@ -486,7 +486,7 @@ class ComposerStaticInit01866e94038b84acd1c89df5cf260e47
         'App\\Models\\Unidade' => __DIR__ . '/../..' . '/app/Models/Unidade.php',
         'App\\Models\\Venda' => __DIR__ . '/../..' . '/app/Models/Venda.php',
         'App\\Notifications\\ResetPassword' => __DIR__ . '/../..' . '/app/Notifications/ResetPassword.php',
-        'App\\Perda' => __DIR__ . '/../..' . '/app/Models/Perda.php',
+        'App\\Perda' => __DIR__ . '/../..' . '/app/Perda.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
         'App\\Providers\\AuthServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AuthServiceProvider.php',
         'App\\Providers\\BroadcastServiceProvider' => __DIR__ . '/../..' . '/app/Providers/BroadcastServiceProvider.php',

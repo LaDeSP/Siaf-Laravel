@@ -3,91 +3,65 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Perda;
-use App\Models\Destino;
 use App\Models\Estoque;
+use App\Models\Produto;
+use App\Models\Perda;
+use App\Models\Talhao;
+use App\Models\Plantio;
+use App\Models\Propriedade;
+use App\Models\ManejoPlantio;
+use Illuminate\Support\Facades\DB;
 
 
-class PerdaController extends Controllers
+
+class PerdaController extends Controller
 {
-	/**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index(Perda $aln)
-    {
-        $allPerda = $aln->all();
-        return compact("allPerda");
-    }
-
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
+     * Handle the incoming request.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        $ob =  $request->input('info');
-        $perda = ['ID'=> $ob['perda']['id'], 'Quantidade' => $ob['perda']['quantidade'],'Valor' => $ob['perda']['valor_unit'], 'Data' => $ob['perda']['data'], 'Nota' => $ob['perda']['nota'], 'Destino' => $ob['perda']['destino'], 'Estoque' => ['perda']['estoque_id']];
-        return response()->json(Perda::inserir($perda));
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        $perda = Perda::ler($id);
-        return $perda;
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+    public function __invoke(Request $request)
     {
         //
     }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+    public function index(Request $request,$id)
     {
-        //
+      $propriedade=$this->getPropriedade($request);
+      $destinos=$destinos = DB::table('destino')
+              ->select('destino.id', 'nome AS destino')
+              ->where('destino.deleted_at','=',null)
+              ->where('destino.tipo','=',0)
+  			      ->get();
+      $max=Estoque::produtosDisponiveis($id);
+      $estoque=DB::table('estoque')
+ 			->join('produto', 'estoque.produto_id', '=', 'produto.id')
+ 			->join('unidade', 'unidade.id', '=', 'produto.unidade_id')
+      ->where('estoque.deleted_at','=',null)
+      ->where('estoque.id','=',$id)
+      ->get(['produto.nome as nomep','unidade.nome as nomeu']);
+      $estoque=$estoque->first();
+      return view('perdaForm', ["User"=>$this->getFirstName($this->usuario['name']) , "Tela"=>"Perda", 'Url'=>'/perda','Method'=>'post','Estoque'=>$id,'Destinos'=>$destinos,'Max'=>$max,'Produto'=>$estoque->nomep,'Unidade'=>$estoque->nomeu ]);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        $perda = Perda::excluir($id);
-        return response($perda);
-    }	
+    public function create(Request $request){
+      $post = array_except($request,['_token'])->toArray();
+
+      $plantio = new Perda($post);
+
+      $salva=$plantio->save();
+      if($salva==true){
+        $status='success';
+        $mensagem='Sucesso ao salvar o Perda!';
+      }
+      else{
+        $status='danger';
+        $mensagem='Erro ao salvar o Perda!';
+      }
+
+      return redirect()->action('EstoqueController@index', ['mensagem'=>$mensagem,'status'=>$status]);
+
+    }
+
 }

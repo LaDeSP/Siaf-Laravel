@@ -16,7 +16,7 @@ class InvestimentoController extends Controller
     {
         $propriedade = $this->getPropriedade($request);
         $investimento = Investimento::ler('propriedade_id', $propriedade->id);
-        return view('investimento',["propriedade" => $propriedade,"dados" => $investimento, "User"=>$this->getFirstName($this->usuario['name']),"Tela" =>"Investimento"]);
+        return view('investimento',["propriedade" => $propriedade,"dados" => $investimento, "User"=>$this->getFirstName($this->usuario['name']),"Tela" =>"Investimentos"]);
     }
 
     /**
@@ -38,7 +38,7 @@ class InvestimentoController extends Controller
             }
             $propriedade = $this->getPropriedade($request);
             $investimento = Investimento::ler('propriedade_id', $propriedade->id);
-            return view('investimento',["propriedade" => $propriedade,"dados" => $investimento, "User"=>$this->getFirstName( $this->usuario['nome']) , "Tela"=>"Investimento",'mensagem'=>$mensagem,'status'=>$status]);
+            return view('investimento',["propriedade" => $propriedade,"dados" => $investimento, "User"=>$this->getFirstName( $this->usuario['nome']) , "Tela"=>"Investimentos",'mensagem'=>$mensagem,'status'=>$status]);
         }else{
             return 405;
         }
@@ -75,7 +75,7 @@ class InvestimentoController extends Controller
             }
             $propriedade = $this->getPropriedade($request);
             $investimento = Investimento::ler('propriedade_id', $propriedade->id);
-            return view('investimento', ["propriedade" => $propriedade,"dados" => $investimento, "User"=>$this->getFirstName($this->usuario['name']),"Tela" =>"Investimento",'mensagem'=>$mensagem,'status'=>$status]);
+            return view('investimento', ["propriedade" => $propriedade,"dados" => $investimento, "User"=>$this->getFirstName($this->usuario['name']),"Tela" =>"Investimentos",'mensagem'=>$mensagem,'status'=>$status]);
         }else{
             return 405;
         }
@@ -100,7 +100,7 @@ class InvestimentoController extends Controller
             }
             $propriedade = $this->getPropriedade($request);
             $investimento = Investimento::ler('propriedade_id', $propriedade->id);
-            return view('investimento',["propriedade" => $propriedade,"dados" => $investimento, "User"=>$this->getFirstName($this->usuario['name']) , "Tela"=>"Investimento",'mensagem'=>$mensagem,'status'=>$status]);
+            return view('investimento',["propriedade" => $propriedade,"dados" => $investimento, "User"=>$this->getFirstName($this->usuario['name']) , "Tela"=>"Investimentos",'mensagem'=>$mensagem,'status'=>$status]);
         }
         return 405;
     }

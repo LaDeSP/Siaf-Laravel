@@ -20,7 +20,7 @@ class VendasController extends Controller
     public function index(Request $request)
     {
         $propriedade = $this->getPropriedade($request);
-        $allVenda = Venda::vendas($propriedade,$id='');
+        $allVenda = Venda::vendas($propriedade, $id='');
         return view('venda', ["User"=>$this->getFirstName($this->usuario['name']) ,'Vendas'=>$allVenda , "Tela"=>"Venda"]);
     }
     
@@ -33,6 +33,10 @@ class VendasController extends Controller
         $destinos = Venda::destino();
         $p=$this->getPropriedade($request);
         $estoques = Estoque::estoquesPropriedade($p->id);
+        foreach ($estoques as $key => $estoque) {
+            $estoque->quantidadedisponivel=Estoque::produtosDisponiveis($estoque->id);
+        }
+        
         return view('vendaForm', ["User"=>$this->getFirstName($this->usuario['name']), 'estoques'=>$estoques, 'destinos'=>$destinos, "Tela"=>"Adicionar Venda" ,'Method'=>'post','Url'=>'/venda']);
     }
     
@@ -87,7 +91,11 @@ class VendasController extends Controller
         $destinos = Venda::destino();
         $propriedade = $this->getPropriedade($request);
         $estoques = Estoque::estoquesPropriedade($propriedade->id);
-        $venda = Venda::vendas($propriedade,$id);
+        $venda = Venda::vendas($propriedade, $id);        
+
+        foreach ($estoques as $key => $estoque) {
+            $estoque->quantidadedisponivel=Estoque::produtosDisponiveis($estoque->id);
+        }
         return view('vendaForm', ["User"=>$this->getFirstName($this->usuario['name']), 'Vendas'=>$venda, 'estoques'=>$estoques, 'destinos'=>$destinos, "Tela"=>"Editar Venda" ,'Method'=>'put','Url'=>'/venda'.'/'.$id]);
     }
     
@@ -126,9 +134,27 @@ class VendasController extends Controller
     * @param  int  $id
     * @return \Illuminate\Http\Response
     */
-    public function destroy($id)
+    public function destroy(Request $request,$id)
     {
-        $venda = Venda::excluir($id);
-        return response($venda);
+        $salva=Venda::where('id',$id)->delete();
+        if($salva==true){
+            $status='success';
+            $mensagem='Sucesso ao excluir a venda!';
+        }
+        else{
+            $status='danger';
+            $mensagem='Erro ao excluir a venda!';
+        }
+        
+        $propriedade = $this->getPropriedade($request);
+        $allVenda = Venda::vendas($propriedade, $id='');
+        
+        return view('venda', ["User"=>$this->getFirstName($this->usuario['name']) ,'Vendas'=>$allVenda , "Tela"=>"Plantio",'mensagem'=>$mensagem,'status'=>$status]);
+    }
+
+    public function quantidadeProduto($idEstoque)
+    {
+        $quantidade = Estoque::produtosDisponiveis($idEstoque);
+        return $quantidade;
     }
 }

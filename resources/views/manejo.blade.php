@@ -122,12 +122,13 @@ $( document ).ready(function() {
 
 
 
-                      <a class="btn  btn-warning col-3"
+                      <a class="btn  btn-warning col-3 @if(! isset($Manejo->estoque)) btn-primary @else btn-primary  disabled @endif "
                         href="/manejo/{{$Manejo->id}}/edit"
                         data-endpoint="/manejo/{{$Manejo->id}}/edit"
                         data-target="exampleModal"
                         data-cache="false",
-                        data-async="true">Editar</a>
+                        data-async="true"
+                        @isset($Manejo->estoque) {{$disabled}}='{{$disabled}}' @endisset>Editar</a>
 
 
                       <form  class="col-4 	" method="post" id="investimento" action="/manejo/{{$Manejo->id}}">

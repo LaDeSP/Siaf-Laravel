@@ -97,7 +97,7 @@ class ManejoController extends Controller
       $Manejos=Manejo::all();
       $dados=ManejoPlantio::all()->where('id','=',$manejo);
       $dados=$dados->first();
-      return view('manejoForm', ["User"=>$this->getFirstName($this->usuario['name']) , "Tela"=>"Adicionar Manejo" ,'Method'=>'put','Url'=>'manejo/'.$manejo, 'Manejos'=>$Manejos,'dados'=>$dados,'select'=>'selected']);
+      return view('manejoForm', ["User"=>$this->getFirstName($this->usuario['name']) , "Tela"=>"Editar Manejo" ,'Method'=>'put','Url'=>'manejo/'.$manejo, 'Manejos'=>$Manejos,'dados'=>$dados,'select'=>'selected']);
     }
 
     public function update(Request $request,$manejo){

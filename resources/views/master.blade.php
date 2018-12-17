@@ -43,9 +43,7 @@
 			width: 100%;
 
 		}
-		.btn-warning, .btn-warning:hover{
-			color: #fff;
-		}
+		
 		.linhaFrom{
 			margin-bottom: 10px
 		}
@@ -136,9 +134,9 @@
 
 				$('.bd-user-modal-sm').css("margin-top", $('.menu').height());
 				$('.op').css("margin",0) ;
-				
+
 				$("#telefone, #celular").mask("(00)00000-0000");
-				
+
 });
 
 

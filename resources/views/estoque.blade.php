@@ -97,10 +97,10 @@ $( document ).ready(function() {
                 <td>{{$Estoque->disponivel}}</td>
                 <td>{{$Estoque->unidade}}</td>
                 <td class='data'>{{$Estoque->data}}</td>
-                <td>{{$Estoque->data_semeadura}}</td>
-                <td>{{$Estoque->data_plantio}}</td>
+                <td class='data'>{{$Estoque->data_semeadura}}</td>
+                <td class='data'>{{$Estoque->data_plantio}}</td>
                 <td>{{$Estoque->nomet}}</td>
-                <td>{{$Estoque->data_hora}}</td>
+                <td class='data'>{{$Estoque->data_hora}}</td>
 
 								<td>
 									<div class="row">

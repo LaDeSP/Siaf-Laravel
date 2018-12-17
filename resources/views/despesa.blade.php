@@ -2,54 +2,55 @@
 @section('usuario', $User)
 @section('conteudo')
     <div class="">
-    	<div class="col-10 text-right">
-    		<a id="add" data-toggle="modal" data-target="#exampleModal" class="btn btn-success">Adicionar</a>
+    	<div class="col-10 text-right adicionar">
+    		<a id="add" data-toggle="modal" data-target="#exampleModal" role="button" class="btn btn-success" style="color:white">Adicionar</a>
     	</div>
                 <div class="col-10" >
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>Propriedade</th>
-                                <th>Despesa</th>
-                                <th>Descrição</th>
-                                <th>Quantidade</th>
-                                <th>Valor (R$)</th>
-                                <th>Data</th>
-                                <th>Ações</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                         @if(($dados->isEmpty()))
-                            <div class="">
+                    @if(($dados->isEmpty()))
+                            <div class="text-center">
                                 <p>Por favor, adicione despesas!</p>
                             </div>
-			             @endif
-                            @foreach ($dados as $d)
+			        @else
+                        <table class="table">
+                            <thead>
                                 <tr>
-                                    <td> {{$propriedade->nome}} </td>
-                                    <td>{{$d->nome}}</td>
-                                    <td>{{$d->descricao}}</td>
-                                    <td>{{$d->quantidade}}</td>
-                                    <td>{{$d->valor_unit}}</td>
-                                    <td class="data">{{ $d->data}}</td>
-                                    <td>
-                                        <div class="row">
-                                            <div class="col-sm-6">
-                                                <a onclick="edit(this)" id ="editDespesa" class="btn btn-xs btn-warning" data-id="{{$d->id}}">Editar</a>                    
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <form method="post" id="investimentoDelete" action="/despesa/{{$d->id}}">
-                                                    @csrf
-                                                    @method("DELETE")
-                                                    <button type="submit" id="" class="btn btn-xs btn-danger delete confirm" msg="Tem certeza que deseja excluir a {{$Tela}} {{$d->nome}} . " name="salvar">Excluir</button>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </td>
+                                    <th>Propriedade</th>
+                                    <th>Despesa</th>
+                                    <th>Descrição</th>
+                                    <th>Quantidade</th>
+                                    <th>Valor (R$)</th>
+                                    <th>Data</th>
+                                    <th>Ações</th>
                                 </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                @foreach ($dados as $d)
+                                    <tr>
+                                        <td> {{$propriedade->nome}} </td>
+                                        <td>{{$d->nome}}</td>
+                                        <td>{{$d->descricao}}</td>
+                                        <td>{{$d->quantidade}}</td>
+                                        <td>{{$d->valor_unit}}</td>
+                                        <td class="data">{{ $d->data}}</td>
+                                        <td>
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <a onclick="edit(this)" id ="editDespesa" class="btn btn-xs btn-warning" data-id="{{$d->id}}">Editar</a>                    
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <form method="post" id="investimentoDelete" action="/despesa/{{$d->id}}">
+                                                        @csrf
+                                                        @method("DELETE")
+                                                        <button type="submit" id="" class="btn btn-xs btn-danger delete confirm" msg="Tem certeza que deseja excluir a {{$Tela}} {{$d->nome}} . " name="salvar">Excluir</button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    @endif
                 </div>
 	</div>
 

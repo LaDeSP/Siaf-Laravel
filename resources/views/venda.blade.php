@@ -85,7 +85,7 @@
                <td>{{$venda->quantidade}}</td>
                <td>{{$venda->unidade}}</td>
                <td>{{$venda->valor_unit}}</td>
-               <td>{{$venda->quantidade * $venda->valor_unit}}</td>
+               <td>{{$venda->total}}</td>
                <td>{{$venda->nome}}</td>
                <td class="data">{{$venda->data}}</td>
                <td>

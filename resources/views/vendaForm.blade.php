@@ -12,13 +12,14 @@
             <label class="col-3">Estoque:<span class="text-danger">*</span></label>
             <select class="col-7 form-control" name="estoque_id" required='required'>
                @foreach ($estoques as $estoque)
-                  @isset($Vendas)
+                  @if(isset($Vendas))
                      @if($estoque->id == $Vendas->estoque_id)
-                        <option  @isset($Vendas)@if($estoque->id == $Vendas->estoque_id) echo selected  @endif @endisset value="{{$estoque->id}}">{{$estoque->nomep}} - {{ \Carbon\Carbon::parse($estoque->data)->format('d/m/Y')}}</option>
-                     @endif 
-                  @endisset
-                  @if($estoque->quantidadedisponivel>0)
-                     <option  value="{{$estoque->id}}">{{$estoque->nomep}} - {{ \Carbon\Carbon::parse($estoque->data)->format('d/m/Y')}}</option>
+                        <option @isset($Vendas)@if($estoque->id == $Vendas->estoque_id) echo selected  @endif @endisset value="{{$estoque->id}}" disabled>{{$estoque->nomep}} - {{ \Carbon\Carbon::parse($estoque->data)->format('d/m/Y')}}</option>                     
+                     @endif
+                  @else
+                     @if($estoque->quantidadedisponivel>0)
+                        <option  value="{{$estoque->id}}">{{$estoque->nomep}} - {{ \Carbon\Carbon::parse($estoque->data)->format('d/m/Y')}}</option>
+                     @endif
                   @endif
                @endforeach
             </select>
@@ -33,8 +34,20 @@
          </div>
          <div class="row linhaFrom">
             <label class="col-3">Quantidade:<span class="text-danger">*</span></label></label>
-            <input id="tentacles" class="col-7" type="number" min="1" max="10" name="quantidade" value="@isset($Vendas){{$Vendas->quantidade}}@endisset" required>
-         </div>
+         @foreach ($estoques as $estoque)
+            @if(isset($Vendas))
+               @if($estoque->id == $Vendas->estoque_id)
+                  <input id="tentacles" class="col-7" type="number" min="1" max="@if(isset($Vendas)){{$Vendas->quantidade+$estoque->quantidadedisponivel }}@else{{$estoque->quantidadedisponivel}}@endif" name="quantidade" value="@isset($Vendas){{$Vendas->quantidade}}@endisset" required> 
+                  @break
+               @endif      
+            @else
+               @if($estoque->quantidadedisponivel>0)   
+                  <input id="tentacles" class="col-7" type="number" min="1" max="@if(isset($Vendas)){{$Vendas->quantidade+$estoque->quantidadedisponivel }}@else{{$estoque->quantidadedisponivel}}@endif" name="quantidade" value="@isset($Vendas){{$Vendas->quantidade}}@endisset" required>
+                  @break
+               @endif   
+            @endif
+         @endforeach
+      </div>
          <div class="row linhaFrom">
             <label class="col-3">Valor:<span class="text-danger">*</span></label></label>
             <input class="col-7" type="number" min="1" step="0.01" pattern="[0-9]$" id="valor" name="valor_unit" value="@isset($Vendas){{$Vendas->valor_unit}}@endisset" required>
@@ -60,7 +73,6 @@
       $('select[name=estoque_id]').change(function () {
          var idEstoque = $(this).val();
          $.get('/quantidade/' + idEstoque, function (quantidade) {
-            console.log(quantidade);
             var input=$('#tentacles')
             input.val('');
             input.attr({'max':quantidade})

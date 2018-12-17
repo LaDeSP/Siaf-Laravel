@@ -53,7 +53,7 @@ class Venda extends Model
 			->join('propriedade', 'propriedade.id', '=', 'estoque_id')
 			->join('destino', 'destino.id', '=', 'destino_id')
 			->select('unidade.nome AS unidade','venda.id','produto.nome AS produto','venda.quantidade', 'venda.valor_unit', 'venda.data','venda.nota',
-			'destino.nome', 'destino.id','venda.estoque_id','venda.destino_id')
+			'destino.nome', 'destino.id','estoque.data','venda.estoque_id','venda.destino_id')
 			->where('estoque.propriedade_id', '=', $propriedade->id)
 			->where('venda.id', '=', $id)
 			->where('venda.deleted_at','=',null)
@@ -66,7 +66,7 @@ class Venda extends Model
 		->join('unidade', 'unidade.id', '=', 'produto.unidade_id')
 		->join('propriedade', 'propriedade.id', '=', 'estoque_id')
 		->join('destino', 'destino.id', '=', 'destino_id')
-		->select('unidade.nome AS unidade', 'venda.id','produto.nome AS produto','venda.quantidade', 'venda.valor_unit', 'venda.data','venda.nota',
+		->select((DB::raw('(venda.valor_unit*venda.quantidade) as total')),'unidade.nome AS unidade', 'venda.id','produto.nome AS produto','venda.quantidade', 'venda.valor_unit', 'venda.data','venda.nota',
 		'destino.nome', 'venda.estoque_id', 'venda.destino_id')
 		->where('estoque.propriedade_id', '=', $propriedade->id)
 		->where('venda.deleted_at','=',null)

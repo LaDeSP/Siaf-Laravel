@@ -14,6 +14,14 @@
         <!-- Styles -->
         <link href="/css/login.css" rel="stylesheet">
         <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <style>
+            .footer {
+  background: #42A5F5;
+  color: white;
+  padding: 20px;
+  position: sticky;
+}
+        </style>
         <!-- Scripts -->
         <script>
             window.Laravel = {!! json_encode([
@@ -25,12 +33,12 @@
             $('#cpf').mask('000.000.000-00');
         </script>
     </head>
-    <body class="cn-site">
-        <div class="banner-sec img-fluid" alt="Responsive image">
+    <body>
+        <div class="imagem">
         </div>
         <div class='box-right'>
             <div class='bar'>
-                <div class='switcher'>
+                <!--<div class='switcher'>
                     @if(Request::segment(1) == 'login')
                     <a class='btn btn-success' href="{{ route('login') }}">{{ __('Login') }}</a>
                     <a class="active btn btn-light" href="{{ route('register') }}">{{ __('Cadastro') }}</a>
@@ -39,8 +47,13 @@
                     <a class='btn btn-success' href="{{ route('register') }}">{{ __('Cadastro') }}</a>
                     @endif
                 </div>
+            -->
             </div>
             @yield('content')
+            <div class="push"></div>
         </div>
+        <footer class="footer">
+                Footer 
+              </footer>
     </body>
 </html>

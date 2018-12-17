@@ -4,29 +4,17 @@
    font-size: 13px
 }
  
-* {
-   box-sizing: border-box
-}
- 
-.text-center {
-   text-align: center
-}
- 
-.banner-sec{
+.imagem{
    background:url("/images/fundo.jpg"); 
    background-size:100% 100%; 
-   min-height:660.9px;
+   min-height:600px;
+   height:auto;
    width: 600px;
-   opacity: 0.4; 
+   opacity: 0.4;
+   margin-left: 0; 
  }
-
-body {
-   width: 100%;
-   margin: 0;
-}
  
 .box-right {
-   width: 100%;
    position: fixed;
    top: 0;
    bottom: 0;
@@ -35,31 +23,19 @@ body {
    padding: 60px;
 }
  
-.box-right .bar {
-   position: relative;
-   z-index: 9
-}
- 
 .box-right form,
 .box-right .idp-login {
-   padding-top: 1cm;
-   width: 100%;
    text-align: center;
-   display: flex;
 }
  
-.box-right form .step .title,
-.box-right .idp-login .step .title {
-   font-size: 22px;
+.title {
+   font-size: 20px;
    padding: 20px 0 40px 0;
-   text-align: left;
+   text-align: center;
 }
  
-.box-right form .form-group,
-.box-right .idp-login .form-group {
-   margin-bottom: 15px;
+.form-group {
    text-align: left;
-   width: 100%
 }
  
 .box-right form label,
@@ -69,20 +45,9 @@ body {
 } 
  
  
-.box-right form button,
-.box-right form a.button,
-.box-right .idp-login button,
-.box-right .idp-login a.button {
-   display: inline-block;
-   font-size: 16px;
-   width: 50%;
+button{
+   width: 60%;
 }
- 
-.box-right .switcher {
-   float: right
-}
- 
-
  
 .signup-link {
    width: 100%;
@@ -93,14 +58,7 @@ body {
    cursor: pointer;
    display: inline-block;
    color: black;
-   text-decoration: none;
    margin-bottom: 10px
-}
-
- 
-.signup-link span {
-   font-weight: 500;
-   color: black
 }
 
 @media (max-width: 767px) {
@@ -112,13 +70,6 @@ body {
    .box-right form {
       display: block;
       height: auto
-   }
-   .box-right form .step {
-      padding: 20px 15px 0 15px;
-      margin: 20px auto;
-      left: auto;
-      top: auto;
-      transform: none
    }
    .box-right form .step .title {
       font-size: 18px;

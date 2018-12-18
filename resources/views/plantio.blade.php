@@ -117,6 +117,8 @@ $( document ).ready(function() {
 
 				</tbody>
 			</table>
+      {{$Plantios->withPath('plantio')}}
+
       @if(count($Plantios)==0)
       <div class="text-center">
         Por favor, adicione novos Plantios!

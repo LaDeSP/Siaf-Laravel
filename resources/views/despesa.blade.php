@@ -52,9 +52,7 @@
                         </table>
                     @endif
                 </div>
-        @if($dados instanceof \Illuminate\Pagination\LengthAwarePaginator )
-            {{$dados->links()}}
-        @endif
+            {{$dados->withPath('despesa')}}
 	</div>
 
     <!-- Modal add -->

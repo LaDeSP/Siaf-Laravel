@@ -48,7 +48,7 @@ class Talhao extends Model
 
     public static function ler($request, $id){
         $size = Talhao::where('propriedade_id','=',$id)->count();
-        $t =  $size>3? Talhao::where('propriedade_id','=',$id)->paginate(3,['*'],"talhao")   :   Talhao::all()->where('propriedade_id','=',$id);
+        $t =  $size>3? Talhao::where('propriedade_id','=',$id)->simplePaginate(3,['*'],"talhao")   :   Talhao::all()->where('propriedade_id','=',$id);
         return $t;
     }
 

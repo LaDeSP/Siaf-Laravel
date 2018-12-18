@@ -149,15 +149,15 @@
 	<body>
 		<div class="container-fluid">
 			<div  class="row menu align-items-center">
-				<div  class="col-6 col-sm-3 col-md-2" >
+				<div  class="col-5 col-sm-4 col-md-2" >
 					<img class="img-fluid" src="/images/log.png">
 				</div>
-				<div class="col-md-2 offset-3 text-center lead caret">
-					<h2>{{$Tela}}</h2>
+				<div class="col-2    col-md-2 col-sm-1 offset-md-3 offset-sm-1 text-center lead caret">
+					<h3 class="h2">{{$Tela}}</h3>
 				</div>
-				<div   class="col-2 offset-3 "  data-toggle="modal" data-target=".bd-user-modal-sm"  data-backdrop="false" >
-					<img  class="btn img-fluid col-6   offset-3" src="/images/agr.png">
-					<div class="col-8 text-center offset-2" >{{$User}} </div>
+				<div  class="col-5 col-md-2 col-sm-5 offset-md-3 offset-sm-1 "  data-toggle="modal" data-target=".bd-user-modal-sm"  data-backdrop="false" >
+					<img  class="btn img-fluid col-6 offset-3" src="/images/agr.png">
+					<div class="lead text-center" >{{$User}} </div>
 				</div>
 
 				<div class="modal fade bd-user-modal-sm" tabindex="-1" role="dialog" aria-labelledby="opções" aria-hidden="true">
@@ -165,10 +165,10 @@
 						<div class="modal-content">
 							<ul class="list-group">
 								<li class=" list-group-item list-group-item-action list-group-item-success">
-									<a href="/usuario"> <h8>Perfil</h8> </a>
+									<a href="/usuario" class="lead"> <h8>Perfil</h8> </a>
 								</li>
 								<li class=" list-group-item list-group-item-action list-group-item-success">
-									<a href="{{ route('logout') }}"
+									<a class="lead" href="{{ route('logout') }}"
 									onclick="event.preventDefault();
 									document.getElementById('logout-form').submit();">
 									<h8>Sair</h8>
@@ -198,7 +198,7 @@
 
 						</div>
 						<div class="row">
-							<div class="col-md-12 lead text-center">Inicio</div>
+							<div class="col-md-12 lead text-justify">Inicio</div>
 						</div>
 					</a>
 				</div>
@@ -299,7 +299,7 @@
 
 						</div>
 						<div class="row">
-							<div  class=" col-md-12 lead text-center">Investimentos</div>
+							<div  class="col-md-12 lead text-center">Investimentos</div>
 						</div>
 					</a>
 				</div>

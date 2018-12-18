@@ -71,7 +71,7 @@ class Venda extends Model
 		'destino.nome', 'venda.estoque_id', 'venda.destino_id')
 		->where('estoque.propriedade_id', '=', $propriedade->id)
 		->where('venda.deleted_at','=',null)
-		->paginate(self::totalPages);
+		->simplePaginate(self::totalPages);
 		return $allVenda;
 	}
 	
@@ -87,7 +87,7 @@ class Venda extends Model
 		$venda = null;
 		if ($id == null)
 		{
-			$venda = self::all()->paginate(self::totalPages);
+			$venda = self::all()->simplePaginate(self::totalPages);
 			return $venda;
 		}
 		

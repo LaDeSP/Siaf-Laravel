@@ -29,7 +29,7 @@
 </script>
      <br>
 <div class="container-fluid">
-    <div class="row align-content-center">
+    <div class="row container-fluid align-content-center">
         <div class="card col-12">
             <div class="card-body">
                 <blockquote class="blockquote mb-0">
@@ -66,8 +66,8 @@
             </div>
         </div>
     </div>
-           <div style="padding-top: 1%;" class="row align-content-center">
-                <div class="sm-12 col-md card">
+           <div style="padding-top: 1%;" class="row container-fluid align-content-center">
+                <div class="sm-12 col-md-6 card">
                     <div class="card-header">
                         <div class="row">
                             <font class="lead font-weight-bold"> Talhão</font>
@@ -92,7 +92,7 @@
                                 <table class="table table-hover table-condensed">
                                     <thead class="thead-light">
                                     <tr>
-                                        <th scope="col">Nome</th>
+                                        <th scope="col-sm-6">Nome</th>
                                         <th scope="col">Área</th>
                                         <th scope="col">Ações</th>
                                     </tr>
@@ -107,7 +107,7 @@
                                                     <div class="row">
                                                         <div class="col">
                                                             <a id ="editTalhao"
-                                                               class="btn btn-xs btn-warning"
+                                                               class="btn btn-xs btn-warning col"
                                                                href="/talhao/{{$t['id']}}/edit"
                                                                data-endpoint="/talhao/{{$t['id']}}/edit"
                                                                data-target="propModal"
@@ -121,7 +121,7 @@
                                                                 <button type="submit"
                                                                         @if(\App\Http\Controllers\PropriedadeController::findUsageT($t))
                                                                             disabled
-                                                                        @endif id="regitrarInves" class="btn btn-xs btn-danger delete confirm"  msg='Tem certeza que deseja excluir o talhão {{$t->nome}}.' name="salvar">Excluir</button>
+                                                                        @endif id="regitrarInves" class="btn btn-xs btn-danger delete confirm col"  msg='Tem certeza que deseja excluir o talhão {{$t->nome}}.' name="salvar">Excluir</button>
                                                             </form>
                                                         </div>
                                                     </div>
@@ -133,9 +133,7 @@
 
                             @endif
                         </blockquote>
-                        @if($talhao instanceof \Illuminate\Pagination\LengthAwarePaginator )
-                            {{$talhao->appends('produto', \Illuminate\Support\Facades\Input::get('produto',1))->links()}}
-                        @endif
+                            {{$talhao->appends('produto', \Illuminate\Support\Facades\Input::get('produto',1))->withPath('propriedade')}}
                     </div>
                 </div>
         &nbsp;
@@ -177,9 +175,9 @@
                                             <td>{{$p['unidade_id']}}</td>
                                             <td>
                                                 <div class="row">
-                                                    <div class="col">
+                                                    <div class="col w-100">
                                                         <a id ="editTalhao"
-                                                           class="btn btn-xs btn-warning"
+                                                           class="btn btn-xs btn-warning col"
                                                            href="/produto/{{$p['id']}}/edit"
                                                            data-endpoint="/produto/{{$p['id']}}/edit"
                                                            data-target="propModal"
@@ -193,7 +191,7 @@
                                                             <button type="submit" id="regitrarInves"
                                                                     @if(\App\Http\Controllers\PropriedadeController::findUsageP($p))
                                                                         disabled data-toggle="tooltip" data-placement="top" title="A exclusão não está disponível, pois o produto está em uso."
-                                                                    @endif class="btn btn-xs btn-danger delete confirm"  msg='Tem certeza que deseja excluir o produto {{$p->nome}} . ' name="salvar">Excluir</button>
+                                                                    @endif class="btn btn-xs btn-danger delete confirm col"  msg='Tem certeza que deseja excluir o produto {{$p->nome}} . ' name="salvar">Excluir</button>
                                                         </form>
                                                     </div>
                                                 </div>
@@ -205,9 +203,7 @@
                             @endif
 
                         </blockquote>
-                        @if($produto instanceof \Illuminate\Pagination\LengthAwarePaginator )
-                            {{$produto->appends('talhao', \Illuminate\Support\Facades\Input::get('talhao',1))->links()}}
-                        @endif
+                            {{$produto->appends('talhao', \Illuminate\Support\Facades\Input::get('talhao',1))->withPath('propriedade')}}
                     </div>
                 </div>
     </div>

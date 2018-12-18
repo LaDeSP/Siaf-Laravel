@@ -42,15 +42,15 @@
 
                         </div>
                         <div class="form-group">
+                            @if(isset($produto->status))
                             <label for="nome" class="control-label" data-toggle="tooltip" data-placement="top" title="Indique se o produto ainda está em uso.">Ativo</label>
                             <input type="checkbox"
-                                   @if(isset($produto->status))
+
                                    @if($produto->status)
                                    checked
                                    @endif
-                                   @endif
                                    id="status" name="status">
-
+                            @endif
                         </div>
                     <div class="text-center">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>

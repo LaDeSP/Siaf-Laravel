@@ -114,9 +114,7 @@
    </div> 
 
    @endif
-    @if($Vendas instanceof \Illuminate\Pagination\LengthAwarePaginator )
-        {{$Vendas->links()}}
-    @endif
+        {{ $Vendas->withPath('venda') }}
 </div>
 
 @endsection

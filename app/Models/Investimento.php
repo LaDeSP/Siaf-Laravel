@@ -35,7 +35,7 @@ class Investimento extends Model
 	}
 	public static function ler($id,$variable){
 		if ($id == null) {
-			$investimento = self::all()->paginate(self::totalPages);
+			$investimento = self::all()->simplePaginate(self::totalPages);
 			if (empty($investimento)) {
 				return 405;
 			}
@@ -48,7 +48,7 @@ class Investimento extends Model
 			}
 			return $investimento;
 		} else {
-			$investimento = self::where($id,'=',$variable)->paginate(self::totalPages);
+			$investimento = self::where($id,'=',$variable)->simplePaginate(self::totalPages);
 			if (empty($investimento)) {
 				return 405;
 			}

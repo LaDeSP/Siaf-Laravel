@@ -35,7 +35,7 @@ class Despesa extends Model
 	}
 	public static function ler($id,$variable){
 		if ($id == null) {
-			$despesa = self::all()->paginate(self::totalPages);
+			$despesa = self::all()->simplePaginate(self::totalPages);
 			if (empty($despesa)) {
 				return 405;
 			}
@@ -48,7 +48,7 @@ class Despesa extends Model
 			}
 			return $despesa;
 		} else {
-			$despesa = self::where($id,'=',$variable)->paginate(self::totalPages);
+			$despesa = self::where($id,'=',$variable)->simplePaginate(self::totalPages);
 			if (empty($despesa)) {
 				return 405;
 			}

@@ -56,9 +56,7 @@
                     </table>
                 @endif
             </div>
-        @if($dados instanceof \Illuminate\Pagination\LengthAwarePaginator )
-            {{$dados->links()}}
-        @endif
+            {{$dados->withPath('investimento')}}
     </div>  
     <!-- Modal add -->
     <div class="modal fade" id="exampleModal" role="dialog">

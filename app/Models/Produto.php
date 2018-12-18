@@ -18,7 +18,7 @@ class Produto extends Model
             $prod->plantavel = ($request->plantavel=='on'? 1:0);
             $prod->propriedade_id = $request->propriedade_id;
             $prod->unidade_id = $request->unidade_id;
-            $prod->status = $request->status;
+            $prod->status = 1;
             $prod->save();
             return 200;
         }catch (\Exception $e){
@@ -44,7 +44,7 @@ class Produto extends Model
     public static function ler($request, $id){
         $size =  Produto::where('propriedade_id','=',$id)->count();
         if($size>3) {
-            $p = Produto::where('propriedade_id','=',$id)->paginate(3,['*'],"produto");
+            $p = Produto::where('propriedade_id','=',$id)->simplePaginate(3,['*'],"produto");
             $p->getCollection()->transform(function ($value) {
                     $value['unidade_id'] = DB::table('unidade')->where('id', $value['unidade_id'])->where('unidade.deleted_at', '=', null)->value('nome');
                     return $value;

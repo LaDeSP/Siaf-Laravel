@@ -29,11 +29,10 @@
 </script>
      <br>
 <div class="container-fluid">
-    <div class="row container-fluid align-content-center">
-        <div class="card col-12">
+        <div class="col-sm-12 col-md-12 card">
             <div class="card-body">
                 <blockquote class="blockquote mb-0">
-                    <table class="table table-hover table-condensed">
+                    <table class="col-sm-12 table table-hover table-condensed">
                         <thead class="thead-light">
                         <tr>
                             <th scope="col">Nome</th>

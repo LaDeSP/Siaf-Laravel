@@ -3,6 +3,30 @@
 @section('usuario', $User)
 
 @section('conteudo')
+
+<script type="text/javascript">
+    $( document ).ready(function() {
+        $('a[data-async="true"]').click(function(e){
+            e.preventDefault();
+            var self = $(this),
+                url = self.data('endpoint'),
+                target = self.data('target'),
+                cache = self.data('cache');
+
+            $.ajax({
+                url: url,
+                cache : cache,
+                success: function(data){
+                    if (target !== 'undefined'){
+
+                        $('#'+target).modal('show');
+                        $('#'+target).html( data );
+                    }
+                }
+            });
+        });
+    });
+</script>
      <br>
 <div class="container-fluid">
     <div class="row align-content-center">
@@ -24,8 +48,14 @@
                                 <td>{{$propriedade['localizacao']}}</td>
                                 <td>
                                     <div class="row">
-                                        <div class="col-sm-4">
-                                            <a onclick="edit1(this)" id ="editInvest" class="btn btn-xs btn-warning" data-id="{{$propriedade['id']}}">Editar</a>
+                                        <div class="col-sm-4 adicionar">
+                                            <a id ="editProp"
+                                               class="btn btn-xs btn-warning"
+                                               href="/propriedade/{{$propriedade['id']}}/edit"
+                                               data-endpoint="/propriedade/{{$propriedade['id']}}/edit"
+                                               data-target="propModal"
+                                               data-cache="false",
+                                               data-async="true">Editar</a>
                                         </div>
                                     </div>
                                 </td>
@@ -36,18 +66,29 @@
             </div>
         </div>
     </div>
-    <div style="padding-top: 1%;" class="row align-content-center">
+           <div style="padding-top: 1%;" class="row align-content-center">
                 <div class="col-6 card">
                     <div class="card-header">
                         <div class="row">
                             <font class="lead font-weight-bold"> Talhão</font>
-                            <div class="col-md-10 col-sm-2 text-right">
-                                <a id="add" data-toggle="modal" data-target="#talhaoModal" class="btn btn-success text-white">Adicionar</a>
-                            </div>
+                            <div class="col-md-10 col-sm-2 text-right adicionar">
+                                    <a class="btn btn-success"
+                                       href="/talhao/create"
+                                       data-endpoint="/talhao/create"
+                                       data-target="propModal"
+                                       data-cache="false",
+                                       data-async="true">Adicionar</a>
+                                </div>
+
                         </div>
                     </div>
                     <div class="card-body">
                         <blockquote class="blockquote mb-0">
+                            @if(($talhao->isEmpty()))
+                                <div class="text-center">
+                                    <p>Por favor, adicione um talhão!</p>
+                                </div>
+                            @else
                                 <table class="table table-hover table-condensed">
                                     <thead class="thead-light">
                                     <tr>
@@ -65,13 +106,22 @@
                                                 <td>
                                                     <div class="row">
                                                         <div class="col-sm-4">
-                                                            <a onclick="edit2(this)" id ="editTalhao" class="btn btn-xs btn-warning" data-id="{{$t['id']}}">Editar</a>
+                                                            <a id ="editTalhao"
+                                                               class="btn btn-xs btn-warning"
+                                                               href="/talhao/{{$t['id']}}/edit"
+                                                               data-endpoint="/talhao/{{$t['id']}}/edit"
+                                                               data-target="propModal"
+                                                               data-cache="false",
+                                                               data-async="true">Editar</a>
                                                         </div>
                                                         <div class="col-sm-4">
                                                             <form method="post" id="talhaoDelete" action="/talhao/{{$t['id']}}">
                                                                 @csrf
                                                                 @method("DELETE")
-                                                                <button type="submit" id="regitrarInves" class="btn btn-xs btn-danger delete confirm"  msg='Tem certeza que deseja excluir o talhão {{$t->nome}}.' name="salvar">Excluir</button>
+                                                                <button type="submit"
+                                                                        @if(\App\Http\Controllers\PropriedadeController::findUsageT($t))
+                                                                            disabled
+                                                                        @endif id="regitrarInves" class="btn btn-xs btn-danger delete confirm"  msg='Tem certeza que deseja excluir o talhão {{$t->nome}}.' name="salvar">Excluir</button>
                                                             </form>
                                                         </div>
                                                     </div>
@@ -80,12 +130,10 @@
                                         @endforeach
                                     </tbody>
                                 </table>
-                            @if(($talhao->isEmpty()))
-                                <div class="text-center">
-                                    <p>Por favor, adicione um talhão!</p>
-                                </div>
+
                             @endif
                         </blockquote>
+                        {{--{!! $talhao->links() !!}--}}
                     </div>
                 </div>
         &nbsp;
@@ -93,13 +141,24 @@
                     <div class="card-header">
                         <div class="row">
                             <font class="lead font-weight-bold">Produto</font>
-                            <div class="col-md-10 col-sm-2 text-right">
-                                <a id="add" data-toggle="modal" data-target="#produtoModal" class="btn btn-success text-white">Adicionar</a>
+                            <div class="col-md-10 col-sm-2 text-right adicionar">
+                                <a class="btn btn-success"
+                                   href="/produto/create"
+                                   data-endpoint="/produto/create"
+                                   data-target="propModal"
+                                   data-cache="false",
+                                   data-async="true">Adicionar</a>
                             </div>
                         </div>
                     </div>
                     <div class="card-body">
                         <blockquote class="blockquote mb-0">
+
+                            @if(($produto->isEmpty()))
+                                <div class="text-center">
+                                    <p>Por favor, adicione um produto!</p>
+                                </div>
+                            @else
                             <table class="table table-hover table-condensed">
                                 <thead class="thead-light">
                                 <tr>
@@ -117,13 +176,22 @@
                                             <td>
                                                 <div class="row">
                                                     <div class="col-sm-4">
-                                                        <a onclick="edit(this)" id ="editProduto" class="btn btn-xs btn-warning" data-id="{{$p['id']}}">Editar</a>
+                                                        <a id ="editTalhao"
+                                                           class="btn btn-xs btn-warning"
+                                                           href="/produto/{{$p['id']}}/edit"
+                                                           data-endpoint="/produto/{{$p['id']}}/edit"
+                                                           data-target="propModal"
+                                                           data-cache="false",
+                                                           data-async="true">Editar</a>
                                                     </div>
                                                     <div class="col-sm-4">
                                                         <form method="post" id="produtoDelete" action="/produto/{{$p['id']}}">
                                                             @csrf
                                                             @method("DELETE")
-                                                            <button type="submit" id="regitrarInves" class="btn btn-xs btn-danger delete confirm"  msg='Tem certeza que deseja excluir o produto {{$p->nome}} . ' name="salvar">Excluir</button>
+                                                            <button type="submit" id="regitrarInves"
+                                                                    @if(\App\Http\Controllers\PropriedadeController::findUsageP($p))
+                                                                        disabled
+                                                                    @endif class="btn btn-xs btn-danger delete confirm"  msg='Tem certeza que deseja excluir o produto {{$p->nome}} . ' name="salvar">Excluir</button>
                                                         </form>
                                                     </div>
                                                 </div>
@@ -132,225 +200,31 @@
                                     @endforeach
                                 </tbody>
                             </table>
-                            @if(($produto->isEmpty()))
-                                <div class="text-center">
-                                    <p>Por favor, adicione um produto!</p>
-                                </div>
                             @endif
 
                         </blockquote>
                     </div>
                 </div>
     </div>
-</div>
-<!-- Modal add -->
-<div class="modal fade" id="produtoModal" role="dialog">
-    <div class="modal-dialog modal-lg">
 
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="produtoModalLabel">Adicionar Produto</h5>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-            <div class="modal-body">
-                <form method="POST" id="produto" action="/produto">
-                    @csrf
-                    @method('POST')
-                    <div class="row">
-                        <div class="form-group col-md-12">
-                            <label for="propriedade_id">Propriedade</label>
-                            <select style="-moz-appearance: none; -webkit-appearance: none; appearance: none;" form="produto" class="form-control-plaintext" id="propriedade_id" name="propriedade_id">
-                                <option selected value="{{$propriedade->id}}" >{{$propriedade->nome}}</option>
-                            </select>
-                        </div>
-                        <div class="form-group col-md-12">
-                            <label for="nome" class="control-label">Produto<span style="color: red">*</span></label>
-                            <input type="text" class="form-control " pattern="[A-Za-zÀ-ú ]{2,255}$" id="nome" name="nome" placeholder="Nome" value="{{ isset($dados->nome) ? $dados->nome : '' }}" required>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="area" class="control-label">Unidade</label>
-                        <select form="produto" class="form-control-plaintext" id="unidade_id" name="unidade_id">
-                            @foreach($unidades as $u)
-                                <option value="{{$u->id}}"> {{$u->nome}} </option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="form-group col-md-12">
-                        <label for="nome" class="control-label">Plantável</label>
-                        <input type="checkbox" id="plantavel" name="plantavel">
-                    </div>
-                    <div class="text-center">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                        <button type="submit" class="btn btn-success" name="salvar">Salvar</button>
-                    </div>
-                </form>
+    <div class="modal fade" id="propModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    ...
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                    <button type="button" class="btn btn-primary">Savar</button>
+                </div>
             </div>
         </div>
-
     </div>
 </div>
-
- <!-- Modal add -->
- <div class="modal fade" id="propModal" role="dialog">
-     <div class="modal-dialog modal-lg">
-
-         <!-- Modal content-->
-         <div class="modal-content">
-             <div class="modal-header">
-                 <h5 class="modal-title" id="propriedadeModalLabel">Adicionar Propriedade</h5>
-                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-             </div>
-             <div class="modal-body">
-                 <form method="POST" id="propriedade" action="/propriedade">
-                     @csrf
-                     @method('POST')
-                     <div class="row">
-                         <div class="form-group col-md-12">
-                             <label for="propriedade_id">Propriedade</label>
-                             <select style="-moz-appearance: none; -webkit-appearance: none; appearance: none;" form="produto" class="form-control-plaintext" id="propriedade_id" name="propriedade_id">
-                                 <option selected value="{{$propriedade->id}}" >{{$propriedade->nome}}</option>
-                             </select>
-                         </div>
-                         <div class="form-group col-md-12">
-                             <label for="nome" class="control-label">Nome<span style="color: red">*</span></label>
-                             <input type="text" class="form-control " pattern="[A-Za-zÀ-ú ]{2,255}$" id="nome" name="nome" placeholder="Nome" value="{{ isset($dados->nome) ? $dados->nome : '' }}" required>
-                         </div>
-                     </div>
-                     <div class="form-group">
-                         <label for="area" class="control-label">Localização</label>
-                         <input class="form-control-plaintext" id="localiza" name="localiza"  placeholder="Localização" value="{{ isset($dados->localiza) ? $dados->localiza: '' }}" required>
-                     </div>
-                     <div class="text-center">
-                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                         <button type="submit" class="btn btn-success" name="salvar">Salvar</button>
-                     </div>
-                 </form>
-             </div>
-         </div>
-
-     </div>
- </div>
-
- <div class="modal fade" id="talhaoModal" role="dialog">
-     <div class="modal-dialog modal-lg">
-
-         <!-- Modal content-->
-         <div class="modal-content">
-             <div class="modal-header">
-                 <h5 class="modal-title" id="talhaoModalLabel">Adicionar Talhão</h5>
-                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-             </div>
-             <div class="modal-body">
-                 <form method="POST" id="talhao" action="/talhao">
-                     @csrf
-                     @method("POST")
-                     <div class="row">
-                         <div class="form-group col-md-6">
-                             <label for="propriedade_id">Propriedade</label>
-                             <select style="-moz-appearance: none; -webkit-appearance: none; appearance: none;" form="talhao" class="form-control-plaintext" name="propriedade_id">
-                                 <option selected value="{{$propriedade->id}}" >{{$propriedade->nome}}</option>
-                             </select>
-                         </div>
-                         <div class="form-group col-md-6">
-                             <label for="nome" class="control-label">Talhão<span style="color: red">*</span></label>
-                             <input type="text" class="form-control " pattern="[A-Za-zÀ-ú ]{2,255}$" id="nome" name="nome" placeholder="Nome" value="{{ isset($dados->nome) ? $dados->nome : '' }}" required>
-                         </div>
-                     </div>
-                     <div class="form-group">
-                         <label for="area" class="control-label">Área em m²</label>
-                         <input type="text" class="form-control " pattern="{6,255}$" id="area" name="area" placeholder="exemplo: 20" value="{{ isset($dados->area) ? $dados->area : '' }}" required>
-                     </div>
-                     <div class="text-center">
-                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                         <button type="submit" class="btn btn-success" name="salvar">Salvar</button>
-                     </div>
-                 </form>
-             </div>
-         </div>
-
-     </div>
- </div>
-
-<script type="text/javascript">
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $("form#produto input[name=_token]").val()
-        }
-    });
-
-    function edit(elem) {
-        var my = $(elem).attr('data-id');
-        $.ajax({
-            url: "/produto/"+my,
-            method: "GET"
-        }).done(function(data){
-            $("form#produto input[name='nome']").val(data.nome);
-            $("form#produto [name=plantavel]").prop('checked',data.plantavel);
-            $("form#produto input[name='unidade_id']").val(data.unidade_id);
-            $("form#produto [name=propriedade_id]").val(data.propriedade_id);
-            // console.log($("form#produto input[name='propriedade_id']").val(data.propriedade_id));
-            var url = "produto/"+data.id;
-            $("form#produto input[name='_method']").val("PUT");
-            $("#produtoModalLabel").text("Editar produto");
-            console.log(url);
-            $("form#produto").attr('action',url);
-            $("form#produto [name=propriedade_id]").attr("form","produtoEdit");
-            $("form#produto [name=unidade_id]").attr("form","produtoEdit");
-            $("form#produto").attr('id',"produtoEdit");
-            $("#produtoModal").modal('show');
-        });
-    };
-
-    function edit1(elem) {
-        var my = $(elem).attr('data-id');
-        $.ajax({
-            url: "/propriedade/"+my,
-            method: "GET"
-        }).done(function(data){
-            $("form#propriedade input[name='nome']").val(data.nome);
-            $("form#propriedade input[name='localiza']").val(data.localizacao);
-            $("form#propriedade [name='propriedade_id']").val(data.propriedade_id);
-            var url = "propriedade/"+data.id;
-            $("form#propriedade input[name='_method']").val("PUT");
-            $("#propriedadeModalLabel").text("Editar propriedade");
-            $("form#propriedade").attr('action',url);
-            $("form#propriedade [name=propriedade_id]").attr("form","propEdit");
-            $("form#propriedade").attr('id',"propEdit");
-            $("#propModal").modal('show');
-        });
-    };
-
-    function edit2(elem) {
-        var my = $(elem).attr('data-id');
-        $.ajax({
-            url: "/talhao/"+my,
-            method: "GET"
-        }).done(function(data){
-            console.log(data);
-            $("form#talhao input[name='nome']").val(data.nome);
-            $("form#talhao input[name='area']").val(data.area);
-            $("form#talhao [name='propriedade_id']").val(data.propriedade_id);
-
-            var url = "/talhao/"+data.id;
-            $("form#talhao input[name='_method']").val("PUT");
-            $("#talhaoModalLabel").text("Editar talhão");
-            console.log(url);
-            $("form#talhao").attr('action',url);
-            $("form#talhao [name='propriedade_id']").attr("form","talhaoEdit");
-            $("form#talhao").attr('id',"talhaoEdit");
-            $("#talhaoModal").modal('show');
-        });
-    };
-
-    $("#produto").submit(function( event ) {
-        $('form#investimento select').removeAttr('disabled');
-    });
-
-    $("#produtoEdit").submit(function( event ) {
-        alert(this.serialize());
-        // $('form#investimentoEdit select').removeAttr('disabled');
-    });
-</script>
 @endsection

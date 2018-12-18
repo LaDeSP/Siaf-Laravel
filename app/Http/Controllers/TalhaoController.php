@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Propriedade;
 use App\Models\Talhao;
 use Illuminate\Http\Request;
 
@@ -17,9 +18,10 @@ class TalhaoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $prop = $this->getPropriedade($request);
+        return view('talhaoForm',["propriedade"=>$prop, "Title"=>"Adicionar talhão",'Method'=>'post','Url'=>'/talhao']);
     }
 
     /**
@@ -65,7 +67,10 @@ class TalhaoController extends Controller
      */
     public function edit($id)
     {
-        //
+        $talhao = Talhao::find($id);
+        $prop = Propriedade::find($talhao['propriedade_id']);
+        return view('talhaoForm',["propriedade"=>$prop, "talhao"=>$talhao, 'Method'=>'put','Url'=>'/talhao'.'/'.$id, "Title"=>"Editar Talhão"]);
+
     }
 
     /**
@@ -102,10 +107,13 @@ class TalhaoController extends Controller
     {
         try{
             $t = Talhao::find($id);
-            $t->delete();
-            $status='success';
-            $mensagem='Talhão removido com sucesso!';
-            return redirect()->action('PropriedadeController@index', ['mensagem'=>$mensagem,'status'=>$status]);
+            if(!PropriedadeController::findUsageT($t)){
+                $t->delete();
+                $status='success';
+                $mensagem='Talhão removido com sucesso!';
+                return redirect()->action('PropriedadeController@index', ['mensagem'=>$mensagem,'status'=>$status]);
+            }else
+                throw new \Exception();
         }catch (\Exception $e){
             $status='danger';
             $mensagem='Ocorreu um erro ao remover este Talhão!';

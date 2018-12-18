@@ -2,6 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cidade;
+use App\Models\Estado;
+use App\Models\Estoque;
+use App\Models\Manejo;
+use App\Models\ManejoPlantio;
+use App\Models\Plantio;
 use App\Models\Produto;
 use App\Models\Propriedade;
 use App\Models\Talhao;
@@ -11,6 +17,7 @@ use Illuminate\Support\Facades\DB;
 
 class PropriedadeController extends Controller
 {
+    private $totalpage=3;
     /**
      * Display a listing of the resource.
      *
@@ -71,7 +78,10 @@ class PropriedadeController extends Controller
      */
     public function edit($id)
     {
-        //
+        $prop = Propriedade::find($id);
+        $tcidade = Cidade::find($prop->cidade_id);
+        $testado = Estado::find($tcidade["estado_id"]);
+        return view('propriedadesForm',["propriedade"=>$prop, "mestado"=>$testado, "mcidade"=>$tcidade, 'estados'=>Estado::all(), 'Method'=>'put','Url'=>'/propriedade'.'/'.$id]);
     }
 
     /**
@@ -110,4 +120,22 @@ class PropriedadeController extends Controller
         //
     }
 
+    public static function findUsageT($param){
+        try{
+            if(Plantio::where('talhao_id','=',$param['id'])->firstOrFail())
+                return true;
+        }catch(\Exception $e){
+            return false;
+        }
+    }
+
+    public static function findUsageP($param){
+        try{
+            if( Estoque::where('produto_id','=',$param['id'])->first() || Plantio::where('produto_id','=',$param['id'])->first())
+                return true;
+            return false;
+        }catch(\Exception $e){
+            return false;
+        }
+    }
 }

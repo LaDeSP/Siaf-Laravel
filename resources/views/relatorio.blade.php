@@ -16,7 +16,7 @@
                                 <option value="investimentos" class="col-4"> Investimentos realizados por período </option>
                                 <option value="despesa" class="col-4"> Despesa realizadas por período</option>
                                 <option value="plantios" class="col-4"> Plantios realizados por período</option>
-                                <option value="manejo-talhão" class="col-4"> Listar manejos realizados por período por talhão </option>
+                                <option value="manejo-talhão" class="col-4"> Manejos realizados por período por talhão </option>
                                 <option value="manejo-propriedade" class="col-4"> Listar manejos realizados por período por propriedade </option>
                                 <option value="colheitas" class="col-4"> Listar colheitas realizadas por período </option>
                                 <option value="talhão" class="col-4"> Talhões por propriedade</option>
@@ -24,12 +24,12 @@
                                 <option value="historico-manejo-plantio" class="col-4"> Listar histórico de manejo por plantio</option>
                                 <option value="estoque-propriedade" class="col-4"> Listar estoque por propriedade por período </option>
                                 <option value="vendas" class="col-4"> Vendas realizadas por período</option>
-                                <option value="perdas" class="col-4"> Listar perdas por período</option>
+                                <option value="perdas" class="col-4"> Perdas por período</option>
                             </select>
-                            <select form="relatorio" id="selectD" name="propriedade_id" class="custom-select col-8 p-0 offset-2"@if(count($propriedades)==1) style="-moz-appearance: none; -webkit-appearance: none; appearance: none; display: none" @else style="display: none" @endif>   
-                                	@foreach ($propriedades as $propriedade)
-										<option value="{{$propriedade->id}}"> {{$propriedade->nome}}</option>
-									@endforeach
+                            <select form="relatorio" id="selectD" name="propriedade_id" class="custom-select col-8 p-0 offset-2"@if(is_array($propriedades) && count($propriedades) > 1) style="display: none" @else style="-moz-appearance: none; -webkit-appearance: none; appearance: none; display: none" @endif>
+										@foreach ($propriedades as $propriedade)
+											<option value="{{$propriedade->id}}"> {{$propriedade->nome}}</option>
+										@endforeach
 						     </select>
                         <input class="col-3 p-0 offset-2" type="date" name="date-inicio">
                         <input class="col-3 p-0 offset-2" type="date" name="date-final">
@@ -62,13 +62,17 @@
 			                            $i=0;
 			                        @endphp
 									@foreach($topo as $cp)
-										@if(count($formatData) > 0 && $cp == $formatData[$i])
-											@php
-												if(count($formatData) >= $i+1 ){
-				                            		$i=$i+1;
-												}
-				                            @endphp
-											<td class="data">{{$c->{str_slug("Laravel 5 Framework", "-")$cp} }}</td>
+										@if(count($formatData) > 0)
+											@if($i < count($formatData) && $formatData[$i] == $cp)
+												@php
+													if(count($formatData) >= $i+1 ){
+					                            		$i=$i+1;
+													}
+					                            @endphp
+												<td class="data">{{$c->{$cp} }}</td>
+											@else
+				                       			<td>{{$c->{$cp} }}</td>
+											@endif
 										@else
 			                       			<td>{{$c->{$cp} }}</td>
 										@endif
@@ -82,8 +86,8 @@
 	                  	<thead class="thead-light">
 	                      	@foreach($lastLine as $campoLast)
 					            <th colspan="{{(count($topo)/2)}}" scope="col">{{$campoLast}} 
-					            	@if($campoLast == 'Área') 
-										Total (m²)
+					            	@if($campoLast == 'Área Total' || $campoLast == 'Área') 
+										(m²)
 									@elseif($campoLast == 'Total' || $campoLast == 'Valor Unitário')
 										(R$)
 									@endif
@@ -94,7 +98,7 @@
 		                    @foreach($totalG as $total)
 								<tr>
 		                           	@foreach($lastLine as $campoLast)
-										<td colspan="{{(count($topo)/2)}}">{{$total->{$campoLast} }} </td>
+										<td colspan="{{(count($topo)/2)}}">{{$total->{ str_slug($campoLast, "_")} }} </td>
 									@endforeach
 								</tr>
 							@endforeach
@@ -146,6 +150,8 @@
 				$("input[name=date-final]").css('display','none');
 				$("select#selectD").show();
 				
+	   		}else if($('option:selected').val() =='manejo-propriedade'){
+	   			$("select#selectD").show();
 	   		}else{
 	   			$("input[name=date-inicio]").css('display','block');
 				$("input[name=date-final]").css('display','block');

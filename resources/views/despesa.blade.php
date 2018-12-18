@@ -78,7 +78,7 @@
 	                        </div>
 	                        <div class="form-group col-md-6">
 	                            <label for="nome" class="control-label">Despesa<span style="color: red">*</span></label>
-	                            <input type="text" class="form-control " pattern="[A-Za-zÀ-ú ]{6,255}$" id="nome" name="nome" placeholder="" value="" required>
+	                            <input type="text" class="form-control " pattern="[A-Za-zÀ-ú ]{3,255}$" id="nome" name="nome" placeholder="" value="" required>
 	                        </div>
 	                    </div>
 	                    <div class="form-group">

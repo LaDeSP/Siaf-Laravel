@@ -344,14 +344,16 @@
 			@endisset
 			@yield('conteudo')
 		</div>
-		<div class="row rodape col-12 ">
-				<div class="col-9">
-					<p class="lead text-justify">Todos os direitos reservados. Universidade Federal de Mato Grosso do Sul. Copyright © 2018 <br>Corumbá/MS</p>
-				</div>
-				<div class="col float-none">
-					<img src="images/Logo_menor.png">
-				</div>
+		<div class="row rodape col-12">
+            <div class="col-9 text-right">
+                <p style="padding-top:2%; margin-bottom: 0rem;">Todos os direitos reservados. Universidade Federal de Mato Grosso do Sul. Copyright © 2018</p>
+                <p class="text-center offset-md-5" style="line-height: 80%;" >Corumbá/MS</p>
+            </div>
+			<div class="col">
+				<img style="padding-top: 2%; padding-left: 10%;" src="images/Logo_menor.png">
 			</div>
+
+		</div>
 		</div>
 
 

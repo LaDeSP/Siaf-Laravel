@@ -22,11 +22,10 @@ class Propriedade extends Model
     public static function atualizar($request, $id){
         try{
             $prop = \App\Models\Propriedade::find($id);
-            $cidade = $prop->cidade_id;
 
             $prop->nome = $request['nome'];
             $prop->localizacao= $request['localiza'];
-            $prop->cidade_id = $cidade;
+            $prop->cidade_id = $request['cidade'];
 
             $prop->save();
             return 200;

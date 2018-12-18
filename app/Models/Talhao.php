@@ -7,8 +7,15 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Talhao extends Model
 {
+
     use SoftDeletes;
     protected $table="talhao";
+
+    protected $fillable = [
+        'Area'=>"area",
+        'Nome'=>'nome',
+        'Propriedade'=>"propriedade_id"
+    ];
 
     public static function inserir($data){
         try {
@@ -19,6 +26,7 @@ class Talhao extends Model
             $talhao->save();
             return 200;
         }catch(\Exception $e){
+            dd($e);
             return 500;
         }
     }
@@ -30,16 +38,10 @@ class Talhao extends Model
      */
     public static function atualizar($request, $id){
         try{
-            $talhao = \App\Models\Talhao::find($id);
-
-            $talhao->area= $request['area'];
-            $talhao->nome=$request['nome'];
-            $talhao->propriedade_id= $request['propriedade_id'];
-
-            $talhao->save();
+            \App\Models\Talhao::find($id)->update(["area" => $request['area'], "nome" => $request['nome']]);
             return 200;
         }catch(\Exception $e){
-            return $e;
+            return 500;
         }
     }
 

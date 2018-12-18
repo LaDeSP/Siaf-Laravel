@@ -133,6 +133,7 @@
 
                             @endif
                         </blockquote>
+                        {{--{!! $talhao->links() !!}--}}
                     </div>
                 </div>
         &nbsp;
@@ -187,8 +188,9 @@
                                                         <form method="post" id="produtoDelete" action="/produto/{{$p['id']}}">
                                                             @csrf
                                                             @method("DELETE")
-                                                            <button type="submit" id="regitrarInves" @if(\App\Http\Controllers\PropriedadeController::findUsageP($p))
-                                                            disabled
+                                                            <button type="submit" id="regitrarInves"
+                                                                    @if(\App\Http\Controllers\PropriedadeController::findUsageP($p))
+                                                                        disabled
                                                                     @endif class="btn btn-xs btn-danger delete confirm"  msg='Tem certeza que deseja excluir o produto {{$p->nome}} . ' name="salvar">Excluir</button>
                                                         </form>
                                                     </div>

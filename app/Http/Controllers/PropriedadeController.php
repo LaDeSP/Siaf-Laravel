@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\DB;
 
 class PropriedadeController extends Controller
 {
+    private $totalpage=3;
     /**
      * Display a listing of the resource.
      *
@@ -121,7 +122,7 @@ class PropriedadeController extends Controller
 
     public static function findUsageT($param){
         try{
-                if(Plantio::where('talhao_id','=',$param['id'])->firstOrFail())
+            if(Plantio::where('talhao_id','=',$param['id'])->firstOrFail())
                 return true;
         }catch(\Exception $e){
             return false;
@@ -130,8 +131,9 @@ class PropriedadeController extends Controller
 
     public static function findUsageP($param){
         try{
-            if(Estoque::where('produto_id','=',$param['id'])->firstOrFail() or  Plantio::where('produto_id','=',$param['id'])->firstOrFail())
+            if( Estoque::where('produto_id','=',$param['id'])->first() || Plantio::where('produto_id','=',$param['id'])->first())
                 return true;
+            return false;
         }catch(\Exception $e){
             return false;
         }

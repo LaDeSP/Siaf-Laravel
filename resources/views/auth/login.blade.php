@@ -3,7 +3,7 @@
 <form action="{{ route('login') }}" method="POST">
     @csrf
     <div class='step login-step'>
-        <div class='title'>
+        <div class='title title2'>
             Digite seu CPF e sua senha
             @if ($message = Session::get('error'))
             <div class="alert alert-danger alert-block browser_alert_login">
@@ -42,7 +42,7 @@
                 <a class="forgot" href="{{ route('password.request') }}">Esqueci minha senha</a>
             </label>
         </div>
-        <button class=" btn btn-success" type='submit' name="login" value="Login">
+        <button class="btn btn-success" type='submit' name="login" value="Login">
             {{ __('Entrar') }}
         </button>
         <a class="text-center signup-link" href="{{ route('register') }}">Ainda não tem uma conta? <span>Você pode se cadastrar!</span></a>

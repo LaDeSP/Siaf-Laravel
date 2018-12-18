@@ -16,7 +16,7 @@
                 CPF
                 <input id="cpf" placeholder="Informe seu CPF (somente numeros)" type="text" class="form-control{{ $errors->has('cpf') ? ' is-invalid' : '' }}" name="cpf" value="{{ old('cpf') }}" required autofocus>
                 @if ($errors->has('cpf'))
-                <span class="invalid-feedback" role="alert">
+                <span class="invalid-feedback">
                     <strong>{{ $errors->first('cpf') }}</strong>
                 </span>
                 @endif
@@ -27,7 +27,7 @@
                 Senha
                 <input id="senha" placeholder="Informe sua senha com no (mínimo 6 caracteres)" type="password" class="form-control{{ $errors->has('senha') ? ' is-invalid' : '' }}" name="senha" required>
                 @if ($errors->has('senha'))
-                <span class="invalid-feedback" role="alert">
+                <span class="invalid-feedback">
                     <strong>{{ $errors->first('senha') }}</strong>
                 </span>
                 @endif

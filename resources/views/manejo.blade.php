@@ -76,8 +76,8 @@ $( document ).ready(function() {
 <div id="accordion">
 @foreach ($Plantios as $Plantio)
   <div class="card">
-        <div class="card-header"  id="heading{{$Plantio->id}}">
-          <a  data-toggle="collapse" data-target="#collapse{{$Plantio->id}}" aria-expanded="fase" aria-controls="collapse{{$Plantio->id}}">
+        <div class="card-header btn text-left"  id="heading{{$Plantio->id}}">
+          <a data-toggle="collapse" data-target="#collapse{{$Plantio->id}}" aria-expanded="fase" aria-controls="collapse{{$Plantio->id}}">
             <div class="row">
               <div class="col-2 data">{{$Plantio->data_plantio}}</div>
               <div class="col-6">{{$Plantio->nomet}}</div>
@@ -87,7 +87,7 @@ $( document ).ready(function() {
         </div>
 
 
-    <div id="collapse{{$Plantio->id}}" class="collapse @isset($Mostrar) @if($Mostrar==$Plantio->id) {{$show}} @endif @endisset" aria-labelledby="heading{{$Plantio->id}}" data-parent="#accordion">
+    <div id="collapse{{$Plantio->id}}" class=" collapse @isset($Mostrar) @if($Mostrar==$Plantio->id) {{$show}} @endif @endisset" aria-labelledby="heading{{$Plantio->id}}" data-parent="#accordion">
       <div class="card-body">
 
         <div class="col-10 text-right adicionar">

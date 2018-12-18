@@ -26,7 +26,7 @@ class PropriedadeController extends Controller
     public function index(Request $request)
     {
         $prop = $this->getPropriedade($request);
-        $talhao = Talhao::all()->where('propriedade_id','=',$prop['id']) ;
+        $talhao = Talhao::where('propriedade_id','=',$prop['id'])->paginate(3);
         $produto = Produto::all()->where('propriedade_id','=',$prop['id']);
         foreach ($produto as $p){
             $p['unidade_id'] = DB::table('unidade')->where('id', $p['unidade_id'])->where('unidade.deleted_at','=',null)->value('nome');

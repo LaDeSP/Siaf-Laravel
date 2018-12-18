@@ -9,7 +9,7 @@ body {
    -webkit-background-size: cover;
    -moz-background-size: cover;
    -o-background-size: cover;
-   background-size: cover
+   background-size: cover;
 }
 
 html,
@@ -32,14 +32,6 @@ body {
    justify-content: center;
    background: rgba(30, 37, 46, 0.6);
    overflow: hidden
-}
-
-.box-left a.logo_sign {
-   position: absolute;
-   top: calc(50% - 40px);
-   left: 0;
-   width: 35%;
-   text-align: center
 }
 
 .box-right {
@@ -66,10 +58,6 @@ body {
    margin-bottom: 50px;
    line-height: 24px;
    color: #666
-}
-
-.box-right .idp-box .idp-item:last-of-type {
-   border-bottom: 1px solid #eee
 }
 
 .box-right form,
@@ -115,9 +103,7 @@ body {
 .box-right form .form-group,
 .box-right .idp-login .form-group {
    margin-bottom: 15px;
-   color: #212529;
    text-align: left;
-   position: relative;
    display: inline-block;
    width: 100%
 }
@@ -128,14 +114,7 @@ body {
    font-weight: 500
 }
 
-.box-right form input,
-.box-right .idp-login input {
-   padding: 0 6px;
-   height: 45px;
-   border: 0;
-   font-size: 13px;
-   background-color: rgba(255, 255, 255, 0)
-}
+
 
 .box-right form input[type="checkbox"],
 .box-right .idp-login input[type="checkbox"] {
@@ -177,21 +156,6 @@ a.button,
    z-index: 9
 }
 
-.box-right .dots .bottom a {
-   vertical-align: top;
-   display: inline-block;
-   margin: 0 30px;
-   background-color: white;
-   border-radius: 50%;
-   width: 30px;
-   height: 30px;
-   color: white;
-   text-decoration: none;
-   line-height: 33px;
-   position: relative;
-   background: #DEE2E6
-}
-
 .logo_login {
    height: 80px;
    background-size: auto 80px !important
@@ -207,10 +171,15 @@ a.button,
    display: inline-block;
    color: black;
    text-decoration: none;
-   margin-bottom: 10px
+   margin-bottom: 60px
 }
 
 @media (max-width: 767px) {
+
+   .title1, .register {
+      padding: 0; 
+  }
+
    .signup-link {
       margin-bottom: 60px
    }
@@ -284,10 +253,7 @@ a.button,
    .signup-with a span {
       display: none
    }
-   .signup-link {
-      background-color: #F1F3F5;
-      border-radius: 20px
-   }
+
    .signup-link span {
       display: none
    }

@@ -133,7 +133,7 @@
 
                             @endif
                         </blockquote>
-                        {{--{!! $talhao->links() !!}--}}
+                        {!! $talhao->links() !!}
                     </div>
                 </div>
         &nbsp;

@@ -46,7 +46,7 @@
 			width: 100%;
 
 		}
-		
+
 		.linhaFrom{
 			margin-bottom: 10px
 		}
@@ -68,6 +68,34 @@
 			white-space: nowrap;
 		}
 
+        .pagination > li > a,
+        .pagination > li > span {
+            color: green;
+        }
+
+        .pagination > .active > a,
+        .pagination > .active > a:focus,
+        .pagination > .active > a:hover,
+        .pagination > .active > span,
+        .pagination > .active > span:focus{
+            background-color: green;
+            border-color: green;
+            color: green;
+
+        }
+        .pagination > .active > span:hover {
+            background-color: green;
+            border-color: green;
+            color: green;
+        }
+        #title{
+            font-size: 3.5vw;
+        }
+        @media screen and (min-width: 1200px) {
+            #title {
+                font-size: 36px;
+            }
+        }
 	</style>
 	<script type="text/javascript">
 		$( document ).ready(function() {
@@ -152,10 +180,10 @@
 				<div  class="col-5 col-sm-4 col-md-2" >
 					<img class="img-fluid" src="/images/log.png">
 				</div>
-				<div class="col-2    col-md-2 col-sm-1 offset-md-3 offset-sm-1 text-center lead caret">
-					<h3 class="h2">{{$Tela}}</h3>
+				<div class="col-2 col-md-2 col-sm-1 offset-md-3 offset-sm-1 text-center lead caret">
+					<h3 id="title" class="h3">{{$Tela}}</h3>
 				</div>
-				<div  class="col-5 col-md-2 col-sm-5 offset-md-3 offset-sm-1 "  data-toggle="modal" data-target=".bd-user-modal-sm"  data-backdrop="false" >
+				<div  class="col-5 col-md-2 col-sm-3 offset-md-3 offset-sm-1 "  data-toggle="modal" data-target=".bd-user-modal-sm"  data-backdrop="false" >
 					<img  class="btn img-fluid col-6 offset-3" src="/images/agr.png">
 					<div class="lead text-center" >{{$User}} </div>
 				</div>

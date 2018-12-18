@@ -73,7 +73,6 @@ class UsersController extends Controller
         $user = $this->usuario;
         
         $data = $request->all();
-        //dd($data);
 
         $validacao = Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],

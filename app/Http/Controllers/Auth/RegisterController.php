@@ -59,7 +59,6 @@ class RegisterController extends Controller
             'email' => 'max:100',
             'senha' => 'min:6|required',
             'confirme_senha' => 'min:6|same:senha',
-            'telefone' =>'required|celular_com_ddd',
             'nome' =>'required',
             'localizacao' =>'required',
             'cidade' =>'required'

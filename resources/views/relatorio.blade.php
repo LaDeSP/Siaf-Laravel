@@ -13,20 +13,20 @@
                     <div class="row align-center">
                             <select  form="relatorio" id="tipo" name="tipo" class="custom-select col-8 p-0 offset-2" >
                                 <option hidden selected>Selecione uma opção</option>
-                                <option value="investimentos" class="col-4"> Listar investimentos realizados por período </option>
-                                <option value="despesa" class="col-4"> Listar despesa realizadas por período</option>
-                                <option value="plantios" class="col-4"> Listar plantios realizados por período</option>
+                                <option value="investimentos" class="col-4"> Investimentos realizados por período </option>
+                                <option value="despesa" class="col-4"> Despesa realizadas por período</option>
+                                <option value="plantios" class="col-4"> Plantios realizados por período</option>
                                 <option value="manejo-talhão" class="col-4"> Listar manejos realizados por período por talhão </option>
                                 <option value="manejo-propriedade" class="col-4"> Listar manejos realizados por período por propriedade </option>
                                 <option value="colheitas" class="col-4"> Listar colheitas realizadas por período </option>
-                                <option value="talhão" class="col-4"> Listar talhões por propriedade</option>
+                                <option value="talhão" class="col-4"> Talhões por propriedade</option>
                                 <option value="produtos-propriedade" class="col-4"> Listar produtos ativos e inativos por propriedade</option>
                                 <option value="historico-manejo-plantio" class="col-4"> Listar histórico de manejo por plantio</option>
                                 <option value="estoque-propriedade" class="col-4"> Listar estoque por propriedade por período </option>
-                                <option value="vendas" class="col-4"> Listar vendas realizadas por período</option>
+                                <option value="vendas" class="col-4"> Vendas realizadas por período</option>
                                 <option value="perdas" class="col-4"> Listar perdas por período</option>
                             </select>
-                            <select form="relatorio" id="propriedade" name="propriedade_id" class="custom-select col-8 p-0 offset-2"@if(count($propriedades)==1) style="-moz-appearance: none; -webkit-appearance: none; appearance: none; display: none" @else style="display: none" @endif>   
+                            <select form="relatorio" id="selectD" name="propriedade_id" class="custom-select col-8 p-0 offset-2"@if(count($propriedades)==1) style="-moz-appearance: none; -webkit-appearance: none; appearance: none; display: none" @else style="display: none" @endif>   
                                 	@foreach ($propriedades as $propriedade)
 										<option value="{{$propriedade->id}}"> {{$propriedade->nome}}</option>
 									@endforeach
@@ -58,9 +58,17 @@
 	                    <tbody>
 							@foreach($conteudo as $c)
 	                            <tr>
+			                        @php
+			                            $i=0;
+			                        @endphp
 									@foreach($topo as $cp)
-										@if($cp == 'Data')
-											<td class="data">{{$c->{$cp} }}</td>
+										@if(count($formatData) > 0 && $cp == $formatData[$i])
+											@php
+												if(count($formatData) >= $i+1 ){
+				                            		$i=$i+1;
+												}
+				                            @endphp
+											<td class="data">{{$c->{str_slug("Laravel 5 Framework", "-")$cp} }}</td>
 										@else
 			                       			<td>{{$c->{$cp} }}</td>
 										@endif
@@ -115,10 +123,7 @@
 	   		}
 	   		console.log('t');
 	  	});
-	});
-@endisset
-	$( document ).ready(function() {
-		$("select[name=tipo]").change(function () {
+	  	$("select[name=tipo]").change(function () {
 	   		if($('option:selected').val()=='talhão'){
 	   			console.log('talhão');
 	   			$("input[name=date-inicio]").css('display','none');
@@ -128,9 +133,25 @@
 	   		}else{
 	   			$("input[name=date-inicio]").css('display','block');
 				$("input[name=date-final]").css('display','block');
-				$("select[name=propriedade_id]").css('display','none');
+				$("select#selectD").css('display','none');
 	   		}
-	  	});
-	}).change();
+	  	}).change();
+	});
+@endisset
+	$( document ).ready(function() {
+		$("select[name=tipo]").change(function () {
+	   		if($('option:selected').val()=='talhão'){
+	   			console.log('talhão');
+	   			$("input[name=date-inicio]").css('display','none');
+				$("input[name=date-final]").css('display','none');
+				$("select#selectD").show();
+				
+	   		}else{
+	   			$("input[name=date-inicio]").css('display','block');
+				$("input[name=date-final]").css('display','block');
+				$("select#selectD").css('display','none');
+	   		}
+	  	}).change();
+	});
 </script>
 @endsection

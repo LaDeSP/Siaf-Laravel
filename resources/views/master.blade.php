@@ -226,7 +226,7 @@
 
 						</div>
 						<div class="row">
-							<div class="col-md-12 lead text-justify">Inicio</div>
+							<div class="col-md-12 lead text-center">Inicio</div>
 						</div>
 					</a>
 				</div>

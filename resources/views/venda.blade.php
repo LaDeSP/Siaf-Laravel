@@ -10,19 +10,19 @@
          url = self.data('endpoint'),
          target = self.data('target'),
          cache = self.data('cache');
-         
+
          $.ajax({
             url: url,
             cache : cache,
             success: function(data){
                if (target !== 'undefined'){
-                  
+
                   $('#'+target).modal('show');
                   $('#'+target).html( data );
                }
             }
          });
-      });      
+      });
    });
 </script>
 
@@ -64,6 +64,9 @@
          </div>
       </div>
    </div>
+   @if(count($Vendas)==0)
+      <p class="text-center">Por favor, adicione novas vendas!</p>
+   @else
    <div class="table-responsive-sm">
       <table class="table table-hover ">
          <thead>
@@ -109,8 +112,7 @@
          </tbody>
       </table>
    </div> 
-   @if(count($Vendas)==0)
-      Por favor, adicione novas vendas!
+
    @endif
 </div>
 

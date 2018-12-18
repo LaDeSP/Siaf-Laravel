@@ -56,6 +56,7 @@
 							@endforeach					
 	                    </thead>
 	                    <tbody>
+                        <div id="results-wrapper">
 							@foreach($conteudo as $c)
 	                            <tr>
 			                        @php
@@ -79,8 +80,12 @@
 									@endforeach
 	                            </tr>
 							@endforeach
+                        </div>
 	                    </tbody>
 	                </table>
+                <div id="pagination-wrapper">
+                    {!! $conteudo->links() !!}
+                </div>
 	                <br>
 	                <table class="table">
 	                  	<thead class="thead-light">
@@ -110,6 +115,12 @@
         </div>
 	</div>
 <script type="text/javascript">
+
+    $(document).on('click', '#pagination-wrapper a', function(e){
+        e.preventDefault();
+        $('#results-wrapper').load($(this).attr('href') + ' #results-wrapper');
+    });
+
 @isset($conteudo)
 	$( document ).ready(function() {
 		$('option').each(function(e){

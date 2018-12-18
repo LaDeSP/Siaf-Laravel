@@ -154,8 +154,7 @@ class RelatorioController extends Controller
         ->select('produto.nome as Produto','talhao.id as Talhão','plantio.quantidade_pantas as Unidade','plantio.data_plantio as Plantio','plantio.data_semeadura as Semeadura')
         ->whereBetween('plantio.data_plantio', [$request['date-inicio'], $request['date-final']])
         ->where('talhao.propriedade_id', '=',$propriedade->id)
-        ->groupBy('plantio.id','talhao.id')
-        ->get();
+        ->groupBy('plantio.id','talhao.id')->paginate(5);
         $totalG= Plantio::join('talhao', 'plantio.talhao_id','=','talhao.id')
         ->join('produto', 'plantio.produto_id','=','produto.id')
         ->select('produto.nome as produto',(DB::raw('SUM( plantio.quantidade_pantas) as total_unidade')))

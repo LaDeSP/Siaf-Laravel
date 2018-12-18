@@ -30,16 +30,28 @@
                             @endforeach
                         </select>
                     </div>
-                    <div class="form-group">
-                        <label for="nome" class="control-label">Plantável</label>
-                        <input type="checkbox"
-                               @if(isset($produto->plantavel))
+                        <div class="form-group">
+                            <label for="nome" class="control-label">Plantável</label>
+                            <input type="checkbox"
+                                   @if(isset($produto->plantavel))
                                    @if($produto->plantavel)
-                                       checked
+                                   checked
                                    @endif
-                               @endif
-                               id="plantavel" name="plantavel">
-                    </div>
+                                   @endif
+                                   id="plantavel" name="plantavel">
+
+                        </div>
+                        <div class="form-group">
+                            <label for="nome" class="control-label" data-toggle="tooltip" data-placement="top" title="Indique se o produto ainda está em uso.">Ativo</label>
+                            <input type="checkbox"
+                                   @if(isset($produto->status))
+                                   @if($produto->status)
+                                   checked
+                                   @endif
+                                   @endif
+                                   id="status" name="status">
+
+                        </div>
                     <div class="text-center">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
                         <button type="submit" class="btn btn-success" name="salvar">Salvar</button>
@@ -50,3 +62,8 @@
 
     </div>
 </div>
+<script>
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
+</script>

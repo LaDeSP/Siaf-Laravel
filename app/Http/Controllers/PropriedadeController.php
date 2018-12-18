@@ -5,8 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Cidade;
 use App\Models\Estado;
 use App\Models\Estoque;
-use App\Models\Manejo;
-use App\Models\ManejoPlantio;
 use App\Models\Plantio;
 use App\Models\Produto;
 use App\Models\Propriedade;
@@ -26,11 +24,12 @@ class PropriedadeController extends Controller
     public function index(Request $request)
     {
         $prop = $this->getPropriedade($request);
-        $talhao = Talhao::all()->where('propriedade_id','=',$prop['id']) ;
-        $produto = Produto::all()->where('propriedade_id','=',$prop['id']);
-        foreach ($produto as $p){
-            $p['unidade_id'] = DB::table('unidade')->where('id', $p['unidade_id'])->where('unidade.deleted_at','=',null)->value('nome');
-        }
+        $talhao = Talhao::where('propriedade_id','=',$prop['id'])->paginate(3,['*'],"talhao");
+        $produto = Produto::where('propriedade_id','=',$prop['id'])->paginate(3,['*'],"produto");
+        $produto->getCollection()->transform(function ($value) {
+            $value['unidade_id'] = DB::table('unidade')->where('id', $value['unidade_id'])->where('unidade.deleted_at','=',null)->value('nome');
+            return $value;
+        });
         if($request['mensagem']){
             return view('propriedades', ["propriedade"=>$prop,"talhao"=>$talhao, "unidades"=>Unidade::get(["id","nome"]),"produto"=>$produto, "User"=>$this->getFirstName($this->usuario['name']), "Tela"=>"Propriedade", 'mensagem'=>$request['mensagem'],'status'=>$request['status']]);
         }else{

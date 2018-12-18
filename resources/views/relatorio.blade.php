@@ -17,16 +17,16 @@
                                 <option value="despesa" class="col-4"> Despesa realizadas por período</option>
                                 <option value="plantios" class="col-4"> Plantios realizados por período</option>
                                 <option value="manejo-talhão" class="col-4"> Manejos realizados por período por talhão </option>
-                                <option value="manejo-propriedade" class="col-4"> Listar manejos realizados por período por propriedade </option>
-                                <option value="colheitas" class="col-4"> Listar colheitas realizadas por período </option>
+                                <option value="manejo-propriedade" class="col-4"> Manejos realizados por período por propriedade </option>
+                                <option value="colheitas" class="col-4">Colheitas realizadas por período </option>
                                 <option value="talhão" class="col-4"> Talhões por propriedade</option>
-                                <option value="produtos-propriedade" class="col-4"> Listar produtos ativos e inativos por propriedade</option>
-                                <option value="historico-manejo-plantio" class="col-4"> Listar histórico de manejo por plantio</option>
+                                <option value="produtos-ativos-e-não-propriedade" class="col-4"> Listar produtos ativos e inativos por propriedade</option>
+                                <option value="historico-manejo-plantio" class="col-4"> Histórico de manejo por plantio</option>
                                 <option value="estoque-propriedade" class="col-4"> Listar estoque por propriedade por período </option>
                                 <option value="vendas" class="col-4"> Vendas realizadas por período</option>
                                 <option value="perdas" class="col-4"> Perdas por período</option>
                             </select>
-                            <select form="relatorio" id="selectD" name="propriedade_id" class="custom-select col-8 p-0 offset-2"@if(is_array($propriedades) && count($propriedades) > 1) style="display: none" @else style="-moz-appearance: none; -webkit-appearance: none; appearance: none; display: none" @endif>
+                            <select form="relatorio" id="selectD" name="propriedade_id" class="custom-select col-8 p-0 offset-2"@if(is_array($propriedades) && count($propriedades) < 2) style="display: none" @else style="-moz-appearance: none; -webkit-appearance: none; appearance: none; display: none" @endif>
 										@foreach ($propriedades as $propriedade)
 											<option value="{{$propriedade->id}}"> {{$propriedade->nome}}</option>
 										@endforeach
@@ -43,7 +43,7 @@
             <div class="card-body">
             	@if(isset($topo))
 			    	<h4 id="tituloTab" ></h4>
-			    	<table id="informacoes" class="table">
+			    	<table id="informacoes" class="table table-hover table-condensed">
 	                    <thead class="thead-light">
 							@foreach($topo as $t)
 							    <th>{{$t}} 
@@ -56,16 +56,17 @@
 							@endforeach					
 	                    </thead>
 	                    <tbody>
+                        <div id="results-wrapper">
 							@foreach($conteudo as $c)
 	                            <tr>
 			                        @php
 			                            $i=0;
 			                        @endphp
 									@foreach($topo as $cp)
-										@if(count($formatData) > 0)
-											@if($i < count($formatData) && $formatData[$i] == $cp)
+										@if(count($formatDataTopo) > 0)
+											@if($i < count($formatDataTopo) && $formatDataTopo[$i] == $cp)
 												@php
-													if(count($formatData) >= $i+1 ){
+													if(count($formatDataTopo) >= $i+1 ){
 					                            		$i=$i+1;
 													}
 					                            @endphp
@@ -79,10 +80,11 @@
 									@endforeach
 	                            </tr>
 							@endforeach
+                        </div>
 	                    </tbody>
 	                </table>
 	                <br>
-	                <table class="table">
+	                <table class="table table-hover table-condensed">
 	                  	<thead class="thead-light">
 	                      	@foreach($lastLine as $campoLast)
 					            <th colspan="{{(count($topo)/2)}}" scope="col">{{$campoLast}} 
@@ -97,8 +99,25 @@
 	                   	<tbody>	                                
 		                    @foreach($totalG as $total)
 								<tr>
+
+			                        @php
+			                            $i=0;
+			                        @endphp
 		                           	@foreach($lastLine as $campoLast)
-										<td colspan="{{(count($topo)/2)}}">{{$total->{ str_slug($campoLast, "_")} }} </td>
+										@if(count($formatDataLast) > 0)
+											@if($i < count($formatDataLast) && $formatDataLast[$i] == $campoLast)
+												@php
+													if(count($formatDataLast) >= $i+1 ){
+					                            		$i=$i+1;
+													}
+					                            @endphp
+												<td class="data" colspan="{{(count($topo)/2)}}">{{$total->{ str_slug($campoLast, "_")} }} </td>
+											@else
+				                       			<td colspan="{{(count($topo)/2)}}">{{$total->{ str_slug($campoLast, "_")} }} </td>
+											@endif
+										@else
+			                       			<td colspan="{{(count($topo)/2)}}">{{$total->{ str_slug($campoLast, "_")} }} </td>
+										@endif
 									@endforeach
 								</tr>
 							@endforeach
@@ -110,6 +129,12 @@
         </div>
 	</div>
 <script type="text/javascript">
+
+    // $(document).on('click', '#pagination-wrapper a', function(e){
+        // e.preventDefault();
+        // $('#results-wrapper').load($(this).attr('href') + ' #results-wrapper');
+    // });
+
 @isset($conteudo)
 	$( document ).ready(function() {
 		$('option').each(function(e){
@@ -121,25 +146,6 @@
 		});
 		$("input[name=date-inicio]").val('{{$inicio}}');
 		$("input[name=date-final]").val('{{$final}}');
-		$("select [name=tipo]" ).change(function () {
-	   		if($('option:selected').val()=='talhão'){
-	   			console.log('talhão');
-	   		}
-	   		console.log('t');
-	  	});
-	  	$("select[name=tipo]").change(function () {
-	   		if($('option:selected').val()=='talhão'){
-	   			console.log('talhão');
-	   			$("input[name=date-inicio]").css('display','none');
-				$("input[name=date-final]").css('display','none');
-				$("select[name=propriedade_id]").show();
-				
-	   		}else{
-	   			$("input[name=date-inicio]").css('display','block');
-				$("input[name=date-final]").css('display','block');
-				$("select#selectD").css('display','none');
-	   		}
-	  	}).change();
 	});
 @endisset
 	$( document ).ready(function() {
@@ -148,14 +154,21 @@
 	   			console.log('talhão');
 	   			$("input[name=date-inicio]").css('display','none');
 				$("input[name=date-final]").css('display','none');
-				$("select#selectD").show();
+				// $("select[name=propriedade_id]").show();
 				
-	   		}else if($('option:selected').val() =='manejo-propriedade'){
-	   			$("select#selectD").show();
+	   		}else if($('option:selected').val() =='manejo-propriedade' || $('option:selected').val()=='produtos-ativos-e-não-propriedade'){
+	   			$("input[name=date-inicio]").css('display','block');
+				$("input[name=date-final]").css('display','block');
+	   			// $("select#selectD").show();
+	   		}else if($('option:selected').val()=='produtos-ativos-e-não-propriedade'){
+	   			// $("select#selectD").show();
+	   		}else if($('option:selected').val()=='historico-manejo-plantio'){
+	   			$("input[name=date-inicio]").css('display','none');
+				$("input[name=date-final]").css('display','none');
 	   		}else{
 	   			$("input[name=date-inicio]").css('display','block');
 				$("input[name=date-final]").css('display','block');
-				$("select#selectD").css('display','none');
+				// $("select#selectD").css('display','none');
 	   		}
 	  	}).change();
 	});

@@ -133,7 +133,9 @@
 
                             @endif
                         </blockquote>
-                        {{--{!! $talhao->links() !!}--}}
+                        @if($talhao instanceof \Illuminate\Pagination\LengthAwarePaginator )
+                            {{$talhao->appends('produto', \Illuminate\Support\Facades\Input::get('produto',1))->links()}}
+                        @endif
                     </div>
                 </div>
         &nbsp;
@@ -203,6 +205,9 @@
                             @endif
 
                         </blockquote>
+                        @if($produto instanceof \Illuminate\Pagination\LengthAwarePaginator )
+                            {{$produto->appends('talhao', \Illuminate\Support\Facades\Input::get('talhao',1))->links()}}
+                        @endif
                     </div>
                 </div>
     </div>

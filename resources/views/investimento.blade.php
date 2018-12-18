@@ -4,16 +4,17 @@
 @section('usuario', $User)
 
 @section('conteudo')
+
     <div class="">
         <div class="col-10 text-right adicionar">
             <a id="add" data-toggle="modal" data-target="#exampleModal" class="btn btn-success text-light">Adicionar</a>
         </div>
-        <div class="conteiner col-10">
-            @if(($dados->isEmpty()))
+            <div class="col-10">
+                @if(($dados->isEmpty()))
                     <div class="text-center">
                         <p>Por favor, adicione investimentos!</p>
                     </div>
-            @else
+                @else
                     <table class="table table-hover ">
                         <thead>
                             <tr>
@@ -42,10 +43,10 @@
                                             </div>
                                             <div class="col-sm-6">
                                                 <form method="post" id="investimentoDelete" action="/investimento/{{$d->id}}">
-                                                @csrf
-                                                @method("DELETE")
-                                                <button type="submit" id="regitrarInves" class="btn btn-xs btn-danger delete confirm" msg="Tem certeza que deseja excluir o {{$Tela}} {{$d->nome}} . " name="salvar">Excluir</button>
-                                            </form>
+                                                    @csrf
+                                                    @method("DELETE")
+                                                    <button type="submit" id="regitrarInves" class="btn btn-xs btn-danger delete confirm" msg="Tem certeza que deseja excluir o {{$Tela}} {{$d->nome}} . " name="salvar">Excluir</button>
+                                                </form>
                                             </div>
                                         </div>
                                     </td>
@@ -53,8 +54,8 @@
                             @endforeach
                         </tbody>
                     </table>
-                </div>
-        @endif
+                @endif
+            </div>
 
     </div>  
     <!-- Modal add -->
@@ -63,51 +64,51 @@
     
            <!-- Modal content-->
             <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Adicionar investimento</h5>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-            <div class="modal-body">
-              <form method="POST" id="investimento" action="/investimento">
-                    @csrf
-                    @method("POST")
-                    <div class="row">
-                        <div class="form-group col-md-6">
-                            <label for="propriedade_id">Propriedade</label>
-                            <select style="-moz-appearance: none; -webkit-appearance: none; appearance: none;" form="investimento" class="form-control-plaintext" name="propriedade_id" disabled>
-                                        <option selected value="{{$propriedade->id}}" >{{$propriedade->nome}}</option>   
-                                </select>
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label for="nome" class="control-label">Investimento<span style="color: red">*</span></label>
-                            <input type="text" class="form-control " pattern="[A-Za-zÀ-ú ]{6,255}$" id="nome" name="nome" placeholder="Nome" value="{{ isset($dados->nome) ? $dados->nome : '' }}" required>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="descricao" class="control-label">Descrição</label>
-                        <textarea class="form-control " id="descricao" pattern="[A-Za-zÀ-ú0-9., -]{5,}$" name="descricao" placeholder="Descrição">{{ isset($dados->descricao) ? $dados->descricao : '' }}</textarea>
-                    </div>
-                    <div class="row">
-                            <div class="form-group col-md-4">
-                                <label for="valor_unit" class="control-label">Quantidade<span style="color: red">*</span></label>
-                                <input type="number" min="1" pattern="[0-9]$"class="form-control " id="quantidade" name="quantidade" placeholder="" value="{{ isset($dados->quantidade) ? $dados->quantidade : '' }}" required>
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Adicionar investimento</h5>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <form method="POST" id="investimento" action="/investimento">
+                        @csrf
+                        @method("POST")
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label for="propriedade_id">Propriedade</label>
+                                <select style="-moz-appearance: none; -webkit-appearance: none; appearance: none;" form="investimento" class="form-control-plaintext" name="propriedade_id" disabled>
+                                            <option selected value="{{$propriedade->id}}" >{{$propriedade->nome}}</option>   
+                                    </select>
                             </div>
-                            <div class="form-group col-md-4">
-                                <label for="valor_unit" class="control-label">Valor<span style="color: red">*</span></label>
-                                <input type="number" min="1" step="0.01" pattern="[0-9]$"class="form-control " id="valor" name="valor_unit" placeholder="" value="{{ isset($dados->valor_unit) ? $dados->valor_unit : '' }}" required>
+                            <div class="form-group col-md-6">
+                                <label for="nome" class="control-label">Investimento<span style="color: red">*</span></label>
+                                <input type="text" class="form-control " pattern="[A-Za-zÀ-ú ]{3,255}$" id="nome" name="nome" placeholder="Nome" value="{{ isset($dados->nome) ? $dados->nome : '' }}" required>
                             </div>
-                        <div class="form-group date col-md-4">
-                            <label for="data" class="control-label">Data<span style="color: red">*</span></label>
-                            <input type="date" class="form-control data " id="data" name="data" value="{{ isset($dados->data) ? $dados->data : '' }}" required>
                         </div>
-                    </div>
-                    <div class="text-center">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                        <button type="submit" id="regitrarInves" class="btn btn-success" name="salvar">Salvar</button>
-                    </div>
-                </form>
+                        <div class="form-group">
+                            <label for="descricao" class="control-label">Descrição</label>
+                            <textarea class="form-control " id="descricao" pattern="[A-Za-zÀ-ú0-9., -]{5,}$" name="descricao" placeholder="Descrição">{{ isset($dados->descricao) ? $dados->descricao : '' }}</textarea>
+                        </div>
+                        <div class="row">
+                                <div class="form-group col-md-4">
+                                    <label for="valor_unit" class="control-label">Quantidade<span style="color: red">*</span></label>
+                                    <input type="number" min="1" pattern="[0-9]$"class="form-control " id="quantidade" name="quantidade" placeholder="" value="{{ isset($dados->quantidade) ? $dados->quantidade : '' }}" required>
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="valor_unit" class="control-label">Valor<span style="color: red">*</span></label>
+                                    <input type="number" min="1" step="0.01" pattern="[0-9]$"class="form-control " id="valor" name="valor_unit" placeholder="" value="{{ isset($dados->valor_unit) ? $dados->valor_unit : '' }}" required>
+                                </div>
+                            <div class="form-group date col-md-4">
+                                <label for="data" class="control-label">Data<span style="color: red">*</span></label>
+                                <input type="date" class="form-control data " id="data" name="data" value="{{ isset($dados->data) ? $dados->data : '' }}" required>
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                            <button type="submit" id="regitrarInves" class="btn btn-success" name="salvar">Salvar</button>
+                        </div>
+                    </form>
+                </div>
             </div>
-        </div>
       
         </div>
     </div>
@@ -150,5 +151,6 @@ $("#investimentoEdit").submit(function( event ) {
     $('form#investimentoEdit select').removeAttr('disabled');
 });
 </script>
+
 @endsection
     

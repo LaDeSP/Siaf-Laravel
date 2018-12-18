@@ -71,8 +71,7 @@ class Venda extends Model
 		'destino.nome', 'venda.estoque_id', 'venda.destino_id')
 		->where('estoque.propriedade_id', '=', $propriedade->id)
 		->where('venda.deleted_at','=',null)
-		->get();
-		//dd($allVenda);
+		->paginate(self::totalPages);
 		return $allVenda;
 	}
 	

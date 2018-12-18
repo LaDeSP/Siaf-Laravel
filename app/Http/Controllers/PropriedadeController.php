@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Cidade;
 use App\Models\Estado;
+use App\Models\Estoque;
+use App\Models\Manejo;
+use App\Models\ManejoPlantio;
+use App\Models\Plantio;
 use App\Models\Produto;
 use App\Models\Propriedade;
 use App\Models\Talhao;
@@ -115,4 +119,21 @@ class PropriedadeController extends Controller
         //
     }
 
+    public static function findUsageT($param){
+        try{
+                if(Plantio::where('talhao_id','=',$param['id'])->firstOrFail())
+                return true;
+        }catch(\Exception $e){
+            return false;
+        }
+    }
+
+    public static function findUsageP($param){
+        try{
+            if(Estoque::where('produto_id','=',$param['id'])->firstOrFail() or  Plantio::where('produto_id','=',$param['id'])->firstOrFail())
+                return true;
+        }catch(\Exception $e){
+            return false;
+        }
+    }
 }

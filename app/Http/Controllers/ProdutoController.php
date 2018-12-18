@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Produto;
+use App\Models\Propriedade;
 use App\Models\Talhao;
 use App\Models\Unidade;
 use Illuminate\Http\Request;
@@ -25,9 +26,11 @@ class ProdutoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $prop = $this->getPropriedade($request);
+//        dd($prop);
+        return view('produtoForm',["propriedade"=>$prop, "unidades"=>Unidade::all(), "Title"=>"Adicionar produto",'Method'=>'post','Url'=>'/produto']);
     }
 
     /**
@@ -79,7 +82,9 @@ class ProdutoController extends Controller
      */
     public function edit($id)
     {
-        //
+        $produto = Produto::find($id);
+        $prop = Propriedade::find($produto['propriedade_id']);
+        return view('produtoForm',["propriedade"=>$prop, "produto"=>$produto, "munidade"=> $produto['unidade_id'], "unidades"=>Unidade::all(),'Method'=>'put','Url'=>'/produto'.'/'.$id, "Title"=>"Editar produto"]);
     }
 
     /**
@@ -122,13 +127,16 @@ class ProdutoController extends Controller
     {
         try{
             $p = Produto::find($id);
-            $p->delete();
-            $status='success';
-            $mensagem='Produto removido com sucesso!';
-            return redirect()->action('PropriedadeController@index', ['mensagem'=>$mensagem,'status'=>$status]);
+            if(!PropriedadeController::findUsageP($p)){
+                $p->delete();
+                $status='success';
+                $mensagem='Produto removido com sucesso!';
+                return redirect()->action('PropriedadeController@index', ['mensagem'=>$mensagem,'status'=>$status]);
+            }else
+                throw new \Exception();
         }catch (\Exception $e){
             $status='danger';
-            $mensagem='Ocorreu um erro ao remover   este produto!';
+            $mensagem='Ocorreu um erro ao remover este produto!';
             return redirect()->action('PropriedadeController@index', ['mensagem'=>$mensagem,'status'=>$status]);
         }
 

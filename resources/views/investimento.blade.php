@@ -56,7 +56,9 @@
                     </table>
                 @endif
             </div>
-
+        @if($dados instanceof \Illuminate\Pagination\LengthAwarePaginator )
+            {{$dados->links()}}
+        @endif
     </div>  
     <!-- Modal add -->
     <div class="modal fade" id="exampleModal" role="dialog">

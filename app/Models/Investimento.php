@@ -17,6 +17,7 @@ class Investimento extends Model
 		'data',
 		'propriedade_id'
 	];
+    private const totalPages = 5;
 
 	public static function insere($request){
 		 $investimento = new Investimento();
@@ -34,7 +35,7 @@ class Investimento extends Model
 	}
 	public static function ler($id,$variable){
 		if ($id == null) {
-			$investimento = self::all();
+			$investimento = self::all()->paginate(self::totalPages);
 			if (empty($investimento)) {
 				return 405;
 			}
@@ -47,7 +48,7 @@ class Investimento extends Model
 			}
 			return $investimento;
 		} else {
-			$investimento = self::all()->where($id,'=',$variable);
+			$investimento = self::where($id,'=',$variable)->paginate(self::totalPages);
 			if (empty($investimento)) {
 				return 405;
 			}

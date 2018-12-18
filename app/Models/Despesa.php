@@ -9,6 +9,7 @@ class Despesa extends Model
 {
    	protected $table = 'despesa';
     use SoftDeletes;
+    private const totalPages = 5;
 	protected $fillable = [
 		'nome',
 		'descricao',
@@ -34,7 +35,7 @@ class Despesa extends Model
 	}
 	public static function ler($id,$variable){
 		if ($id == null) {
-			$despesa = self::all();
+			$despesa = self::all()->paginate(self::totalPages);
 			if (empty($despesa)) {
 				return 405;
 			}
@@ -47,7 +48,7 @@ class Despesa extends Model
 			}
 			return $despesa;
 		} else {
-			$despesa = self::all()->where($id,'=',$variable);
+			$despesa = self::where($id,'=',$variable)->paginate(self::totalPages);
 			if (empty($despesa)) {
 				return 405;
 			}

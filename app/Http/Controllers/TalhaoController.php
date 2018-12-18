@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Propriedade;
 use App\Models\Talhao;
 use Illuminate\Http\Request;
 
@@ -65,7 +66,10 @@ class TalhaoController extends Controller
      */
     public function edit($id)
     {
-        //
+        $talhao = Talhao::find($id);
+        $prop = Propriedade::find($talhao['propriedade_id']);
+        return view('talhaoForm',["propriedade"=>$prop, "talhao"=>$talhao, 'Method'=>'put','Url'=>'/talhao'.'/'.$id, "Title"=>"Editar Talhão"]);
+
     }
 
     /**
@@ -79,6 +83,7 @@ class TalhaoController extends Controller
     {
         if ($request != null and $id != null) {
             $ret = Talhao::atualizar($request, $id);
+            dd($ret);
             if( $ret == 200){
                 $status='success';
                 $mensagem='Talhão atualizado com sucesso!';

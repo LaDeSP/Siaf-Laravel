@@ -3,7 +3,7 @@
 <form class="" id="" action="{{ route('register') }}" accept-charset="UTF-8" method="post">
     @csrf
     <div class='step'>
-        <div class='title'>
+        <div class='title1'>
             Cadastro
         </div>
         <!-- .title Vamos criar sua conta -->        

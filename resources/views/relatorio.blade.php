@@ -17,10 +17,10 @@
                                 <option value="despesa" class="col-4"> Despesa realizadas por período</option>
                                 <option value="plantios" class="col-4"> Plantios realizados por período</option>
                                 <option value="manejo-talhão" class="col-4"> Manejos realizados por período por talhão </option>
-                                <option value="manejo-propriedade" class="col-4"> Listar manejos realizados por período por propriedade </option>
-                                <option value="colheitas" class="col-4"> Listar colheitas realizadas por período </option>
+                                <option value="manejo-propriedade" class="col-4"> Manejos realizados por período por propriedade </option>
+                                <option value="colheitas" class="col-4">Colheitas realizadas por período </option>
                                 <option value="talhão" class="col-4"> Talhões por propriedade</option>
-                                <option value="produtos-propriedade" class="col-4"> Listar produtos ativos e inativos por propriedade</option>
+                                <option value="produtos-ativos-e-não-propriedade" class="col-4"> Listar produtos ativos e inativos por propriedade</option>
                                 <option value="historico-manejo-plantio" class="col-4"> Listar histórico de manejo por plantio</option>
                                 <option value="estoque-propriedade" class="col-4"> Listar estoque por propriedade por período </option>
                                 <option value="vendas" class="col-4"> Vendas realizadas por período</option>
@@ -121,25 +121,6 @@
 		});
 		$("input[name=date-inicio]").val('{{$inicio}}');
 		$("input[name=date-final]").val('{{$final}}');
-		$("select [name=tipo]" ).change(function () {
-	   		if($('option:selected').val()=='talhão'){
-	   			console.log('talhão');
-	   		}
-	   		console.log('t');
-	  	});
-	  	$("select[name=tipo]").change(function () {
-	   		if($('option:selected').val()=='talhão'){
-	   			console.log('talhão');
-	   			$("input[name=date-inicio]").css('display','none');
-				$("input[name=date-final]").css('display','none');
-				$("select[name=propriedade_id]").show();
-				
-	   		}else{
-	   			$("input[name=date-inicio]").css('display','block');
-				$("input[name=date-final]").css('display','block');
-				$("select#selectD").css('display','none');
-	   		}
-	  	}).change();
 	});
 @endisset
 	$( document ).ready(function() {
@@ -148,9 +129,13 @@
 	   			console.log('talhão');
 	   			$("input[name=date-inicio]").css('display','none');
 				$("input[name=date-final]").css('display','none');
-				$("select#selectD").show();
+				$("select[name=propriedade_id]").show();
 				
-	   		}else if($('option:selected').val() =='manejo-propriedade'){
+	   		}else if($('option:selected').val() =='manejo-propriedade' || $('option:selected').val()=='produtos-ativos-e-não-propriedade'){
+	   			$("input[name=date-inicio]").css('display','block');
+				$("input[name=date-final]").css('display','block');
+	   			$("select#selectD").show();
+	   		}else if($('option:selected').val()=='produtos-ativos-e-não-propriedade'){
 	   			$("select#selectD").show();
 	   		}else{
 	   			$("input[name=date-inicio]").css('display','block');

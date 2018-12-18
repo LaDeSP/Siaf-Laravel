@@ -63,7 +63,7 @@ $( document ).ready(function() {
 
 
 
-
+@isset($Plantios[0]->id)
 <div class="card-header" style="margin-top:10px;">
   <div class="row">
       <div class="col-2"><b>Data plantio</b></div>
@@ -71,6 +71,8 @@ $( document ).ready(function() {
       <div class="col-3"><b>Produto</b></div>
   </div>
 </div>
+
+
 <div id="accordion">
 @foreach ($Plantios as $Plantio)
   <div class="card">
@@ -122,12 +124,13 @@ $( document ).ready(function() {
 
 
 
-                      <a class="btn  btn-warning col-3"
+                      <a class="btn  btn-warning col-3 @if(! isset($Manejo->estoque)) btn-primary @else btn-primary  disabled @endif "
                         href="/manejo/{{$Manejo->id}}/edit"
                         data-endpoint="/manejo/{{$Manejo->id}}/edit"
                         data-target="exampleModal"
                         data-cache="false",
-                        data-async="true">Editar</a>
+                        data-async="true"
+                        @isset($Manejo->estoque) {{$disabled}}='{{$disabled}}' @endisset>Editar</a>
 
 
                       <form  class="col-4 	" method="post" id="investimento" action="/manejo/{{$Manejo->id}}">
@@ -165,7 +168,9 @@ $( document ).ready(function() {
               </tbody>
             </table>
             @if(count($Plantio->manejo)==0)
-              Por favor, adicione novos manejos!
+              <div class="text-center">
+                Por favor, adicione novos manejos!
+              </div>
             @endif
       </div>
     </div>
@@ -175,8 +180,12 @@ $( document ).ready(function() {
 @endforeach
 </div>
 
+@endisset
+
 @if(count($Plantios)==0)
-  Por favor, adicione novos Plantios!
+  <div class='text-center'>
+    Por favor, adicione novos Plantios!
+  </div>
 @endif
 
 

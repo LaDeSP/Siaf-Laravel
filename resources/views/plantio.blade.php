@@ -69,6 +69,7 @@ $( document ).ready(function() {
 
 
 			<table class="table">
+        @isset($Plantios[0]->id)
 				<thead>
 					<tr>
             <th>Data semeadura</th>
@@ -79,6 +80,7 @@ $( document ).ready(function() {
 						<th>Ações</th>
 					</tr>
 				</thead>
+        @endif
 				<tbody>
 
 			       @foreach ($Plantios as $Plantio)
@@ -116,7 +118,9 @@ $( document ).ready(function() {
 				</tbody>
 			</table>
       @if(count($Plantios)==0)
+      <div class="text-center">
         Por favor, adicione novos Plantios!
+      </div>
       @endif
 	</div>
 

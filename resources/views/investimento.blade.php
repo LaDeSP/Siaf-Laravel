@@ -5,10 +5,15 @@
 
 @section('conteudo')
     <div class="">
-        <div class="col-10 text-right">
+        <div class="col-10 text-right adicionar">
             <a id="add" data-toggle="modal" data-target="#exampleModal" class="btn btn-success text-light">Adicionar</a>
         </div>
-                <div class="conteiner col-10">
+        <div class="conteiner col-10">
+            @if(($dados->isEmpty()))
+                    <div class="text-center">
+                        <p>Por favor, adicione investimentos!</p>
+                    </div>
+            @else
                     <table class="table table-hover ">
                         <thead>
                             <tr>
@@ -49,11 +54,7 @@
                         </tbody>
                     </table>
                 </div>
-        @if(($dados->isEmpty()))
-                <div class="">
-                    <p>Por favor, adicione investimentos!</p>
-                </div>
-            @endif
+        @endif
 
     </div>  
     <!-- Modal add -->

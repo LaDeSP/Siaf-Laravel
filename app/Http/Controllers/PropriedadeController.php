@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cidade;
+use App\Models\Estado;
 use App\Models\Produto;
 use App\Models\Propriedade;
 use App\Models\Talhao;
@@ -71,7 +73,10 @@ class PropriedadeController extends Controller
      */
     public function edit($id)
     {
-        //
+        $prop = Propriedade::find($id);
+        $tcidade = Cidade::find($prop->cidade_id);
+        $testado = Estado::find($tcidade["estado_id"]);
+        return view('propriedadesForm',["propriedade"=>$prop, "mestado"=>$testado, "mcidade"=>$tcidade, 'estados'=>Estado::all(), 'Method'=>'put','Url'=>'/propriedade'.'/'.$id]);
     }
 
     /**

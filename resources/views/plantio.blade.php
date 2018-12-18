@@ -68,10 +68,6 @@ $( document ).ready(function() {
 
 
 
-
-
-
-
 			<table class="table">
 				<thead>
 					<tr>
@@ -97,12 +93,12 @@ $( document ).ready(function() {
 
 
 
-                    <a class="btn btn-warning"
-                      href="/plantio/{{$Plantio->id}}/edit"
-                      data-endpoint="/plantio/{{$Plantio->id}}/edit"
-                      data-target="exampleModal"
-                      data-cache="false",
-                      data-async="true">Editar</a>
+                        <a class="btn btn-warning"
+                          href="/plantio/{{$Plantio->id}}/edit"
+                          data-endpoint="/plantio/{{$Plantio->id}}/edit"
+                          data-target="exampleModal"
+                          data-cache="false",
+                          data-async="true">Editar</a>
 
 
 										<form  class="col-sm-6 	" method="post"  action="/plantio/{{$Plantio->id}}">

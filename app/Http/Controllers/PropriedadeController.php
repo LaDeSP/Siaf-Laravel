@@ -24,12 +24,8 @@ class PropriedadeController extends Controller
     public function index(Request $request)
     {
         $prop = $this->getPropriedade($request);
-        $talhao = Talhao::where('propriedade_id','=',$prop['id'])->paginate(3,['*'],"talhao");
-        $produto = Produto::where('propriedade_id','=',$prop['id'])->paginate(3,['*'],"produto");
-        $produto->getCollection()->transform(function ($value) {
-            $value['unidade_id'] = DB::table('unidade')->where('id', $value['unidade_id'])->where('unidade.deleted_at','=',null)->value('nome');
-            return $value;
-        });
+        $talhao = Talhao::ler($request, $prop['id']);
+        $produto = Produto::ler($request, $prop['id']);
         if($request['mensagem']){
             return view('propriedades', ["propriedade"=>$prop,"talhao"=>$talhao, "unidades"=>Unidade::get(["id","nome"]),"produto"=>$produto, "User"=>$this->getFirstName($this->usuario['name']), "Tela"=>"Propriedade", 'mensagem'=>$request['mensagem'],'status'=>$request['status']]);
         }else{

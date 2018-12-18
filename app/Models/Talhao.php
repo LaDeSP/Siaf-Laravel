@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use function PHPSTORM_META\type;
 
 class Talhao extends Model
 {
@@ -14,7 +15,8 @@ class Talhao extends Model
     protected $fillable = [
         'Area'=>"area",
         'Nome'=>'nome',
-        'Propriedade'=>"propriedade_id"
+        'Propriedade'=>"propriedade_id",
+        'Status'=>'status'
     ];
 
     public static function inserir($data){
@@ -26,7 +28,6 @@ class Talhao extends Model
             $talhao->save();
             return 200;
         }catch(\Exception $e){
-            dd($e);
             return 500;
         }
     }
@@ -43,6 +44,12 @@ class Talhao extends Model
         }catch(\Exception $e){
             return 500;
         }
+    }
+
+    public static function ler($request, $id){
+        $size = Talhao::where('propriedade_id','=',$id)->count();
+        $t =  $size>3? Talhao::where('propriedade_id','=',$id)->paginate(3,['*'],"talhao")   :   Talhao::all()->where('propriedade_id','=',$id);
+        return $t;
     }
 
 }

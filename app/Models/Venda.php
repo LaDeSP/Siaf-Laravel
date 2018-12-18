@@ -14,7 +14,7 @@ class Venda extends Model
 	protected $primaryKey = 'id';
 	public $incrementing = false;
 	use SoftDeletes;
-	private const totalPages = 5;
+	private const totalPages = 8;
 	protected $casts = [
 		'ID' => 'int'
 	];

@@ -40,7 +40,7 @@
     <body class='new cn-sessions'>
             <div class='box-left'>
                     <div style="font:20px; height: 450px;">
-                        <p class="text-center">O SIAF é um portal tem como propósito disponibilizar, para os agricultores, um local para armazenamento e gestão das informações de suas atividades desde a criação de um talhão para plantio até a sua venda para os consumidores. Além de possibilitar o controle dessas informações, o portal também busca cooperar com o agricultor dando um acompanhamento de como estão suas finanças e informações importantes para sua produção.</p>
+                        <p class="text-center">O SIAF é um portal que tem como propósito disponibilizar, para os agricultores, um local para armazenamento e gestão das informações de suas atividades desde a criação de um talhão para plantio até a sua venda para os consumidores. Além de possibilitar o controle dessas informações, o portal também busca cooperar com o agricultor dando um acompanhamento de como estão suas finanças e informações importantes para sua produção.</p>
                     </div>
                 </div>
         

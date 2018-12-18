@@ -16,7 +16,7 @@ class ManejoSeeder extends Seeder
           array('nome' => "Desbaste"),
           array('nome' => "Rega"),
           array('nome' => "Colheita"),
-          array('nome' => "Controle Pragas"),
+          array('nome' => "Controle de pragas"),
           array('nome' => "Adubação"),
           array('nome' => "Aração")
         );

@@ -7,6 +7,8 @@ use App\Models\Produto;
 use App\Models\Talhao;
 use App\Models\ManejoPlantio;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Pagination\Paginator;
+
 
 use Illuminate\Http\Request;
 
@@ -14,28 +16,57 @@ class PlantioController extends Controller
 {
     public function index(Request $request,$mensagem='',$status=''){
             $plantios=$this->plantios($request);
-            return view('plantio', ["User"=>$this->getFirstName($this->usuario['name']) ,'Plantios'=>$plantios , "Tela"=>"Plantio",'mensagem'=>$request->mensagem,'status'=>$request->satus]);
+            return view('plantio', ["User"=>$this->getFirstName($this->usuario['name']) ,'Plantios'=>$plantios , "Tela"=>"Plantio",'mensagem'=>$request->mensagem,'status'=>$request->status]);
     }
 
     public function plantios(Request $request,$id=''){
+      $numPagina=7;
       $propiedade=$this->getPropriedade($request);
+      if(isset($request['page'])){
+        $page=$request['page'];
+        if($page>0)
+          $offset=$page-1;
+
+      }
+      else {
+        $offset=0;
+        $page=1;
+      }
+
       if ($id){
         $plantio=array(DB::table('plantio')->join('talhao', 'talhao.id', '=', 'plantio.talhao_id')->join('produto', 'produto.id', '=', 'plantio.produto_id') ->where('plantio.id','=',$id)->where('plantio.deleted_at','=',null)->get(['plantio.id','data_plantio','data_semeadura','quantidade_pantas','talhao_id','produto_id','talhao.nome as nomet','produto.nome as nomep'])->sortByDesc('data_plantio' )  );
         return $plantio[0];
       }
-      $talhoes=Talhao::all()->where('propriedade_id','=',$propiedade['id']);
-      $plantios = array();
-      foreach ($talhoes as $key => $talhao) {
-          $plantio=array(DB::table('plantio')->join('talhao', 'talhao.id', '=', 'plantio.talhao_id')->join('produto', 'produto.id', '=', 'plantio.produto_id')->where('talhao_id','=',$talhao['id'])->where('plantio.deleted_at','=',null)->get(['plantio.id','data_plantio','data_semeadura','quantidade_pantas','talhao_id','produto_id','talhao.nome as nomet','produto.nome as nomep'])->sortByDesc('data_plantio' )  );
-          foreach ($plantio[0] as $key => $value) {
+      $talhoes=Talhao::where('propriedade_id','=',$propiedade['id'])->pluck('id')->toArray();
+
+      $plantios=array(DB::table('plantio')
+        ->join('talhao', 'talhao.id', '=', 'plantio.talhao_id')
+        ->join('produto', 'produto.id', '=', 'plantio.produto_id')
+        ->whereIn('talhao_id',$talhoes)
+        ->where('plantio.deleted_at','=',null)
+        ->get([
+                      'plantio.id',
+                      'data_plantio',
+                      'data_semeadura',
+                      'quantidade_pantas',
+                      'talhao_id',
+                      'produto_id',
+                      'talhao.nome as nomet',
+                      'produto.nome as nomep'
+                      ]
+                    )
+        ->sortByDesc('data_plantio' )
+        );
+
+        foreach ($plantios[0] as $key => $value) {
             $manejopalantio=ManejoPlantio::where('plantio_id','=',$value->id)->get(['id'])->first();
             if(isset($manejopalantio))
               $value->manejopalantio=$manejopalantio->id;
-            array_push($plantios,$value);
+
           }
 
-        }
-        return $plantios;
+        $paginator = $results =new Paginator($plantios[0]->slice($numPagina*$offset),$numPagina,$page);
+        return $paginator;
     }
 
     public function create(Request $request){
@@ -54,6 +85,7 @@ class PlantioController extends Controller
 
 
     public function store(Request $request){
+
             $post = array_except($request,['_token'])->toArray();
             $plantio = new Plantio($post);
             $salva=$plantio->save();
@@ -88,8 +120,12 @@ class PlantioController extends Controller
 
             //$plantios=$this->plantios($request);
             //return view('plantio', ["User"=>$this->getFirstName($this->usuario['name']) ,'Plantios'=>$plantios , "Tela"=>"Plantio",'mensagem'=>$mensagem,'status'=>$status]);
-            return redirect()->action('PlantioController@index', ['mensagem'=>$mensagem,'status'=>$status]);
+
+
+              return redirect()->action('PlantioController@index', ['mensagem'=>$mensagem,'status'=>$status,'page'=>$this->page()] );
+
           }
+
 
     public function destroy(Request $request,$id){
                     $salva=Plantio::where('id',$id)->delete();
@@ -104,7 +140,15 @@ class PlantioController extends Controller
 
                     //$plantios=$this->plantios($request);
                     //return view('plantio', ["User"=>$this->getFirstName($this->usuario['name']) ,'Plantios'=>$plantios , "Tela"=>"Plantio",'mensagem'=>$mensagem,'status'=>$status]);
-                    return redirect()->action('PlantioController@index', ['mensagem'=>$mensagem,'status'=>$status]);
+                    return redirect()->action('PlantioController@index', ['mensagem'=>$mensagem,'status'=>$status,'page'=>$this->page()]);
+    }
+    public function page(){
+      $query=parse_url(url()->previous());
+      $page=explode('page',$query['query']);
+      $page=explode('=',$page[1]);
+      if(isset($page[1]))
+        return $page[1];
+      return 0;
     }
 
 }

@@ -20,7 +20,7 @@
     });
 </script>
 <div class="row">
-    <div class="col-10">
+    <div class="col-12">
         <div class="row">
             <div class="col-4">
                 <img class="col-9 offset-2 img-fluid" src="/images/carinha4.png">
@@ -81,21 +81,21 @@
             <div class="col-md-6">
                 <div class="card" style="margin-top:25px;">
                     <div class="card-body">
-                        <h4 class="card-title">Vendas nos últimos 15 dias</h4>
+                        <h4 class="card-title">Estoque nos últimos 15 dias</h4>
                         <table class="table">
                             <thead>
                                 <tr>
                                     <th>Produto</th>
-                                    <th>Total (R$)</th>
-                                    <th>Total Unidade</th>
+                                    <th>Total Entrada</th>
+                                    <th>Total Atual</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($Vendas as $venda)
+                                @foreach ($estoques as $estoque)
                                 <tr>
-                                    <td>{{$venda->produto}}</td>
-                                    <td>{{$venda->total}}</td>
-                                    <td>{{$venda->total_unidade}}</td>
+                                    <td>{{$estoque->produto}}</td>
+                                    <td>{{$estoque->total}}</td>
+                                    <td>{{$estoque->total_atual}}</td>
                                 </tr>
                                 @endforeach
                             </tbody>
@@ -109,7 +109,7 @@
 
 
     <div class="row">
-        <div class=" col-7" id="weather">
+        <div class=" col-12" id="weather">
         </div>
     </div>
 

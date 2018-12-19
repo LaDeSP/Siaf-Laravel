@@ -23,7 +23,6 @@ class HomeController extends Controller
     {
         $vendas = $this->vendas($request);
         $estoques = $this->estoques($request);
-        dd($estoques);
         $propiedades=Propriedade::all()->where('users_id','=',$this->usuario['cpf']);
         $dadosPropriedade = DB::table('propriedade')
         ->join('cidade', 'cidade.id', '=', 'cidade_id')

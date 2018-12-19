@@ -6,10 +6,10 @@
 @section('conteudo')
 
     <div class="">
-        <div class="col-10 text-right adicionar">
+        <div class="col-12 text-right adicionar">
             <a id="add" data-toggle="modal" data-target="#exampleModal" class="btn btn-success text-light">Adicionar</a>
         </div>
-            <div class="col-10">
+            <div class="col-12">
                 @if(($dados->isEmpty()))
                     <div class="text-center">
                         <p>Por favor, adicione investimentos!</p>
@@ -39,7 +39,7 @@
                                     <td>
                                         <div class="row">
                                             <div class="col-sm-6">
-                                                <a onclick="edit(this)" id ="editInvest" class="btn btn-xs btn-warning" data-id="{{$d->id}}">Editar</a>                    
+                                                <a onclick="edit(this)" id ="editInvest" class="btn btn-xs btn-warning" data-id="{{$d->id}}">Editar</a>
                                             </div>
                                             <div class="col-sm-6">
                                                 <form method="post" id="investimentoDelete" action="/investimento/{{$d->id}}">
@@ -57,11 +57,11 @@
                 @endif
             </div>
             {{$dados->withPath('investimento')}}
-    </div>  
+    </div>
     <!-- Modal add -->
     <div class="modal fade" id="exampleModal" role="dialog">
         <div class="modal-dialog modal-lg">
-    
+
            <!-- Modal content-->
             <div class="modal-content">
                 <div class="modal-header">
@@ -76,7 +76,7 @@
                             <div class="form-group col-md-6">
                                 <label for="propriedade_id">Propriedade</label>
                                 <select style="-moz-appearance: none; -webkit-appearance: none; appearance: none;" form="investimento" class="form-control-plaintext" name="propriedade_id" disabled>
-                                            <option selected value="{{$propriedade->id}}" >{{$propriedade->nome}}</option>   
+                                            <option selected value="{{$propriedade->id}}" >{{$propriedade->nome}}</option>
                                     </select>
                             </div>
                             <div class="form-group col-md-6">
@@ -109,7 +109,7 @@
                     </form>
                 </div>
             </div>
-      
+
         </div>
     </div>
 
@@ -140,9 +140,9 @@ function edit(elem) {
         $("form#investimento [name=propriedade_id]").attr('form',"investimentoEdit");
         $("form#investimento").attr('id',"investimentoEdit");
         $("#exampleModal").modal('show');
-    });      
+    });
 };
-    
+
 $("#investimento").submit(function( event ) {
     $('form#investimento select').removeAttr('disabled');
 });
@@ -153,4 +153,3 @@ $("#investimentoEdit").submit(function( event ) {
 </script>
 
 @endsection
-    

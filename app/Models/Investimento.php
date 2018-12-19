@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Pagination\Paginator;
 
 class Investimento extends Model
 {
@@ -39,8 +40,15 @@ class Investimento extends Model
 			if (empty($investimento)) {
 				return 405;
 			}
+      if(sizeof($investimento->items())==0){
+  				$currentPage=$investimento->currentPage()-1;
+  				Paginator::currentPageResolver(function() use ($currentPage) {
+  					return $currentPage;
+  				});
+  				$investimento = self::all()->simplePaginate(self::totalPages);
+  		}
 			return $investimento;
-		} 
+		}
 		if ($variable == null) {
 			$investimento = self::find($id);
 			if (empty($investimento)) {
@@ -52,9 +60,18 @@ class Investimento extends Model
 			if (empty($investimento)) {
 				return 405;
 			}
+
+      if(sizeof($investimento->items())==0){
+  				$currentPage=$investimento->currentPage()-1;
+  				Paginator::currentPageResolver(function() use ($currentPage) {
+  					return $currentPage;
+  				});
+  				$investimento = self::where($id,'=',$variable)->simplePaginate(self::totalPages);
+  		}
 			return $investimento;
 		}
 	}
+
 	public static function alterar($request, $id){
 		$investimento = self::find($id);
 		if (!($investimento->nome == $request['nome'])) {

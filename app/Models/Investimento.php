@@ -17,7 +17,7 @@ class Investimento extends Model
 		'data',
 		'propriedade_id'
 	];
-    private const totalPages = 5;
+    private const totalPages = 8;
 
 	public static function insere($request){
 		 $investimento = new Investimento();

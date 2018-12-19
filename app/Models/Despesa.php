@@ -9,7 +9,7 @@ class Despesa extends Model
 {
    	protected $table = 'despesa';
     use SoftDeletes;
-    private const totalPages = 5;
+    private const totalPages = 8;
 	protected $fillable = [
 		'nome',
 		'descricao',

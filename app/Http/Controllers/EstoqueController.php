@@ -30,6 +30,10 @@ class EstoqueController extends Controller
           foreach ($Estoques as $key => $Estoque) {
             $Estoque->disponivel=Estoque::produtosDisponiveis($Estoque->id);
           }
+
+          $Estoques=$Estoques->filter(function ($value, $key){
+                return $value->disponivel!=0;
+              });
           $numPagina=8;
           if(isset($request['page'])){
             $page=$request['page'];

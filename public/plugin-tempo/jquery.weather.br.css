@@ -145,7 +145,8 @@
             #jquery-weather .icon,
             #jquery-weather .temperature {
                 display: inline-block;
-                width: 16.33%;
+                width: 27.33%;
+                margin-left: 1px;
             }
 
             #jquery-weather .icon {

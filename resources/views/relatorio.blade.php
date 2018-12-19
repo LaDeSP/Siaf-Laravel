@@ -22,7 +22,7 @@
                                 <option value="talhão" class="col-4"> Talhões por propriedade</option>
                                 <option value="produtos-ativos-e-não-propriedade" class="col-4"> Listar produtos ativos e inativos por propriedade</option>
                                 <option value="historico-manejo-plantio" class="col-4"> Histórico de manejo por plantio</option>
-                                <option value="estoque-propriedade" class="col-4"> Listar estoque por propriedade por período </option>
+                                <option value="estoque-propriedade" class="col-4"> Estoque por propriedade por período </option>
                                 <option value="vendas" class="col-4"> Vendas realizadas por período</option>
                                 <option value="perdas" class="col-4"> Perdas por período</option>
                             </select>

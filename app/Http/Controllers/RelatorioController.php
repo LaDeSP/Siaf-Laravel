@@ -12,6 +12,7 @@ use App\Models\Plantio;
 use App\Models\ManejoPlantio;
 use App\Models\Perda;
 use App\Models\Produto;
+use App\Models\Estoque;
 use Illuminate\Support\Facades\DB;
 
 class RelatorioController extends Controller
@@ -335,7 +336,43 @@ class RelatorioController extends Controller
         return view('relatorio', ["User"=>$this->getFirstName($this->usuario['name']), "Tela"=>"Relatório", "topo"=>$topo, "conteudo"=>$data, "tipo" => $request["tipo"], "inicio"=>$request['date-inicio'], "final"=>$request['date-final'],'lastLine'=>$lastLine, 'totalG'=> $totalG, "propriedades" =>$propriedades, "formatDataTopo" =>$formatDataTopo, "formatDataLast" =>$formatDataLast]);
     }
     function estoquePropriedade(Request $request){
+        $propriedades= Propriedade::all()->where('users_id','=',$this->usuario['cpf']);
+        $propriedade = $this->getPropriedade($request);
+        $topo = ['Propriedade','Plantio','Produto','Talhão','Data','Quantidade','Atual'];
+        $lastLine= ['Propriedade','Produto','Total','Total atual' ];
+        $formatDataTopo= ['Plantio','Data'];
+        $formatDataLast=[];
+        $data = Estoque::leftJoin('manejoplantio', 'estoque.manejoplantio_id','=','manejoplantio.id')
+        ->leftJoin('plantio', 'manejoplantio.plantio_id','=','plantio.id')
+        ->leftJoin('talhao', 'plantio.talhao_id','=','talhao.id')
+        // ->leftJoin('venda', 'estoque.id','=','venda.estoque_id')
+        // ->leftJoin('perda', 'estoque.id','=','perda.estoque_id')
+        ->join('produto', 'estoque.produto_id','=','produto.id')
+        ->join('propriedade', 'estoque.propriedade_id','=','propriedade.id')
+        ->select('estoque.id as id','propriedade.nome as Propriedade','plantio.data_plantio as Plantio','produto.nome as Produto','talhao.nome as Talhão','estoque.data as Data','estoque.quantidade as Quantidade',(DB::raw('estoque.quantidade as Atual')))
+        ->whereBetween('estoque.data', [$request['date-inicio'], $request['date-final']])
+        ->where('estoque.propriedade_id', '=', $request['propriedade_id'])
+        ->groupBy('estoque.id')
+        ->get();
+        foreach ($data as $key => $value) {
+            $value->Atual= $value->Quantidade-(Venda::all()->where('estoque_id','=',$value->id)->sum('quantidade')+Perda::all()->where('estoque_id','=',$value->id)->sum('quantidade'));
+        }
+        $totalG=Estoque::leftJoin('manejoplantio', 'estoque.manejoplantio_id','=','manejoplantio.id')
+        ->leftJoin('plantio', 'manejoplantio.plantio_id','=','plantio.id')
+        ->leftJoin('talhao', 'plantio.talhao_id','=','talhao.id')
+        ->join('produto', 'estoque.produto_id','=','produto.id')
+        ->join('propriedade', 'estoque.propriedade_id','=','propriedade.id')
+        ->select('estoque.produto_id','propriedade.nome as propriedade','produto.nome as produto',DB::raw('SUM(estoque.quantidade) as total'),DB::raw('SUM(estoque.quantidade) as total_atual'))
+        ->whereBetween('estoque.data', [$request['date-inicio'], $request['date-final']])
+        ->where('estoque.propriedade_id', '=', $request['propriedade_id'])
+        ->groupBy('produto.id')
+        ->get();
+        foreach ($totalG as $key => $value) {
+            $pv = (Venda::join('estoque','venda.estoque_id','=','estoque.id')->where('estoque.produto_id','=',$value->produto_id)->where('estoque.propriedade_id','=',$request['propriedade_id'])->sum('venda.quantidade'))+(Perda::join('estoque','perda.estoque_id','=','estoque.id')->where('estoque.produto_id','=',$value->produto_id)->where('estoque.propriedade_id','=',$request['propriedade_id'])->sum('perda.quantidade'));
+            $value->total_atual= $value->total_atual - $pv;
+        }
 
+        return view('relatorio', ["User"=>$this->getFirstName($this->usuario['name']), "Tela"=>"Relatório", "topo"=>$topo, "conteudo"=>$data, "tipo" => $request["tipo"], "inicio"=>$request['date-inicio'], "final"=>$request['date-final'],'lastLine'=>$lastLine, 'totalG'=> $totalG, "propriedades" =>$propriedades, "formatDataTopo" =>$formatDataTopo, "formatDataLast" =>$formatDataLast]);
     }
     /**
      * Display the specified resource.

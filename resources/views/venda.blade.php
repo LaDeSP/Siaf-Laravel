@@ -55,7 +55,7 @@
                   <i class="fa fa-lock prefix grey-text"></i>
                   <label data-error="wrong" data-success="right" for="defaultForm-pass">Valor</label>
                   <input type="password" id="defaultForm-pass" class="form-control validate">
-               </div> 
+               </div>
             </div>
             <div class="modal-footer d-flex ">
                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -92,14 +92,14 @@
                <td>{{$venda->nome}}</td>
                <td class="data">{{$venda->data}}</td>
                <td>
-                  <div class="row">      
+                  <div class="row">
                      <a class="btn  btn-warning"
                         href="/venda/{{$venda->id}}/edit"
                         data-endpoint="/venda/{{$venda->id}}/edit"
                         data-target="exampleModal"
                         data-cache="false",
                         data-async="true">Editar
-                     </a>                                         
+                     </a>
                      <form  class="col-sm-6 	" method="post"  action="/venda/{{$venda->id}}">
                         @method("DELETE")
                         @csrf
@@ -111,10 +111,11 @@
             @endforeach
          </tbody>
       </table>
-   </div> 
+   </div>
 
    @endif
         {{ $Vendas->withPath('venda') }}
+
 </div>
 
 @endsection

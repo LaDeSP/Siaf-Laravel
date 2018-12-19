@@ -67,7 +67,7 @@ class PlantioController extends Controller
               $value->manejopalantio=$manejopalantio->id;
 
           }
-
+        //dd($plantios->length());
         $paginator = new Paginator($plantios[0]->slice($numPagina*$offset),$numPagina,$page);
         return $paginator;
     }

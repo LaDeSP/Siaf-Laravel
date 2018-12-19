@@ -133,20 +133,28 @@
         margin: 0;
         padding: 0;
         width: 100%;
+        display: flex;
+        border-bottom: 1px solid #d9d9d9;
     }
 
         #jquery-weather li {
-            border-bottom: 1px solid #d9d9d9;
+            /*border-bottom: 1px solid #d9d9d9;*/
             list-style: none;
-            padding:8px;
+            text-align: center;
+            min-width: 14.3%;
+
+            /*padding:14px;*/
+        }
+        span{
+          display: block;
         }
 
             #jquery-weather .day,
             #jquery-weather .icon,
             #jquery-weather .temperature {
-                display: inline-block;
-                width: 27.33%;
-                margin-left: 1px;
+                display: block;
+              /*  width: 27.33%;
+                margin-left: 1px;*/
             }
 
             #jquery-weather .icon {
@@ -156,7 +164,7 @@
             }
 
             #jquery-weather .temperature {
-                text-align: right;
+                /*text-align: right;*/
             }
 
                 #jquery-weather .high {
@@ -165,7 +173,7 @@
                 }
 
                 #jquery-weather .low {
-                    margin-right: 15px;
+                    /*margin-right: 15px;*/
                 }
 
     #jquery-weather .source {

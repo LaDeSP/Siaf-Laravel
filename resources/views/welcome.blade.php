@@ -21,7 +21,7 @@
 </script>
 <div class="row">
     <div class="col-10">
-        <div class="row">        
+        <div class="row">
             <div class="col-4">
                 <img class="col-9 offset-2 img-fluid" src="/images/carinha4.png">
             </div>
@@ -77,7 +77,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="col-md-6">
                 <div class="card" style="margin-top:25px;">
                     <div class="card-body">
@@ -105,14 +105,14 @@
             </div>
         </div>
     </div>
-</div>    
+</div>
 
-<div class="container">    
-    <div class="col-2">
-        <div class="ml-auto col-10" id="weather">
+
+    <div class="row">
+        <div class=" col-7" id="weather">
         </div>
     </div>
-</div>
+
 
 
 

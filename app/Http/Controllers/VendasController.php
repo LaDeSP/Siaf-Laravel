@@ -21,7 +21,7 @@ class VendasController extends Controller
     {
         $propriedade = $this->getPropriedade($request);
         $allVenda = Venda::vendas($propriedade, $id='');
-        return view('venda', ["User"=>$this->getFirstName($this->usuario['name']) ,'Vendas'=>$allVenda , "Tela"=>"Venda"]);
+        return view('venda', ["User"=>$this->getFirstName($this->usuario['name']) ,'Vendas'=>$allVenda , "Tela"=>"Venda",'mensagem'=>$request->mensagem,'status'=>$request->status]);
     }
 
     /**

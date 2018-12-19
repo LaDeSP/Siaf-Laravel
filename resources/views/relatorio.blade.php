@@ -141,7 +141,7 @@
 			if(this.value === '{{$tipo}}'){
 				this.selected=true;
 				texto = $(this).text().replace('Listar ','');
-				$("#tituloTab").text(texto.charAt(1).toUpperCase()+texto.substr(2));
+				$("#tituloTab").text(texto);
 			}
 		});
 		$("input[name=date-inicio]").val('{{$inicio}}');

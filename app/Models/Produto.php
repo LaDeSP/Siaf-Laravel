@@ -42,20 +42,11 @@ class Produto extends Model
     }
 
     public static function ler($request, $id){
-        $size =  Produto::where('propriedade_id','=',$id)->count();
-        if($size>3) {
-            $p = Produto::where('propriedade_id','=',$id)->simplePaginate(3,['*'],"produto");
-            $p->getCollection()->transform(function ($value) {
-                    $value['unidade_id'] = DB::table('unidade')->where('id', $value['unidade_id'])->where('unidade.deleted_at', '=', null)->value('nome');
-                    return $value;
-            });
-            return $p;
-        }else{
-            $produto = Produto::all()->where('propriedade_id','=',$id);
-            foreach ($produto as $p){
-                $p['unidade_id'] = DB::table('unidade')->where('id', $p['unidade_id'])->where('unidade.deleted_at', '=', null)->value('nome');
-            }
-            return $produto;
-        }
+        $p = Produto::where('propriedade_id','=',$id)->simplePaginate(3,['*'],"produto");
+        $p->getCollection()->transform(function ($value) {
+            $value['unidade_id'] = DB::table('unidade')->where('id', $value['unidade_id'])->where('unidade.deleted_at', '=', null)->value('nome');
+            return $value;
+        });
+        return $p;
     }
 }

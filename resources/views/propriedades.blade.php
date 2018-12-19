@@ -130,9 +130,9 @@
                                     </tbody>
                                 </table>
 
+                                {{ $talhao->appends('produto', \Illuminate\Support\Facades\Input::get('produto',1))->withPath('propriedade')}}
                             @endif
                         </blockquote>
-                            {{$talhao->appends('produto', \Illuminate\Support\Facades\Input::get('produto',1))->withPath('propriedade')}}
                     </div>
                 </div>
         &nbsp;
@@ -199,10 +199,10 @@
                                     @endforeach
                                 </tbody>
                             </table>
-                            @endif
 
+                            {{ $produto->appends('talhao', \Illuminate\Support\Facades\Input::get('talhao',1))->withPath('propriedade')}}
+                            @endif
                         </blockquote>
-                            {{$produto->appends('talhao', \Illuminate\Support\Facades\Input::get('talhao',1))->withPath('propriedade')}}
                     </div>
                 </div>
     </div>

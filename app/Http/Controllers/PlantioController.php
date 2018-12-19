@@ -20,8 +20,8 @@ class PlantioController extends Controller
     }
 
     public function plantios(Request $request,$id=''){
-      $numPagina=7;
       $propiedade=$this->getPropriedade($request);
+      $numPagina=8;
       if(isset($request['page'])){
         $page=$request['page'];
         if($page>0)
@@ -65,7 +65,7 @@ class PlantioController extends Controller
 
           }
 
-        $paginator = $results =new Paginator($plantios[0]->slice($numPagina*$offset),$numPagina,$page);
+        $paginator = new Paginator($plantios[0]->slice($numPagina*$offset),$numPagina,$page);
         return $paginator;
     }
 

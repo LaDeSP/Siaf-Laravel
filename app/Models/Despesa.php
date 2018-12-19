@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Pagination\Paginator;
 
 class Despesa extends Model
 {
@@ -39,19 +40,33 @@ class Despesa extends Model
 			if (empty($despesa)) {
 				return 405;
 			}
+      if(sizeof($despesa->items())==0){
+          $currentPage=$despesa->currentPage()-1;
+          Paginator::currentPageResolver(function() use ($currentPage) {
+            return $currentPage;
+          });
+          $despesa = self::all()->simplePaginate(self::totalPages);
+      }
 			return $despesa;
-		} 
+		}
 		if ($variable == null) {
 			$despesa = self::find($id);
 			if (empty($despesa)) {
 				return 405;
 			}
-			return $despesa;
+    	return $despesa;
 		} else {
 			$despesa = self::where($id,'=',$variable)->simplePaginate(self::totalPages);
 			if (empty($despesa)) {
 				return 405;
 			}
+      if(sizeof($despesa->items())==0){
+          $currentPage=$despesa->currentPage()-1;
+          Paginator::currentPageResolver(function() use ($currentPage) {
+            return $currentPage;
+          });
+        $despesa = self::where($id,'=',$variable)->simplePaginate(self::totalPages);
+      }
 			return $despesa;
 		}
 	}

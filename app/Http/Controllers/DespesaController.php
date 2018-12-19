@@ -16,7 +16,7 @@ class DespesaController extends Controller
     {
         $propriedade = $this->getPropriedade($request);
         $despesas = Despesa::ler('propriedade_id', $propriedade->id);
-        return view('despesa', ["propriedade" => $propriedade, "dados" => $despesas,"User"=>$this->getFirstName($this->usuario['name']), "Tela"=>"Despesas"]);
+        return view('despesa', ["propriedade" => $propriedade, "dados" => $despesas,"User"=>$this->getFirstName($this->usuario['name']), "Tela"=>"Despesas",'mensagem'=>$request->mensagem,'status'=>$request->status]);
     }
 
     /**
@@ -48,7 +48,7 @@ class DespesaController extends Controller
                 $status='danger';
                 $mensagem='Sucesso ao salvar a despesa';
             }
-            return view('despesa', ["propriedade" => $propriedade, "dados" => $despesas,"User"=>$this->getFirstName($this->usuario['name']), "Tela"=>"Despesas", "status" => $status, "mensagem" => $mensagem]);
+            return redirect()->action('DespesaController@index', ['mensagem'=>$mensagem,'status'=>$status]);
         }else{
             return 405;
         }
@@ -96,7 +96,7 @@ class DespesaController extends Controller
                 $status='danger';
                 $mensagem='Sucesso ao editar a despesa';
             }
-            return view('despesa', ["propriedade" => $propriedade, "dados" => $despesas,"User"=>$this->getFirstName($this->usuario['name']), "Tela"=>"Despesas", "status" => $status, "mensagem" => $mensagem]);
+            return redirect()->action('DespesaController@index', ['mensagem'=>$mensagem,'status'=>$status,'page'=>$this->page()]);
         }else{
             return 405;
         }
@@ -121,7 +121,8 @@ class DespesaController extends Controller
                 $status='danger';
                 $mensagem='Sucesso ao excluir a despesa';
             }
-            return view('despesa', ["propriedade" => $propriedade, "dados" => $despesas,"User"=>$this->getFirstName($this->usuario['name']), "Tela"=>"Despesas", "status" => $status, "mensagem" => $mensagem]);
+            return redirect()->action('DespesaController@index', ['mensagem'=>$mensagem,'status'=>$status,'page'=>$this->page()]);
+            //return view('despesa', ["propriedade" => $propriedade, "dados" => $despesas,"User"=>$this->getFirstName($this->usuario['name']), "Tela"=>"Despesas", "status" => $status, "mensagem" => $mensagem]);
         }
         return 405;
     }

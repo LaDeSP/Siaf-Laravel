@@ -3,7 +3,22 @@
 @section('usuario', $User)
 
 @section('conteudo')
-
+<style type="text/css">
+	@media print {
+    .myDivToPrint {
+        background-color: white;
+        height: 100%;
+        width: 100%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        margin: 0;
+        padding: 15px;
+        font-size: 14px;
+        line-height: 18px;
+    }
+}
+</style>
 <div class="container">
 	<div class="card text-center" >
             <form id="relatorio" action="/relatorio" method="POST">
@@ -46,13 +61,13 @@
 	                        <input class="form-control col-4 p-0" type="date" name="date-final">
                     	</div>
                         <div class="col-10 offset-2 mt-3">
-                        	<button id="gerar" class="col-2 btn btn-info"  class="btn btn-link" type="submit"> Gerar</button>  	
+                        	<button id="gerar" class="col-2 btn btn-info"   type="submit"> Gerar</button>
                         </div>
                     </div>
                   </h5>
                 </div>
             </form>
-            <div class="card-body">
+            <div id="tableRelatorio" class="myDivToPrint card-body">
             	@if(isset($topo))
 			    	<h4 id="tituloTab" ></h4>
 			    	<table id="informacoes" class="table table-hover table-condensed">
@@ -143,10 +158,10 @@
 	</div>
 <script type="text/javascript">
 
-    $(document).on('click', '#pagination-wrapper a', function(e){
-        e.preventDefault();
-        $('#results-wrapper').load($(this).attr('href') + '#results-wrapper');
-     });
+    // $(document).on('click', '#pagination-wrapper a', function(e){
+    //     e.preventDefault();
+    //     $('#results-wrapper').load($(this).attr('href') + '#results-wrapper');
+    //  });
 
 @isset($conteudo)
 	$( document ).ready(function() {
@@ -185,5 +200,6 @@
 	   		}
 	  	}).change();
 	});
+
 </script>
 @endsection

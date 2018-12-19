@@ -48,6 +48,10 @@ class EstoqueController extends Controller
             $offset=0;
             $page=1;
           }
+          if( sizeof($Estoques) <= $numPagina*$offset){
+            $offset--;
+            $page--;
+          }
         $Estoques = new Paginator($Estoques->slice($numPagina*$offset),$numPagina,$page);
 
         return view('estoque', ["User"=>$this->getFirstName($this->usuario['name']) ,'Estoques'=>$Estoques , "Tela"=>"Estoque", 'mensagem'=>$request->mensagem,'status'=>$request->status]);

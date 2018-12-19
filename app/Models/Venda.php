@@ -70,6 +70,7 @@ class Venda extends Model
 		->join('destino', 'destino.id', '=', 'destino_id')
 		->select((DB::raw('(venda.valor_unit*venda.quantidade) as total')),'unidade.nome AS unidade', 'venda.id','produto.nome AS produto','venda.quantidade', 'venda.valor_unit', 'venda.data','venda.nota',
 		'destino.nome', 'venda.estoque_id', 'venda.destino_id')
+		->orderByDesc('venda.data')
 		->where('estoque.propriedade_id', '=', $propriedade->id)
 		->where('venda.deleted_at','=',null)
 		->simplePaginate(self::totalPages);

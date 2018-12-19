@@ -64,6 +64,9 @@ class ManejoController extends Controller
         $page=$request['page'];
         if($page>0)
           $offset=$page-1;
+        else {
+          $offset=0;
+        }
 
       }
       else {
@@ -182,13 +185,6 @@ class ManejoController extends Controller
         return redirect()->action('ManejoController@index', ['Mensagem'=>$mensagem,'Status'=>$status,'Mostrar'=>$result['plantio_id'],'page'=>$this->page()]);
   }
 
-  public function page(){
-    $query=parse_url(url()->previous());
-    $page=explode('page',$query['query']);
-    $page=explode('=',$page[1]);
-    if(isset($page[1]))
-      return $page[1];
-    return 0;
-  }
+
 
 }

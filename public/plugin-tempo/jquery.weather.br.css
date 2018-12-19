@@ -118,7 +118,7 @@
 
 
     #jquery-weather h1 {
-        background: #27b6af;
+        background: #737377;
         color: white;
         font-size: .913rem;
         padding: 15px;
@@ -138,18 +138,18 @@
         #jquery-weather li {
             border-bottom: 1px solid #d9d9d9;
             list-style: none;
-            padding:5px;
+            padding:8px;
         }
 
             #jquery-weather .day,
             #jquery-weather .icon,
             #jquery-weather .temperature {
                 display: inline-block;
-                width: 33.33%;
+                width: 16.33%;
             }
 
             #jquery-weather .icon {
-                color: #27b6af;
+                color: #737377;
                 font-size: 1.75rem;
                 text-align: center;
             }
@@ -159,7 +159,7 @@
             }
 
                 #jquery-weather .high {
-                    color: #27b6af;
+                    color: #737377;
                     font-weight: bold;
                 }
 

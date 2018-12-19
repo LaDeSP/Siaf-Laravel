@@ -34,6 +34,20 @@ class Controller extends BaseController
 
     }
 
+    public function page(){
+      $query=parse_url(url()->previous());
+      if(isset($query['query'])){
+        $page=explode('page',$query['query']);
+        if(isset($page[1] )){
+          $page=explode('=',$page[1]);
+            if(isset($page[1]))
+              return $page[1];
+          }
+        }
+      return 0;
+
+    }
+
     function  getPropriedade($request){
       return $request->session()->get('propriedade');
 

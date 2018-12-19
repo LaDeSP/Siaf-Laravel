@@ -26,6 +26,9 @@ class PlantioController extends Controller
         $page=$request['page'];
         if($page>0)
           $offset=$page-1;
+        else {
+          $offset=0;
+        }
 
       }
       else {
@@ -142,13 +145,6 @@ class PlantioController extends Controller
                     //return view('plantio', ["User"=>$this->getFirstName($this->usuario['name']) ,'Plantios'=>$plantios , "Tela"=>"Plantio",'mensagem'=>$mensagem,'status'=>$status]);
                     return redirect()->action('PlantioController@index', ['mensagem'=>$mensagem,'status'=>$status,'page'=>$this->page()]);
     }
-    public function page(){
-      $query=parse_url(url()->previous());
-      $page=explode('page',$query['query']);
-      $page=explode('=',$page[1]);
-      if(isset($page[1]))
-        return $page[1];
-      return 0;
-    }
+
 
 }

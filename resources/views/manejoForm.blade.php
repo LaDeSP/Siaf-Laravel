@@ -18,8 +18,8 @@
             <input class="col-7" @isset($disabled){{$disabled}}@endisset type="date" name="data_hora" required='required' value="@isset($dados){{$dados->data_hora}}@endisset">
         </div>
         <div class="row linhaFrom">
-            <label class="col-4">Horas Utilizadas:</label>
-            <input class="col-7" @isset($disabled){{$disabled}}@endisset type="number" min="1" name="horas_utilizadas" value="@isset($dados){{$dados->horas_utilizadas}}@endisset">
+            <label class="col-4">Horas Utilizadas:<span class="text-danger">*</span></label>
+            <input required='required' class="col-7" @isset($disabled){{$disabled}}@endisset type="number" min="1" name="horas_utilizadas" value="@isset($dados){{$dados->horas_utilizadas}}@endisset">
         </div>
         <div class="row linhaFrom">
             <label class="col-4">Manejo:<span class="text-danger">*</span></label>

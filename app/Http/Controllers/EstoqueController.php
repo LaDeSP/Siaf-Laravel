@@ -30,11 +30,14 @@ class EstoqueController extends Controller
           foreach ($Estoques as $key => $Estoque) {
             $Estoque->disponivel=Estoque::produtosDisponiveis($Estoque->id);
           }
-          $numPagina=2;
+          $numPagina=8;
           if(isset($request['page'])){
             $page=$request['page'];
             if($page>0)
               $offset=$page-1;
+            else {
+              $offset=0;
+            }
 
           }
           else {
@@ -113,16 +116,6 @@ public function update(Request $request,$id){
 
                       return redirect()->action('EstoqueController@index', ['mensagem'=>$mensagem,'status'=>$status,'page'=>$this->page()]);
       }
-
-      public function page(){
-        $query=parse_url(url()->previous());
-        $page=explode('page',$query['query']);
-        $page=explode('=',$page[1]);
-        if(isset($page[1]))
-          return $page[1];
-        return 0;
-      }
-
 
 
 }

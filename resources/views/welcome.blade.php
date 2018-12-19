@@ -5,9 +5,8 @@
 <script src="plugin-tempo/jquery.weather.br.js"></script>
 <style type="text/css">
     #weather {
-        margin-top:20px;
-        width: 300px;
-        bottom: 0%;
+        margin-top:15px;
+        margin-bottom:0%;
     }
 </style>
 

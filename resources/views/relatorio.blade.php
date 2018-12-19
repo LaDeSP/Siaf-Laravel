@@ -10,8 +10,10 @@
                 @csrf
                 <div class="card-header">
                   <h5 class="mb-0">
-                    <div class="row align-center">
-                            <select  form="relatorio" id="tipo" name="tipo" class="custom-select col-8 p-0 offset-2" >
+                    <div class="col-10">
+                    	<div class="row offset-3 mb-2">
+                            <label for="tipo" class=" col-sm-3 p-0"> Relatório:<span class="text-danger">*</span></label>
+                            <select  form="relatorio" id="tipo" name="tipo" class="custom-select col-8" >
                                 <option hidden selected>Selecione uma opção</option>
                                 <option value="investimentos" class="col-4"> Investimentos realizados por período </option>
                                 <option value="despesa" class="col-4"> Despesa realizadas por período</option>
@@ -20,20 +22,30 @@
                                 <option value="manejo-propriedade" class="col-4"> Manejos realizados por período por propriedade </option>
                                 <option value="colheitas" class="col-4">Colheitas realizadas por período </option>
                                 <option value="talhão" class="col-4"> Talhões por propriedade</option>
-                                <option value="produtos-ativos-e-não-propriedade" class="col-4"> Listar produtos ativos e inativos por propriedade</option>
+                                <option value="produtos-ativos-e-não-propriedade" class="col-4"> Produtos ativos e inativos por propriedade</option>
                                 <option value="historico-manejo-plantio" class="col-4"> Histórico de manejo por plantio</option>
                                 <option value="estoque-propriedade" class="col-4"> Estoque por propriedade por período </option>
                                 <option value="vendas" class="col-4"> Vendas realizadas por período</option>
                                 <option value="perdas" class="col-4"> Perdas por período</option>
                             </select>
-                            <select form="relatorio" id="selectD" name="propriedade_id" class="custom-select col-8 p-0 offset-2"@if(is_array($propriedades) && count($propriedades) < 2) style="display: none" @else style="-moz-appearance: none; -webkit-appearance: none; appearance: none; display: none" @endif>
+                    	</div>
+                    	<div class="row offset-3 mb-2">
+                            <label for="propriedade_id" style="display: none;" class=" col-sm-3 p-0"> Fazenda:<span class="text-danger">*</span></label>
+                            <select form="relatorio" id="selectD" name="propriedade_id" class="custom-select col-8"@if(is_array($propriedades) && count($propriedades) < 2) style="display: none" @else style="-moz-appearance: none; -webkit-appearance: none; appearance: none; display: none" @endif>
 										@foreach ($propriedades as $propriedade)
 											<option value="{{$propriedade->id}}"> {{$propriedade->nome}}</option>
 										@endforeach
 						     </select>
-                        <input class="col-3 p-0 offset-2" type="date" name="date-inicio">
-                        <input class="col-3 p-0 offset-2" type="date" name="date-final">
-                        <div class="col-10">
+                    	</div>
+                    	<div class="row offset-3 mb-2">
+							<label for="date-inicio" class=" col-sm-3 p-0" > Data inicio:<span class="text-danger">*</span></label>
+	                        <input class="form-control col-4 p-0" type="date" name="date-inicio">
+                    	</div>
+                    	<div class="row offset-3 mb-2">
+	                        <label for="date-inicio" class="col-sm-3 p-0"> Data final:<span class="text-danger">*</span></label>
+	                        <input class="form-control col-4 p-0" type="date" name="date-final">
+                    	</div>
+                        <div class="col-10 offset-2 mt-3">
                         	<button id="gerar" class="col-2 btn btn-info"  class="btn btn-link" type="submit"> Gerar</button>  	
                         </div>
                     </div>
@@ -123,6 +135,7 @@
 							@endforeach
 	                   	</tbody>
 	                    </table>
+
 			    @endif
 				<div id="container" ></div>
 			</div>
@@ -130,10 +143,10 @@
 	</div>
 <script type="text/javascript">
 
-    // $(document).on('click', '#pagination-wrapper a', function(e){
-        // e.preventDefault();
-        // $('#results-wrapper').load($(this).attr('href') + ' #results-wrapper');
-    // });
+    $(document).on('click', '#pagination-wrapper a', function(e){
+        e.preventDefault();
+        $('#results-wrapper').load($(this).attr('href') + '#results-wrapper');
+     });
 
 @isset($conteudo)
 	$( document ).ready(function() {

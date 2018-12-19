@@ -18,49 +18,102 @@
             locationLon: {{$Longitude}}
         });
     });
- </script>
-
-<div>
+</script>
+<div class="row">
+    <div class="col-10">
+        <div class="row">        
+            <div class="col-4">
+                <img class="col-9 offset-2 img-fluid" src="/images/carinha4.png">
+            </div>
+            <div class="col-8">
+                <div class="card" style="margin-top:25px;">
+                    <div class="card-body">
+                        <h4 class="card-title">Sua Fazenda</h4>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Fazenda</th>
+                                    <th>Localização</th>
+                                    <th>Municipio</th>
+                                    <th>Estado</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>{{$Propriedade->nome}}</td>
+                                    <td>{{$Propriedade->localizacao}}</td>
+                                    <td>{{$dadosP->cidade}}</td>
+                                    <td>{{$dadosP->estado}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="row">
-				<div class="col-md-2">
-					<img class="img-fluid" src="/images/carinha4.png">
-				</div>	
-				<div class="col-5 card" style="width: 40rem;">
-					<div class="card-body">
-						<h5 class="card-title">Ultimas Vendas</h5>
-						<div class="table-responsive">
-							<table class="table">
-								<thead>
-									<tr>
-										<th scope="col">First</th>
-										<th scope="col">Last</th>
-										<th scope="col">Handle</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<td>Mark</td>
-										<td>Otto</td>
-										<td>@mdo</td>
-									</tr>
-									<tr>
-										<td>Jacob</td>
-										<td>Thornton</td>
-										<td>@fat</td>
-									</tr>
-									<tr>
-										<td>Larry</td>
-										<td>the Bird</td>
-										<td>@twitter</td>
-									</tr>
-								</tbody>
-							</table>
-						</div>
-					</div>
-				</div>
-			</div>
- </div>
- <div class="ml-auto col-2" id="weather">
- </div>
+            <div class="col-md-6">
+                <div class="card" style="margin-top:25px;">
+                    <div class="card-body">
+                        <h4 class="card-title">Vendas nos últimos 15 dias</h4>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Produto</th>
+                                    <th>Total (R$)</th>
+                                    <th>Total Unidade</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($Vendas as $venda)
+                                <tr>
+                                    <td>{{$venda->produto}}</td>
+                                    <td>{{$venda->total}}</td>
+                                    <td>{{$venda->total_unidade}}</td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6">
+                <div class="card" style="margin-top:25px;">
+                    <div class="card-body">
+                        <h4 class="card-title">Vendas nos últimos 15 dias</h4>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Produto</th>
+                                    <th>Total (R$)</th>
+                                    <th>Total Unidade</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($Vendas as $venda)
+                                <tr>
+                                    <td>{{$venda->produto}}</td>
+                                    <td>{{$venda->total}}</td>
+                                    <td>{{$venda->total_unidade}}</td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>    
+
+<div class="container">    
+    <div class="col-2">
+        <div class="ml-auto col-10" id="weather">
+        </div>
+    </div>
+</div>
+
+
 
 @endsection

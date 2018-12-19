@@ -11,7 +11,7 @@ use App\Models\Propriedade;
 use App\Models\ManejoPlantio;
 use App\Models\Perda;
 use Illuminate\Support\Facades\DB;
-
+use Illuminate\Pagination\Paginator;
 
 
 class EstoqueController extends Controller
@@ -30,6 +30,18 @@ class EstoqueController extends Controller
           foreach ($Estoques as $key => $Estoque) {
             $Estoque->disponivel=Estoque::produtosDisponiveis($Estoque->id);
           }
+          $numPagina=2;
+          if(isset($request['page'])){
+            $page=$request['page'];
+            if($page>0)
+              $offset=$page-1;
+
+          }
+          else {
+            $offset=0;
+            $page=1;
+          }
+        $Estoques = new Paginator($Estoques->slice($numPagina*$offset),$numPagina,$page);
 
         return view('estoque', ["User"=>$this->getFirstName($this->usuario['name']) ,'Estoques'=>$Estoques , "Tela"=>"Estoque", 'mensagem'=>$request->mensagem,'status'=>$request->status]);
 
@@ -59,6 +71,7 @@ class EstoqueController extends Controller
       return redirect()->action('EstoqueController@index', ['mensagem'=>$mensagem,'status'=>$status]);
 
     }
+
 public function edit(Request $request,$id){
   $propriedade=$this->getPropriedade($request);
   $produtos=Produto::all()->where('propriedade_id','=',$propriedade['id'])->where('plantavel','=',0);
@@ -73,7 +86,7 @@ public function update(Request $request,$id){
         $post = array_except($request,['_token'])->toArray();
         $post=array_except($request,['_method'])->toArray();
         $post = array_except($request,['id'])->toArray();
-        $estoque = Estoque::find($id)->first();
+        $estoque = Estoque::where('id','=',$id)->first();
         $salva=$estoque->update($post);
         if($salva==true){
           $status='success';
@@ -83,7 +96,8 @@ public function update(Request $request,$id){
           $status='danger';
           $mensagem='Erro ao editar o Estoque!';
         }
-        return redirect()->action('EstoqueController@index', ['mensagem'=>$mensagem,'status'=>$status]);
+
+        return redirect()->action('EstoqueController@index', ['mensagem'=>$mensagem,'status'=>$status,'page'=>$this->page()]);
       }
 
       public function destroy(Request $request,$id){
@@ -97,10 +111,17 @@ public function update(Request $request,$id){
                         $mensagem='Erro ao excluir o Estoque!';
                       }
 
-                      return redirect()->action('EstoqueController@index', ['mensagem'=>$mensagem,'status'=>$status]);
+                      return redirect()->action('EstoqueController@index', ['mensagem'=>$mensagem,'status'=>$status,'page'=>$this->page()]);
       }
 
-
+      public function page(){
+        $query=parse_url(url()->previous());
+        $page=explode('page',$query['query']);
+        $page=explode('=',$page[1]);
+        if(isset($page[1]))
+          return $page[1];
+        return 0;
+      }
 
 
 

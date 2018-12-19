@@ -60,8 +60,17 @@ class PerdaController extends Controller
         $mensagem='Erro ao salvar o Perda!';
       }
 
-      return redirect()->action('EstoqueController@index', ['mensagem'=>$mensagem,'status'=>$status]);
+      return redirect()->action('EstoqueController@index', ['mensagem'=>$mensagem,'status'=>$status,'page'=>$this->page()]);
 
+    }
+
+    public function page(){
+      $query=parse_url(url()->previous());
+      $page=explode('page',$query['query']);
+      $page=explode('=',$page[1]);
+      if(isset($page[1]))
+        return $page[1];
+      return 0;
     }
 
 }

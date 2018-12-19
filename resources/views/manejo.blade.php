@@ -36,6 +36,11 @@ $( document ).ready(function() {
 
 
 </script>
+<style type="text/css">
+  #accordion{
+    margin-bottom: 10px
+  }
+</style>
 
 
 <!-- Modal -->
@@ -63,7 +68,8 @@ $( document ).ready(function() {
 
 
 
-@isset($Plantios[0]->id)
+@isset($Plantios->first()->id)
+
 <div class="card-header" style="margin-top:10px;">
   <div class="row">
       <div class="col-2"><b>Data plantio</b></div>
@@ -74,6 +80,7 @@ $( document ).ready(function() {
 
 
 <div id="accordion">
+
 @foreach ($Plantios as $Plantio)
   <div class="card">
         <div class="card-header btn text-left"  id="heading{{$Plantio->id}}">
@@ -181,7 +188,7 @@ $( document ).ready(function() {
 </div>
 
 @endisset
-
+  {{$Plantios->withPath('manejo')}}
 @if(count($Plantios)==0)
   <div class='text-center'>
     Por favor, adicione novos Plantios!

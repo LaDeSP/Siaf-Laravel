@@ -4,20 +4,49 @@
 
 @section('conteudo')
 <style type="text/css">
-	@media print {
-    .myDivToPrint {
-        background-color: white;
-        height: 100%;
-        width: 100%;
-        position: fixed;
-        top: 0;
-        left: 0;
-        margin: 0;
-        padding: 15px;
-        font-size: 14px;
-        line-height: 18px;
-    }
-}
+	
+		@media    print {
+		    .myDivToPrint {
+		        background-color: white;
+		        height: 6%;
+		        width: 90%;
+		        position: fixed;
+		        top: 0;
+		        left: 20%;
+		        margin: 0;
+		        padding: 15px;
+		        font-size: 14px;
+		        line-height: 18px;
+		    }
+		    .tableRelatorio{
+		    	background-color: white;
+		        height: 100%;
+		        width: 100%;
+		        position: fixed;
+		        top: 5%;
+		        left: 0;
+		        margin: 0;
+		        padding: 15px;
+		        font-size: 14px;
+		        line-height: 18px;
+		    }
+			.rodape{
+				background-color: white;
+		        height: 100%;
+		        width: 100%;
+		        position: fixed;
+		        top: 95%;
+		        left: 0;
+		        margin: 0;
+		        padding: 15px;
+		        font-size: 14px;
+		        line-height: 18px;
+			}
+
+	}
+
+
+
 </style>
 <div class="container">
 	<div class="card text-center" >
@@ -67,93 +96,96 @@
                         </div>
                 </div>
             </form>
-            <div id="tableRelatorio" class="myDivToPrint card-body">
-            	@if(isset($topo))
-			    	<h4 id="tituloTab" ></h4>
-			    	<table id="informacoes" class="table table-hover table-condensed">
-	                    <thead class="thead-light">
-							@foreach($topo as $t)
-							    <th>{{$t}} 
-							    	@if($t == 'Área') 
-										(m²)
-									@elseif($t == 'Total' || $t == 'Valor Unitário')
-										(R$)
-									@endif
-							    </th>
-							@endforeach					
-	                    </thead>
-	                    <tbody>
-                        <div id="results-wrapper">
-							@foreach($conteudo as $c)
-	                            <tr>
-			                        @php
-			                            $i=0;
-			                        @endphp
-									@foreach($topo as $cp)
-										@if(count($formatDataTopo) > 0)
-											@if($i < count($formatDataTopo) && $formatDataTopo[$i] == $cp)
-												@php
-													if(count($formatDataTopo) >= $i+1 ){
-					                            		$i=$i+1;
-													}
-					                            @endphp
-												<td class="data">{{$c->{str_slug($cp, "_")} }}</td>
+            <div class="myDivToPrint">
+            </div>
+	            <div class=" tableRelatorio card-body">
+	            	@if(isset($topo))
+				    	<h4 id="tituloTab" ></h4>
+				    	<table id="informacoes" class="table table-hover table-condensed">
+		                    <thead class="thead-light">
+								@foreach($topo as $t)
+								    <th>{{$t}} 
+								    	@if($t == 'Área') 
+											(m²)
+										@elseif($t == 'Total' || $t == 'Valor Unitário')
+											(R$)
+										@endif
+								    </th>
+								@endforeach					
+		                    </thead>
+		                    <tbody>
+	                        <div id="results-wrapper">
+								@foreach($conteudo as $c)
+		                            <tr>
+				                        @php
+				                            $i=0;
+				                        @endphp
+										@foreach($topo as $cp)
+											@if(count($formatDataTopo) > 0)
+												@if($i < count($formatDataTopo) && $formatDataTopo[$i] == $cp)
+													@php
+														if(count($formatDataTopo) >= $i+1 ){
+						                            		$i=$i+1;
+														}
+						                            @endphp
+													<td class="data">{{$c->{str_slug($cp, "_")} }}</td>
+												@else
+					                       			<td>{{$c->{str_slug($cp, "_")} }}</td>
+												@endif
 											@else
 				                       			<td>{{$c->{str_slug($cp, "_")} }}</td>
 											@endif
-										@else
-			                       			<td>{{$c->{str_slug($cp, "_")} }}</td>
+										@endforeach
+		                            </tr>
+								@endforeach
+	                        </div>
+		                    </tbody>
+		                </table>
+		                <br>
+		                <table class="table table-hover table-condensed">
+		                  	<thead class="thead-light">
+		                      	@foreach($lastLine as $campoLast)
+						            <th colspan="{{(count($topo)/2)}}" scope="col">{{$campoLast}} 
+						            	@if($campoLast == 'Área Total' || $campoLast == 'Área') 
+											(m²)
+										@elseif($campoLast == 'Total' || $campoLast == 'Valor Unitário')
+											(R$)
 										@endif
-									@endforeach
-	                            </tr>
-							@endforeach
-                        </div>
-	                    </tbody>
-	                </table>
-	                <br>
-	                <table class="table table-hover table-condensed">
-	                  	<thead class="thead-light">
-	                      	@foreach($lastLine as $campoLast)
-					            <th colspan="{{(count($topo)/2)}}" scope="col">{{$campoLast}} 
-					            	@if($campoLast == 'Área Total' || $campoLast == 'Área') 
-										(m²)
-									@elseif($campoLast == 'Total' || $campoLast == 'Valor Unitário')
-										(R$)
-									@endif
-					            </th>   
-						    @endforeach
-	                   	</thead>
-	                   	<tbody>	                                
-		                    @foreach($totalG as $total)
-								<tr>
+						            </th>   
+							    @endforeach
+		                   	</thead>
+		                   	<tbody>	                                
+			                    @foreach($totalG as $total)
+									<tr>
 
-			                        @php
-			                            $i=0;
-			                        @endphp
-		                           	@foreach($lastLine as $campoLast)
-										@if(count($formatDataLast) > 0)
-											@if($i < count($formatDataLast) && $formatDataLast[$i] == $campoLast)
-												@php
-													if(count($formatDataLast) >= $i+1 ){
-					                            		$i=$i+1;
-													}
-					                            @endphp
-												<td class="data" colspan="{{(count($topo)/2)}}">{{$total->{ str_slug($campoLast, "_")} }} </td>
+				                        @php
+				                            $i=0;
+				                        @endphp
+			                           	@foreach($lastLine as $campoLast)
+											@if(count($formatDataLast) > 0)
+												@if($i < count($formatDataLast) && $formatDataLast[$i] == $campoLast)
+													@php
+														if(count($formatDataLast) >= $i+1 ){
+						                            		$i=$i+1;
+														}
+						                            @endphp
+													<td class="data" colspan="{{(count($topo)/2)}}">{{$total->{ str_slug($campoLast, "_")} }} </td>
+												@else
+					                       			<td colspan="{{(count($topo)/2)}}">{{$total->{ str_slug($campoLast, "_")} }} </td>
+												@endif
 											@else
 				                       			<td colspan="{{(count($topo)/2)}}">{{$total->{ str_slug($campoLast, "_")} }} </td>
 											@endif
-										@else
-			                       			<td colspan="{{(count($topo)/2)}}">{{$total->{ str_slug($campoLast, "_")} }} </td>
-										@endif
-									@endforeach
-								</tr>
-							@endforeach
-	                   	</tbody>
-	                    </table>
+										@endforeach
+									</tr>
+								@endforeach
+		                   	</tbody>
+		                    </table>
 
-			    @endif
-				<div id="container" ></div>
-			</div>
+				    @endif
+					<div id="container" ></div>
+				</div>
+            
         </div>
 	</div>
 <script type="text/javascript">
@@ -169,7 +201,38 @@
 			if(this.value === '{{$tipo}}'){
 				this.selected=true;
 				texto = $(this).text().replace('Listar ','');
-				$("#tituloTab").text(texto);
+				if($('option:selected').val()=='talhão'){
+					texto = $(this).text().replace('Listar ','');
+	   			}else if($('option:selected').val() =='manejo-propriedade'){
+		   			texto = texto.replace('por ','');
+					texto = texto.replace('período','');
+					texto = texto.replace('periodo ','');
+					texto = texto.replace('propriedade','');
+					texto = texto+ ' por propriedade em '+'{{\Carbon\Carbon::parse($inicio)->format("d/m/Y")}}'+'-'+'{{\Carbon\Carbon::parse($final)->format("d/m/Y")}}';
+					console.log(texto + $('option:selected').val());
+		   		}else if($('option:selected').val()=='produtos-ativos-e-não-propriedade'){
+		   			texto = texto.replace('por ','');
+					texto = texto.replace('período','');
+					texto = texto.replace('periodo ','');
+					texto = texto.replace('propriedade','');
+					texto = texto+ ' por propriedade';
+					console.log(texto + $('option:selected').val());
+		   		}else if($('option:selected').val()=='historico-manejo-plantio'){
+		   			texto = texto.replace('por ','');
+					texto = texto.replace('período','');
+					texto = texto.replace('periodo ','');
+					texto = texto.replace('propriedade','');
+					texto = texto+ ' por propriedade';
+					console.log(texto + $('option:selected').val());
+		   		}else{
+		   			texto = texto.replace('por ','');
+					texto = texto.replace('período','');
+					texto = texto.replace('periodo ','');
+					texto = texto.replace('propriedade','');
+					texto = texto+ ' em '+'{{\Carbon\Carbon::parse($inicio)->format("d/m/Y")}}'+'-'+'{{\Carbon\Carbon::parse($final)->format("d/m/Y")}}';
+					console.log(texto + $('option:selected').val());
+		   		}
+		   		$("#tituloTab").text(texto);
 			}
 		});
 		$("input[name=date-inicio]").val('{{$inicio}}');

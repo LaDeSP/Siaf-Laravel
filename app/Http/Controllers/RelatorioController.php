@@ -348,7 +348,7 @@ class RelatorioController extends Controller
         $formatDataTopo= [];
         $formatDataLast= [];
         $data = Produto::join('propriedade', 'produto.propriedade_id','=','propriedade.id')
-        ->select('propriedade.nome as Propriedade','produto.nome as Produto',(DB::raw('IF(produto.status = 1, "ativo","inativo") as Status')))
+        ->select('propriedade.nome as propriedade','produto.nome as produto',(DB::raw('IF(produto.status = 1, "ativo","inativo") as status')))
         ->where('produto.propriedade_id', '=', $request['propriedade_id'])
         ->groupBy('produto.id','produto.status')
         ->get();

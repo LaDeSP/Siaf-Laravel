@@ -70,7 +70,7 @@
     var htmlWeather = $('<aside id="jquery-weather">' +
                             '<h1>' +
                                 '<span class="city"></span>' +
-                                '<div><div class="region"></div>' +
+                                '<span><span class="region"></span>' +
                             '</h1>' +
                             '<ul id="myul row">' +
                             '</ul>' +
@@ -193,7 +193,7 @@
     var showWeather = function(weather) {
         var location = $(weather);
         var forecasts = $(weather).find('previsao');
-
+        console.log(forecasts);
         if (forecasts.length > 0) {
             // Set informations
             htmlWeather.find('h1 .city').text(location.find('nome').text());

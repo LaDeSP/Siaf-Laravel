@@ -387,7 +387,7 @@ class RelatorioController extends Controller
         $propriedade = $this->getPropriedade($request);
         $request =$request->session()->get('r');
         $topo = ['Propriedade','Plantio','Produto','Talhão','Data','Quantidade','Atual'];
-        $lastLine= ['Propriedade','Produto','Total','Total atual' ];
+        $lastLine= ['Propriedade','Produto','Total entrada','Total atual' ];
         $formatDataTopo= ['Plantio','Data'];
         $formatDataLast=[];
         $data = Estoque::leftJoin('manejoplantio', 'estoque.manejoplantio_id','=','manejoplantio.id')
@@ -412,7 +412,7 @@ class RelatorioController extends Controller
         ->leftJoin('talhao', 'plantio.talhao_id','=','talhao.id')
         ->join('produto', 'estoque.produto_id','=','produto.id')
         ->join('propriedade', 'estoque.propriedade_id','=','propriedade.id')
-        ->select('estoque.produto_id','propriedade.nome as propriedade','produto.nome as produto',DB::raw('SUM(estoque.quantidade) as total'),DB::raw('SUM(estoque.quantidade) as total_atual'))
+        ->select('estoque.produto_id','propriedade.nome as propriedade','produto.nome as produto',DB::raw('SUM(estoque.quantidade) as total_entrada'),DB::raw('SUM(estoque.quantidade) as total_atual'))
         ->whereBetween('estoque.data', [$request['date-inicio'], $request['date-final']])
         ->where('estoque.propriedade_id', '=', $request['propriedade_id'])
         ->groupBy('produto.id')

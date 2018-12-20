@@ -51,13 +51,8 @@ class Talhao extends Model
         $talhao =  Talhao::where('propriedade_id','=',$id)->simplePaginate(3,['*'],"talhao");
         if(sizeof($talhao->items())==0)
         {
-            $currentPage=$talhao->currentPage()-1;
-            Paginator::currentPageResolver(function() use ($currentPage) {
-                return $currentPage;
-            });
-            $talhao =  Talhao::where('propriedade_id','=',$id)->simplePaginate(3,['*'],"talhao");    
+            return false;    
         }
-
         return $talhao;
     }
 

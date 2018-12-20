@@ -46,11 +46,7 @@ class Produto extends Model
         $p = Produto::where('propriedade_id','=',$id)->simplePaginate(3,['*'],"produto");
         if(sizeof($p->items())==0)
         {
-            $currentPage=$p->currentPage()-1;
-            Paginator::currentPageResolver(function() use ($currentPage) {
-                return $currentPage;
-            });
-            $p = Produto::where('propriedade_id','=',$id)->simplePaginate(3,['*'],"produto");    
+            return false; 
         }
         $p->getCollection()->transform(function ($value) {
             $value['unidade_id'] = DB::table('unidade')->where('id', $value['unidade_id'])->where('unidade.deleted_at', '=', null)->value('nome');

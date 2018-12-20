@@ -17,60 +17,75 @@ class PropriedadeController extends Controller
 {
     private $totalpage=3;
     /**
-     * Display a listing of the resource.
-     *
-     * @return Propriedade[]|\Illuminate\Database\Eloquent\Collection
-     */
+    * Display a listing of the resource.
+    *
+    * @return Propriedade[]|\Illuminate\Database\Eloquent\Collection
+    */
     public function index(Request $request)
     {
         $prop = $this->getPropriedade($request);
         $talhao = Talhao::ler($request, $prop['id']);
         $produto = Produto::ler($request, $prop['id']);
+        if(!$talhao && !$produto)
+        {
+            return redirect()->action('PropriedadeController@index', ['mensagem'=>$request->mensagem,'status'=>$request->status, 'talhao'=>$request->talhao-1, 'produto'=>$request->produto-1]);
+        }else{
+            if(!$talhao)
+            {
+                return redirect()->action('PropriedadeController@index', ['mensagem'=>$request->mensagem,'status'=>$request->status, 'talhao'=>$request->talhao-1, 'produto'=>$request->produto]);
+            }else
+            {
+                if(!$produto)
+                {
+                    return redirect()->action('PropriedadeController@index', ['mensagem'=>$request->mensagem,'status'=>$request->status, 'talhao'=>$request->talhao, 'produto'=>$request->produto-1]);
+                }
+            }
+        }
         if($request['mensagem']){
             return view('propriedades', ["propriedade"=>$prop,"talhao"=>$talhao, "unidades"=>Unidade::get(["id","nome"]),"produto"=>$produto, "User"=>$this->getFirstName($this->usuario['name']), "Tela"=>"Propriedade", 'mensagem'=>$request['mensagem'],'status'=>$request['status']]);
         }else{
             return view('propriedades', ["propriedade"=>$prop,"talhao"=>$talhao, "unidades"=>Unidade::get(["id","nome"]),"produto"=>$produto, "User"=>$this->getFirstName($this->usuario['name']), "Tela"=>"Propriedade"]);
         }
     }
-
+    
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    * Show the form for creating a new resource.
+    *
+    * @return \Illuminate\Http\Response
+    */
     public function create()
     {
         //
     }
-
+    
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    * Store a newly created resource in storage.
+    *
+    * @param  \Illuminate\Http\Request  $request
+    * @return \Illuminate\Http\Response
+    */
     public function store(Request $request)
     {
         //
     }
-
+    
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    * Display the specified resource.
+    *
+    * @param  int  $id
+    * @return \Illuminate\Http\Response
+    */
     public function show($id)
     {
         return Propriedade::find($id);
     }
-
+    
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    * Show the form for editing the specified resource.
+    *
+    * @param  int  $id
+    * @return \Illuminate\Http\Response
+    */
     public function edit($id)
     {
         $prop = Propriedade::find($id);
@@ -78,14 +93,14 @@ class PropriedadeController extends Controller
         $testado = Estado::find($tcidade["estado_id"]);
         return view('propriedadesForm',["propriedade"=>$prop, "mestado"=>$testado, "mcidade"=>$tcidade, 'estados'=>Estado::all(), 'Method'=>'put','Url'=>'/propriedade'.'/'.$id]);
     }
-
+    
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    * Update the specified resource in storage.
+    *
+    * @param  \Illuminate\Http\Request  $request
+    * @param  int  $id
+    * @return \Illuminate\Http\Response
+    */
     public function update(Request $request, $id)
     {
         if ($request != null and $id != null) {
@@ -103,31 +118,31 @@ class PropriedadeController extends Controller
             return redirect()->action('PropriedadeController@index');
         }
     }
-
+    
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    * Remove the specified resource from storage.
+    *
+    * @param  int  $id
+    * @return \Illuminate\Http\Response
+    */
     public function destroy($id)
     {
         //
     }
-
+    
     public static function findUsageT($param){
         try{
             if(Plantio::where('talhao_id','=',$param['id'])->firstOrFail())
-                return true;
+            return true;
         }catch(\Exception $e){
             return false;
         }
     }
-
+    
     public static function findUsageP($param){
         try{
             if( Estoque::where('produto_id','=',$param['id'])->first() || Plantio::where('produto_id','=',$param['id'])->first())
-                return true;
+            return true;
             return false;
         }catch(\Exception $e){
             return false;

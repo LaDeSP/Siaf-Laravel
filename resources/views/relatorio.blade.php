@@ -27,38 +27,38 @@
                   <h5 class="mb-0">
                     <div class="col-10">
                     	<div class="row offset-3 mb-2">
-                            <label for="tipo" class=" col-sm-3 p-0"> Relatório:<span class="text-danger">*</span></label>
-                            <select  form="relatorio" id="tipo" name="tipo" class="custom-select col-8" >
+                            <label for="tipo" class="col-sm-3"> Relatório:<span class="text-danger">*</span></label>
+                            <select  form="relatorio" id="tipo" name="tipo" class=" ml-3 custom-select col-8 p-0 pl-3" >
                                 <option hidden selected>Selecione uma opção</option>
-                                <option value="investimentos" class="col-4"> Investimentos realizados por período </option>
-                                <option value="despesa" class="col-4"> Despesa realizadas por período</option>
-                                <option value="plantios" class="col-4"> Plantios realizados por período</option>
-                                <option value="manejo-talhão" class="col-4"> Manejos realizados por período por talhão </option>
-                                <option value="manejo-propriedade" class="col-4"> Manejos realizados por período por propriedade </option>
-                                <option value="colheitas" class="col-4">Colheitas realizadas por período </option>
-                                <option value="talhão" class="col-4"> Talhões por propriedade</option>
-                                <option value="produtos-ativos-e-não-propriedade" class="col-4"> Produtos ativos e inativos por propriedade</option>
-                                <option value="historico-manejo-plantio" class="col-4"> Histórico de manejo por plantio</option>
-                                <option value="estoque-propriedade" class="col-4"> Estoque por propriedade por período </option>
-                                <option value="vendas" class="col-4"> Vendas realizadas por período</option>
-                                <option value="perdas" class="col-4"> Perdas por período</option>
+                                <option value="investimentos" class="col-8"> Investimentos realizados por período </option>
+                                <option value="despesa" class="col-8"> Despesa realizadas por período</option>
+                                <option value="plantios" class="col-8"> Plantios realizados por período</option>
+                                <option value="manejo-talhão" class="col-8"> Manejos realizados por período por talhão </option>
+                                <option value="manejo-propriedade" class="col-8"> Manejos realizados por período por propriedade </option>
+                                <option value="colheitas" class="col-8">Colheitas realizadas por período </option>
+                                <option value="talhão" class="col-8"> Talhões por propriedade</option>
+                                <option value="produtos-ativos-e-não-propriedade" class="col-8"> Produtos ativos e inativos por propriedade</option>
+                                <option value="historico-manejo-plantio" class="col-8"> Histórico de manejo por plantio</option>
+                                <option value="estoque-propriedade" class="col-8"> Estoque por propriedade por período </option>
+                                <option value="vendas" class="col-8"> Vendas realizadas por período</option>
+                                <option value="perdas" class="col-8"> Perdas por período</option>
                             </select>
                     	</div>
-                    	<div class="row offset-3 mb-2">
-                            <label for="propriedade_id" style="display: none;" class=" col-sm-3 p-0"> Fazenda:<span class="text-danger">*</span></label>
-                            <select form="relatorio" id="selectD" name="propriedade_id" class="custom-select col-8"@if(is_array($propriedades) && count($propriedades) < 2) style="display: none" @else style="-moz-appearance: none; -webkit-appearance: none; appearance: none; display: none" @endif>
+                    	<div id="selectProp" class="row offset-3 mb-2">
+                            <label for="propriedade_id" style="display: none;" class="mr-1 col-sm-3 p-0"> Fazenda:<span class="text-danger">*</span></label>
+                            <select form="relatorio" name="propriedade_id" class="custom-select col-8 p-0"@if(is_array($propriedades) && count($propriedades) < 2) style="display: none" @else style="-moz-appearance: none; -webkit-appearance: none; appearance: none; display: none" @endif>
 										@foreach ($propriedades as $propriedade)
 											<option value="{{$propriedade->id}}"> {{$propriedade->nome}}</option>
 										@endforeach
 						     </select>
                     	</div>
-                    	<div class="row offset-3 mb-2">
-							<label for="date-inicio" class=" col-sm-3 p-0" > Data inicio:<span class="text-danger">*</span></label>
-	                        <input class="form-control col-4 p-0" type="date" name="date-inicio">
+                    	<div id="dateInicio" class="row offset-3 mb-2">
+							<label for="date-inicio" class=" col-sm-3 p-0 ml-2" > Data inicio:<span class="text-danger">*</span></label>
+	                        <input class=" ml-2 form-control col-4" type="date" name="date-inicio">
                     	</div>
-                    	<div class="row offset-3 mb-2">
-	                        <label for="date-inicio" class="col-sm-3 p-0"> Data final:<span class="text-danger">*</span></label>
-	                        <input class="form-control col-4 p-0" type="date" name="date-final">
+                    	<div id="dateFinal" class="row offset-3 mb-2">
+	                        <label for="date-inicio" class="p-0 col-sm-3"> Data final:<span class="text-danger">*</span></label>
+	                        <input class=" ml-3 form-control col-4" type="date" name="date-final">
                     	</div>
                         <div class="col-10 offset-2 mt-3">
                         	<button id="gerar" class="col-2 btn btn-info"   type="submit"> Gerar</button>
@@ -180,23 +180,32 @@
 		$("select[name=tipo]").change(function () {
 	   		if($('option:selected').val()=='talhão'){
 	   			console.log('talhão');
-	   			$("input[name=date-inicio]").css('display','none');
-				$("input[name=date-final]").css('display','none');
-				// $("select[name=propriedade_id]").show();
-				
-	   		}else if($('option:selected').val() =='manejo-propriedade' || $('option:selected').val()=='produtos-ativos-e-não-propriedade'){
-	   			$("input[name=date-inicio]").css('display','block');
-				$("input[name=date-final]").css('display','block');
-	   			// $("select#selectD").show();
+	   			$("#dateInicio").css('display','none');
+				$("#dateFinal").css('display','none');
+				@if(is_array($propriedades) && count($propriedades) > 1)
+					$("select[name=propriedade_id]").show();
+				@endif
+	   		}else if($('option:selected').val() =='manejo-propriedade'){
+	   			$("#dateInicio").css('display','flex');
+				$("#dateFinal").css('display','flex');
+				@if(is_array($propriedades) && count($propriedades) > 1)
+	   				$("div#selectProp").show();
+	   			@endif
 	   		}else if($('option:selected').val()=='produtos-ativos-e-não-propriedade'){
-	   			// $("select#selectD").show();
+	   			$("#dateInicio").css('display','none');
+				$("#dateFinal").css('display','none');
+	   			@if(is_array($propriedades) && count($propriedades) > 1)
+	   				$("div#selectProp").show();
+	   			@endif
 	   		}else if($('option:selected').val()=='historico-manejo-plantio'){
-	   			$("input[name=date-inicio]").css('display','none');
-				$("input[name=date-final]").css('display','none');
+	   			$("#dateInicio").css('display','none');
+				$("#dateFinal").css('display','none');
 	   		}else{
-	   			$("input[name=date-inicio]").css('display','block');
-				$("input[name=date-final]").css('display','block');
-				// $("select#selectD").css('display','none');
+	   			$("#dateInicio").css('display','flex');
+				$("#dateFinal").css('display','flex');
+				@if(is_array($propriedades) && count($propriedades) > 1)
+					$("div#selectProp").css('display','none');
+				@endif
 	   		}
 	  	}).change();
 	});

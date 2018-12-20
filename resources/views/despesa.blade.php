@@ -2,7 +2,7 @@
 @section('usuario', $User)
 @section('conteudo')
     <div class="">
-    	<div class="col-12 text-right adicionar">
+    	<div class="col-10 text-right adicionar">
     		<a id="add" data-toggle="modal" data-target="#exampleModal" role="button" class="btn btn-success" style="color:white">Adicionar</a>
     	</div>
                 <div class="col-12" >

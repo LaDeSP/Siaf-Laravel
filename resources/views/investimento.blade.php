@@ -6,7 +6,7 @@
 @section('conteudo')
 
     <div class="">
-        <div class="col-12 text-right adicionar">
+        <div class="col-10 text-right adicionar">
             <a id="add" data-toggle="modal" data-target="#exampleModal" class="btn btn-success text-light">Adicionar</a>
         </div>
             <div class="col-12">

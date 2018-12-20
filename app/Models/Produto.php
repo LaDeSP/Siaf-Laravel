@@ -11,7 +11,7 @@ class Produto extends Model
 {
     protected $table="produto";
     use SoftDeletes;
-    
+
     public static function insere($request){
         try{
             $prod = new Produto();
@@ -26,7 +26,7 @@ class Produto extends Model
             return 500;
         }
     }
-    
+
     public static function atualizar($request, $id){
         try{
             $prod = \App\Models\Produto::find($id);
@@ -41,12 +41,12 @@ class Produto extends Model
             return $e;
         }
     }
-    
+
     public static function ler($request, $id){
         $p = Produto::where('propriedade_id','=',$id)->simplePaginate(3,['*'],"produto");
-        if(sizeof($p->items())==0)
+        if(sizeof($p->items())==0 && $p->currentPage() > 1)
         {
-            return false; 
+            return false;
         }
         $p->getCollection()->transform(function ($value) {
             $value['unidade_id'] = DB::table('unidade')->where('id', $value['unidade_id'])->where('unidade.deleted_at', '=', null)->value('nome');

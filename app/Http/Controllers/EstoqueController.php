@@ -48,7 +48,7 @@ class EstoqueController extends Controller
             $offset=0;
             $page=1;
           }
-          if( sizeof($Estoques) <= $numPagina*$offset){
+          if( sizeof($Estoques) <= $numPagina*$offset && $page>1){
 
             $offset--;
             $page--;

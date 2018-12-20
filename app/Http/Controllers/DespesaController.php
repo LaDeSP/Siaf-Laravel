@@ -17,8 +17,8 @@ class DespesaController extends Controller
         $propriedade = $this->getPropriedade($request);
         $despesas = Despesa::ler('propriedade_id', $propriedade->id);
         if(!$despesas)
-          return redirect()->action('DespesaController@index', ['mensagem'=>$request->mensagem,'status'=>$request->status,'page'=>$this->page()-1]);  
-        return view('despesa', ["propriedade" => $propriedade, "dados" => $despesas,"User"=>$this->getFirstName($this->usuario['name']), "Tela"=>"Despesas",'mensagem'=>$request->mensagem,'status'=>$request->status]);
+          return redirect()->action('DespesaController@index', ['mensagem'=>$request->mensagem,'status'=>$request->status,'page'=>$this->page()-1]);
+        return view('despesa', ["propriedade" => $propriedade, "dados" => $despesas,"User"=>$this->getFirstName($this->usuario['name']), "Tela"=>"Despesa",'mensagem'=>$request->mensagem,'status'=>$request->status]);
     }
 
     /**

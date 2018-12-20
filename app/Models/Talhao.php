@@ -49,9 +49,9 @@ class Talhao extends Model
 
     public static function ler($request, $id){
         $talhao =  Talhao::where('propriedade_id','=',$id)->simplePaginate(3,['*'],"talhao");
-        if(sizeof($talhao->items())==0)
+        if(sizeof($talhao->items())==0 && $talhao->currentPage() > 1)
         {
-            return false;    
+            return false;
         }
         return $talhao;
     }

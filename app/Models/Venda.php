@@ -86,7 +86,7 @@ class Venda extends Model
 		->where('venda.deleted_at','=',null)
 		->simplePaginate(self::totalPages);
 
-		if(sizeof($allVenda->items())==0){
+		if(sizeof($allVenda->items())==0 && $allVenda->currentPage() > 1){
 				return false;
 
 		}

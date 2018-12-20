@@ -40,7 +40,7 @@ class Despesa extends Model
 			if (empty($despesa)) {
 				return 405;
 			}
-      if(sizeof($despesa->items())==0){
+      if(sizeof($despesa->items())==0 && $despesa->currentPage() > 1){
           return false;
       }
 			return $despesa;
@@ -56,7 +56,7 @@ class Despesa extends Model
 			if (empty($despesa)) {
 				return 405;
 			}
-      if(sizeof($despesa->items())==0){
+      if(sizeof($despesa->items())==0 && $despesa->currentPage() > 1){
           return false;
       }
 			return $despesa;

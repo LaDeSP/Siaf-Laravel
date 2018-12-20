@@ -37,10 +37,11 @@ class Investimento extends Model
 	public static function ler($id,$variable){
 		if ($id == null) {
 			$investimento = self::all()->simplePaginate(self::totalPages);
+      dd($investimento);
 			if (empty($investimento)) {
 				return 405;
 			}
-      if(sizeof($investimento->items())==0){
+      if(sizeof($investimento->items())==0 && $investimento->currentPage()>1 ){
   				return false;
   		}
 			return $investimento;
@@ -53,11 +54,12 @@ class Investimento extends Model
 			return $investimento;
 		} else {
 			$investimento = self::where($id,'=',$variable)->simplePaginate(self::totalPages);
+
 			if (empty($investimento)) {
 				return 405;
 			}
 
-      if(sizeof($investimento->items())==0){
+      if(sizeof($investimento->items())==0 && $investimento->currentPage() > 1 ){
   				return false;
   		}
 			return $investimento;

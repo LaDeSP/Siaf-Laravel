@@ -16,9 +16,12 @@ class InvestimentoController extends Controller
     {
         $propriedade = $this->getPropriedade($request);
         $investimento = Investimento::ler('propriedade_id', $propriedade->id);
-        if(!$investimento)
+        if(!$investimento){
             return redirect()->action('InvestimentoController@index', ['mensagem'=>$request->mensagem,'status'=>$request->status,'page'=>$this->page()-1]);
-        return view('investimento',["propriedade" => $propriedade,"dados" => $investimento, "User"=>$this->getFirstName($this->usuario['name']),"Tela" =>"Investimentos"]);
+        }
+
+
+        return view('investimento',["propriedade" => $propriedade,"dados" => $investimento, "User"=>$this->getFirstName($this->usuario['name']),"Tela" =>"Investimento"]);
     }
 
     /**

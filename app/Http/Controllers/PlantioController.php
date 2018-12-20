@@ -68,10 +68,10 @@ class PlantioController extends Controller
               $value->manejopalantio=$manejopalantio->id;
 
           }
-        if( sizeof($plantios[0]) <= $numPagina*$offset){
+        if( sizeof($plantios[0]) <= $numPagina*$offset && $page>1){
           $offset--;
           $page--;
-          return redirect()->action('PlantioController@index', ['mensagem'=>$mensagem,'status'=>$status,'page'=>$page]);
+          return redirect()->action('PlantioController@index', ['mensagem'=>$request->mensagem,'status'=>$request->status,'page'=>$page]);
 
         }
 

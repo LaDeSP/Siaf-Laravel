@@ -41,11 +41,7 @@ class Investimento extends Model
 				return 405;
 			}
       if(sizeof($investimento->items())==0){
-  				$currentPage=$investimento->currentPage()-1;
-  				Paginator::currentPageResolver(function() use ($currentPage) {
-  					return $currentPage;
-  				});
-  				$investimento = self::all()->simplePaginate(self::totalPages);
+  				return false;
   		}
 			return $investimento;
 		}
@@ -62,11 +58,7 @@ class Investimento extends Model
 			}
 
       if(sizeof($investimento->items())==0){
-  				$currentPage=$investimento->currentPage()-1;
-  				Paginator::currentPageResolver(function() use ($currentPage) {
-  					return $currentPage;
-  				});
-  				$investimento = self::where($id,'=',$variable)->simplePaginate(self::totalPages);
+  				return false;
   		}
 			return $investimento;
 		}

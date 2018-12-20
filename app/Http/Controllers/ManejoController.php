@@ -72,7 +72,7 @@ class ManejoController extends Controller
       else {
         $offset=0;
         $page=1;
-      }
+      }      
       $plantios =new Paginator(collect($plantios)->slice($numPagina*$offset),$numPagina,$page);
       return $plantios;
   }

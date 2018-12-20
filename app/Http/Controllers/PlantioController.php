@@ -17,6 +17,7 @@ class PlantioController extends Controller
     public function index(Request $request,$mensagem='',$status=''){
             $plantios=$this->plantios($request);
             return view('plantio', ["User"=>$this->getFirstName($this->usuario['name']) ,'Plantios'=>$plantios , "Tela"=>"Plantio",'mensagem'=>$request->mensagem,'status'=>$request->status]);
+
     }
 
     public function plantios(Request $request,$id=''){
@@ -70,6 +71,8 @@ class PlantioController extends Controller
         if( sizeof($plantios[0]) <= $numPagina*$offset){
           $offset--;
           $page--;
+          return redirect()->action('PlantioController@index', ['mensagem'=>$mensagem,'status'=>$status,'page'=>$page]);
+
         }
 
         $paginator = new Paginator($plantios[0]->slice($numPagina*$offset),$numPagina,$page);

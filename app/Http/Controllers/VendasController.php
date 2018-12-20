@@ -21,6 +21,11 @@ class VendasController extends Controller
     {
         $propriedade = $this->getPropriedade($request);
         $allVenda = Venda::vendas($propriedade, $id='');
+        //dd([$allVenda->currentPage(), $this->page(),$allVenda->currentPage()< $this->page(),$allVenda,Venda::mudou() ]);
+
+        if( !$allVenda )
+              return redirect()->action('VendasController@index', ['mensagem'=>$request->mensagem,'status'=>$request->status,'page'=>$request->page-1]);
+
         return view('venda', ["User"=>$this->getFirstName($this->usuario['name']) ,'Vendas'=>$allVenda , "Tela"=>"Venda",'mensagem'=>$request->mensagem,'status'=>$request->status]);
     }
 

@@ -41,11 +41,7 @@ class Despesa extends Model
 				return 405;
 			}
       if(sizeof($despesa->items())==0){
-          $currentPage=$despesa->currentPage()-1;
-          Paginator::currentPageResolver(function() use ($currentPage) {
-            return $currentPage;
-          });
-          $despesa = self::all()->simplePaginate(self::totalPages);
+          return false;
       }
 			return $despesa;
 		}
@@ -61,11 +57,7 @@ class Despesa extends Model
 				return 405;
 			}
       if(sizeof($despesa->items())==0){
-          $currentPage=$despesa->currentPage()-1;
-          Paginator::currentPageResolver(function() use ($currentPage) {
-            return $currentPage;
-          });
-        $despesa = self::where($id,'=',$variable)->simplePaginate(self::totalPages);
+          return false;
       }
 			return $despesa;
 		}

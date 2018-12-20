@@ -20,6 +20,7 @@ class Venda extends Model
 		'ID' => 'int'
 	];
 
+
 	protected $dates = [
 		'Data'
 	];
@@ -33,6 +34,16 @@ class Venda extends Model
 		'Destino'=>'destino_id',
 		'Estoque'=>"estoque_id"
 	];
+
+	public static function mudou(){
+		static  $change=0;
+		if($change){
+			$change=0;
+			return 1;
+		}
+		return $change;
+
+	}
 
 	public static function destino()
 	{
@@ -76,21 +87,7 @@ class Venda extends Model
 		->simplePaginate(self::totalPages);
 
 		if(sizeof($allVenda->items())==0){
-				$currentPage=$allVenda->currentPage()-1;
-				Paginator::currentPageResolver(function() use ($currentPage) {
-					return $currentPage;
-				});
-				$allVenda = DB::table('venda')
-				->join('estoque', 'estoque.id', '=', 'estoque_id')
-				->join('produto', 'produto.id', '=', 'estoque.produto_id')
-				->join('unidade', 'unidade.id', '=', 'produto.unidade_id')
-				->join('propriedade', 'propriedade.id', '=', 'estoque.propriedade_id')
-				->join('destino', 'destino.id', '=', 'destino_id')
-				->select((DB::raw('(venda.valor_unit*venda.quantidade) as total')),'unidade.nome AS unidade', 'venda.id','produto.nome AS produto','venda.quantidade', 'venda.valor_unit', 'venda.data','venda.nota',
-				'destino.nome', 'venda.estoque_id', 'venda.destino_id')
-				->where('estoque.propriedade_id', '=', $propriedade->id)
-				->where('venda.deleted_at','=',null)
-				->simplePaginate(self::totalPages);
+				return false;
 
 		}
 		return $allVenda;

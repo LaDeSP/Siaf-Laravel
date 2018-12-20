@@ -70,7 +70,7 @@
     var htmlWeather = $('<aside id="jquery-weather">' +
                             '<h1>' +
                                 '<span class="city"></span>' +
-                                '<div><span class="region"></span>' +
+                                '<div><div class="region"></div>' +
                             '</h1>' +
                             '<ul id="myul row">' +
                             '</ul>' +

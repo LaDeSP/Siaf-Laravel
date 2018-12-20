@@ -23,16 +23,15 @@
     <div class="col-12">
         <div class="row">
             <div class="col-4">
-                <img class="col-9 offset-2 img-fluid" src="/images/carinha4.png">
+                <img class="col-8 offset-2 img-fluid" style="" src="/images/carinha4.png">
             </div>
             <div class="col-8">
                 <div class="card" style="margin-top:25px;">
                     <div class="card-body">
-                        <h4 class="card-title">Sua Fazenda</h4>
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th>Fazenda</th>
+                                    <th>Propriedade</th>
                                     <th>Localização</th>
                                     <th>Municipio</th>
                                     <th>Estado</th>
@@ -53,7 +52,7 @@
         </div>
         <div class="row">
             <div class="col-md-6">
-                <div class="card" style="margin-top:25px;">
+                <div class="card">
                     <div class="card-body">
                         <h4 class="card-title">Vendas nos últimos 15 dias</h4>
                         <table class="table">
@@ -79,14 +78,13 @@
             </div>
 
             <div class="col-md-6">
-                <div class="card" style="margin-top:25px;">
+                <div class="card">
                     <div class="card-body">
                         <h4 class="card-title">Estoque nos últimos 15 dias</h4>
                         <table class="table">
                             <thead>
                                 <tr>
                                     <th>Produto</th>
-                                    <th>Total Entrada</th>
                                     <th>Total Atual</th>
                                 </tr>
                             </thead>
@@ -94,7 +92,6 @@
                                 @foreach ($estoques as $estoque)
                                 <tr>
                                     <td>{{$estoque->produto}}</td>
-                                    <td>{{$estoque->total}}</td>
                                     <td>{{$estoque->total_atual}}</td>
                                 </tr>
                                 @endforeach

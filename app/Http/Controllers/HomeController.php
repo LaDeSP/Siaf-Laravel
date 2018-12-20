@@ -48,7 +48,7 @@ class HomeController extends Controller
         ->whereBetween('venda.data', [$data, $datafim])
         ->where('estoque.propriedade_id', '=',$propriedade->id)
         ->where('destino.tipo', '=',1)
-        ->groupBy('produto.id')->orderBy('total', 'desc')
+        ->groupBy('produto.id')->orderBy('total_unidade', 'desc')
         ->limit(3)
         ->get();
         return $totalG;
@@ -68,7 +68,7 @@ class HomeController extends Controller
         ->select('estoque.produto_id','propriedade.nome as propriedade','produto.nome as produto',DB::raw('SUM(estoque.quantidade) as total'),DB::raw('SUM(estoque.quantidade) as total_atual'))
         ->whereBetween('estoque.data', [$data, $datafim])
         ->where('estoque.propriedade_id', '=', $propriedade->id)
-        ->groupBy('produto.id')
+        ->groupBy('produto.id')->orderBy('total_atual', 'desc')
         ->limit(3)
         ->get();
 

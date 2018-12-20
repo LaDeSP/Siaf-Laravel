@@ -111,7 +111,7 @@ class TalhaoController extends Controller
                 $t->delete();
                 $status='success';
                 $mensagem='Talhão removido com sucesso!';
-                return redirect()->action('PropriedadeController@index', ['mensagem'=>$mensagem,'status'=>$status, 'talhao'=>$this->pagetalhao()]);
+                return redirect()->action('PropriedadeController@index', ['mensagem'=>$mensagem,'status'=>$status, 'talhao'=>$this->pagetalhao(), 'produto'=>$this->pageproduto()]);
             }else
                 throw new \Exception();
         }catch (\Exception $e){

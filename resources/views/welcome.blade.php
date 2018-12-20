@@ -55,6 +55,9 @@
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title">Vendas nos últimos 15 dias</h4>
+                        @if(count($Vendas)==0)
+                            <p class="text-center">Por favor, adicione novas vendas!</p>
+                        @else
                         <table class="table">
                             <thead>
                                 <tr>
@@ -73,14 +76,18 @@
                                 @endforeach
                             </tbody>
                         </table>
+                        @endif
                     </div>
                 </div>
             </div>
-
+            
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Estoque nos últimos 15 dias</h4>
+                        <h4 class="card-title">Estoques nos últimos 15 dias</h4>
+                        @if(count($estoques)==0)
+                            <p class="text-center">Por favor, adicione novos Estoques!</p>
+                        @else
                         <table class="table">
                             <thead>
                                 <tr>
@@ -97,6 +104,7 @@
                                 @endforeach
                             </tbody>
                         </table>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -105,10 +113,10 @@
 </div>
 
 
-    <div class="row">
-        <div class=" col-12" id="weather">
-        </div>
+<div class="row">
+    <div class=" col-12" id="weather">
     </div>
+</div>
 
 
 

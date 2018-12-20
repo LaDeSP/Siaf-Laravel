@@ -53,7 +53,12 @@ class Controller extends BaseController
       if(isset($query['query'])){
         $page=explode('produto',$query['query']);
         if(isset($page[1] )){
-          $page=explode('=',$page[1]);
+          $page=explode('&',$page[1]);
+          if(isset($page[1])){
+            $page=explode('=',$page[1]);
+          }else{
+            $page=explode('=',$page[0]);
+          }
             if(isset($page[1]))
               return $page[1];
           }
@@ -66,7 +71,12 @@ class Controller extends BaseController
       if(isset($query['query'])){
         $page=explode('talhao',$query['query']);
         if(isset($page[1] )){
-          $page=explode('=',$page[1]);
+          $page=explode('&',$page[1]);
+          if(isset($page[1])){
+            $page=explode('=',$page[1]);
+          }else{
+            $page=explode('=',$page[0]);
+          }
             if(isset($page[1]))
               return $page[1];
           }

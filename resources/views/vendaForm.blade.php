@@ -54,7 +54,7 @@
          </div>
          <div class="row linhaFrom">
             <label class="col-3">Data da Venda:<span class="text-danger">*</span></label>
-            <input class="col-7" type="date" name="data" value="@isset($Vendas){{$Vendas->data}}@endisset" required>
+            <input class="col-7" type="date" name="data" value="@isset($Vendas){{$Vendas->datavenda}}@endisset" required>
          </div>
          <div class="row linhaFrom">
             <label class="col-3">Nota:</label>

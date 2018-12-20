@@ -24,6 +24,9 @@
 		.table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
 			background-color: rgba(97, 255, 240, 0.12);
 		}
+		.foco{
+			border-bottom: 4px solid #00913d;
+		}
 		a:hover,a{
 			color: inherit; /* blue colors for links too */
 			text-decoration: inherit; /* no underline */
@@ -217,7 +220,7 @@
 		<div  class="col-2 col-sm-2 col-md-2 col-xl-2 menu">
 			<div class="row">
 
-				<div class=" col-md-5 ">
+				<div class="offset-1 col-md-5   @if(Request::segment(1) == 'home') foco  @endif ">
 					<a href="/home">
 						<div class="row">
 							<div>
@@ -225,42 +228,33 @@
 							</div>
 
 						</div>
-						<div class="row">
-							<div class="col-md-12 lead text-center">Inicio</div>
-						</div>
 					</a>
 				</div>
 
-				<div class=" col-md-5 ">
+				<div class=" col-md-5 @if(Request::segment(1) == 'venda') foco  @endif">
 					<a href="/venda">
 						<div class="row">
 							<div>
 								<img class="col-md-12 img-fluid" src="/images/Vendas.png" >
 							</div>
+						</div>
 
-						</div>
-						<div class="row">
-							<div  class=" col-md-12 lead text-center">Vendas</div>
-						</div>
 					</a>
 				</div>
 			</div>
 			<div class="row">
-				<div class=" col-md-5 ">
+				<div class="offset-1 col-md-5 @if(Request::segment(1) == 'estoque') foco  @endif">
 					<a href="/estoque">
 						<div class="row">
 							<div>
 								<img class="col-md-12 img-fluid" src="/images/Estoque.png" >
 							</div>
+						</div>
 
-						</div>
-						<div class="row">
-							<div  class=" col-md-12 lead     text-center">Estoque</div>
-						</div>
 					</a>
 				</div>
 
-				<div class=" col-md-5 ">
+				<div class=" col-md-5 @if(Request::segment(1) == 'plantio') foco  @endif">
 					<a href="/plantio">
 						<div class="row">
 							<div>
@@ -268,28 +262,22 @@
 							</div>
 
 						</div>
-						<div class="row">
-							<div  class=" col-md-12 lead text-center">Plantio</div>
-						</div>
 					</a>
 				</div>
 			</div>
 			<div class="row">
-				<div class=" col-md-5 ">
+				<div class="offset-1 col-md-5 @if(Request::segment(1) == 'manejo') foco  @endif">
 					<a href="/manejo">
 						<div class="row">
 							<div>
 								<img class="col-md-12 img-fluid" src="/images/Manejo.png" >
 							</div>
+						</div>
 
-						</div>
-						<div class="row">
-							<div  class=" col-md-12 lead text-center">Manejo</div>
-						</div>
 					</a>
 				</div>
 
-				<div class=" col-md-5 ">
+				<div class=" col-md-5 @if(Request::segment(1) == 'propriedade') foco  @endif">
 					<a href="/propriedade">
 						<div class="row">
 							<div>
@@ -297,14 +285,11 @@
 							</div>
 
 						</div>
-						<div class="row">
-							<div class="col-12 md-12 lead text-center">Propriedade</div>
-						</div>
 					</a>
 				</div>
 			</div>
 			<div class="row">
-				<div class=" col-md-5 ">
+				<div class="offset-1 col-md-5  @if(Request::segment(1) == 'despesa') foco  @endif">
 					<a href="/despesa">
 						<div class="row">
 							<div>
@@ -312,13 +297,10 @@
 							</div>
 
 						</div>
-						<div class="row">
-							<div  class=" col-md-12 lead text-center ">Despesas</div>
-						</div>
 					</a>
 				</div>
 
-				<div class=" col-md-5 ">
+				<div class=" col-md-5 @if(Request::segment(1) == 'investimento') foco  @endif">
 					<a href="/investimento">
 						<div class="row">
 							<div>
@@ -326,15 +308,12 @@
 							</div>
 
 						</div>
-						<div class="row">
-							<div  class="col-md-12 lead text-center">Investimentos</div>
-						</div>
 					</a>
 				</div>
 			</div>
 
 			<div class="row">
-				<div class=" col-md-5 ">
+				<div class="offset-1 col-md-5 @if(Request::segment(1) == 'relatorio') foco  @endif">
 					<a href="/relatorio">
 						<div class="row">
 							<div>
@@ -342,22 +321,16 @@
 							</div>
 
 						</div>
-						<div class="row">
-							<div  class=" col-md-12 lead text-center ">Relatorios</div>
-						</div>
 					</a>
 				</div>
 
-				<div class=" col-md-5 ">
+				<div class=" col-md-5 @if(Request::segment(1) == 'manual') foco  @endif">
 					<a href="/manual">
 						<div class="row">
 							<div>
 								<img class="col-md-12 img-fluid" src="/images/Manual.png" >
 							</div>
 
-						</div>
-						<div class="row">
-							<div  class=" col-md-12 lead text-center ">Manual</div>
 						</div>
 					</a>
 				</div>

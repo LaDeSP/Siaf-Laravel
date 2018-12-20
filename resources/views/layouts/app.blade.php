@@ -40,7 +40,7 @@
     <body class='new cn-sessions'>
         <div class='box-left'>
             <div style="font:20px; height: 450px;">
-                <p class="text-center">O SIAF é um portal que tem como propósito disponibilizar, para os agricultores, um local para armazenamento e gestão das informações de suas atividades desde a criação de um talhão para plantio até a sua venda para os consumidores. Além de possibilitar o controle dessas informações, o portal também busca cooperar com o agricultor dando um acompanhamento de como estão suas finanças e informações importantes para sua produção.</p>
+                <p class="text-center">O Sistema de Informação para Agricultura Familiar (SIAF) é um sistema de gerenciamento pensado para os agricultores em transição agroecológica de Corumbá e Ladário, desenvolvido pela Fábrica de Software da UFMS - Câmpus do Pantanal. O SIAF tem como objetivos principais auxiliar o agricultor na gestão e armazenamento das atividades executadas em sua propriedade, fornecer um acompanhamento das vendas dos produtos para os consumidores, apoiar o agricultor fornecendo com informações significativas sobre sua plantação, previsões climáticas e automatizar a criação de relatórios e documentos necessários.</p>
             </div>
         </div>
         <div class='box-right'>

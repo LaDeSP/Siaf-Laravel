@@ -111,7 +111,7 @@ class ProdutoController extends Controller
             foreach ($produto as $p){
                 $p['unidade_id'] = DB::table('unidade')->where('id', $p['unidade_id'])->where('unidade.deleted_at','=',null)->value('nome');
             }
-            return redirect()->action('PropriedadeController@index', ['mensagem'=>$mensagem,'status'=>$status]);// ["propriedade"=>$prop,"talhao"=>$talhao, "unidades"=>Unidade::get(["id","nome"]),"produto"=>$produto, "User"=>$this->getFirstName($this->usuario['name']), "Tela"=>"Propriedade", ]);
+            return redirect()->action('PropriedadeController@index', ['mensagem'=>$mensagem,'status'=>$status, 'produto'=>$this->pageproduto(), 'talhao'=>$this->pagetalhao()]);// ["propriedade"=>$prop,"talhao"=>$talhao, "unidades"=>Unidade::get(["id","nome"]),"produto"=>$produto, "User"=>$this->getFirstName($this->usuario['name']), "Tela"=>"Propriedade", ]);
         }else{
             return redirect()->action('PropriedadeController@index');
         }
@@ -131,7 +131,7 @@ class ProdutoController extends Controller
                 $p->delete();
                 $status='success';
                 $mensagem='Produto removido com sucesso!';
-                return redirect()->action('PropriedadeController@index', ['mensagem'=>$mensagem,'status'=>$status]);
+                return redirect()->action('PropriedadeController@index', ['mensagem'=>$mensagem,'status'=>$status, 'produto'=>$this->pageproduto(), 'talhao'=>$this->pagetalhao()]);
             }else
                 throw new \Exception();
         }catch (\Exception $e){

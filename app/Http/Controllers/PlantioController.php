@@ -17,15 +17,19 @@ class PlantioController extends Controller
     public function index(Request $request,$mensagem='',$status=''){
             $plantios=$this->plantios($request);
             return view('plantio', ["User"=>$this->getFirstName($this->usuario['name']) ,'Plantios'=>$plantios , "Tela"=>"Plantio",'mensagem'=>$request->mensagem,'status'=>$request->status]);
+
     }
 
     public function plantios(Request $request,$id=''){
-      $numPagina=7;
       $propiedade=$this->getPropriedade($request);
+      $numPagina=8;
       if(isset($request['page'])){
         $page=$request['page'];
         if($page>0)
           $offset=$page-1;
+        else {
+          $offset=0;
+        }
 
       }
       else {
@@ -64,8 +68,14 @@ class PlantioController extends Controller
               $value->manejopalantio=$manejopalantio->id;
 
           }
+        if( sizeof($plantios[0]) <= $numPagina*$offset && $page>1){
+          $offset--;
+          $page--;
+          return redirect()->action('PlantioController@index', ['mensagem'=>$request->mensagem,'status'=>$request->status,'page'=>$page]);
 
-        $paginator = $results =new Paginator($plantios[0]->slice($numPagina*$offset),$numPagina,$page);
+        }
+
+        $paginator = new Paginator($plantios[0]->slice($numPagina*$offset),$numPagina,$page);
         return $paginator;
     }
 
@@ -142,13 +152,6 @@ class PlantioController extends Controller
                     //return view('plantio', ["User"=>$this->getFirstName($this->usuario['name']) ,'Plantios'=>$plantios , "Tela"=>"Plantio",'mensagem'=>$mensagem,'status'=>$status]);
                     return redirect()->action('PlantioController@index', ['mensagem'=>$mensagem,'status'=>$status,'page'=>$this->page()]);
     }
-    public function page(){
-      $query=parse_url(url()->previous());
-      $page=explode('page',$query['query']);
-      $page=explode('=',$page[1]);
-      if(isset($page[1]))
-        return $page[1];
-      return 0;
-    }
+
 
 }

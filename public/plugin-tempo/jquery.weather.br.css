@@ -118,10 +118,10 @@
 
 
     #jquery-weather h1 {
-        background: #27b6af;
+        background: #737377;
         color: white;
         font-size: .913rem;
-        padding: 15px;
+        padding: 5px;
     }
 
         #jquery-weather .region,
@@ -133,38 +133,47 @@
         margin: 0;
         padding: 0;
         width: 100%;
+        display: flex;
+        border-bottom: 1px solid #d9d9d9;
     }
 
         #jquery-weather li {
-            border-bottom: 1px solid #d9d9d9;
+            /*border-bottom: 1px solid #d9d9d9;*/
             list-style: none;
-            padding:5px;
+            text-align: center;
+            min-width: 14.3%;
+
+            /*padding:14px;*/
+        }
+        span{
+          margin: 2px;
         }
 
             #jquery-weather .day,
             #jquery-weather .icon,
             #jquery-weather .temperature {
-                display: inline-block;
-                width: 33.33%;
+                display: block;
+              /*  width: 27.33%;
+                margin-left: 1px;*/
             }
 
             #jquery-weather .icon {
-                color: #27b6af;
+                color: #737377;
                 font-size: 1.75rem;
                 text-align: center;
             }
 
             #jquery-weather .temperature {
-                text-align: right;
+                /*text-align: right;*/
             }
 
                 #jquery-weather .high {
-                    color: #27b6af;
+                    color: #737377;
                     font-weight: bold;
                 }
 
                 #jquery-weather .low {
-                    margin-right: 15px;
+                    /*margin-right: 15px;*/
                 }
 
     #jquery-weather .source {

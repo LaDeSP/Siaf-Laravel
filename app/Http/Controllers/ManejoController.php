@@ -24,6 +24,7 @@ use App\Models\ManejoPlantio;
 use App\Models\Talhao;
 use App\Models\Estoque;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Pagination\Paginator;
 
 use Illuminate\Http\Request;
 
@@ -58,6 +59,21 @@ class ManejoController extends Controller
 
       }
       //dd($plantios);
+      $numPagina=8;
+      if(isset($request['page'])){
+        $page=$request['page'];
+        if($page>0)
+          $offset=$page-1;
+        else {
+          $offset=0;
+        }
+
+      }
+      else {
+        $offset=0;
+        $page=1;
+      }      
+      $plantios =new Paginator(collect($plantios)->slice($numPagina*$offset),$numPagina,$page);
       return $plantios;
   }
 
@@ -90,7 +106,7 @@ class ManejoController extends Controller
 
       //$plantios=$this->plantiosManejos($request,$id='');
       //return view('manejo', ["User"=>$this->getFirstName($this->usuario['name']), "Tela"=>"Manejo" ,'Plantios'=>$plantios,'mensagem'=>$mensagem,'status'=>$status ,'Mostrar'=>$manejo->plantio_id,'show'=>'show','disabled'=>'disabled'  ]);
-      return redirect()->action('ManejoController@index', ['Mensagem'=>$mensagem,'Status'=>$status,'Mostrar'=>$manejo->plantio_id]);
+      return redirect()->action('ManejoController@index', ['Mensagem'=>$mensagem,'Status'=>$status,'Mostrar'=>$manejo->plantio_id,'page'=>$this->page()]);
     }
 
     public function edit(Request $request,$manejo){
@@ -118,7 +134,8 @@ class ManejoController extends Controller
 
       //$plantios=$this->plantiosManejos($request,$id='');
       //return view('manejo', ["User"=>$this->getFirstName($this->usuario['name']), "Tela"=>"Manejo" ,'Plantios'=>$plantios,'mensagem'=>$mensagem,'status'=>$status,'Mostrar'=>$Manejo->plantio_id,'show'=>'show' ,'disabled'=>'disabled' ]);
-      return redirect()->action('ManejoController@index', ['Mensagem'=>$mensagem,'Status'=>$status,'Mostrar'=>$Manejo->plantio_id]);
+
+      return redirect()->action('ManejoController@index', ['Mensagem'=>$mensagem,'Status'=>$status,'Mostrar'=>$Manejo->plantio_id,'page'=>$this->page()]);
 
     }
 
@@ -135,7 +152,7 @@ class ManejoController extends Controller
               }
           //$plantios=$this->plantiosManejos($request,$id='');
           //return view('manejo', ["User"=>$this->getFirstName($this->usuario['name']), "Tela"=>"Manejo" ,'Plantios'=>$plantios,'mensagem'=>$mensagem,'status'=>$status,'Mostrar'=>$result->plantio_id ,'show'=>'show','disabled'=>'disabled']);
-          return redirect()->action('ManejoController@index', ['Mensagem'=>$mensagem,'Status'=>$status,'Mostrar'=>$result->plantio_id]);
+          return redirect()->action('ManejoController@index', ['Mensagem'=>$mensagem,'Status'=>$status,'Mostrar'=>$result->plantio_id,'page'=>$this->page()]);
     }
 
   public function createEstoque(Request $request,$manejo){
@@ -165,10 +182,8 @@ class ManejoController extends Controller
             }
         //$plantios=$this->plantiosManejos($request,$id='');
         //return view('manejo', ["User"=>$this->getFirstName($this->usuario['name']), "Tela"=>"Manejo" ,'Plantios'=>$plantios,'mensagem'=>$mensagem,'status'=>$status,'Mostrar'=>$result['plantio_id'] ,'show'=>'show' ,'disabled'=>'disabled']);
-        return redirect()->action('ManejoController@index', ['Mensagem'=>$mensagem,'Status'=>$status,'Mostrar'=>$result['plantio_id']]);
+        return redirect()->action('ManejoController@index', ['Mensagem'=>$mensagem,'Status'=>$status,'Mostrar'=>$result['plantio_id'],'page'=>$this->page()]);
   }
-
-
 
 
 

@@ -16,7 +16,12 @@ class InvestimentoController extends Controller
     {
         $propriedade = $this->getPropriedade($request);
         $investimento = Investimento::ler('propriedade_id', $propriedade->id);
-        return view('investimento',["propriedade" => $propriedade,"dados" => $investimento, "User"=>$this->getFirstName($this->usuario['name']),"Tela" =>"Investimentos"]);
+        if(!$investimento){
+            return redirect()->action('InvestimentoController@index', ['mensagem'=>$request->mensagem,'status'=>$request->status,'page'=>$this->page()-1]);
+        }
+
+
+        return view('investimento',["propriedade" => $propriedade,"dados" => $investimento, "User"=>$this->getFirstName($this->usuario['name']),"Tela" =>"Investimento"]);
     }
 
     /**
@@ -38,7 +43,8 @@ class InvestimentoController extends Controller
             }
             $propriedade = $this->getPropriedade($request);
             $investimento = Investimento::ler('propriedade_id', $propriedade->id);
-            return view('investimento',["propriedade" => $propriedade,"dados" => $investimento, "User"=>$this->getFirstName( $this->usuario['nome']) , "Tela"=>"Investimentos",'mensagem'=>$mensagem,'status'=>$status]);
+            //return view('investimento',["propriedade" => $propriedade,"dados" => $investimento, "User"=>$this->getFirstName( $this->usuario['nome']) , "Tela"=>"Investimentos",'mensagem'=>$mensagem,'status'=>$status]);
+            return redirect()->action('InvestimentoController@index', ['mensagem'=>$mensagem,'status'=>$status,'page'=>$this->page()]);
         }else{
             return 405;
         }
@@ -63,7 +69,7 @@ class InvestimentoController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {    
+    {
         if ($request != null) {
             $investimento = Investimento::alterar($request, $id);
             if($investimento == 200){
@@ -75,7 +81,8 @@ class InvestimentoController extends Controller
             }
             $propriedade = $this->getPropriedade($request);
             $investimento = Investimento::ler('propriedade_id', $propriedade->id);
-            return view('investimento', ["propriedade" => $propriedade,"dados" => $investimento, "User"=>$this->getFirstName($this->usuario['name']),"Tela" =>"Investimentos",'mensagem'=>$mensagem,'status'=>$status]);
+            return redirect()->action('InvestimentoController@index', ['mensagem'=>$mensagem,'status'=>$status,'page'=>$this->page()]);
+            //return view('investimento', ["propriedade" => $propriedade,"dados" => $investimento, "User"=>$this->getFirstName($this->usuario['name']),"Tela" =>"Investimentos",'mensagem'=>$mensagem,'status'=>$status]);
         }else{
             return 405;
         }
@@ -100,7 +107,8 @@ class InvestimentoController extends Controller
             }
             $propriedade = $this->getPropriedade($request);
             $investimento = Investimento::ler('propriedade_id', $propriedade->id);
-            return view('investimento',["propriedade" => $propriedade,"dados" => $investimento, "User"=>$this->getFirstName($this->usuario['name']) , "Tela"=>"Investimentos",'mensagem'=>$mensagem,'status'=>$status]);
+            //return view('investimento',["propriedade" => $propriedade,"dados" => $investimento, "User"=>$this->getFirstName($this->usuario['name']) , "Tela"=>"Investimentos",'mensagem'=>$mensagem,'status'=>$status]);
+            return redirect()->action('InvestimentoController@index', ['mensagem'=>$mensagem,'status'=>$status,'page'=>$this->page()]);
         }
         return 405;
     }

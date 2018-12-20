@@ -65,18 +65,18 @@
         'ct': 'wi-day-showers',
         'ppn': 'wi-night-storm-showers',
         'ppt': 'wi-day-storm-showers',
-        'ppm': 'wi-day-storm-showers wi-flip-horizontal' 
+        'ppm': 'wi-day-storm-showers wi-flip-horizontal'
     };
     var htmlWeather = $('<aside id="jquery-weather">' +
                             '<h1>' +
                                 '<span class="city"></span>' +
-                                '<div><span class="region"></span>' +
+                                '<span><span class="region"></span>' +
                             '</h1>' +
-                            '<ul id="myul">' +
+                            '<ul id="myul row">' +
                             '</ul>' +
                             '<div class="source">CPTEC/INPE</div>' +
                         '</aside>');
-    var htmlForecast = $('<li id="myli">' +
+    var htmlForecast = $('<li id="myli col-1">' +
                             '<span class="day" data-i18n=""></span>' +
                             '<span class="icon"><i class="wi"></i></span>' +
                             '<span class="temperature">' +
@@ -84,11 +84,11 @@
                                 '<span class="high"></span>' +
                             '</span>' +
                          '</li>');
-    
+
 
     var getWeather = function() {
         var urlApi = 'http://servicos.cptec.inpe.br/XML/cidade/7dias/' + settings.locationLat + '/' + settings.locationLon + '/previsaoLatLon.xml';
-        
+
         getXML(urlApi,
             function(data) {
                 showWeather(data.responseText);
@@ -193,7 +193,7 @@
     var showWeather = function(weather) {
         var location = $(weather);
         var forecasts = $(weather).find('previsao');
-
+        console.log(forecasts);
         if (forecasts.length > 0) {
             // Set informations
             htmlWeather.find('h1 .city').text(location.find('nome').text());
@@ -209,8 +209,8 @@
                         forecast.find('.wi').addClass(forecastIcons[$(this).find('tempo').text()]);
                         forecast.find('.temperature .low').html(getTemperature($(this).find('minima').text()) + '&deg;');
                         forecast.find('.temperature .high').html(getTemperature($(this).find('maxima').text()) + '&deg;');
-                    
-                    htmlWeather.find('ul').append(forecast);    
+
+                    htmlWeather.find('ul').append(forecast);
                 });
             } else {
                 htmlWeather.addClass('today');
@@ -220,8 +220,8 @@
                 htmlForecast.find('.wi').addClass(forecastIcons[$(forecasts[0]).find('tempo').text()]);
                 htmlForecast.find('.temperature .low').html(getTemperature($(forecasts[0]).find('minima').text()) + '&deg;');
                 htmlForecast.find('.temperature .high').html(getTemperature($(forecasts[0]).find('maxima').text()) + '&deg;');
-                
-                htmlWeather.find('ul').append(htmlForecast);  
+
+                htmlWeather.find('ul').append(htmlForecast);
             }
 
             $(element).html(htmlWeather);
@@ -236,7 +236,7 @@
         pathInstall = pathInstall.split('/');
         pathInstall[pathInstall.length-1] = '';
         pathInstall = pathInstall.join('/');
-        
+
         return pathInstall;
     };
 
@@ -259,11 +259,11 @@
                 error();
             });
         }
-        
+
         function render() {
             // Set translation
             i18n.init(
-                {   
+                {
                     resGetPath: path
                 },
                 function() {
@@ -274,7 +274,7 @@
 
         function error() {
             console.warn(
-                '[jquery.weather.br]\n ' + 
+                '[jquery.weather.br]\n ' +
                 'EN - The translation file could not be found in the following directory "' + path + '". Make sure the "locales" directory is in the same folder as the plugin, or configure the path by setting the "pathFolderLocales" attribute.\n ' +
                 'ES - No se pudo encontrar el archivo de traducción en el siguiente directorio "' + path + '". Compruebe que el directorio "locales" está en la misma carpeta del plugin, o configure la ruta a través de la configuración del atributo "pathFolderLocales".\n ' +
                 'PT - Não foi possível encontrar o arquivo de tradução no seguinte diretório "' + path + '". Verifique se o diretório “locales” está na mesma pasta do plugin, ou configure o caminho através da configuração do atributo "pathFolderLocales".'
@@ -309,23 +309,23 @@
             // Validating configuration
             if (this.settings.locationLat === 0 || this.settings.locationLon === 0) {
                 console.warn(
-                    '[jquery.weather.br]\n ' + 
+                    '[jquery.weather.br]\n ' +
                     'EN - The "locationLat" and "locationLon" attributes are required. Because the automated location is not working.\n ' +
                     'ES - Los atributos "locationLat" y "locationLon" son obligatorios. Por el motivo de la obtención de la ubicación automático no funciona.\n ' +
                     'PT - Os atributos "locationLat" e "locationLon" são obrigatórios. Pelo motivo da obtenção da localização automática não funcionar.'
                 );
                 return false;
-            } 
+            }
 
             if ($.inArray(this.settings.lang, ['en', 'es', 'pt']) === -1) {
                 console.warn(
-                    '[jquery.weather.br]\n ' + 
+                    '[jquery.weather.br]\n ' +
                     'EN - Invalid language. Allowed values "en", "es" or "pt".\n ' +
                     'ES - Lenguaje invalido. Valores permitidos "en", "es" o "pt".\n ' +
                     'PT - Linguagem invalida. Valores permitidos "en", "es" ou "pt".'
                 );
                 return false;
-            } 
+            }
 
 
             element = this.element;
@@ -341,7 +341,7 @@
                     navigator.geolocation.getCurrentPosition(this.locationSuccess, this.locationError);
                 } else {
                     console.warn(
-                        '[jquery.weather.br]\n ' + 
+                        '[jquery.weather.br]\n ' +
                         'EN - Browser does not support Geolocation, will use the default location.\n ' +
                         'ES - Navegador no soporta Geolocalización, utilizará la ubicación predeterminada.\n ' +
                         'PT - Navegador não suporta Geolocation, será utilizado a localização padrão.'
@@ -359,7 +359,7 @@
         },
         locationError: function () {
             console.warn(
-                '[jquery.weather]\n ' + 
+                '[jquery.weather]\n ' +
                 'EN - Could not get the user\'s location, it will use the default location.\n ' +
                 'ES - No se pudo obtener la ubicación del usuario, se utilizará la ubicación predeterminada.\n ' +
                 'PT - Não foi possível obter a localização do usuário, será utilizado a localização padrão.'

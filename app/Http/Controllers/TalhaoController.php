@@ -91,7 +91,7 @@ class TalhaoController extends Controller
                 $status='danger';
                 $mensagem='Ocorreu um erro ao atualizar este talhão!';
             }
-            return redirect()->action('PropriedadeController@index', ['mensagem'=>$mensagem,'status'=>$status]);// ["propriedade"=>$prop,"talhao"=>$talhao, "unidades"=>Unidade::get(["id","nome"]),"produto"=>$produto, "User"=>$this->getFirstName($this->usuario['name']), "Tela"=>"Propriedade", ]);
+            return redirect()->action('PropriedadeController@index', ['mensagem'=>$mensagem,'status'=>$status, 'talhao'=>$this->pagetalhao(), 'produto'=>$this->pageproduto()]);// ["propriedade"=>$prop,"talhao"=>$talhao, "unidades"=>Unidade::get(["id","nome"]),"produto"=>$produto, "User"=>$this->getFirstName($this->usuario['name']), "Tela"=>"Propriedade", ]);
         }else{
             return redirect()->action('PropriedadeController@index');
         }
@@ -111,7 +111,7 @@ class TalhaoController extends Controller
                 $t->delete();
                 $status='success';
                 $mensagem='Talhão removido com sucesso!';
-                return redirect()->action('PropriedadeController@index', ['mensagem'=>$mensagem,'status'=>$status]);
+                return redirect()->action('PropriedadeController@index', ['mensagem'=>$mensagem,'status'=>$status, 'talhao'=>$this->pagetalhao(), 'produto'=>$this->pageproduto()]);
             }else
                 throw new \Exception();
         }catch (\Exception $e){

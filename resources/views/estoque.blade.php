@@ -140,6 +140,7 @@ $( document ).ready(function() {
 
 				</tbody>
 			</table>
+      {{$Estoques->withPath('estoque')}}
       @if(count($Estoques)==0)
         <div class='text-center'>
           Por favor, adicione novos Estoques!

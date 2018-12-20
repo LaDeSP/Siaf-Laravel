@@ -48,6 +48,32 @@ class Controller extends BaseController
 
     }
 
+    public function pageproduto(){
+      $query=parse_url(url()->previous());
+      if(isset($query['query'])){
+        $page=explode('produto',$query['query']);
+        if(isset($page[1] )){
+          $page=explode('=',$page[1]);
+            if(isset($page[1]))
+              return $page[1];
+          }
+        }
+      return 0;
+    }
+
+    public function pagetalhao(){
+      $query=parse_url(url()->previous());
+      if(isset($query['query'])){
+        $page=explode('talhao',$query['query']);
+        if(isset($page[1] )){
+          $page=explode('=',$page[1]);
+            if(isset($page[1]))
+              return $page[1];
+          }
+        }
+      return 0;
+    }
+
     function  getPropriedade($request){
       return $request->session()->get('propriedade');
 

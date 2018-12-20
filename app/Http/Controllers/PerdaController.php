@@ -66,11 +66,16 @@ class PerdaController extends Controller
 
     public function page(){
       $query=parse_url(url()->previous());
-      $page=explode('page',$query['query']);
-      $page=explode('=',$page[1]);
-      if(isset($page[1]))
-        return $page[1];
+      if(isset($query['query'])){
+        $page=explode('page',$query['query']);
+        if(isset($page[1] )){
+          $page=explode('=',$page[1]);
+            if(isset($page[1]))
+              return $page[1];
+          }
+        }
       return 0;
+
     }
 
 }

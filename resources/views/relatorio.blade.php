@@ -60,11 +60,11 @@
 	                        <label for="date-inicio" class="p-0 col-sm-3"> Data final:<span class="text-danger">*</span></label>
 	                        <input class=" ml-3 form-control col-4" type="date" name="date-final">
                     	</div>
+                    </div>
+                  </h5>
                         <div class="col-10 offset-2 mt-3">
                         	<button id="gerar" class="col-2 btn btn-info"   type="submit"> Gerar</button>
                         </div>
-                    </div>
-                  </h5>
                 </div>
             </form>
             <div id="tableRelatorio" class="myDivToPrint card-body">
@@ -97,12 +97,12 @@
 					                            		$i=$i+1;
 													}
 					                            @endphp
-												<td class="data">{{$c->{$cp} }}</td>
+												<td class="data">{{$c->{str_slug($cp, "_")} }}</td>
 											@else
-				                       			<td>{{$c->{$cp} }}</td>
+				                       			<td>{{$c->{str_slug($cp, "_")} }}</td>
 											@endif
 										@else
-			                       			<td>{{$c->{$cp} }}</td>
+			                       			<td>{{$c->{str_slug($cp, "_")} }}</td>
 										@endif
 									@endforeach
 	                            </tr>

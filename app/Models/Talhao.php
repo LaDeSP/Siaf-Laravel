@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use function PHPSTORM_META\type;
+use Illuminate\Pagination\Paginator;
 
 class Talhao extends Model
 {
@@ -47,7 +48,17 @@ class Talhao extends Model
     }
 
     public static function ler($request, $id){
-        return Talhao::where('propriedade_id','=',$id)->simplePaginate(3,['*'],"talhao");
+        $talhao =  Talhao::where('propriedade_id','=',$id)->simplePaginate(3,['*'],"talhao");
+        if(sizeof($talhao->items())==0)
+        {
+            $currentPage=$talhao->currentPage()-1;
+            Paginator::currentPageResolver(function() use ($currentPage) {
+                return $currentPage;
+            });
+            $talhao =  Talhao::where('propriedade_id','=',$id)->simplePaginate(3,['*'],"talhao");    
+        }
+
+        return $talhao;
     }
 
 }

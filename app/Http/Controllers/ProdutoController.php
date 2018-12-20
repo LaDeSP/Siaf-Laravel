@@ -131,7 +131,7 @@ class ProdutoController extends Controller
                 $p->delete();
                 $status='success';
                 $mensagem='Produto removido com sucesso!';
-                return redirect()->action('PropriedadeController@index', ['mensagem'=>$mensagem,'status'=>$status]);
+                return redirect()->action('PropriedadeController@index', ['mensagem'=>$mensagem,'status'=>$status, 'produto'=>$this->pageproduto()]);
             }else
                 throw new \Exception();
         }catch (\Exception $e){

@@ -203,11 +203,12 @@
 				texto = $(this).text().replace('Listar ','');
 				if($('option:selected').val()=='talhão'){
 					texto = $(this).text().replace('Listar ','');
-	   			}else if($('option:selected').val() =='manejo-propriedade'){
-		   			texto = texto.replace('por ','');
+	   			}else if($('option:selected').val() =='manejo-propriedade' || $('option:selected').val() =='estoque-propriedade'){
+		   			texto = texto.replace('por','');
 					texto = texto.replace('período','');
 					texto = texto.replace('periodo ','');
 					texto = texto.replace('propriedade','');
+					texto = texto.replace('por','');
 					texto = texto+ ' por propriedade em '+'{{\Carbon\Carbon::parse($inicio)->format("d/m/Y")}}'+'-'+'{{\Carbon\Carbon::parse($final)->format("d/m/Y")}}';
 					console.log(texto + $('option:selected').val());
 		   		}else if($('option:selected').val()=='produtos-ativos-e-não-propriedade'){

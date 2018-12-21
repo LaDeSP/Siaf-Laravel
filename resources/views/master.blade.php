@@ -300,8 +300,9 @@
 					</a>
 				</div>
 				
-				<div class=" col-md-6 @if(Request::segment(1) == 'investimento') foco  @endif">
-					<a href="/investimento">
+				<div class="offset-2 col-md-6 @if(Request::segment(1) == 'investimento') foco  @endif">
+					<a href="/investi
+					mento">
 						<div class="row">
 							<div>
 								<img class="col-md-12 img-fluid" src="/images/Investimento.png" >

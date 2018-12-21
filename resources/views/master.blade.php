@@ -304,7 +304,7 @@
 					<a href="/investimento">
 						<div class="row">
 							<div>
-								<img class="col-md-12 img-fluid" src="/images/Investimento3.png" >
+								<img class="col-md-12 img-fluid" src="/images/Investimento.png" >
 							</div>
 							
 						</div>

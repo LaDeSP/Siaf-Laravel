@@ -289,7 +289,7 @@
 				</div>
 			</div>
 			<div class="row">
-				<div class="offset-1 col-md-5  @if(Request::segment(1) == 'despesa') foco  @endif">
+				<div class="offset-1 col-12 col-md-5  @if(Request::segment(1) == 'despesa') foco  @endif">
 					<a href="/despesa">
 						<div class="row">
 							<div>
@@ -300,11 +300,11 @@
 					</a>
 				</div>
 
-				<div class=" col-md-5 @if(Request::segment(1) == 'investimento') foco  @endif">
+				<div class=" col-12 col-md-5 @if(Request::segment(1) == 'investimento') foco  @endif">
 					<a href="/investimento">
 						<div class="row">
 							<div>
-								<img class="col-md-12 img-fluid" src="/images/Investimento.png" >
+								<img class="col-md-12 " src="/images/Investimento.png" >
 							</div>
 
 						</div>

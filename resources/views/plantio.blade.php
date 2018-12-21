@@ -68,7 +68,7 @@ $( document ).ready(function() {
 
 
 
-			<table class="table">
+			<table class="table ">
         @isset($Plantios[0]->id)
 				<thead>
 					<tr>

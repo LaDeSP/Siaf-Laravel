@@ -24,6 +24,10 @@
 		.table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
 			background-color: rgba(97, 255, 240, 0.12);
 		}
+
+		.row{
+			margin-right: 0;
+		}
 		.foco{
 			border-bottom: 4px solid #00913d;
 		}
@@ -38,6 +42,7 @@
 		.rodape{
 			background-color: #80808099;
 			border-top: 1px solid #2e54678f;
+			
 		}
 		.rodape img{
 			width: 150px;
@@ -179,16 +184,16 @@
 	</head>
 	<body>
 		<div class="container-fluid">
-			<div  class="row menu align-items-center">
+			<div  class="row menu menu-top align-items-center">
 				<div  class="col-5 col-sm-4 col-md-2" >
 					<img class="img-fluid" src="/images/log.png">
 				</div>
 				<div class="col-2 col-md-2 col-sm-1 offset-md-3 offset-sm-1 text-center lead caret">
 					<h3 id="title" class="h3">{{$Tela}}</h3>
 				</div>
-				<div  class="col-5 col-md-2 col-sm-3 offset-md-3 offset-sm-1 "  data-toggle="modal" data-target=".bd-user-modal-sm"  data-backdrop="false" >
-					<img  class="btn img-fluid col-6 offset-3" src="/images/agr.png">
-					<div class="lead text-center" >{{$User}} </div>
+				<div  class="col-5 col-md-2 col-sm-3 offset-md-3 offset-sm-1"  data-toggle="modal" data-target=".bd-user-modal-sm"  data-backdrop="false" >
+					<img  class="btn img-fluid col-6 offset-6" src="/images/agr.png">
+					<div class="col-6 offset-6 lead text-center" >{{$User}} </div>
 				</div>
 				
 				<div class="modal fade bd-user-modal-sm" tabindex="-1" role="dialog" aria-labelledby="opções" aria-hidden="true">
@@ -217,10 +222,10 @@
 	</div>
 	<div  class="row">
 		
-		<div  class="col-2 col-sm-2 col-md-2 col-xl-2 menu">
+		<div  class="col-2 col-sm-2 col-md-2 col-xl-2 menu menu-left">
 			<div class="row">
 				
-				<div class="offset-1 col-md-5   @if(Request::segment(1) == 'home') foco  @endif ">
+				<div class="col-md-6   @if(Request::segment(1) == 'home') foco  @endif ">
 					<a href="/home">
 						<div class="row">
 							<div>
@@ -231,7 +236,7 @@
 					</a>
 				</div>
 				
-				<div class=" col-md-5 @if(Request::segment(1) == 'venda') foco  @endif">
+				<div class=" col-md-6 @if(Request::segment(1) == 'venda') foco  @endif">
 					<a href="/venda">
 						<div class="row">
 							<div>
@@ -243,7 +248,7 @@
 				</div>
 			</div>
 			<div class="row">
-				<div class="offset-1 col-md-5 @if(Request::segment(1) == 'estoque') foco  @endif">
+				<div class="col-md-6 @if(Request::segment(1) == 'estoque') foco  @endif">
 					<a href="/estoque">
 						<div class="row">
 							<div>
@@ -254,7 +259,7 @@
 					</a>
 				</div>
 				
-				<div class=" col-md-5 @if(Request::segment(1) == 'plantio') foco  @endif">
+				<div class=" col-md-6 @if(Request::segment(1) == 'plantio') foco  @endif">
 					<a href="/plantio">
 						<div class="row">
 							<div>
@@ -266,7 +271,7 @@
 				</div>
 			</div>
 			<div class="row">
-				<div class="offset-1 col-md-5 @if(Request::segment(1) == 'manejo') foco  @endif">
+				<div class="col-md-6 @if(Request::segment(1) == 'manejo') foco  @endif">
 					<a href="/manejo">
 						<div class="row">
 							<div>
@@ -277,7 +282,7 @@
 					</a>
 				</div>
 				
-				<div class=" col-md-5 @if(Request::segment(1) == 'propriedade') foco  @endif">
+				<div class=" col-md-6 @if(Request::segment(1) == 'propriedade') foco  @endif">
 					<a href="/propriedade">
 						<div class="row">
 							<div>
@@ -289,7 +294,7 @@
 				</div>
 			</div>
 			<div class="row">
-				<div class="offset-1 col-12 col-md-5  @if(Request::segment(1) == 'despesa') foco  @endif">
+				<div class="col-12 col-md-6  @if(Request::segment(1) == 'despesa') foco  @endif">
 					<a href="/despesa">
 						<div class="row">
 							<div>
@@ -314,7 +319,7 @@
 			</div>
 			
 			<div class="row">
-				<div class="offset-1 col-md-5 @if(Request::segment(1) == 'relatorio') foco  @endif">
+				<div class="col-md-6 @if(Request::segment(1) == 'relatorio') foco  @endif">
 					<a href="/relatorio">
 						<div class="row">
 							<div>
@@ -325,7 +330,7 @@
 					</a>
 				</div>
 				
-				<div class=" col-md-5 @if(Request::segment(1) == 'manual') foco  @endif">
+				<div class=" col-md-6 @if(Request::segment(1) == 'manual') foco  @endif">
 					<a href="/manual">
 						<div class="row">
 							<div>
@@ -338,7 +343,7 @@
 			</div>
 			
 		</div>
-		<div  class="conteudo col-10 col-sm-10">
+		<div  style="margin-left:0%;" class="conteudo col-10 col-sm-10">
 			@isset($mensagem)
 			<div class="mensagem alert alert-{{$status}} fade in">
 				{{$mensagem}}
@@ -346,13 +351,13 @@
 			@endisset
 			@yield('conteudo')
 		</div>
-		<div class="row rodape col-12">
+		<div class="row rodape col-12 ">
 			<div class="col-9 text-right">
 				<p style="padding-top:2%; margin-bottom: 0rem;">Todos os direitos reservados. Universidade Federal de Mato Grosso do Sul. Copyright © 2018</p>
 				<p class="text-center offset-md-5" style="line-height: 80%;" >Corumbá/MS</p>
 			</div>
 			<div class="col">
-				<img style="padding-top: 2%; padding-left: 10%;" src="images/Logo_menor.png">
+				<img style="padding-top: 1%; padding-left: 0;" src="images/Logo_menor.png">
 			</div>
 			
 		</div>

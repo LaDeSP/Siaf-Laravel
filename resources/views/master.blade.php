@@ -300,7 +300,7 @@
 					</a>
 				</div>
 				
-				<div class="offset-2 col-md-6 @if(Request::segment(1) == 'investimento') foco  @endif">
+				<div class="col-md-6 @if(Request::segment(1) == 'investimento') foco  @endif">
 					<a href="/investi
 					mento">
 						<div class="row">

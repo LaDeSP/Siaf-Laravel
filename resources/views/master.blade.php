@@ -300,11 +300,11 @@
 					</a>
 				</div>
 
-				<div class=" col-md-5 @if(Request::segment(1) == 'investimento') foco  @endif">
+				<div class=" col-md-6 @if(Request::segment(1) == 'investimento') foco  @endif">
 					<a href="/investimento">
 						<div class="row">
 							<div>
-								<img class="col-md-12 img-fluid" src="/images/Investimento.png" >
+								<img class="col-md-12 img-fluid" src="/images/Investimento3.png" >
 							</div>
 
 						</div>

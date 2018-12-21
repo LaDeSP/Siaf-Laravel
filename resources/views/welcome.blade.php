@@ -28,7 +28,7 @@
             <div class="col-8">
                 <div class="card" style="margin-top:25px;">
                     <div class="card-body">
-                        <table class="table">
+                        <table class="table table-responsive-sm">
                             <thead>
                                 <tr>
                                     <th>Propriedade</th>
@@ -56,7 +56,7 @@
                     <div class="card-body">
                         <h4 class="card-title">Vendas nos últimos 15 dias</h4>
                         @if(count($Vendas)==0)
-                            <p class="text-center">Por favor, adicione novas vendas!</p>
+                        <p class="text-center">Por favor, adicione novas vendas!</p>
                         @else
                         <table class="table">
                             <thead>
@@ -86,7 +86,7 @@
                     <div class="card-body">
                         <h4 class="card-title">Estoques nos últimos 15 dias</h4>
                         @if(count($estoques)==0)
-                            <p class="text-center">Por favor, adicione novos Estoques!</p>
+                        <p class="text-center">Por favor, adicione novos Estoques!</p>
                         @else
                         <table class="table">
                             <thead>

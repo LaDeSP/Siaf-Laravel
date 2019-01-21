@@ -10,8 +10,8 @@
       <div class="modal-body">
 
         <div class="row linhaFrom">
-            <label class="col-4">Quantidade:</label>
-            <input class="col-7" type="number" min="1" name="quantidade" value="@isset($dados){{$dados->quantidade}}@endisset">
+            <label class="col-4">Quantidade:<span class="text-danger">*</span></label>
+            <input class="col-7" type="number" min="1" name="quantidade" value="@isset($dados){{$dados->quantidade}}@endisset" required>
         </div>
 
         <div class="row linhaFrom">

@@ -63,8 +63,8 @@
     </div>
 
     <div class="row linhaFrom">
-        <label class="col-4">Quantidade:</label>
-        <input  id='tentacles' class="col-7" type="number" name="quantidade" min=1 max={{$Max}} value="">
+        <label class="col-4">Quantidade:<span class="text-danger">*</span></label>
+        <input  id='tentacles' class="col-7" type="number" name="quantidade" min=1 max={{$Max}} value="" required>
     </div>
 
     <div class="modal-footer">

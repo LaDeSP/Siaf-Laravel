@@ -10,12 +10,18 @@
                     <div class="form-group row">
                         <label for="name" class="col-3 col-form-label">Nome:<span style="color: red">*</span></label> 
                         <div class="col-8">
-                            <input value="{{$usuario->name}}" id="nome" name="name" placeholder="Informe seu nome" class="form-control" required="required" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}">
+                            <input value="{{$usuario->name}}" pattern="[A-Za-zÀ-ú ]{2,255}$" id="nome" name="name" placeholder="Informe seu nome" required="required" type="text" class="form-control {{ $errors->has('name') ? ' is-invalid' : '' }}">
                             @if ($errors->has('name'))
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $errors->first('name') }}</strong>
                             </span>
                             @endif
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="cpf" class="col-3 col-form-label">CPF:</label>
+                        <div class="col-8">
+                            <input value="{{$usuario->cpf}}" id="cpf" name="cpf" class="form-control" disabled type="text">
                         </div>
                     </div>
                     <div class="form-group row">

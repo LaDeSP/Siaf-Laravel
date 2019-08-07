@@ -72,7 +72,7 @@
    $( document ).ready(function() {
       $('select[name=estoque_id]').change(function () {
          var idEstoque = $(this).val();
-         $.get('/siaf/public/quantidade/' + idEstoque, function (quantidade) {
+         $.get('quantidade/' + idEstoque, function (quantidade) {
             var input=$('#tentacles')
             input.val('');
             input.attr({'max':quantidade})

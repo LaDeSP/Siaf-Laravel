@@ -42,7 +42,7 @@
                                                 <a onclick="edit(this)" id ="editInvest" class="btn btn-xs btn-warning" data-id="{{$d->id}}">Editar</a>
                                             </div>
                                             <div class="col-sm-6">
-                                                <form method="post" id="investimentoDelete" action= "/siaf/public/investimento/{{$d->id}}">
+                                                <form method="post" id="investimentoDelete" action= "investimento/{{$d->id}}">
                                                     {{ csrf_field() }}
                                                      {{method_field('DELETE')}}
                                                     <button type="submit" id="regitrarInves" class="btn btn-xs btn-danger delete confirm" msg="Tem certeza que deseja excluir o {{$Tela}} {{$d->nome}} . " name="salvar">Excluir</button>
@@ -69,7 +69,7 @@
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
                 <div class="modal-body">
-                    <form method="POST" id="investimento" action= "/siaf/public/investimento">
+                    <form method="POST" id="investimento" action= "investimento">
                         {{ csrf_field() }}
                         {{method_field('POST')}}
                         <div class="row">
@@ -123,7 +123,7 @@ function edit(elem) {
     var my = $(elem).attr('data-id');
     $.ajax({
         method: "GET",
-        url:  "/siaf/public/investimento/"+my
+        url:  "investimento/"+my
     }).done(function(data){
         $("form#investimento input[name='nome']").val(data.nome);
         $("form#investimento textarea[name='descricao']").val(data.descricao);
@@ -131,7 +131,7 @@ function edit(elem) {
         $("form#investimento input[name='valor_unit']").val(data.valor_unit);
         $("form#investimento input[name='data']").val(data.data);
         $("form#investimento input[name='propriedade_id']").val(data.propriedade_id);
-        var url =  "/siaf/public/investimento/"+data.id;
+        var url =  "investimento/"+data.id;
         $("form#investimento input[name='_method']").val("PUT");
         $("#exampleModalLabel").text("Editar investimento");
         $("form#investimento").attr('action',url);

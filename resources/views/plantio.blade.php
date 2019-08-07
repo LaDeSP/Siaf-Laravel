@@ -36,8 +36,8 @@ $( document ).ready(function() {
 <div class="main">
   <div class="col-10 text-right adicionar">
     <a class="btn  btn-success"
-      href= "/siaf/public/plantio/create"
-      data-endpoint= "/siaf/public/plantio/create"
+      href= "plantio/create"
+      data-endpoint= "plantio/create"
       data-target="exampleModal"
       data-cache="false",
       data-async="true">Adicionar</a>
@@ -96,14 +96,14 @@ $( document ).ready(function() {
 
 
                         <a class="btn btn-warning"
-                          href= "/siaf/public/plantio/{{$Plantio->id}}/edit"
-                          data-endpoint= "/siaf/public/plantio/{{$Plantio->id}}/edit"
+                          href= "plantio/{{$Plantio->id}}/edit"
+                          data-endpoint= "plantio/{{$Plantio->id}}/edit"
                           data-target="exampleModal"
                           data-cache="false",
                           data-async="true">Editar</a>
 
 
-										<form  class="col-sm-6 	" method="post"  action= "/siaf/public/plantio/{{$Plantio->id}}">
+										<form  class="col-sm-6 	" method="post"  action= "plantio/{{$Plantio->id}}">
 											 {{method_field('DELETE')}}
 											{{ csrf_field() }}
 											<button @isset($Plantio->manejopalantio)  disabled @endisset msg='Tem certeza que deseja excluir o Plantio .'  type="submit" class="btn btn-xs btn-danger delete confirm">Excluir</button>

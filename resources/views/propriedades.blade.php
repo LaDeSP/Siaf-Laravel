@@ -50,8 +50,8 @@
                                         <div class="col-sm-4 adicionar">
                                             <a id ="editProp"
                                                class="btn btn-xs btn-warning"
-                                               href="/siaf/public/propriedade/{{$propriedade['id']}}/edit"
-                                               data-endpoint="/siaf/public/propriedade/{{$propriedade['id']}}/edit"
+                                               href="propriedade/{{$propriedade['id']}}/edit"
+                                               data-endpoint="propriedade/{{$propriedade['id']}}/edit"
                                                data-target="propModal"
                                                data-cache="false",
                                                data-async="true">Editar</a>
@@ -72,8 +72,8 @@
                             <font class="lead font-weight-bold"> Talhão</font>
                             <div class="col-10 text-right adicionar">
                                     <a class="btn btn-success"
-                                       href="/siaf/public/talhao/create"
-                                       data-endpoint="/siaf/public/talhao/create"
+                                       href="talhao/create"
+                                       data-endpoint="talhao/create"
                                        data-target="propModal"
                                        data-cache="false",
                                        data-async="true">Adicionar</a>
@@ -107,14 +107,14 @@
                                                         <div class="col">
                                                             <a id ="editTalhao"
                                                                class="btn btn-xs btn-warning col"
-                                                               href="/siaf/public/talhao/{{$t['id']}}/edit"
-                                                               data-endpoint="/siaf/public/talhao/{{$t['id']}}/edit"
+                                                               href="talhao/{{$t['id']}}/edit"
+                                                               data-endpoint="talhao/{{$t['id']}}/edit"
                                                                data-target="propModal"
                                                                data-cache="false",
                                                                data-async="true">Editar</a>
                                                         </div>
                                                         <div class="col">
-                                                            <form method="post" id="talhaoDelete" action="/siaf/public/talhao/{{$t['id']}}">
+                                                            <form method="post" id="talhaoDelete" action="talhao/{{$t['id']}}">
                                                                 {{ csrf_field() }}
                                                                  {{method_field('DELETE')}}
                                                                 <button type="submit"
@@ -142,8 +142,8 @@
                             <font class="lead font-weight-bold">Produto</font>
                             <div class="col-8 text-right adicionar">
                                 <a class="btn btn-success"
-                                   href="/siaf/public/produto/create"
-                                   data-endpoint="/siaf/public/produto/create"
+                                   href="produto/create"
+                                   data-endpoint="produto/create"
                                    data-target="propModal"
                                    data-cache="false",
                                    data-async="true">Adicionar</a>
@@ -177,14 +177,14 @@
                                                     <div class="col w-100">
                                                         <a id ="editTalhao"
                                                            class="btn btn-xs btn-warning col"
-                                                           href="/siaf/public/produto/{{$p['id']}}/edit"
-                                                           data-endpoint="/siaf/public/produto/{{$p['id']}}/edit"
+                                                           href="produto/{{$p['id']}}/edit"
+                                                           data-endpoint="produto/{{$p['id']}}/edit"
                                                            data-target="propModal"
                                                            data-cache="false",
                                                            data-async="true">Editar</a>
                                                     </div>
                                                     <div class="col">
-                                                        <form method="post" id="produtoDelete" action="/siaf/public/produto/{{$p['id']}}">
+                                                        <form method="post" id="produtoDelete" action="produto/{{$p['id']}}">
                                                             {{ csrf_field() }}
                                                              {{method_field('DELETE')}}
                                                             <button type="submit" id="regitrarInves"

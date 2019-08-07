@@ -3,20 +3,20 @@
 <html>
 <head>
 	<title> SIAF </title>
-	<link rel="icon" href="/siaf/public/images/icon.png">
-	<script src="/siaf/public/js/JQuery/jquery-2.2.4.min.js"></script>
-	<script src="/siaf/public/js/validator/jQuery.mask1.14.11.min.js"></script>
-	<script src="/siaf/public/bootstrap/js/popper.min.js"></script>
-	<link href="/siaf/public//bootstrap/css/bootstrap.min.css" rel="stylesheet">
-	<script src="/siaf/public/bootstrap/js/bootstrap.min.js"></script>
-	<script src="/siaf/public/bootstrap/js/bootstrap.bundle.min.js"></script>
-	<script src="/siaf/public/bootbox/bootbox.min.js"></script>
-	<script src="/siaf/public/js/moment-with-locales.min.js"></script>
-	<script src="/siaf/public/js/highcharts/highcharts.js"></script>
-	<script src="/siaf/public/js/highcharts/modules/data.js"></script>
-	<script src="/siaf/public/js/highcharts/modules/exporting.js"></script>
-	<script src="/siaf/public/js/highcharts/modules/export-data.js"></script>
-	<script type="text/javascript" src="/siaf/public/js/highcharts/jquery.highchartTable.js"></script>
+	<link rel="icon" href="images/icon.png">
+	<script src="js/JQuery/jquery-2.2.4.min.js"></script>
+	<script src="js/validator/jQuery.mask1.14.11.min.js"></script>
+	<script src="bootstrap/js/popper.min.js"></script>
+	<link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<script src="bootstrap/js/bootstrap.min.js"></script>
+	<script src="bootstrap/js/bootstrap.bundle.min.js"></script>
+	<script src="bootbox/bootbox.min.js"></script>
+	<script src="js/moment-with-locales.min.js"></script>
+	<script src="js/highcharts/highcharts.js"></script>
+	<script src="js/highcharts/modules/data.js"></script>
+	<script src="js/highcharts/modules/exporting.js"></script>
+	<script src="js/highcharts/modules/export-data.js"></script>
+	<script type="text/javascript" src="js/highcharts/jquery.highchartTable.js"></script>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 
@@ -186,13 +186,13 @@
 		<div class="container-fluid">
 			<div  class="row menu menu-top align-items-center">
 				<div  class="col-5 col-sm-4 col-md-2" >
-					<img class="img-fluid" src="/siaf/public/images/log.png">
+					<img class="img-fluid" src="images/log.png">
 				</div>
 				<div class="col-2 col-md-2 col-sm-1 offset-md-3 offset-sm-1 text-center lead caret">
 					<h3 id="title" class="h3">{{$Tela}}</h3>
 				</div>
 				<div  class="col-5 col-md-2 col-sm-3 offset-md-3 offset-sm-1"  data-toggle="modal" data-target=".bd-user-modal-sm"  data-backdrop="false" >
-					<img  class="btn img-fluid col-6 offset-6" src="/siaf/public/images/agr.png">
+					<img  class="btn img-fluid col-6 offset-6" src="images/agr.png">
 					<div class="col-6 offset-6 lead text-center" >{{$User}} </div>
 				</div>
 
@@ -201,7 +201,7 @@
 						<div class="modal-content">
 							<ul class="list-group">
 								<li class=" list-group-item list-group-item-action list-group-item-success">
-									<a href="/siaf/public/usuario" class="lead"> <h8>Perfil</h8> </a>
+									<a href="usuario" class="lead"> <h8>Perfil</h8> </a>
 								</li>
 								<li class=" list-group-item list-group-item-action list-group-item-success">
 									<a class="lead" href="{{ route('logout') }}"
@@ -226,10 +226,10 @@
 			<div class="row">
 
 				<div class="col-md-6   @if(Request::segment(1) == 'home') foco  @endif ">
-					<a href="/siaf/public/home">
+					<a href="home">
 						<div class="row">
 							<div>
-								<img class="col-md-12 img-fluid" src="/siaf/public/images/Inicio.png" >
+								<img class="col-md-12 img-fluid" src="images/Inicio.png" >
 							</div>
 
 						</div>
@@ -237,10 +237,10 @@
 				</div>
 
 				<div class=" col-md-6 @if(Request::segment(1) == 'venda') foco  @endif">
-					<a href="/siaf/public/venda">
+					<a href="venda">
 						<div class="row">
 							<div>
-								<img class="col-md-12 img-fluid" src="/siaf/public/images/Vendas.png" >
+								<img class="col-md-12 img-fluid" src="images/Vendas.png" >
 							</div>
 						</div>
 
@@ -249,10 +249,10 @@
 			</div>
 			<div class="row">
 				<div class="col-md-6 @if(Request::segment(1) == 'estoque') foco  @endif">
-					<a href="/siaf/public/estoque">
+					<a href="estoque">
 						<div class="row">
 							<div>
-								<img class="col-md-12 img-fluid" src="/siaf/public/images/Estoque.png" >
+								<img class="col-md-12 img-fluid" src="images/Estoque.png" >
 							</div>
 						</div>
 
@@ -260,10 +260,10 @@
 				</div>
 
 				<div class=" col-md-6 @if(Request::segment(1) == 'plantio') foco  @endif">
-					<a href="/siaf/public/plantio">
+					<a href="plantio">
 						<div class="row">
 							<div>
-								<img class="col-md-12 img-fluid" src="/siaf/public/images/Plantio.png" >
+								<img class="col-md-12 img-fluid" src="images/Plantio.png" >
 							</div>
 
 						</div>
@@ -272,10 +272,10 @@
 			</div>
 			<div class="row">
 				<div class="col-md-6 @if(Request::segment(1) == 'manejo') foco  @endif">
-					<a href="/siaf/public/manejo">
+					<a href="manejo">
 						<div class="row">
 							<div>
-								<img class="col-md-12 img-fluid" src="/siaf/public/images/Manejo.png" >
+								<img class="col-md-12 img-fluid" src="images/Manejo.png" >
 							</div>
 						</div>
 
@@ -283,10 +283,10 @@
 				</div>
 
 				<div class=" col-md-6 @if(Request::segment(1) == 'propriedade') foco  @endif">
-					<a href="/siaf/public/propriedade">
+					<a href="propriedade">
 						<div class="row">
 							<div>
-								<img class="col-md-12 img-fluid" src="/siaf/public/images/Propriedade.png" >
+								<img class="col-md-12 img-fluid" src="images/Propriedade.png" >
 							</div>
 
 						</div>
@@ -295,10 +295,10 @@
 			</div>
 			<div class="row">
 				<div class="col-12 col-md-6  @if(Request::segment(1) == 'despesa') foco  @endif">
-					<a href="/siaf/public/despesa">
+					<a href="despesa">
 						<div class="row">
 							<div>
-								<img class="col-md-12 img-fluid" src="/siaf/public/images/Despesas.png" >
+								<img class="col-md-12 img-fluid" src="images/Despesas.png" >
 							</div>
 
 						</div>
@@ -306,10 +306,10 @@
 				</div>
 
 				<div class="col-md-6 @if(Request::segment(1) == 'investimento') foco  @endif">
-					<a href="/siaf/public/investimento">
+					<a href="investimento">
 						<div class="row">
 							<div>
-								<img class="col-md-12 img-fluid" src="/siaf/public/images/Investimento.png" >
+								<img class="col-md-12 img-fluid" src="images/Investimento.png" >
 							</div>
 
 						</div>
@@ -319,10 +319,10 @@
 
 			<div class="row">
 				<div class="col-md-6 @if(Request::segment(1) == 'relatorio') foco  @endif">
-					<a href="/siaf/public/relatorio">
+					<a href="relatorio">
 						<div class="row">
 							<div>
-								<img class="col-md-12 img-fluid" src="/siaf/public/images/Relatorio.png" >
+								<img class="col-md-12 img-fluid" src="images/Relatorio.png" >
 							</div>
 
 						</div>
@@ -330,10 +330,10 @@
 				</div>
 
 				<div class=" col-md-6 @if(Request::segment(1) == 'manual') foco  @endif">
-					<a href="/siaf/public/manual">
+					<a href="manual">
 						<div class="row">
 							<div>
-								<img class="col-md-12 img-fluid" src="/siaf/public/images/Manual.png" >
+								<img class="col-md-12 img-fluid" src="images/Manual.png" >
 							</div>
 
 						</div>

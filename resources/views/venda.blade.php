@@ -29,8 +29,8 @@
 <div class="main">
    <div class="col-10 text-right adicionar">
       <a class="btn  btn-success"
-      href="/siaf/public/venda/create"
-      data-endpoint="/siaf/public/venda/create"
+      href="venda/create"
+      data-endpoint="venda/create"
       data-target="exampleModal"
       data-cache="false",
       data-async="true">Adicionar</a>
@@ -94,13 +94,13 @@
                <td>
                   <div class="row">
                      <a class="btn  btn-warning"
-                        href="/siaf/public/venda/{{$venda->id}}/edit"
-                        data-endpoint="/siaf/public//venda/{{$venda->id}}/edit"
+                        href="venda/{{$venda->id}}/edit"
+                        data-endpoint="/venda/{{$venda->id}}/edit"
                         data-target="exampleModal"
                         data-cache="false",
                         data-async="true">Editar
                      </a>
-                     <form  class="col-sm-6 	" method="post"  action="/siaf/public/venda/{{$venda->id}}">
+                     <form  class="col-sm-6 	" method="post"  action="venda/{{$venda->id}}">
                          {{method_field('DELETE')}}
                         {{ csrf_field() }}
                         <button  type="submit" msg="Tem certeza que deseja Excluir essa Venda?" class="btn btn-xs btn-danger delete confirm">Excluir</button>

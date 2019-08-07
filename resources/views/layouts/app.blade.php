@@ -6,14 +6,14 @@
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <link rel="icon" href="/siaf/public/images/favicon.png">
+    <link rel="icon" href="images/favicon.png">
     <title>SIAF</title>
     <!-- Scripts -->
-    <script src="/siaf/public/js/JQuery/jquery-2.2.4.min.js"></script>
-    <script src="/siaf/public/js/validator/jQuery.mask1.14.11.min.js"></script>
+    <script src="js/JQuery/jquery-2.2.4.min.js"></script>
+    <script src="js/validator/jQuery.mask1.14.11.min.js"></script>
     <!-- Styles -->
-    <link href="/siaf/public/css/login.css" rel="stylesheet">
-    <link href="/siaf/public/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/login.css" rel="stylesheet">
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <style>
         .footer {
             position: fixed;
@@ -44,7 +44,7 @@
             </div>
         </div>
         <div class='box-right'>
-            <img class="col-3 offset-4" style="aling:center" src="/siaf/public/images/log.png">
+            <img class="col-3 offset-4" style="aling:center" src="images/log.png">
             <!--
                 <div class='bar'>
                     <div class='switcher'>
@@ -61,7 +61,7 @@
             @yield('content')
         </div>
         <div class="footer">
-            <p>Todos os direitos reservados. Universidade Federal de Mato Grosso do Sul. Copyright © 2018 - Corumbá/MS <img class="col-1" src="/siaf/public/images/Logo_menor.png"></p>
+            <p>Todos os direitos reservados. Universidade Federal de Mato Grosso do Sul. Copyright © 2018 - Corumbá/MS <img class="col-1" src="images/Logo_menor.png"></p>
         </div>
     </body>
     </html>

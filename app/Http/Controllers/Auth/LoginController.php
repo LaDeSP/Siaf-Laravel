@@ -27,7 +27,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/siaf/public/login';
+    protected $redirectTo = 'login';
 
 
 

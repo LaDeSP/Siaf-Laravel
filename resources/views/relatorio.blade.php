@@ -50,7 +50,7 @@
 </style>
 <div class="container">
 	<div class="card text-center" >
-            <form id="relatorio" action="/siaf/public/relatorio" method="POST">
+            <form id="relatorio" action="relatorio" method="POST">
                 {{ csrf_field() }}
                 <div class="card-header">
                   <h5 class="mb-0">

@@ -99,8 +99,8 @@ $( document ).ready(function() {
 
         <div class="col-10 text-right adicionar">
           <a class="btn  btn-success"
-            href= "/siaf/public/manejo/create/{{$Plantio->id}}"
-            data-endpoint= "/siaf/public/manejo/create/{{$Plantio->id}}"
+            href= "manejo/create/{{$Plantio->id}}"
+            data-endpoint= "manejo/create/{{$Plantio->id}}"
             data-target="exampleModal"
             data-cache="false",
             data-async="true">Adicionar</a>
@@ -132,15 +132,15 @@ $( document ).ready(function() {
 
 
                       <a class="btn  btn-warning col-3 @if(! isset($Manejo->estoque)) btn-primary @else btn-primary  disabled @endif "
-                        href= "/siaf/public/manejo/{{$Manejo->id}}/edit"
-                        data-endpoint= "/siaf/public/manejo/{{$Manejo->id}}/edit"
+                        href= "manejo/{{$Manejo->id}}/edit"
+                        data-endpoint= "manejo/{{$Manejo->id}}/edit"
                         data-target="exampleModal"
                         data-cache="false",
                         data-async="true"
                         @isset($Manejo->estoque) {{$disabled}}='{{$disabled}}' @endisset>Editar</a>
 
 
-                      <form  class="col-4 	" method="post" id="investimento" action= "/siaf/public/manejo/{{$Manejo->id}}">
+                      <form  class="col-4 	" method="post" id="investimento" action= "manejo/{{$Manejo->id}}">
                          {{method_field('DELETE')}}
                         {{ csrf_field() }}
                         <button  @isset($Manejo->estoque) {{$disabled}}='{{$disabled}}' @endisset type="submit" class="btn btn-xs   btn-danger  delete confirm" msg='Tem certeza que deseja excluir o {{$Tela}} {{$Manejo->nome}} . '>Excluir</button>
@@ -149,14 +149,14 @@ $( document ).ready(function() {
                       @if($Manejo->manejo_id==4)
 
                       <a class="btn  @if(! isset($Manejo->estoque)) btn-primary @else btn-primary  disabled @endif  col-3"
-                        href= "/siaf/public/manejo/estoque/{{$Manejo->id}}"
-                        data-endpoint= "/siaf/public/manejo/estoque/{{$Manejo->id}}"
+                        href= "manejo/estoque/{{$Manejo->id}}"
+                        data-endpoint= "manejo/estoque/{{$Manejo->id}}"
                         data-target="exampleModal"
                         data-cache="false",
                         data-async="true"
                         @isset($Manejo->estoque) {{$disabled}}='{{$disabled}}' @endisset>Estocar</a>
 
-                    <!---  <form  class="col-4 	" method="get"  action= "/siaf/public/manejo/estoque/{{$Manejo->id}}">
+                    <!---  <form  class="col-4 	" method="get"  action= "manejo/estoque/{{$Manejo->id}}">
                         {{ csrf_field() }}
                         <button  type="submit" class="btn btn-xs btn-primary  " msg='Tem certeza que deseja enviar a {{$Manejo->nome}} para Estoque . '>Estoque</button>
                       </form>-->

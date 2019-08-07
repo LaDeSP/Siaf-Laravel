@@ -137,7 +137,7 @@
 <script type="text/javascript">
     $('select[name=estados]').change(function () {
         var idEstado = $(this).val();
-        $.get('/siaf/public/cidades/' + idEstado, function (cidades) {
+        $.get('cidades/' + idEstado, function (cidades) {
             $('select[name=cidade]').empty();
             $.each(cidades, function (key, value) {
                 $('select[name=cidade]').append('<option value=' + value.id + '>' + value.nome + '</option>');

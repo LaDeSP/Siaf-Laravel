@@ -38,8 +38,8 @@ $( document ).ready(function() {
 <div class="main">
   <div class="col-10 text-right adicionar">
     <a class="btn  btn-success"
-      href= "/siaf/public/estoque/create"
-      data-endpoint= "/siaf/public/estoque/create"
+      href= "estoque/create"
+      data-endpoint= "estoque/create"
       data-target="exampleModal"
       data-cache="false",
       data-async="true">Adicionar</a>
@@ -110,22 +110,22 @@ $( document ).ready(function() {
 
                     <div class="col-6">
                     <a class="btn  btn-warning @if($Estoque->plantavel || ($Estoque->quantidade!=$Estoque->disponivel )  )  disabled @endif"
-                      href= "/siaf/public/estoque/{{$Estoque->id}}/edit"
-                      data-endpoint= "/siaf/public/estoque/{{$Estoque->id}}/edit"
+                      href= "estoque/{{$Estoque->id}}/edit"
+                      data-endpoint= "estoque/{{$Estoque->id}}/edit"
                       data-target="exampleModal"
                       data-cache="false",
                       data-async="true">Editar</a>
                     </div>
                     <div class="col-6">
                     <a  class="btn btn-xs btn-danger @if($Estoque->disponivel <= 0 )  disabled @endif"
-                        href= "/siaf/public/perda/{{$Estoque->id}}"
-                        data-endpoint= "/siaf/public/perda/{{$Estoque->id}}"
+                        href= "perda/{{$Estoque->id}}"
+                        data-endpoint= "perda/{{$Estoque->id}}"
                         data-target="exampleModal"
                         data-cache="false",
                         data-async="true">Perder</a>
                    <div>
                   <!--
-										<form  class="col-sm-6 	" method="post" id="investimento"  action= "/siaf/public/estoque/{{$Estoque->id}}">
+										<form  class="col-sm-6 	" method="post" id="investimento"  action= "estoque/{{$Estoque->id}}">
 											 {{method_field('DELETE')}}
 											{{ csrf_field() }}
 											<button  type="submit" msg='Tem certeza que deseja Excluir esse Estoque. ' class="btn btn-xs btn-danger delete @if($Estoque->plantavel)  disabled @endif confirm">Perder</button>

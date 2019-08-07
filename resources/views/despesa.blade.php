@@ -38,7 +38,7 @@
                                                     <a onclick="edit(this)" id ="editDespesa" class="btn btn-xs btn-warning" data-id="{{$d->id}}">Editar</a>
                                                 </div>
                                                 <div class="col-sm-6">
-                                                    <form method="post" id="investimentoDelete" action= "/siaf/public/despesa/{{$d->id}}">
+                                                    <form method="post" id="investimentoDelete" action= "despesa/{{$d->id}}">
                                                         {{ csrf_field() }}
                                                          {{method_field('DELETE')}}
                                                         <button type="submit" id="" class="btn btn-xs btn-danger delete confirm" msg="Tem certeza que deseja excluir a {{$Tela}} {{$d->nome}} . " name="salvar">Excluir</button>
@@ -67,7 +67,7 @@
 
 	            </div>
 	            <div class="modal-body">
-	                <form method="POST" id="despesa" action= "/siaf/public/despesa">
+	                <form method="POST" id="despesa" action= "despesa">
 	                    {{ csrf_field() }}
                       {{method_field('POST')}}
 	                    <div class="row">
@@ -119,7 +119,7 @@ function edit(elem) {
     var my = $(elem).attr('data-id');
     $.ajax({
         method: "GET",
-        url:  "/siaf/public/despesa/"+my
+        url:  "despesa/"+my
     }).done(function(data){
         $("form#despesa input[name='nome']").val(data.nome);
         $("form#despesa textarea[name='descricao']").val(data.descricao);
@@ -127,7 +127,7 @@ function edit(elem) {
         $("form#despesa input[name='valor_unit']").val(data.valor_unit);
         $("form#despesa input[name='data']").val(data.data);
         $("form#despesa input[name='propriedade_id']").val(data.propriedade_id);
-        var url =  "/siaf/public/despesa/"+data.id;
+        var url =  "despesa/"+data.id;
         $("form#despesa input[name='_method']").val("PUT");
         $("#exampleModalLabel").text("Editar despesa");
         $("form#despesa").attr('action',url);

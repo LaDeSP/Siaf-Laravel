@@ -2,8 +2,8 @@
 @section('usuario', $User)
 @section('conteudo')
 <script src="https://cdn.jsdelivr.net/npm/crypto-js@3.1.9-1/crypto-js.js"></script>
-<link href="/siaf/public/plugin-tempo/jquery.weather.br.min.css" media="all" rel="stylesheet" />
-<script src="/siaf/public/plugin-tempo/jquery.weather.br.js"></script>
+<link href="plugin-tempo/jquery.weather.br.min.css" media="all" rel="stylesheet" />
+<script src="plugin-tempo/jquery.weather.br.js"></script>
 <style type="text/css">
     #weather {
         margin-top:15px;
@@ -24,7 +24,7 @@
     <div class="col-12">
         <div class="row">
             <div class="col-4">
-                <img class="col-8 offset-2 img-fluid" style="" src="/siaf/public/images/carinha4.png">
+                <img class="col-8 offset-2 img-fluid" style="" src="images/carinha4.png">
             </div>
             <div class="col-8">
                 <div class="card" style="margin-top:25px;">

@@ -9,8 +9,8 @@ class Cidade extends Model
 {
     protected $table = "cidade";
     use SoftDeletes;
-    static function cordenadas($id)
-    {
+    
+    static function cordenadas($id){
         $cidades=self::all()->where('id','=',$id);
         return array_first($cidades);
     }
@@ -19,5 +19,5 @@ class Cidade extends Model
     {
         $cidades=self::all()->where('estado_id','=',$idestado);
         return $cidades;
-    }  
+    }
 }

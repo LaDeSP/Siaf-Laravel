@@ -127,7 +127,7 @@ class ProdutoController extends Controller
     {
         try{
             $p = Produto::find($id);
-            if(!PropriedadeController::findUsageP($p)){
+            if(!$p->estoques()->first() || $p->plantios()->first()){
                 $p->delete();
                 $status='success';
                 $mensagem='Produto removido com sucesso!';

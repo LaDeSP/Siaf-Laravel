@@ -20,7 +20,7 @@ class Controller extends BaseController
 
 
             if (! $request->session()->exists('propriedade') || $request->session()->get('propriedade')==null ) {
-                  $request->session()->put('propriedade',array_first(Propriedade::all()->where('users_id', '=', $this->usuario['cpf'])));
+                  $request->session()->put('propriedade',array_first(Propriedade::all()->where('users_id', '=', $this->usuario['id'])));
 
             }
 
@@ -30,7 +30,7 @@ class Controller extends BaseController
 
     function  setPropriedade($request,$id){
 
-       $request->session()->put('propriedade', array_first( Propriedade::all()->where('users_id', '=', $this->usuario['cpf'])->where('id', '=', $id ) ));
+       $request->session()->put('propriedade', array_first( Propriedade::all()->where('users_id', '=', $this->usuario['id'])->where('id', '=', $id ) ));
 
     }
 

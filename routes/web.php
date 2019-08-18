@@ -1,6 +1,6 @@
 <?php
 
-Route::redirect('/', '/login');
+/*Route::redirect('/', '/login');
 Route::get('/cidades/{id}', 'CidadeController@show');
 
 Auth::routes();
@@ -28,4 +28,38 @@ Route::group(['middleware'=>['web', 'auth']], function()
     Route::resource('/talhao', "TalhaoController");
     Route::get('/perda/{id}', "PerdaController@index");
     Route::post('/perda', "PerdaController@create");
+});
+*/
+
+Route::get('/', function() {
+    return redirect(route('painel.dashboard'));
+});
+
+Route::get('home', function() {
+    return redirect(route('painel.dashboard'));
+});
+
+Route::name('painel.')->prefix('painel')->middleware('auth')->group(function() {
+    Route::get('/', 'DashboardController')->name('dashboard');
+    Route::resource('users', 'UserController', [
+        'names' => [
+            'index' => 'users'
+        ]
+    ]);
+});
+
+Route::middleware('auth')->get('logout', function() {
+    Auth::logout();
+    return redirect(route('login'))->withInfo('You have successfully logged out!');
+})->name('logout');
+
+Auth::routes(['verify' => true]);
+
+Route::name('js.')->group(function() {
+    Route::get('dynamic.js', 'JsController@dynamic')->name('dynamic');
+});
+
+// Get authenticated user
+Route::get('users/auth', function() {
+    return response()->json(['user' => Auth::check() ? Auth::user() : false]);
 });

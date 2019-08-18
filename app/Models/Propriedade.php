@@ -1,16 +1,73 @@
 <?php
 
+/**
+ * Created by Reliese Model.
+ * Date: Wed, 14 Aug 2019 17:00:52 +0000.
+ */
+
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Reliese\Database\Eloquent\Model as Eloquent;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\DB;
 
-class Propriedade extends Model
+class Propriedade extends Eloquent
 {
-    protected $table = 'propriedade';
-    use SoftDeletes;
+	use SoftDeletes;
+	protected $table = 'propriedade';
+
+	protected $casts = [
+		'users_id' => 'int',
+		'cidade_id' => 'int'
+	];
+
+	protected $fillable = [
+		'users_id',
+		'nome',
+		'localizacao',
+		'cidade_id'
+	];
+
+	public function cidade()
+	{
+		return $this->belongsTo(\App\Models\Cidade::class);
+	}
+
+	public function user()
+	{
+		return $this->belongsTo(\App\Models\User::class, 'users_id');
+	}
+
+	public function despesas()
+	{
+		return $this->hasMany(\App\Models\Despesa::class);
+	}
+
+	public function estoques()
+	{
+		return $this->hasMany(\App\Models\Estoque::class);
+	}
+
+	public function investimentos()
+	{
+		return $this->hasMany(\App\Models\Investimento::class);
+	}
+
+	public function produtos()
+	{
+		return $this->hasMany(\App\Models\Produto::class);
+	}
+
+	public function talhoes()
+	{
+		return $this->hasMany(\App\Models\Talhao::class);
+    }
     
-    public static function inserir($data){
+    public static function propriedadeByUser($id){
+		return DB::table('propriedade')->where('users_id', $id)->first();
+	}
+
+	/*public static function inserir($data){
         $propriedade = new Propriedade();
         $propriedade->users_id= $data['cpf'];
         $propriedade->nome=$data['nome'];
@@ -18,7 +75,8 @@ class Propriedade extends Model
         $propriedade->cidade_id= $data['cidade'];
         $propriedade->save();
     }
-
+    */
+    
     public static function atualizar($request, $id){
         try{
             $prop = \App\Models\Propriedade::find($id);
@@ -33,6 +91,4 @@ class Propriedade extends Model
             return $e;
         }
     }
-
 }
-

@@ -1,17 +1,57 @@
 <?php
 
+/**
+ * Created by Reliese Model.
+ * Date: Wed, 14 Aug 2019 18:57:14 +0000.
+ */
+
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Reliese\Database\Eloquent\Model as Eloquent;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Pagination\Paginator;
 
-class Produto extends Model
+class Produto extends Eloquent
 {
-    protected $table="produto";
+	protected $table="produto";
     use SoftDeletes;
 
+	protected $casts = [
+		'plantavel' => 'bool',
+		'status' => 'bool',
+		'propriedade_id' => 'int',
+		'unidade_id' => 'int'
+	];
+
+	protected $fillable = [
+		'nome',
+		'plantavel',
+		'status',
+		'propriedade_id',
+		'unidade_id'
+	];
+
+	public function propriedade()
+	{
+		return $this->belongsTo(\App\Models\Propriedade::class);
+	}
+
+	public function unidade()
+	{
+		return $this->belongsTo(\App\Models\Unidade::class);
+	}
+
+	public function estoques()
+	{
+		return $this->hasMany(\App\Models\Estoque::class);
+	}
+
+	public function plantios()
+	{
+		return $this->hasMany(\App\Models\Plantio::class);
+    }
+    
     public static function insere($request){
         try{
             $prod = new Produto();

@@ -27,7 +27,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = 'login';
+    protected $redirectTo = 'home';
 
 
 
@@ -53,8 +53,8 @@ class LoginController extends Controller
         $data = $request->all();
 
         $validacao = Validator::make($data, [
-            'cpf' => 'required|formato_cpf|cpf',
-            'senha' => 'required|min:6',
+            'cpf' => 'required|cpf',
+            'password' => 'required|min:6',
             ]);
 
         if($validacao->fails())
@@ -64,13 +64,13 @@ class LoginController extends Controller
 
         $remember = $request->input('remember_me');
         $data['cpf'] = preg_replace("/[^0-9]/", "", $data['cpf']);
-        if (Auth::attempt(['cpf' => $data['cpf'], 'password' => $data['senha']], $remember))
+        if (Auth::attempt(['cpf' => $data['cpf'], 'password' => $data['password']], $remember))
         {
             return redirect()->intended('home');
         }
         else
         {
-            return back()->with('error', 'CPF e/ou Senha invalido(s)');
+            return back()->with('error', 'Credenciais informadas não foram encontradas!');
         }
 
     }

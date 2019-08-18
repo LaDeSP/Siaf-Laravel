@@ -15,8 +15,8 @@
         "laravel/framework": "5.5.0",
         "laravel/tinker": "^1.0",
         "laravelcollective/html": "5.5.*",
-        "laravellegends/pt-br-validator": "5.1.*"
-
+        "laravellegends/pt-br-validator": "5.1.*",
+        "reliese/laravel": "^0.0.13"
     },
     "require-dev": {
         "filp/whoops": "^2.0",

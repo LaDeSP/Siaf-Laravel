@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\User;
+
 /*Route::redirect('/', '/login');
 Route::get('/cidades/{id}', 'CidadeController@show');
 
@@ -30,6 +32,15 @@ Route::group(['middleware'=>['web', 'auth']], function()
     Route::post('/perda', "PerdaController@create");
 });
 */
+
+Route::get('/todos', function(){
+    $all = User::all();
+    return response()->json($all);
+});
+
+Route::get('/teste', function(){
+    return view('teste');
+});
 
 Route::get('/', function() {
     return redirect(route('painel.dashboard'));

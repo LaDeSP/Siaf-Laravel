@@ -1,3 +1,4 @@
+<div class="main-sidebar sidebar-style-2">
 <aside id="sidebar-wrapper">
   <div class="sidebar-brand">
     <a href="{{ route('painel.dashboard') }}"><img src="{{ asset('assets/img/Siaf-logo.png') }}" width="130"></a>
@@ -21,3 +22,4 @@
       <li class="{{ Request::route()->getName() == 'painel.users' ? ' active' : '' }}"><a class="nav-link" href="{{ route('painel.users') }}"><i class="fa fa-users"></i> <span>Users</span></a></li>
       </ul>
 </aside>
+</div>

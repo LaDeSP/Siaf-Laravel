@@ -10,19 +10,17 @@
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 
   <!-- CSS Libraries -->
-  @stack('styles')
-
+@stack('styles')
   <!-- Template CSS -->
   <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
   <link rel="stylesheet" href="{{ asset('assets/css/components.css')}}">
-
 </head>
 
 <body>
   <div id="app">
     <div class="main-wrapper">
-      <div class="navbar navbar-bg" style="background-color: #28a745;"></div>
-      <nav class="navbar navbar-expand-lg main-navbar" style="background-color: #28a745;">
+      <div class="navbar-bg"></div>
+      <nav class="navbar navbar-expand-lg main-navbar">
         @include('painel.partials.topnav')
       </nav>
       <div class="main-sidebar">
@@ -46,6 +44,6 @@
   <script src="{{ asset('assets/js/stisla.js') }}"></script>
   <script src="{{ asset('assets/js/scripts.js') }}"></script>
   @yield('scripts')
-  @stack('scripts')
+   @stack('scripts')
 </body>
 </html>

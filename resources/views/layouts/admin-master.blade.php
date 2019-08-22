@@ -21,8 +21,8 @@
 <body>
   <div id="app">
     <div class="main-wrapper">
-      <div class="navbar-bg"></div>
-      <nav class="navbar navbar-expand-lg main-navbar">
+      <div class="navbar navbar-bg" style="background-color: #28a745;"></div>
+      <nav class="navbar navbar-expand-lg main-navbar" style="background-color: #28a745;">
         @include('painel.partials.topnav')
       </nav>
       <div class="main-sidebar">

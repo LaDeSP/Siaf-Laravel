@@ -1,6 +1,14 @@
 @extends('layouts.auth-master')
 
 @section('content')
+<head>
+  <style>
+  body  {
+    background-color: #cccccc;
+    background-image: url('assets/img/fundo.jpg');
+  }
+  </style>
+  </head>
 <div class="card card-primary">
   <div class="card-header"><h4>Login</h4></div>
 
@@ -13,8 +21,8 @@
             </div>
             @endif
       <div class="form-group">
-        <label for="email">Email</label>
-        <input aria-describedby="emailHelpBlock" id="cpf" type="cpf" class="form-control{{ $errors->has('cpf') ? ' is-invalid' : '' }}" name="cpf" placeholder="Registered cpf address" tabindex="1" value="{{ old('cpf') }}" autofocus>
+        <label for="email">CPF</label>
+        <input aria-describedby="emailHelpBlock" id="cpf" type="cpf" class="form-control{{ $errors->has('cpf') ? ' is-invalid' : '' }}" name="cpf" placeholder="Informe seu CPF(Somente números)" tabindex="1" value="{{ old('cpf') }}" autofocus>
         <div class="invalid-feedback">
           {{ $errors->first('cpf') }}
         </div>
@@ -27,14 +35,14 @@
 
       <div class="form-group">
         <div class="d-block">
-            <label for="password" class="control-label">Password</label>
+            <label for="password" class="control-label">Senha</label>
           <div class="float-right">
             <a href="{{ route('password.request') }}" class="text-small">
-              Forgot Password?
+              Esqueceu sua Senha?
             </a>
           </div>
         </div>
-        <input aria-describedby="passwordHelpBlock" id="password" type="password" placeholder="Your account password" class="form-control{{ $errors->has('password') ? ' is-invalid': '' }}" name="password" tabindex="2">
+        <input aria-describedby="passwordHelpBlock" id="password" type="password" placeholder="Insira sua senha(Mínimo 6 caracteres)" class="form-control{{ $errors->has('password') ? ' is-invalid': '' }}" name="password" tabindex="2">
         <div class="invalid-feedback">
           {{ $errors->first('password') }}
         </div>
@@ -48,7 +56,7 @@
       <div class="form-group">
         <div class="custom-control custom-checkbox">
           <input type="checkbox" name="remember" class="custom-control-input" tabindex="3" id="remember"{{ old('remember') ? ' checked': '' }}>
-          <label class="custom-control-label" for="remember">Remember Me</label>
+          <label class="custom-control-label" for="remember">Continuar conectado</label>
         </div>
       </div>
 
@@ -57,10 +65,11 @@
           Login
         </button>
       </div>
+      <div>
+        Ainda não tem conta? <a href="{{ route('register') }}">Você pode se cadastrar!</a>
+      </div>
     </form>
   </div>
 </div>
-<div class="mt-5 text-muted text-center">
-  Don't have an account? <a href="{{ route('register') }}">Create One</a>
-</div>
+
 @endsection

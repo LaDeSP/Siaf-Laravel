@@ -7,7 +7,7 @@ use Auth;
 trait UserTrait {
     public function getProfilelinkAttribute()
     {
-        return route('painel.users.edit', ['user' => $this->id]);
+        //return route('painel.users.edit', ['user' => $this->id]);
     }
 
     public function getAvatarlinkAttribute()

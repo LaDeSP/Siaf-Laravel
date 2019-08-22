@@ -31,6 +31,10 @@ Route::group(['middleware'=>['web', 'auth']], function()
 });
 */
 
+Route::get('/teste', function() {
+    return view('teste');
+});
+
 Route::get('/', function() {
     return redirect(route('painel.dashboard'));
 });

@@ -32,6 +32,7 @@
                     <li><a class="nav-link" href="#">Investimento</a></li>
                     <li><a class="nav-link" href="#">Depesa</a></li>
                 </ul>
+            </li><li class=""><a class="nav-link" href=""><i class="fa fa-users"></i> <span>Calendário</span></a></li>
             </li><li class=""><a class="nav-link" href=""><i class="fa fa-users"></i> <span>Relatório</span></a></li>
             <li class=""><a class="nav-link" href=""><i class="fa fa-users"></i> <span>Manual</span></a></li>
             <li class="menu-header">Users</li>

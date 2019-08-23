@@ -10,8 +10,8 @@
   </style>
   </head>
   
-<div class="card card-primary">
-  <div class="card-header"><h4>Register</h4></div>
+<div class="card">
+  <div class="card-header"><h4>Registre-se</h4></div>
   <div class="card-body">
     <form method="POST" action="{{ route('register') }}">
       {{ csrf_field() }}
@@ -47,7 +47,7 @@
         </div>
       </div>
       <div class="form-group">
-        <button type="submit" class="btn btn-primary btn-lg btn-block" tabindex="4">
+        <button type="submit" class="btn btn-success btn-lg btn-block" tabindex="4">
           Salvar
         </button>
       </div>

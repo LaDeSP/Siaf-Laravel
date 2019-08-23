@@ -1,5 +1,11 @@
 @extends('layouts.admin-master')
 
+<style>
+    td {
+      border: 1px solid rgb(246, 241, 251);
+    }
+</style>
+
 @push('styles')
 
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.18/css/dataTables.bootstrap4.css"/>
@@ -21,7 +27,7 @@ Estoque
                     <div class="card-header">
                         <h4>Users <span>(total)</span></h4>
                         <div class="card-header-action">
-                            <a href="#" class="btn btn-primary">Add <i class="fas fa-plus"></i></a>
+                            <a href="#" class="btn btn-success">Adicionar <i class="fas fa-plus"></i></a>
                         </div>
                     </div>
                     <br>
@@ -30,14 +36,14 @@ Estoque
                             <table id="table-1" class="table table-striped display nowrap" style="width:100%">
                                 <thead>
                                     <tr>
-                                        <th>Produto</th>
-                                        <th>Quantidade</th>
-                                        <th>Unidade</th>
-                                        <th>Data Estoque</th>
-                                        <th>Data semeadura</th>
-                                        <th>Data plantio</th>
-                                        <th>Talhão</th>
-                                        <th>Data colheita</th>
+                                        <th class="text-center">Produto</th>
+                                        <th class="text-center">Quantidade</th>
+                                        <th class="text-center">Unidade</th>
+                                        <th class="text-center">Data Estoque</th>
+                                        <th class="text-center">Data semeadura</th>
+                                        <th class="text-center">Data plantio</th>
+                                        <th class="text-center">Talhão</th>
+                                        <th class="text-center">Data colheita</th>
                                         <th data-priority="1" class="text-center">Ação</th>
                                     </tr>
                                 </thead>
@@ -55,7 +61,7 @@ Estoque
                                             <button class="btn btn-danger">
                                                 <i class="fa fa-trash"></i>
                                             </button>
-                                            <a href="#" class="btn btn-primary">
+                                            <a href="#" class="btn btn-warning">
                                                 <i class="fa fa-edit"></i>
                                             </a>
                                         </td>
@@ -73,7 +79,7 @@ Estoque
                                             <button class="btn btn-danger">
                                                 <i class="fa fa-trash"></i>
                                             </button>
-                                            <a href="#" class="btn btn-primary">
+                                            <a href="#" class="btn btn-warning">
                                                 <i class="fa fa-edit"></i>
                                             </a>
                                         </td>
@@ -91,7 +97,7 @@ Estoque
                                             <button class="btn btn-danger">
                                                 <i class="fa fa-trash"></i>
                                             </button>
-                                            <a href="#" class="btn btn-primary">
+                                            <a href="#" class="btn btn-warning">
                                                 <i class="fa fa-edit"></i>
                                             </a>
                                         </td>
@@ -109,7 +115,7 @@ Estoque
                                             <button class="btn btn-danger">
                                                 <i class="fa fa-trash"></i>
                                             </button>
-                                            <a href="#" class="btn btn-primary">
+                                            <a href="#" class="btn btn-warning">
                                                 <i class="fa fa-edit"></i>
                                             </a>
                                         </td>
@@ -127,7 +133,7 @@ Estoque
                                             <button class="btn btn-danger">
                                                 <i class="fa fa-trash"></i>
                                             </button>
-                                            <a href="#" class="btn btn-primary">
+                                            <a href="#" class="btn btn-warning">
                                                 <i class="fa fa-edit"></i>
                                             </a>
                                         </td>
@@ -145,7 +151,7 @@ Estoque
                                             <button class="btn btn-danger">
                                                 <i class="fa fa-trash"></i>
                                             </button>
-                                            <a href="#" class="btn btn-primary">
+                                            <a href="#" class="btn btn-warning">
                                                 <i class="fa fa-edit"></i>
                                             </a>
                                         </td>
@@ -163,7 +169,7 @@ Estoque
                                             <button class="btn btn-danger">
                                                 <i class="fa fa-trash"></i>
                                             </button>
-                                            <a href="#" class="btn btn-primary">
+                                            <a href="#" class="btn btn-warning">
                                                 <i class="fa fa-edit"></i>
                                             </a>
                                         </td>
@@ -181,7 +187,7 @@ Estoque
                                             <button class="btn btn-danger">
                                                 <i class="fa fa-trash"></i>
                                             </button>
-                                            <a href="#" class="btn btn-primary">
+                                            <a href="#" class="btn btn-warning">
                                                 <i class="fa fa-edit"></i>
                                             </a>
                                         </td>
@@ -199,7 +205,7 @@ Estoque
                                             <button class="btn btn-danger">
                                                 <i class="fa fa-trash"></i>
                                             </button>
-                                            <a href="#" class="btn btn-primary">
+                                            <a href="#" class="btn btn-warning">
                                                 <i class="fa fa-edit"></i>
                                             </a>
                                         </td>
@@ -217,7 +223,7 @@ Estoque
                                             <button class="btn btn-danger">
                                                 <i class="fa fa-trash"></i>
                                             </button>
-                                            <a href="#" class="btn btn-primary">
+                                            <a href="#" class="btn btn-warning">
                                                 <i class="fa fa-edit"></i>
                                             </a>
                                         </td>
@@ -235,7 +241,7 @@ Estoque
                                             <button class="btn btn-danger">
                                                 <i class="fa fa-trash"></i>
                                             </button>
-                                            <a href="#" class="btn btn-primary">
+                                            <a href="#" class="btn btn-warning">
                                                 <i class="fa fa-edit"></i>
                                             </a>
                                         </td>
@@ -253,7 +259,7 @@ Estoque
                                             <button class="btn btn-danger">
                                                 <i class="fa fa-trash"></i>
                                             </button>
-                                            <a href="#" class="btn btn-primary">
+                                            <a href="#" class="btn btn-warning">
                                                 <i class="fa fa-edit"></i>
                                             </a>
                                         </td>
@@ -271,7 +277,7 @@ Estoque
                                             <button class="btn btn-danger">
                                                 <i class="fa fa-trash"></i>
                                             </button>
-                                            <a href="#" class="btn btn-primary">
+                                            <a href="#" class="btn btn-warning">
                                                 <i class="fa fa-edit"></i>
                                             </a>
                                         </td>

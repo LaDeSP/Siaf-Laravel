@@ -19,8 +19,8 @@
 <body>
   <div id="app">
     <div class="main-wrapper">
-      <div class="navbar-bg"></div>
-      <nav class="navbar navbar-expand-lg main-navbar">
+      <div class="navbar-bg bg-success"></div>
+      <nav class="navbar navbar-expand-lg main-navbar bg-success">
         @include('painel.partials.topnav')
       </nav>
       <div class="main-sidebar">

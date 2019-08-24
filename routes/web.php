@@ -2,16 +2,26 @@
 
 Route::name('painel.')->prefix('painel')->middleware('auth')->group(function() {
     Route::get('/', 'HomeController@index')->name('dashboard');
-    Route::resource('/venda', "VendasController", ['as' => 'venda']);
-    Route::resource('/estoque', "EstoqueController", ['as' => 'estoque']);
-    Route::resource('/plantio', "PlantioController", ['as' => 'plantio']);
-    Route::resource('/manejo', "ManejoController", ['as' => 'manejo']);
-    Route::resource('/propriedade', "PropriedadeController", ['as' => 'propriedade']);
-    Route::resource('/produto', "ProdutoController", ['as' => 'produto']);
-    Route::resource('/talhao', "TalhaoController", ['as' => 'talhao']);
-    Route::resource('/investimento',"InvestimentoController", ['as' => 'investimento']);
-    Route::resource('/despesa', "DespesaController", ['as' => 'depesa']);
-    Route::resource('/relatorio', "RelatorioController", ['as' => 'relatorio']);
+    Route::resource('/venda', "VendasController", ['names' => [
+        'create', 'store', 'edit', 'update', 'destroy']]);
+    Route::resource('/estoque', "EstoqueController", ['names' => [
+        'create', 'store', 'edit', 'update', 'destroy']]);
+    Route::resource('/plantio', "PlantioController", ['names' => [
+        'create', 'store', 'edit', 'update', 'destroy']]);
+    Route::resource('/manejo', "ManejoController", ['names' => [
+        'create', 'store', 'edit', 'update', 'destroy']]);
+    Route::resource('/propriedade', "PropriedadeController", ['names' => [
+        'create', 'store', 'edit', 'update', 'destroy']]);
+    Route::resource('/produto', "ProdutoController", ['names' => [
+        'create', 'store', 'edit', 'update', 'destroy']]);
+    Route::resource('/talhao', "TalhaoController", ['names' => [
+        'create', 'store', 'edit', 'update', 'destroy']]);
+    Route::resource('/investimento',"InvestimentoController", ['names' => [
+        'create', 'store', 'edit', 'update', 'destroy']]);
+    Route::resource('/despesa', "DespesaController", ['names' => [
+        'create', 'store', 'edit', 'update', 'destroy']]);
+    Route::resource('/relatorio', "RelatorioController", ['names' => [
+        'create', 'store', 'edit', 'update', 'destroy']]);
     Route::get('/manual', "ManualController@index")->name('manual');
 });
 

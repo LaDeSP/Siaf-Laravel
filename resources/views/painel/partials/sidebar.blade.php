@@ -22,7 +22,7 @@
             <li class="dropdown">
                 <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i><img src="{{ asset('assets/img/propriedade.png') }}" alt="logo" width="25"></i> <span>Propriedade</span></a>
                 <ul class="dropdown-menu">
-                    <li><a class="nav-link" href="#">Produtos</a></li>
+                    <li><a class="nav-link" href="{{route('painel.produto.index')}}">Produtos</a></li>
                     <li><a class="nav-link" href="#">Talhões</a></li>
                 </ul>
             </li>

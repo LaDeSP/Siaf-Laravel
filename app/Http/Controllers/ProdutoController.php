@@ -18,7 +18,7 @@ class ProdutoController extends Controller
      */
     public function index()
     {
-        //
+        return view('painel.produtos.index');
     }
 
     /**

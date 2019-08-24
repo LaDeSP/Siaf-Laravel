@@ -1,15 +1,9 @@
 @extends('layouts.admin-master')
 
-<style>
-    td {
-      border: 1px solid rgb(246, 241, 251);
-    }
-</style>
-
 @push('styles')
-
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.18/css/dataTables.bootstrap4.css"/>
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.2/css/responsive.bootstrap4.css"/>@endpush
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/modules/datatables/DataTables-1.10.18/css/dataTables.bootstrap4.css')}}"/>
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/modules/datatables/Responsive-2.2.2/css/responsive.bootstrap4.css')}}"/>
+@endpush
 
 @section('title')
 Estoque
@@ -36,14 +30,14 @@ Estoque
                             <table id="table-1" class="table table-striped display nowrap" style="width:100%">
                                 <thead>
                                     <tr>
-                                        <th class="text-center">Produto</th>
-                                        <th class="text-center">Quantidade</th>
-                                        <th class="text-center">Unidade</th>
-                                        <th class="text-center">Data Estoque</th>
-                                        <th class="text-center">Data semeadura</th>
-                                        <th class="text-center">Data plantio</th>
-                                        <th class="text-center">Talhão</th>
-                                        <th class="text-center">Data colheita</th>
+                                        <th>Produto</th>
+                                        <th>Quantidade</th>
+                                        <th>Unidade</th>
+                                        <th>Data Estoque</th>
+                                        <th>Data semeadura</th>
+                                        <th>Data plantio</th>
+                                        <th>Talhão</th>
+                                        <th>Data colheita</th>
                                         <th data-priority="1" class="text-center">Ação</th>
                                     </tr>
                                 </thead>
@@ -308,9 +302,9 @@ Estoque
 
 @push('scripts')
 <script src="{{ asset('assets/modules/jquery-ui/jquery-ui.min.js')}}"></script>
-<script type="text/javascript" src="https://cdn.datatables.net/1.10.18/js/jquery.dataTables.js"></script>
-<script type="text/javascript" src="https://cdn.datatables.net/1.10.18/js/dataTables.bootstrap4.js"></script>
-<script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.2/js/dataTables.responsive.js"></script>
+<script type="text/javascript" src="{{ asset('assets/modules/datatables/DataTables-1.10.18/js/jquery.dataTables.js')}}"></script>
+<script type="text/javascript" src="{{ asset('assets/modules/datatables/DataTables-1.10.18/js/dataTables.bootstrap4.js')}}"></script>
+<script type="text/javascript" src="{{ asset('assets/modules/datatables/Responsive-2.2.2/js/dataTables.responsive.js')}}"></script>
 <script>
     $(document).ready( function () {
         $('#table-1')

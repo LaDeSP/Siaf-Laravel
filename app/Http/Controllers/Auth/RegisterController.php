@@ -39,8 +39,16 @@ class RegisterController extends Controller{
     }
         
     protected function create(array $data){
-        $user = $this->registerService->create($data);
-        return $user;
+        $data['cpf'] = preg_replace("/[^0-9]/", "", $data['cpf']);
+            $sucesso =  User::create([
+                'cpf' => $data['cpf'],
+                'name' => $data['name'],
+                'email' => $data['email'],
+                'password' => Hash::make($data['senha']),
+                'telefone' =>$data['telefone'],
+                ]);
+                Propriedade::inserir($data);
+                return $sucesso;
     }
 }            
         

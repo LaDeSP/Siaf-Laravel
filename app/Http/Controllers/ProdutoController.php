@@ -9,38 +9,26 @@ use App\Models\Unidade;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class ProdutoController extends Controller
-{
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        return view('painel.produtos.index');
+use App\Services\ProdutoService;
+
+class ProdutoController extends Controller{
+    protected $produtoService;
+
+    public function __construct(ProdutoService $produtoService){
+        $this->produtoService = $produtoService;
+    }
+    
+    public function index(Request $request){
+        $produtos = $this->produtoService->produtosPropriedadeUser();
+        return view('painel.produtos.index', ["produtos" => $produtos]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create(Request $request)
-    {
+    public function create(Request $request){
         $prop = $this->getPropriedade($request);
-//        dd($prop);
         return view('produtoForm',["propriedade"=>$prop, "unidades"=>Unidade::all(), "Title"=>"Adicionar produto",'Method'=>'post','Url'=>'/produto']);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return int
-     */
-    public function store(Request $request)
-    {
+    public function store(Request $request){
         if ($request != null) {
             $ret = Produto::insere($request);
             if( $ret == 200){
@@ -63,39 +51,17 @@ class ProdutoController extends Controller
 
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
+    public function show($id){
         return Produto::find($id);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
+    public function edit($id){
         $produto = Produto::find($id);
         $prop = Propriedade::find($produto['propriedade_id']);
         return view('produtoForm',["propriedade"=>$prop, "produto"=>$produto, "munidade"=> $produto['unidade_id'], "unidades"=>Unidade::all(),'Method'=>'put','Url'=>'/produto'.'/'.$id, "Title"=>"Editar produto"]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
+    public function update(Request $request, $id){
         if ($request != null and $id != null) {
             $ret = Produto::atualizar($request, $id);
             if( $ret == 200){
@@ -117,14 +83,7 @@ class ProdutoController extends Controller
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
+    public function destroy($id){
         try{
             $p = Produto::find($id);
             if(!$p->estoques()->first() || $p->plantios()->first()){

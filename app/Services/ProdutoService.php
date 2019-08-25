@@ -2,6 +2,7 @@
 namespace App\Services;
 
 use Illuminate\Http\Request;
+use App\Models\Produto;
 use App\Services\UserService;
 
 class ProdutoService{

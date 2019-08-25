@@ -57,7 +57,7 @@ Produtos
                                             <button class="btn btn-danger">
                                                 <i class="fa fa-trash"></i>
                                             </button>
-                                            <a href="#" class="btn btn-warning">
+                                            <a href="{{route('painel.produto.edit', ['produto'=>$produto->slug])}}" class="btn btn-warning">
                                                 <i class="fa fa-edit"></i>
                                             </a>
                                         </td>

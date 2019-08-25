@@ -55,9 +55,10 @@ class ProdutoController extends Controller{
         return Produto::find($id);
     }
 
-    public function edit($id){
-        $produto = Produto::find($id);
-        $prop = Propriedade::find($produto['propriedade_id']);
+    public function edit(Produto $produto){
+        //$produto = Produto::find($id);
+        //$prop = Propriedade::find($produto['propriedade_id']);
+        dd($produto);
         return view('produtoForm',["propriedade"=>$prop, "produto"=>$produto, "munidade"=> $produto['unidade_id'], "unidades"=>Unidade::all(),'Method'=>'put','Url'=>'/produto'.'/'.$id, "Title"=>"Editar produto"]);
     }
 

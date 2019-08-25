@@ -1,5 +1,7 @@
 <?php
 
+use \Illuminate\Support\Collection;
+
 return [
 
     /**
@@ -88,7 +90,11 @@ return [
      * suffix to append to the slug.
      */
     
-    'uniqueSuffix' => null,
+    'uniqueSuffix' => function ($slug, $separator, Collection $list) {
+    $size = count($list);
+
+    return chr($size + 96);
+},
 
     /**
      * Should we include the trashed items when generating a unique slug?
@@ -136,6 +142,6 @@ return [
      * Only set this to true if you understand the possible consequences.
      */
     
-    'onUpdate' => false,
+    'onUpdate' => true,
 
 ];

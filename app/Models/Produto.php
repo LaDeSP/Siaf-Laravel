@@ -11,11 +11,13 @@ use Reliese\Database\Eloquent\Model as Eloquent;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Pagination\Paginator;
+use Cviebrock\EloquentSluggable\Sluggable;
 
 class Produto extends Eloquent
 {
 	protected $table="produto";
     use SoftDeletes;
+    use Sluggable;
 
 	protected $casts = [
 		'plantavel' => 'bool',
@@ -29,7 +31,8 @@ class Produto extends Eloquent
 		'plantavel',
 		'status',
 		'propriedade_id',
-		'unidade_id'
+        'unidade_id',
+        'slug'
 	];
 
 	public function propriedade()
@@ -93,5 +96,17 @@ class Produto extends Eloquent
             return $value;
         });
         return $p;
+    }
+
+    public function sluggable(){
+        return [
+            'slug' => [
+                'source' => 'nome'
+            ]
+        ];
+	}
+	
+	public function getRouteKeyName(){
+        return 'slug';
     }
 }

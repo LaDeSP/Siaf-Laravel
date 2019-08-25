@@ -32,38 +32,31 @@ class Propriedade extends Eloquent
 		'slug'
 	];
 
-	public function cidade()
-	{
+	public function cidade(){
 		return $this->belongsTo(\App\Models\Cidade::class);
 	}
 
-	public function user()
-	{
+	public function user(){
 		return $this->belongsTo(\App\Models\User::class, 'users_id');
 	}
 
-	public function despesas()
-	{
+	public function despesas(){
 		return $this->hasMany(\App\Models\Despesa::class);
 	}
 
-	public function estoques()
-	{
+	public function estoques(){
 		return $this->hasMany(\App\Models\Estoque::class);
 	}
 
-	public function investimentos()
-	{
+	public function investimentos(){
 		return $this->hasMany(\App\Models\Investimento::class);
 	}
 
-	public function produtos()
-	{
+	public function produtos(){
 		return $this->hasMany(\App\Models\Produto::class);
 	}
 
-	public function talhoes()
-	{
+	public function talhoes(){
 		return $this->hasMany(\App\Models\Talhao::class);
     }
     

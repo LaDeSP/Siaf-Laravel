@@ -19,6 +19,7 @@ class CreatePlantioTable extends Migration
             $table->date('data_plantio');
             $table->unsignedInteger('quantidade_pantas')->nullable();
             $table->unsignedInteger('talhao_id');
+            $table->string('slug')->nullable();
             $table->foreign('talhao_id')->references('id')->on('talhao');
             $table->unsignedInteger('produto_id');
             $table->foreign('produto_id')->references('id')->on('produto')->onDelete('cascade')->onUpdate('cascade');

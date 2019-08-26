@@ -19,6 +19,7 @@ class CreateEstoqueTable extends Migration
             $table->unsignedInteger('quantidade');
             $table->unsignedInteger('produto_id');
             $table->date('data');
+            $table->string('slug')->nullable();
             $table->foreign('produto_id')->references('id')->on('produto');
             $table->unsignedInteger('propriedade_id');
             $table->foreign('propriedade_id')->references('id')->on('propriedade')->onDelete('cascade')->onUpdate('cascade');

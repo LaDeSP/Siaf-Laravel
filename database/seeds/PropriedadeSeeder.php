@@ -18,16 +18,6 @@ class PropriedadeSeeder extends Seeder
                 'localizacao'       =>'Rural',
                 'cidade_id'         =>5129),
 
-          array('users_id'          =>1,
-                'nome'              =>'Outra Fazenda do Tomilho',
-                'localizacao'       =>'Judas perdeu as botas',
-                'cidade_id'         =>1),
-
-          array('users_id'          =>1,
-                'nome'              =>'Mais uma do Tomilho',
-                'localizacao'       =>'Pode excluir essa',
-                'cidade_id'         =>5129),
-
           array('users_id'          =>2,
                 'nome'              =>'Cidade de Deus',
                 'localizacao'       =>'CDD',

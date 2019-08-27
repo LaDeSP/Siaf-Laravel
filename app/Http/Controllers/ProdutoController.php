@@ -19,7 +19,7 @@ class ProdutoController extends Controller{
     }
     
     public function index(){
-        $produtos = $this->produtoService->produtosPropriedadeUser();
+        $produtos = $this->produtoService->index();
         return view('painel.produtos.index', ["produtos" => $produtos]);
     }
 

@@ -12,6 +12,10 @@ class ProdutoService{
         $this->userService = $userService;
     }
     
+    public function index(){
+        return $this->userService->propriedadesUser()->produtos()->get();
+    }
+
     public function create(array $attributes){
         //return $this->propriedadeRepository->create($attributes);
     }
@@ -24,9 +28,5 @@ class ProdutoService{
     }
 
     public function delete($id){
-    }
-
-    public function produtosPropriedadeUser(){
-        return $this->userService->propriedadesUser()->produtos()->get();
     }
 }

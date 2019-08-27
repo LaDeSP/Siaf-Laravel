@@ -13,10 +13,12 @@ class VendaService{
     }
     
     public function index(){
-        $estoques = $this->userService->propriedadesUser()->estoques()->has('vendas')->get();
+        $estoques = $this->userService->propriedadesUser()->estoques()->get();
         $vendas = [];
-        foreach($estoques as $key => $estoque){
-            array_push($vendas, $estoque->vendas);
+        foreach($estoques as $estoque){
+            if($estoque->vendas()){
+                array_push($vendas, $estoque->vendas);
+            }
         }
         return Arr::collapse($vendas);
     }

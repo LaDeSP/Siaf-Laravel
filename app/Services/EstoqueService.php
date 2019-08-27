@@ -2,10 +2,38 @@
 namespace App\Services;
 
 use Illuminate\Http\Request;
+use App\Services\UserService;
+use \Illuminate\Support\Arr;
 
 class EstoqueService{
-    
-    public function __construct(){
+    private $userService;
+
+    public function __construct(UserService $userService){
+        $this->userService = $userService;
+    }
+
+    public function estoquePlataveisIndex(){
+        $estoquesProdutosPlantaveis =  $this->userService->propriedadesUser()->estoques()->get();
+        $estoques = [];
+
+        foreach($estoquesProdutosPlantaveis as $key => $estoque){
+            if($estoque->produto()->where("plantavel","1")->first()){
+                array_push($estoques, $estoque);
+            }
+        }
+        return $estoques;
+    }
+
+    public function estoquePropriedadeIndex(){
+        $estoquesProdutosPropriedade =  $this->userService->propriedadesUser()->estoques()->get();
+        $estoques = [];
+
+        foreach($estoquesProdutosPropriedade as $key => $estoque){
+            if($estoque->produto()->where("plantavel","0")->first()){
+                array_push($estoques, $estoque);
+            }
+        }
+        return $estoques;
     }
     
     public function create(array $attributes){

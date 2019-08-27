@@ -9,7 +9,7 @@
         <ul class="sidebar-menu">
             <li class="menu-header">Menus</li>
             <li class="{{ Request::route()->getName() == 'painel.dashboard' ? ' active' : '' }}"><a class="nav-link" href="{{ route('painel.dashboard') }}"><i><img src="{{ asset('assets/img/inicio.png') }}" alt="logo" width="25"></i><span>Início</span></a></li>
-            <li class=""><a class="nav-link" href="#"><i><img src="{{ asset('assets/img/vendas.png') }}" alt="logo" width="25"></i> <span>Vendas</span></a></li>
+            <li class="{{ Request::route()->getName() == 'painel.venda.index' ? ' active' : '' }}"><a class="nav-link" href="{{route('painel.venda.index')}}"><i><img src="{{ asset('assets/img/vendas.png') }}" alt="logo" width="25"></i> <span>Vendas</span></a></li>
             <li class="dropdown">
                 <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i><img src="{{ asset('assets/img/estoque.png') }}" alt="logo" width="25"></i> <span>Estoque</span></a>
                 <ul class="dropdown-menu">

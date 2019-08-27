@@ -2,10 +2,25 @@
 namespace App\Services;
 
 use Illuminate\Http\Request;
+use App\Services\UserService;
+use \Illuminate\Support\Arr;
 
 class PlantioService{
-    
-    public function __construct(){
+    private $userService;
+
+    public function __construct(UserService $userService){
+        $this->userService = $userService;
+    }
+
+    public function index(){
+        $talhoes = $this->userService->propriedadesUser()->talhoes()->get();
+        $plantios = [];
+        foreach($talhoes as $talhao){
+            if($talhao->plantios()){
+                array_push($plantios, $talhao->plantios);
+            }
+        }
+        return Arr::collapse($plantios);
     }
     
     public function create(array $attributes){

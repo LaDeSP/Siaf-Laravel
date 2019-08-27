@@ -18,7 +18,7 @@ class ProdutoController extends Controller{
         $this->produtoService = $produtoService;
     }
     
-    public function index(Request $request){
+    public function index(){
         $produtos = $this->produtoService->produtosPropriedadeUser();
         return view('painel.produtos.index', ["produtos" => $produtos]);
     }
@@ -58,6 +58,7 @@ class ProdutoController extends Controller{
     public function edit(Produto $produto){
         //$produto = Produto::find($id);
         //$prop = Propriedade::find($produto['propriedade_id']);
+        $this->authorize('update-produto', $produto);
         dd($produto);
         return view('produtoForm',["propriedade"=>$prop, "produto"=>$produto, "munidade"=> $produto['unidade_id'], "unidades"=>Unidade::all(),'Method'=>'put','Url'=>'/produto'.'/'.$id, "Title"=>"Editar produto"]);
     }

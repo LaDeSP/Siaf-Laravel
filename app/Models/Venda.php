@@ -1,39 +1,50 @@
 <?php
 
+/**
+ * Created by Reliese Model.
+ * Date: Mon, 26 Aug 2019 14:48:59 -0400.
+ */
+
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
+use Reliese\Database\Eloquent\Model as Eloquent;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Pagination\Paginator;
+use \Illuminate\Database\Eloquent\SoftDeletes;
 
-class Venda extends Model
-{
-
-	use \Illuminate\Database\Eloquent\SoftDeletes;
+class Venda extends Eloquent{
+	
 	use SoftDeletes;
 	protected $table = 'venda';
-	protected $primaryKey = 'id';
-	public $incrementing = false;
-	const totalPages = 8;
+
 	protected $casts = [
-		'ID' => 'int'
+		'quantidade' => 'int',
+		'valor_unit' => 'float',
+		'destino_id' => 'int',
+		'estoque_id' => 'int'
 	];
 
-
 	protected $dates = [
-		'Data'
+		'data'
 	];
 
 	protected $fillable = [
-		'ID'=>"id",
-		'Quantidade'=>'quantidade',
-		'Valor'=>"valor_unit",
-		'Data'=>'data',
-		'Nota'=>"nota",
-		'Destino'=>'destino_id',
-		'Estoque'=>"estoque_id"
+		'quantidade',
+		'valor_unit',
+		'data',
+		'nota',
+		'slug',
+		'destino_id',
+		'estoque_id'
 	];
+
+	public function destino(){
+		return $this->belongsTo(\App\Models\Destino::class);
+	}
+
+	public function estoque(){
+		return $this->belongsTo(\App\Models\Estoque::class);
+	}
 
 	public static function mudou(){
 		static  $change=0;
@@ -45,8 +56,7 @@ class Venda extends Model
 
 	}
 
-	public static function destino()
-	{
+	public static function destinos(){
 		$destinos = DB::table('destino')
 		->select('destino.id', 'nome AS destino')
 		->where('destino.deleted_at','=',null)
@@ -127,5 +137,4 @@ class Venda extends Model
 		}
 		return ["Ocorreu um problema.", 403];
 	}
-
 }

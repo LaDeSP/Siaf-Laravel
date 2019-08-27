@@ -4,6 +4,9 @@ namespace App\Providers;
 
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use App\Models\Produto;
+use App\Models\User;
+use App\Models\Propriedade;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -25,6 +28,8 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        Gate::define('update-produto', function(User $user, Produto $produto){ 
+            return $user->propriedades()->first()->id == $produto->propriedade_id;
+        });
     }
 }

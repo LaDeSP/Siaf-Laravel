@@ -11,6 +11,6 @@ class UserService{
     }
 
     public function propriedadesUser(){
-        return auth()->user()->propriedades()->get()->first();
+        return auth()->user()->propriedades()->first();
     }
 }

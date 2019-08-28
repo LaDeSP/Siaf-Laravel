@@ -26,11 +26,11 @@
                     <li class="{{ Request::route()->getName() == 'painel.talhao.index' ? ' active' : '' }}"><a class="nav-link" href="{{route('painel.talhao.index')}}">Talhões</a></li>
                 </ul>
             </li>
-            <li class="dropdown">
+            <li class="dropdown {!! (Request::is('painel/investimento')|| Request::is( 'painel/despesa') ? ' active' : '' )!!}">
                 <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i><img src="{{ asset('assets/img/financeiro.png') }}" alt="logo" width="25"></i> <span>Financeiro</span></a>
                 <ul class="dropdown-menu">
-                    <li><a class="nav-link" href="#">Investimento</a></li>
-                    <li><a class="nav-link" href="#">Depesa</a></li>
+                    <li class="{{ Request::route()->getName() == 'painel.investimento.index' ? ' active' : '' }}"><a class="nav-link" href="{{route('painel.investimento.index')}}">Investimento</a></li>
+                    <li class="{{ Request::route()->getName() == 'painel.despesa.index' ? ' active' : '' }}"><a class="nav-link" href="{{route('painel.despesa.index')}}">Despesa</a></li>
                 </ul>
             </li><li class=""><a class="nav-link" href=""><i><img src="{{ asset('assets/img/calendario.png') }}" alt="logo" width="20"></i> <span>Calendário</span></a></li>
             </li><li class=""><a class="nav-link" href=""><i><img src="{{ asset('assets/img/relatorio.png') }}" alt="logo" width="22"></i> <span>Relatório</span></a></li>

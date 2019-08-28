@@ -2,12 +2,19 @@
 namespace App\Services;
 
 use Illuminate\Http\Request;
+use App\Services\UserService;
 
 class InvestimentoService{
-    
-    public function __construct(){
+    private $userService;
+
+    public function __construct(UserService $userService){
+        $this->userService = $userService;
     }
     
+    public function index(){
+        return $this->userService->propriedadesUser()->investimentos()->get();
+    }
+
     public function create(array $attributes){
         //return $this->propriedadeRepository->create($attributes);
     }

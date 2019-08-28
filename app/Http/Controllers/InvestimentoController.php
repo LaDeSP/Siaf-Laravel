@@ -5,33 +5,27 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Investimento;
 
-class InvestimentoController extends Controller
-{
-        /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index(Request $request)
-    {
+use App\Services\InvestimentoService;
+class InvestimentoController extends Controller{
+    protected $investimentoService;
+
+    public function __construct(InvestimentoService $investimentoService){
+        $this->investimentoService = $investimentoService;
+    }
+
+    public function index(Request $request){
+        $investimentos = $this->investimentoService->index();
+        return view('painel.investimentos.index', ["investimentos" => $investimentos]);
+
         $propriedade = $this->getPropriedade($request);
         $investimento = Investimento::ler('propriedade_id', $propriedade->id);
         if(!$investimento){
             return redirect()->action('InvestimentoController@index', ['mensagem'=>$request->mensagem,'status'=>$request->status,'page'=>$this->page()-1]);
         }
-
-
         return view('investimento',["propriedade" => $propriedade,"dados" => $investimento, "User"=>$this->getFirstName($this->usuario['name']),"Tela" =>"Investimento"]);
     }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
+    
+    public function store(Request $request){
         if ($request != null) {
             $investimento = Investimento::insere($request->all());
             if($investimento == 200){
@@ -50,26 +44,12 @@ class InvestimentoController extends Controller
         }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Investimento  $investimento
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id= null,$variable=null)
-    {
+
+    public function show($id= null,$variable=null){
         return Investimento::ler($id, $variable);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Investimento  $investimento
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
+    public function update(Request $request, $id){
         if ($request != null) {
             $investimento = Investimento::alterar($request, $id);
             if($investimento == 200){
@@ -88,14 +68,7 @@ class InvestimentoController extends Controller
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Investimento  $investimento
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Request $request,$id)
-    {
+    public function destroy(Request $request,$id){
         if ($id != null) {
             $investimento = Investimento::excluir($id);
             if($investimento == 200){

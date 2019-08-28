@@ -1,34 +1,56 @@
 <?php
 
+/**
+* Created by Reliese Model.
+* Date: Wed, 28 Aug 2019 15:54:39 -0400.
+*/
+
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
+use Reliese\Database\Eloquent\Model as Eloquent;
+use \Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Pagination\Paginator;
 
-class Investimento extends Model
-{
-    protected $table = 'investimento';
-    use SoftDeletes;
+class Investimento extends Eloquent{
+	use SoftDeletes;
+	
+	const totalPages = 8;
+	
+	protected $table = 'investimento';
+	
+	protected $casts = [
+		'valor_unit' => 'float',
+		'quantidade' => 'int',
+		'propriedade_id' => 'int'
+	];
+	
+	protected $dates = [
+		'data'
+	];
+	
 	protected $fillable = [
 		'nome',
 		'descricao',
 		'valor_unit',
+		'slug',
 		'quantidade',
 		'data',
 		'propriedade_id'
 	];
-  const totalPages = 8;
-
+	
+	public function propriedade(){
+		return $this->belongsTo(\App\Models\Propriedade::class);
+	}
+	
 	public static function insere($request){
-		 $investimento = new Investimento();
-		 $investimento->nome= $request['nome'];
-		 $investimento->descricao=$request['descricao'];
-		 $investimento->valor_unit= $request['valor_unit'];
-		 $investimento->quantidade= $request['quantidade'];
-		 $investimento->data = $request['data'];
-		 $investimento->propriedade_id = $request['propriedade_id'];
-		 $investimento->save();
+		$investimento = new Investimento();
+		$investimento->nome= $request['nome'];
+		$investimento->descricao=$request['descricao'];
+		$investimento->valor_unit= $request['valor_unit'];
+		$investimento->quantidade= $request['quantidade'];
+		$investimento->data = $request['data'];
+		$investimento->propriedade_id = $request['propriedade_id'];
+		$investimento->save();
 		if (empty($investimento)) {
 			return 405;
 		}
@@ -37,13 +59,13 @@ class Investimento extends Model
 	public static function ler($id,$variable){
 		if ($id == null) {
 			$investimento = self::all()->simplePaginate(self::totalPages);
-      dd($investimento);
+			dd($investimento);
 			if (empty($investimento)) {
 				return 405;
 			}
-      if(sizeof($investimento->items())==0 && $investimento->currentPage()>1 ){
-  				return false;
-  		}
+			if(sizeof($investimento->items())==0 && $investimento->currentPage()>1 ){
+				return false;
+			}
 			return $investimento;
 		}
 		if ($variable == null) {
@@ -54,18 +76,18 @@ class Investimento extends Model
 			return $investimento;
 		} else {
 			$investimento = self::where($id,'=',$variable)->simplePaginate(self::totalPages);
-
+			
 			if (empty($investimento)) {
 				return 405;
 			}
-
-      if(sizeof($investimento->items())==0 && $investimento->currentPage() > 1 ){
-  				return false;
-  		}
+			
+			if(sizeof($investimento->items())==0 && $investimento->currentPage() > 1 ){
+				return false;
+			}
 			return $investimento;
 		}
 	}
-
+	
 	public static function alterar($request, $id){
 		$investimento = self::find($id);
 		if (!($investimento->nome == $request['nome'])) {

@@ -6,20 +6,20 @@
 @endpush
 
 @section('title')
-Produtos
+Investimentos
 @endsection
 
 @section('content')
 <section class="section">
     <div class="section-header">
-        <h1>Gestão de Produtos</h1>
+        <h1>Gestão de Investimentos</h1>
     </div>
     <div class="section-body">
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4>Produtos <span>({{count($produtos)}})</span></h4>
+                        <h4>Investimentos <span>({{count($investimentos)}})</span></h4>
                         <div class="card-header-action">
                             <a href="#" class="btn btn-success">Adicionar <i class="fas fa-plus"></i></a>
                         </div>
@@ -27,7 +27,7 @@ Produtos
                     <br>
                     <div class="card-body p-3">
                         <div class="table-responsive table-invoice">
-                            @if (count($produtos) > 0)
+                            @if (count($investimentos) > 0)
                             <table id="table-1" class="table table-striped display nowrap" style="width:100%">
                                 <thead>
                                     <tr>
@@ -43,9 +43,9 @@ Produtos
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($produtos as $produto)
+                                    @foreach ($investimentos as $investimento)
                                     <tr>
-                                        <td class="text-center">{{$produto->nome}}</td>
+                                        <td class="text-center">{{$investimentos->nome}}</td>
                                         <td class="text-center">System Architect</td>
                                         <td class="text-center">Edinburgh</td>
                                         <td class="text-center">61</td>
@@ -57,7 +57,7 @@ Produtos
                                             <button class="btn btn-danger">
                                                 <i class="fa fa-trash"></i>
                                             </button>
-                                            <a href="{{route('painel.produto.edit', ['produto'=>$produto->slug])}}" class="btn btn-warning">
+                                            <a href="{{route('painel.investimento.edit', ['id'=>$investimentos->id])}}" class="btn btn-warning">
                                                 <i class="fa fa-edit"></i>
                                             </a>
                                         </td>
@@ -80,8 +80,8 @@ Produtos
                             </table>
                             @else
                             <div class="text-center p-3 text-muted">
-                                    <h5>{{ collect(explode(' ', ucwords(strtolower(Auth::user()->name))))->slice(0, 1)->implode(' ') }}, você não possui nenhum produto cadastrado!</h5>
-                                    <p>Clique no botão Adicionar para cadastrar novos produtos.</p>
+                                    <h5>{{ collect(explode(' ', ucwords(strtolower(Auth::user()->name))))->slice(0, 1)->implode(' ') }}, você não possui nenhum investimento cadastrado!</h5>
+                                    <p>Clique no botão Adicionar para cadastrar novos investimentos.</p>
                                 </div>
                             @endif
                         </div>

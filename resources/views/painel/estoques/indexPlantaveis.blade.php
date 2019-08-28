@@ -51,7 +51,7 @@ Estoques
                                         <td class="text-center">{{$estoque->data}}</td>
                                         <td class="text-center">{{$estoque->data}}</td>
                                         <td class="text-center">{{$estoque->manejoplantio_id}}</td>
-                                        <td class="text-center">{{$estoque->manejoplantio->talhao->nome}}</td>
+                                        <td class="text-center">{{$estoque->manejoplantio->plantio->talhao->nome}}</td>
                                         <td class="text-center">{{$estoque->data}}</td>
                                         <td class="text-center">
                                             <button class="btn btn-danger">

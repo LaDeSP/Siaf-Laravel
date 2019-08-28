@@ -45,7 +45,7 @@ class Plantio extends Eloquent{
     }
     
     public function manejos(){
-        return $this->belongsToMany(\App\Models\Manejo::class, 'manejoplantio')->using('App\Models\ManejoPlantio');;
+        return $this->belongsToMany(\App\Models\Manejo::class, 'manejoplantio')->using('App\Models\ManejoPlantio');
     }
     
     public static function get($id=null){

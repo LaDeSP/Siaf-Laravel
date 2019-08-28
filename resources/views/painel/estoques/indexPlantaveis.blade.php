@@ -45,14 +45,14 @@ Estoques
                                 <tbody>
                                     @foreach ($estoques as $estoque)
                                     <tr>
-                                        <td class="text-center">{{$estoque->id}}</td>
-                                        <td class="text-center">System Architect</td>
-                                        <td class="text-center">Edinburgh</td>
-                                        <td class="text-center">61</td>
-                                        <td class="text-center">2011/04/25</td>
-                                        <td class="text-center">2011/04/25</td>
-                                        <td class="text-center">2011/04/25</td>
-                                        <td class="text-center">2011/04/25</td>
+                                        <td class="text-center">{{$estoque->produto->nome}}</td>
+                                        <td class="text-center">{{$estoque->quantidade}}</td>
+                                        <td class="text-center">{{$estoque->produto_id}}</td>
+                                        <td class="text-center">{{$estoque->data}}</td>
+                                        <td class="text-center">{{$estoque->data}}</td>
+                                        <td class="text-center">{{$estoque->manejoplantio_id}}</td>
+                                        <td class="text-center">{{$estoque->manejoplantio->talhao->nome}}</td>
+                                        <td class="text-center">{{$estoque->data}}</td>
                                         <td class="text-center">
                                             <button class="btn btn-danger">
                                                 <i class="fa fa-trash"></i>

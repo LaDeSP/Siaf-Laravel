@@ -32,7 +32,7 @@
                     <li><a class="nav-link" href="#">Investimento</a></li>
                     <li><a class="nav-link" href="#">Depesa</a></li>
                 </ul>
-            </li><li class=""><a class="nav-link" href=""><i class="fa fa-users"></i> <span>Calendário</span></a></li>
+            </li><li class=""><a class="nav-link" href=""><i><img src="{{ asset('assets/img/calendario.png') }}" alt="logo" width="20"></i> <span>Calendário</span></a></li>
             </li><li class=""><a class="nav-link" href=""><i><img src="{{ asset('assets/img/relatorio.png') }}" alt="logo" width="22"></i> <span>Relatório</span></a></li>
             <li class=""><a class="nav-link" href=""><i><img src="{{ asset('assets/img/manual.png') }}" alt="logo" width="25"></i> <span>Manual</span></a></li>
         </ul>

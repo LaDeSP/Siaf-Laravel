@@ -32,13 +32,8 @@ Produtos
                                 <thead>
                                     <tr>
                                         <th class="text-center">Produto</th>
-                                        <th class="text-center">Quantidade</th>
                                         <th class="text-center">Unidade</th>
-                                        <th class="text-center">Data Estoque</th>
-                                        <th class="text-center">Data semeadura</th>
-                                        <th class="text-center">Data plantio</th>
-                                        <th class="text-center">Talhão</th>
-                                        <th class="text-center">Data colheita</th>
+                                        <th class="text-center">Plantável</th>
                                         <th data-priority="1" class="text-center">Ação</th>
                                     </tr>
                                 </thead>
@@ -46,13 +41,8 @@ Produtos
                                     @foreach ($produtos as $produto)
                                     <tr>
                                         <td class="text-center">{{$produto->nome}}</td>
-                                        <td class="text-center">System Architect</td>
-                                        <td class="text-center">Edinburgh</td>
-                                        <td class="text-center">61</td>
-                                        <td class="text-center">2011/04/25</td>
-                                        <td class="text-center">2011/04/25</td>
-                                        <td class="text-center">2011/04/25</td>
-                                        <td class="text-center">2011/04/25</td>
+                                        <td class="text-center">{{$produto->unidade->nome}}</td>
+                                        <td class="text-center">{{$produto->plantavel?'Sim' : 'Não'}}</td>
                                         <td class="text-center">
                                             <button class="btn btn-danger">
                                                 <i class="fa fa-trash"></i>
@@ -67,13 +57,8 @@ Produtos
                                 <tfoot>
                                     <tr>
                                         <th class="text-center">Produto</th>
-                                        <th class="text-center">Quantidade</th>
                                         <th class="text-center">Unidade</th>
-                                        <th class="text-center">Data Estoque</th>
-                                        <th class="text-center">Data semeadura</th>
-                                        <th class="text-center">Data plantio</th>
-                                        <th class="text-center">Talhão</th>
-                                        <th class="text-center">Data colheita</th>
+                                        <th class="text-center">Plantável</th>
                                         <th class="text-center">Ação</th>
                                     </tr>
                                 </tfoot>

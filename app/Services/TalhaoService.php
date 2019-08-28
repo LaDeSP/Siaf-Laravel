@@ -4,17 +4,17 @@ namespace App\Services;
 
 use App\Repositories\TalhaoRepository;
 use Illuminate\Http\Request;
+use App\Services\UserService;
 
-class TalhaoService
-{
-    protected $talhaoRepository;
-    
-    public function __construct(TalhaoRepository $talhaoRepository){
-        $this->talhaoRepository = $talhaoRepository ;
+class TalhaoService{
+    private $userService;
+
+    public function __construct(UserService $userService){
+        $this->userService = $userService;
     }
     
     public function index(){
-        return $this->talhaoRepository->all();
+        return $this->userService->propriedadesUser()->talhoes()->get();
     }
     
     public function create(Request $request){

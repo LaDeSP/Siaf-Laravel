@@ -42,9 +42,9 @@ Plantio
                                         <td class="text-center">{{$plantio->talhao->nome}}</td>
                                         <td class="text-center">{{$plantio->produto->nome}}</td>
                                         <td class="text-center">
-                                                <button class="btn btn-info">
-                                                        <i class="fas fa-history"></i>
-                                                    </button>
+                                            <a href="{{route('painel.manejosPlantios', ['id'=>$plantio->id])}}" class="btn btn-info">
+                                                <i class="fas fa-history"></i>
+                                            </a>
                                         </td>
                                         <td class="text-center">
                                             
@@ -67,9 +67,9 @@ Plantio
                             </table>
                             @else
                             <div class="text-center p-3 text-muted">
-                                    <h5>{{ collect(explode(' ', ucwords(strtolower(Auth::user()->name))))->slice(0, 1)->implode(' ') }}, você não possui nenhum plantio cadastrado!</h5>
-                                    <p>Clique no botão Adicionar para cadastrar novos plantios.</p>
-                                </div>
+                                <h5>{{ collect(explode(' ', ucwords(strtolower(Auth::user()->name))))->slice(0, 1)->implode(' ') }}, você não possui nenhum plantio cadastrado!</h5>
+                                <p>Clique no botão Adicionar para cadastrar novos plantios.</p>
+                            </div>
                             @endif
                         </div>
                     </div>

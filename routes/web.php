@@ -12,6 +12,7 @@ Route::name('painel.')->prefix('painel')->middleware('auth')->group(function() {
         'create', 'store', 'edit', 'update', 'destroy']]);
     Route::resource('/manejo', "ManejoController", ['names' => [
         'create', 'store', 'edit', 'update', 'destroy']]);
+    Route::get('/manejo/{plantio}/manejos', 'ManejoController@showManejosPlantios')->name('manejosPlantios');
     Route::resource('/propriedade', "PropriedadeController", ['names' => [
         'create', 'store', 'edit', 'update', 'destroy']]);
     Route::resource('/produto', "ProdutoController", ['names' => [

@@ -7,7 +7,7 @@ use \Illuminate\Support\Arr;
 
 class ManejoService{
     private $userService;
-
+    
     public function __construct(UserService $userService){
         $this->userService = $userService;
     }
@@ -27,13 +27,19 @@ class ManejoService{
         //return $this->propriedadeRepository->create($attributes);
     }
     
-    public function read($id){
-        //return $this->propriedadeRepository->find($id);
+    public function read($plantio){
+        $manejos = $plantio->manejos()->get();
+        //dd($manejos);
+        if($manejos->isEmpty()){
+            return collect([]);
+        }else{
+            return $manejos;
+        }
     }
     
     public function update(Request $request, $id){
     }
-
+    
     public function delete($id){
     }
 }

@@ -72,6 +72,16 @@ class ManejoController extends Controller{
         $plantios = $this->manejoService->index();
         return view('painel.manejos.index', ["plantios" => $plantios]);
     }
+
+    public function showManejosPlantios(Plantio $plantio){
+        $this->authorize('view-manejos-plantio', $plantio);
+        $manejosPlantio = $this->manejoService->read($plantio);
+        if($manejosPlantio->isEmpty()){
+            abort(404);            
+        }else{
+            return view('painel.historicomanejoproduto.index', ["manejos" => $manejosPlantio, "produto"=>$plantio->produto->nome]);
+        }
+    }
     
     
     public function create(Request $request,$plantio){

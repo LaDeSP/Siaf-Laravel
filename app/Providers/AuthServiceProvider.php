@@ -7,6 +7,7 @@ use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvid
 use App\Models\Produto;
 use App\Models\User;
 use App\Models\Propriedade;
+use App\Models\Plantio;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -30,6 +31,17 @@ class AuthServiceProvider extends ServiceProvider
 
         Gate::define('update-produto', function(User $user, Produto $produto){ 
             return $user->propriedades()->first()->id == $produto->propriedade_id;
+        });
+
+        Gate::define('view-manejos-plantio', function(User $user, Plantio $plantio){ 
+            $talhoes = $user->propriedades()->first()->talhoes()->get();
+            
+            foreach($talhoes as $talhao){
+                if($talhao->plantios()->where('id', $plantio->id)->first()){
+                    return true;
+                }
+            }
+            abort(404);
         });
     }
 }

@@ -34,11 +34,10 @@ Vendas
                                         <th class="text-center">Produto</th>
                                         <th class="text-center">Quantidade</th>
                                         <th class="text-center">Unidade</th>
-                                        <th class="text-center">Data Estoque</th>
-                                        <th class="text-center">Data semeadura</th>
-                                        <th class="text-center">Data plantio</th>
-                                        <th class="text-center">Talhão</th>
-                                        <th class="text-center">Data colheita</th>
+                                        <th class="text-center">Valor Unitário R$</th>
+                                        <th class="text-center">Total R$</th>
+                                        <th class="text-center">Destino</th>
+                                        <th class="text-center">Data</th>
                                         <th data-priority="1" class="text-center">Ação</th>
                                     </tr>
                                 </thead>
@@ -46,13 +45,12 @@ Vendas
                                     @foreach ($vendas as $venda)
                                     <tr>
                                         <td class="text-center">{{$venda->id}}</td>
-                                        <td class="text-center">System Architect</td>
-                                        <td class="text-center">Edinburgh</td>
-                                        <td class="text-center">61</td>
+                                        <td class="text-center">{{$venda->quantidade}}</td>
+                                        <td class="text-center">{{$venda->estoque->produto->unidade->nome}}</td>
+                                        <td class="text-center">{{$venda->valor_unit}}</td>
                                         <td class="text-center">2011/04/25</td>
-                                        <td class="text-center">2011/04/25</td>
-                                        <td class="text-center">2011/04/25</td>
-                                        <td class="text-center">2011/04/25</td>
+                                        <td class="text-center">{{$venda->destino->nome}}</td>
+                                        <td class="text-center">{{$venda->data}}</td>
                                         <td class="text-center">
                                             <button class="btn btn-danger">
                                                 <i class="fa fa-trash"></i>
@@ -69,11 +67,10 @@ Vendas
                                         <th class="text-center">Produto</th>
                                         <th class="text-center">Quantidade</th>
                                         <th class="text-center">Unidade</th>
-                                        <th class="text-center">Data Estoque</th>
-                                        <th class="text-center">Data semeadura</th>
-                                        <th class="text-center">Data plantio</th>
-                                        <th class="text-center">Talhão</th>
-                                        <th class="text-center">Data colheita</th>
+                                        <th class="text-center">Valor Unitário R$</th>
+                                        <th class="text-center">Total R$</th>
+                                        <th class="text-center">Destino</th>
+                                        <th class="text-center">Data</th>
                                         <th class="text-center">Ação</th>
                                     </tr>
                                 </tfoot>

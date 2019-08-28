@@ -6,59 +6,50 @@
 @endpush
 
 @section('title')
-Produtos
+Plantio
 @endsection
 
 @section('content')
 <section class="section">
     <div class="section-header">
-        <h1>Gestão de Produtos</h1>
+        <h1>Gestão de manejos</h1>
     </div>
     <div class="section-body">
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4>Produtos <span>({{count($produtos)}})</span></h4>
-                        <div class="card-header-action">
-                            <a href="#" class="btn btn-success">Adicionar <i class="fas fa-plus"></i></a>
-                        </div>
+                        <h4>Plantios <span>({{count($plantios)}})</span></h4>
                     </div>
                     <br>
                     <div class="card-body p-3">
                         <div class="table-responsive table-invoice">
-                            @if (count($produtos) > 0)
+                            @if (count($plantios) > 0)
                             <table id="table-1" class="table table-striped display nowrap" style="width:100%">
                                 <thead>
                                     <tr>
-                                        <th class="text-center">Produto</th>
-                                        <th class="text-center">Quantidade</th>
-                                        <th class="text-center">Unidade</th>
-                                        <th class="text-center">Data Estoque</th>
-                                        <th class="text-center">Data semeadura</th>
                                         <th class="text-center">Data plantio</th>
                                         <th class="text-center">Talhão</th>
-                                        <th class="text-center">Data colheita</th>
-                                        <th data-priority="1" class="text-center">Ação</th>
+                                        <th class="text-center">Produto</th>
+                                        <th class="text-center">Consultar Manejos</th>
+                                        <th data-priority="1" class="text-center">Novo Manejo</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($produtos as $produto)
+                                    @foreach ($plantios as $plantio)
                                     <tr>
-                                        <td class="text-center">{{$produto->nome}}</td>
-                                        <td class="text-center">System Architect</td>
-                                        <td class="text-center">Edinburgh</td>
-                                        <td class="text-center">61</td>
-                                        <td class="text-center">2011/04/25</td>
-                                        <td class="text-center">2011/04/25</td>
-                                        <td class="text-center">2011/04/25</td>
-                                        <td class="text-center">2011/04/25</td>
+                                        <td class="text-center">{{$plantio->data_semeadura}}</td>
+                                        <td class="text-center">{{$plantio->talhao->nome}}</td>
+                                        <td class="text-center">{{$plantio->produto->nome}}</td>
                                         <td class="text-center">
-                                            <button class="btn btn-danger">
-                                                <i class="fa fa-trash"></i>
-                                            </button>
-                                            <a href="{{route('painel.produto.edit', ['produto'=>$produto->slug])}}" class="btn btn-warning">
-                                                <i class="fa fa-edit"></i>
+                                                <button class="btn btn-info">
+                                                        <i class="fas fa-history"></i>
+                                                    </button>
+                                        </td>
+                                        <td class="text-center">
+                                            
+                                            <a href="{{route('painel.plantio.edit', ['plantio'=>$plantio->id])}}" class="btn btn-success">
+                                                <i class="fa fa-plus"></i>
                                             </a>
                                         </td>
                                     </tr>
@@ -66,22 +57,18 @@ Produtos
                                 </tbody>
                                 <tfoot>
                                     <tr>
-                                        <th class="text-center">Produto</th>
-                                        <th class="text-center">Quantidade</th>
-                                        <th class="text-center">Unidade</th>
-                                        <th class="text-center">Data Estoque</th>
-                                        <th class="text-center">Data semeadura</th>
                                         <th class="text-center">Data plantio</th>
                                         <th class="text-center">Talhão</th>
-                                        <th class="text-center">Data colheita</th>
-                                        <th class="text-center">Ação</th>
+                                        <th class="text-center">Produto</th>
+                                        <th class="text-center">Consultar Manejos</th>
+                                        <th class="text-center">Novo Manejo</th>
                                     </tr>
                                 </tfoot>
                             </table>
                             @else
                             <div class="text-center p-3 text-muted">
-                                    <h5>{{ collect(explode(' ', ucwords(strtolower(Auth::user()->name))))->slice(0, 1)->implode(' ') }}, você não possui nenhum produto cadastrado!</h5>
-                                    <p>Clique no botão Adicionar para cadastrar novos produtos.</p>
+                                    <h5>{{ collect(explode(' ', ucwords(strtolower(Auth::user()->name))))->slice(0, 1)->implode(' ') }}, você não possui nenhum plantio cadastrado!</h5>
+                                    <p>Clique no botão Adicionar para cadastrar novos plantios.</p>
                                 </div>
                             @endif
                         </div>

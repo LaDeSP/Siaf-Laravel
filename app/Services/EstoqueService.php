@@ -16,7 +16,7 @@ class EstoqueService{
         $estoquesProdutosPlantaveis =  $this->userService->propriedadesUser()->estoques()->get();
         $estoques = [];
 
-        foreach($estoquesProdutosPlantaveis as $key => $estoque){
+        foreach($estoquesProdutosPlantaveis as $estoque){
             if($estoque->produto()->where("plantavel","1")->first()){
                 array_push($estoques, $estoque);
             }

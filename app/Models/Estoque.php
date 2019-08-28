@@ -39,7 +39,7 @@ class Estoque extends Eloquent{
 	];
 
 	public function manejoplantio(){
-		return $this->belongsTo(\App\Models\Manejoplantio::class);
+		return $this->belongsTo(\App\Models\ManejoPlantio::class);
 	}
 
 	public function produto(){

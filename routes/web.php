@@ -6,10 +6,13 @@ Route::name('painel.')->prefix('painel')->middleware('auth')->group(function() {
         'create', 'store', 'edit', 'update', 'destroy']]);
     Route::resource('/estoque', "EstoqueController", ['names' => [
         'create', 'store', 'edit', 'update', 'destroy']]);
+    Route::get('/estoque/p/plantio', 'EstoqueController@estoquePlataveisIndex')->name('estoquePlantaveis');
+    Route::get('/estoque/p/propriedade', 'EstoqueController@estoquePropriedadeIndex')->name('estoquePropriedade');
     Route::resource('/plantio', "PlantioController", ['names' => [
         'create', 'store', 'edit', 'update', 'destroy']]);
     Route::resource('/manejo', "ManejoController", ['names' => [
         'create', 'store', 'edit', 'update', 'destroy']]);
+    Route::get('/manejo/{plantio}/manejos', 'ManejoController@showManejosPlantios')->name('manejosPlantios');
     Route::resource('/propriedade', "PropriedadeController", ['names' => [
         'create', 'store', 'edit', 'update', 'destroy']]);
     Route::resource('/produto', "ProdutoController", ['names' => [

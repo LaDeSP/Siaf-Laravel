@@ -1,41 +1,62 @@
 <?php
 
+/**
+ * Created by Reliese Model.
+ * Date: Mon, 26 Aug 2019 15:12:45 -0400.
+ */
+
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Reliese\Database\Eloquent\Model as Eloquent;
 use \Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\DB;
 use App\Models\Venda;
 use App\Models\Perda;
 
-class Estoque extends Model
-{
-
-
+class Estoque extends Eloquent{
+	
 	use SoftDeletes;
-
 	protected $table = 'estoque';
 
-
-
-
-    protected $casts = [
-
-		'ID' => 'int'
+	protected $casts = [
+		'quantidade' => 'int',
+		'produto_id' => 'int',
+		'propriedade_id' => 'int',
+		'manejoplantio_id' => 'int'
 	];
 
 	protected $dates = [
-		'Data'=>'date:d-m-Y'
+		'data'
 	];
 
 	protected $fillable = [
-		'ID'=>'id',
-		'Data'=>'data',
-		'Quantidade'=>'quantidade',
-		'Produto_id'=>'produto_id',
-		'Propriedade_id'=>'propriedade_id',
-		'Manejoplantio_id'=>'manejoplantio_id'
+		'quantidade',
+		'produto_id',
+		'data',
+		'slug',
+		'propriedade_id',
+		'manejoplantio_id'
 	];
+
+	public function manejoplantio(){
+		return $this->belongsTo(\App\Models\Manejoplantio::class);
+	}
+
+	public function produto(){
+		return $this->belongsTo(\App\Models\Produto::class);
+	}
+
+	public function propriedade(){
+		return $this->belongsTo(\App\Models\Propriedade::class);
+	}
+
+	public function perdas(){
+		return $this->hasMany(\App\Models\Perda::class);
+	}
+
+	public function vendas(){
+		return $this->hasMany(\App\Models\Venda::class);
+	}
 
 	public static function produtosDisponiveis($idEstoque ){
 		$venda = Venda::all()->where('estoque_id','=',$idEstoque)->sum('quantidade');
@@ -79,68 +100,4 @@ class Estoque extends Model
 		return $Manejos;
 
 	}
-
-
-
-/*
-	public function produto()
-	{
-		return $this->belongsTo(\App\Models\Produto::class, 'id');
-	}
-
-	public function plantio()
-	{
-		return $this->belongsTo(\App\Models\Plantio::class, 'id');
-	}
-
-	public function propriedade()
-	{
-		return $this->belongsTo(\App\Models\Propriedade::class, 'id');
-	}
-
-	public static function inserir($request)
-	{
-        $estoque = self::firstOrCreate(['ID'=> $request['id'], 'Quantidade' => $request['quantidade'],'Produto' => $request['produto_id'], 'Data' => $request['data'], 'Propriedade' => $request['propriedade_id'], 'Plantio' => $request['plantio_id']]);
-
-        return [$estoque, 200];
-	}
-
-	public static function ler($id)
-	{
-		if ($id == null)
-		{
-			$estoque = self::all();
-			return $estoque;
-		}
-
-		$estoque = self::find($id);
-		return [$estoque, 200];
-	}
-
-	public static function excluir($id){
-		if ($id != null)
-		{
-			$estoque = self::find($id);
-		    if (!empty($estoque))
-		    {
-		    	if ($estoque->forcedelete())
-		    	{
-		    		return ["Deletado com sucesso!", 200];
-		    	}
-			}
-		}
-		return ["Ocorreu um problema.", 403];
-	}
-
-	public function setSubEstoque($qtd_venda)
-    {
-        if ($this->exists)
-        {
-            $this->attributes['quantidade'] =
-                $this->attributes['quantidade'] - $qtd_venda;
-            $this->save();
-        }
-        return $this;
-    }*/
-
 }

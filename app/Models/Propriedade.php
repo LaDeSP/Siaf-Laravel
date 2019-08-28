@@ -45,7 +45,7 @@ class Propriedade extends Eloquent
 	}
 
 	public function estoques(){
-		return $this->hasMany(\App\Models\Estoque::class);
+		return $this->hasMany(\App\Models\Estoque::class, 'propriedade_id');
 	}
 
 	public function investimentos(){

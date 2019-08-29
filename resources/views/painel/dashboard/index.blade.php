@@ -1,8 +1,7 @@
 @extends('layouts.admin-master')
 
 @push('styles')
-<link rel="stylesheet" type="text/css" href="{{ asset('assets/modules/datatables/DataTables-1.10.18/css/dataTables.bootstrap4.css')}}"/>
-<link rel="stylesheet"media="all"  type="text/css" href="{{ asset('assets/modules/plugin-tempo/jquery.weather.br.min.css')}}"/>
+<link rel="stylesheet" media="all"  type="text/css" href="{{ asset('assets/modules/plugin-tempo/jquery.weather.br.min.css')}}"/>
 @endpush
 
 @section('title')
@@ -292,8 +291,8 @@ Inicio
             <h4>Best Products</h4>
           </div>
           <div class="card-body">
-              <div class=" col-12" id="weather">
-                </div>
+              <div id="weather">
+              </div>
           </div>
         </div>
       </div>
@@ -310,8 +309,8 @@ Inicio
     $(function() {
         $('#weather').weather({
             geoLocation:false,
-            locationLat: "MS",
-            locationLon: "Corumbá"
+            locationLat: {{$propriedade->cidade->latitude}},
+            locationLon: {{$propriedade->cidade->longitude}}
         });
     });
 </script>

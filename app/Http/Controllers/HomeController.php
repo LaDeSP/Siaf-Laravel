@@ -3,26 +3,18 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Services\UserService;
 
-class HomeController extends Controller
-{
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
+class HomeController extends Controller{
+    protected $userService;
+
+    public function __construct(UserService $userService){
         $this->middleware('auth');
+        $this->userService = $userService;
     }
 
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
-    public function index()
-    {
-        return view('painel.dashboard.index');
+    public function index(){
+        $propriedade = $this->userService->propriedadesUser();
+        return view('painel.dashboard.index', ["propriedade"=>$propriedade]);
     }
 }

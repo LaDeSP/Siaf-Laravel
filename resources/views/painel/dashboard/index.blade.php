@@ -1,5 +1,10 @@
 @extends('layouts.admin-master')
 
+@push('styles')
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/modules/datatables/DataTables-1.10.18/css/dataTables.bootstrap4.css')}}"/>
+<link rel="stylesheet"media="all"  type="text/css" href="{{ asset('assets/modules/plugin-tempo/jquery.weather.br.min.css')}}"/>
+@endpush
+
 @section('title')
 Inicio
 @endsection
@@ -281,16 +286,33 @@ Inicio
       </div>
     </div>
     <div class="row">
-      <div class="col-md-6">
+      <div class="col-md-12">
         <div class="card shadow-lg p-3 mb-5 bg-white rounded">
           <div class="card-header">
             <h4>Best Products</h4>
           </div>
           <div class="card-body">
+              <div class=" col-12" id="weather">
+                </div>
           </div>
         </div>
       </div>
     </div>
   </section>
-
 @endsection
+
+@push('scripts')
+<script src="{{asset('assets/modules/jquery-ui/jquery-ui.min.js')}}"></script>
+<script src="https://cdn.jsdelivr.net/npm/crypto-js@3.1.9-1/crypto-js.js"></script>
+<script src="{{asset('assets/modules/plugin-tempo/jquery.weather.br.js')}}"></script>
+
+<script>
+    $(function() {
+        $('#weather').weather({
+            geoLocation:false,
+            locationLat: "MS",
+            locationLon: "Corumbá"
+        });
+    });
+</script>
+@endpush

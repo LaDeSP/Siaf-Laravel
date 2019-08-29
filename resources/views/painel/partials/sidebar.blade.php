@@ -32,8 +32,9 @@
                     <li class="{{ Request::route()->getName() == 'painel.investimento.index' ? ' active' : '' }}"><a class="nav-link" href="{{route('painel.investimento.index')}}">Investimento</a></li>
                     <li class="{{ Request::route()->getName() == 'painel.despesa.index' ? ' active' : '' }}"><a class="nav-link" href="{{route('painel.despesa.index')}}">Despesa</a></li>
                 </ul>
-            </li><li class=""><a class="nav-link" href=""><i><img src="{{ asset('assets/img/calendario.png') }}" alt="logo" width="20"></i> <span>Calendário</span></a></li>
-            </li><li class=""><a class="nav-link" href=""><i><img src="{{ asset('assets/img/relatorio.png') }}" alt="logo" width="22"></i> <span>Relatório</span></a></li>
+            </li>
+            <li class="{{ Request::route()->getName() == 'painel.calendario' ? ' active' : '' }}"><a class="nav-link" href="{{route('painel.calendario')}}"><i><img src="{{ asset('assets/img/calendario.png') }}" alt="logo" width="20"></i> <span>Calendário</span></a></li></li>
+            <li class=""><a class="nav-link" href=""><i><img src="{{ asset('assets/img/relatorio.png') }}" alt="logo" width="22"></i> <span>Relatório</span></a></li>
             <li class=""><a class="nav-link" href=""><i><img src="{{ asset('assets/img/manual.png') }}" alt="logo" width="25"></i> <span>Manual</span></a></li>
         </ul>
     </aside>

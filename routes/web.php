@@ -26,6 +26,7 @@ Route::name('painel.')->prefix('painel')->middleware('auth')->group(function() {
     Route::resource('/relatorio', "RelatorioController", ['names' => [
         'create', 'store', 'edit', 'update', 'destroy']]);
     Route::get('/manual', "ManualController@index")->name('manual');
+    Route::get('/calendario', 'CalendarioController@index')->name('calendario');
 });
 
 /*

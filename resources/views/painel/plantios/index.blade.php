@@ -31,28 +31,22 @@ Plantio
                             <table id="table-1" class="table table-striped display nowrap" style="width:100%">
                                 <thead>
                                     <tr>
-                                        <th class="text-center">plantio</th>
-                                        <th class="text-center">Quantidade</th>
-                                        <th class="text-center">Unidade</th>
-                                        <th class="text-center">Data Estoque</th>
+                                        <th class="text-center">Produto</th>
                                         <th class="text-center">Data semeadura</th>
-                                        <th class="text-center">Data plantio</th>
+                                        <th class="text-center">Data Plantio</th>
+                                        <th class="text-center">Quantidade de plantas</th>
                                         <th class="text-center">Talhão</th>
-                                        <th class="text-center">Data colheita</th>
                                         <th data-priority="1" class="text-center">Ação</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($plantios as $plantio)
                                     <tr>
-                                        <td class="text-center">{{$plantio->id}}</td>
-                                        <td class="text-center">System Architect</td>
-                                        <td class="text-center">Edinburgh</td>
-                                        <td class="text-center">61</td>
-                                        <td class="text-center">2011/04/25</td>
-                                        <td class="text-center">2011/04/25</td>
-                                        <td class="text-center">2011/04/25</td>
-                                        <td class="text-center">2011/04/25</td>
+                                        <td class="text-center">{{$plantio->produto->nome}}</td>
+                                        <td class="text-center">{{$plantio->data_semeadura}}</td>
+                                        <td class="text-center">{{$plantio->data_plantio}}</td>
+                                        <td class="text-center">{{$plantio->quantidade_pantas}}</td>
+                                        <td class="text-center">{{$plantio->talhao->nome}}</td>
                                         <td class="text-center">
                                             <button class="btn btn-danger">
                                                 <i class="fa fa-trash"></i>
@@ -66,14 +60,11 @@ Plantio
                                 </tbody>
                                 <tfoot>
                                     <tr>
-                                        <th class="text-center">plantio</th>
-                                        <th class="text-center">Quantidade</th>
-                                        <th class="text-center">Unidade</th>
-                                        <th class="text-center">Data Estoque</th>
+                                        <th class="text-center">Produto</th>
                                         <th class="text-center">Data semeadura</th>
-                                        <th class="text-center">Data plantio</th>
+                                        <th class="text-center">Data Plantio</th>
+                                        <th class="text-center">Quantidade de plantas</th>
                                         <th class="text-center">Talhão</th>
-                                        <th class="text-center">Data colheita</th>
                                         <th class="text-center">Ação</th>
                                     </tr>
                                 </tfoot>

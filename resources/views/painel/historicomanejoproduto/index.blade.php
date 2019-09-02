@@ -31,14 +31,10 @@ Manejos
                             <table id="table-1" class="table table-striped display nowrap" style="width:100%">
                                 <thead>
                                     <tr>
-                                        <th class="text-center">Produto</th>
-                                        <th class="text-center">Quantidade</th>
-                                        <th class="text-center">Unidade</th>
-                                        <th class="text-center">Data Estoque</th>
-                                        <th class="text-center">Data semeadura</th>
-                                        <th class="text-center">Data plantio</th>
-                                        <th class="text-center">Talhão</th>
-                                        <th class="text-center">Data colheita</th>
+                                        <th class="text-center">Manejo</th>
+                                        <th class="text-center">Horário</th>
+                                        <th class="text-center">Quantidade de Horas</th>
+                                        <th class="text-center">Descrição</th>
                                         <th data-priority="1" class="text-center">Ação</th>
                                     </tr>
                                 </thead>
@@ -47,12 +43,8 @@ Manejos
                                     <tr>
                                         <td class="text-center">{{$manejo->pivot->manejo->nome}}</td>
                                         <td class="text-center">{{$manejo->pivot->data_hora}}</td>
-                                        <td class="text-center">Edinburgh</td>
-                                        <td class="text-center">61</td>
-                                        <td class="text-center">2011/04/25</td>
-                                        <td class="text-center">2011/04/25</td>
-                                        <td class="text-center">2011/04/25</td>
-                                        <td class="text-center">2011/04/25</td>
+                                        <td class="text-center">{{$manejo->pivot->horas_utilizadas}}</td>
+                                        <td class="text-center">{{$manejo->pivot->descricao}}</td>
                                         <td class="text-center">
                                             <button class="btn btn-danger">
                                                 <i class="fa fa-trash"></i>
@@ -66,14 +58,10 @@ Manejos
                                 </tbody>
                                 <tfoot>
                                     <tr>
-                                        <th class="text-center">Produto</th>
-                                        <th class="text-center">Quantidade</th>
-                                        <th class="text-center">Unidade</th>
-                                        <th class="text-center">Data Estoque</th>
-                                        <th class="text-center">Data semeadura</th>
-                                        <th class="text-center">Data plantio</th>
-                                        <th class="text-center">Talhão</th>
-                                        <th class="text-center">Data colheita</th>
+                                        <th class="text-center">Manejo</th>
+                                        <th class="text-center">Horário</th>
+                                        <th class="text-center">Quantidade de Horas</th>
+                                        <th class="text-center">Descrição</th>
                                         <th class="text-center">Ação</th>
                                     </tr>
                                 </tfoot>

@@ -47,7 +47,7 @@ Estoques
                                     <tr>
                                         <td class="text-center">{{$estoque->produto->nome}}</td>
                                         <td class="text-center">{{$estoque->quantidade}}</td>
-                                        <td class="text-center">{{$estoque->produto_id}}</td>
+                                        <td class="text-center">{{$estoque->produto->unidade->nome}}</td>
                                         <td class="text-center">{{$estoque->data}}</td>
                                         <td class="text-center">{{$estoque->data}}</td>
                                         <td class="text-center">{{$estoque->manejoplantio_id}}</td>

@@ -24,6 +24,7 @@ class ProdutoController extends Controller{
     }
 
     public function create(Request $request){
+        return view('painel.produtos.create');
         $prop = $this->getPropriedade($request);
         return view('produtoForm',["propriedade"=>$prop, "unidades"=>Unidade::all(), "Title"=>"Adicionar produto",'Method'=>'post','Url'=>'/produto']);
     }

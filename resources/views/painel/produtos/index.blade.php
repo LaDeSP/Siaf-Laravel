@@ -21,7 +21,7 @@ Produtos
                     <div class="card-header">
                         <h4>Produtos <span>({{count($produtos)}})</span></h4>
                         <div class="card-header-action">
-                            <a href="#" class="btn btn-success">Adicionar <i class="fas fa-plus"></i></a>
+                            <a href="{{route('painel.produto.create')}}" class="btn btn-success">Adicionar <i class="fas fa-plus"></i></a>
                         </div>
                     </div>
                     <br>

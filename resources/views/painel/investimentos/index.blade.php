@@ -45,7 +45,7 @@ Investimentos
                                 <tbody>
                                     @foreach ($investimentos as $investimento)
                                     <tr>
-                                        <td class="text-center">{{$investimentos->nome}}</td>
+                                        <td class="text-center">{{$investimento->nome}}</td>
                                         <td class="text-center">System Architect</td>
                                         <td class="text-center">Edinburgh</td>
                                         <td class="text-center">61</td>
@@ -57,7 +57,7 @@ Investimentos
                                             <button class="btn btn-danger">
                                                 <i class="fa fa-trash"></i>
                                             </button>
-                                            <a href="{{route('painel.investimento.edit', ['id'=>$investimentos->id])}}" class="btn btn-warning">
+                                            <a href="{{route('painel.investimento.edit', ['id'=>$investimento->id])}}" class="btn btn-warning">
                                                 <i class="fa fa-edit"></i>
                                             </a>
                                         </td>

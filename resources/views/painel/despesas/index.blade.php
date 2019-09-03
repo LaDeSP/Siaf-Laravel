@@ -45,7 +45,7 @@ Depesas
                                 <tbody>
                                     @foreach ($depesas as $depesa)
                                     <tr>
-                                        <td class="text-center">{{$depesas->nome}}</td>
+                                        <td class="text-center">{{$depesa->nome}}</td>
                                         <td class="text-center">System Architect</td>
                                         <td class="text-center">Edinburgh</td>
                                         <td class="text-center">61</td>
@@ -57,7 +57,7 @@ Depesas
                                             <button class="btn btn-danger">
                                                 <i class="fa fa-trash"></i>
                                             </button>
-                                            <a href="{{route('painel.depesa.edit', ['id'=>$depesa->slug])}}" class="btn btn-warning">
+                                            <a href="{{route('painel.despesa.edit', ['id'=>$depesa->slug])}}" class="btn btn-warning">
                                                 <i class="fa fa-edit"></i>
                                             </a>
                                         </td>

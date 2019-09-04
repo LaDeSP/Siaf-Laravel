@@ -6,20 +6,20 @@
 @endpush
 
 @section('title')
-Depesas
+Despesas
 @endsection
 
 @section('content')
 <section class="section">
     <div class="section-header">
-        <h1>Gestão de Depesas</h1>
+        <h1>Gestão de Despesas</h1>
     </div>
     <div class="section-body">
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4>Despesas <span>({{count($depesas)}})</span></h4>
+                        <h4>Despesas <span>({{count($despesas)}})</span></h4>
                         <div class="card-header-action">
                             <a href="{{route('painel.despesa.create')}}" class="btn btn-success">Adicionar <i class="fas fa-plus"></i></a>
                         </div>
@@ -27,37 +27,33 @@ Depesas
                     <br>
                     <div class="card-body p-3">
                         <div class="table-responsive table-invoice">
-                            @if (count($depesas) > 0)
+                            @if (count($despesas) > 0)
                             <table id="table-1" class="table table-striped display nowrap" style="width:100%">
                                 <thead>
                                     <tr>
-                                        <th class="text-center">Produto</th>
+                                        <th class="text-center">Investimento</th>
+                                        <th class="text-center">Descrição</th>
                                         <th class="text-center">Quantidade</th>
-                                        <th class="text-center">Unidade</th>
-                                        <th class="text-center">Data Estoque</th>
-                                        <th class="text-center">Data semeadura</th>
-                                        <th class="text-center">Data plantio</th>
-                                        <th class="text-center">Talhão</th>
-                                        <th class="text-center">Data colheita</th>
+                                        <th class="text-center">Valor R$</th>
+                                        <th class="text-center">Data</th>
+                                        <th class="text-center">Propriedade</th>
                                         <th data-priority="1" class="text-center">Ação</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($depesas as $depesa)
+                                    @foreach ($despesas as $despesa)
                                     <tr>
-                                        <td class="text-center">{{$depesa->nome}}</td>
-                                        <td class="text-center">System Architect</td>
-                                        <td class="text-center">Edinburgh</td>
-                                        <td class="text-center">61</td>
-                                        <td class="text-center">2011/04/25</td>
-                                        <td class="text-center">2011/04/25</td>
-                                        <td class="text-center">2011/04/25</td>
-                                        <td class="text-center">2011/04/25</td>
+                                        <td class="text-center">{{$despesa->nome}}</td>
+                                        <td class="text-center">{{$despesa->descricao}}</td>
+                                        <td class="text-center">{{$despesa->quantidade}}</td>
+                                        <td class="text-center">{{$despesa->valor_unit}}</td>
+                                        <td class="text-center">{{$despesa->data}}</td>
+                                        <td class="text-center">{{$despesa->propriedade->nome}}</td>
                                         <td class="text-center">
                                             <button class="btn btn-danger">
                                                 <i class="fa fa-trash"></i>
                                             </button>
-                                            <a href="{{route('painel.despesa.edit', ['id'=>$depesa->slug])}}" class="btn btn-warning">
+                                            <a href="{{route('painel.despesa.edit', ['id'=>$despesa->slug])}}" class="btn btn-warning">
                                                 <i class="fa fa-edit"></i>
                                             </a>
                                         </td>
@@ -66,22 +62,20 @@ Depesas
                                 </tbody>
                                 <tfoot>
                                     <tr>
-                                        <th class="text-center">Produto</th>
+                                        <th class="text-center">Investimento</th>
+                                        <th class="text-center">Descrição</th>
                                         <th class="text-center">Quantidade</th>
-                                        <th class="text-center">Unidade</th>
-                                        <th class="text-center">Data Estoque</th>
-                                        <th class="text-center">Data semeadura</th>
-                                        <th class="text-center">Data plantio</th>
-                                        <th class="text-center">Talhão</th>
-                                        <th class="text-center">Data colheita</th>
+                                        <th class="text-center">Valor R$</th>
+                                        <th class="text-center">Data</th>
+                                        <th class="text-center">Propriedade</th>
                                         <th class="text-center">Ação</th>
                                     </tr>
                                 </tfoot>
                             </table>
                             @else
                             <div class="text-center p-3 text-muted">
-                                    <h5>{{ collect(explode(' ', ucwords(strtolower(Auth::user()->name))))->slice(0, 1)->implode(' ') }}, você não possui nenhuma depesa cadastrada!</h5>
-                                    <p>Clique no botão Adicionar para cadastrar novas depesas.</p>
+                                    <h5>{{ collect(explode(' ', ucwords(strtolower(Auth::user()->name))))->slice(0, 1)->implode(' ') }}, você não possui nenhuma despesa cadastrada!</h5>
+                                    <p>Clique no botão Adicionar para cadastrar novas despesas.</p>
                                 </div>
                             @endif
                         </div>

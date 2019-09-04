@@ -21,7 +21,7 @@ Plantio
                     <div class="card-header">
                         <h4>Plantios <span>({{count($plantios)}})</span></h4>
                         <div class="card-header-action">
-                            <a href="#" class="btn btn-success">Adicionar <i class="fas fa-plus"></i></a>
+                            <a href="{{route('painel.plantio.create')}}" class="btn btn-success">Adicionar <i class="fas fa-plus"></i></a>
                         </div>
                     </div>
                     <br>

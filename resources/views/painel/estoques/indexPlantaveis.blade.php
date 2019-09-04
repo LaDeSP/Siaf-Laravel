@@ -21,7 +21,7 @@ Estoques
                     <div class="card-header">
                         <h4>Estoques <span>({{count($estoques)}})</span></h4>
                         <div class="card-header-action">
-                            <a href="#" class="btn btn-success">Adicionar <i class="fas fa-plus"></i></a>
+                            <a href="{{route('painel.estoque.create')}}" class="btn btn-success">Adicionar <i class="fas fa-plus"></i></a>
                         </div>
                     </div>
                     <br>

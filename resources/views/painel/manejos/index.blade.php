@@ -31,8 +31,7 @@ Plantio
                                         <th class="text-center">Data plantio</th>
                                         <th class="text-center">Talhão</th>
                                         <th class="text-center">Produto</th>
-                                        <th class="text-center">Consultar Manejos</th>
-                                        <th data-priority="1" class="text-center">Novo Manejo</th>
+                                        <th data-priority="1" class="text-center">Ação</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -42,13 +41,10 @@ Plantio
                                         <td class="text-center">{{$plantio->talhao->nome}}</td>
                                         <td class="text-center">{{$plantio->produto->nome}}</td>
                                         <td class="text-center">
-                                            <a href="{{route('painel.manejosPlantios', ['id'=>$plantio->id])}}" class="btn btn-info">
-                                                <i class="fas fa-history"></i>
-                                            </a>
-                                        </td>
-                                        <td class="text-center">
-                                            
-                                            <a href="{{route('painel.plantio.edit', ['plantio'=>$plantio->id])}}" class="btn btn-success">
+                                                <a href="{{route('painel.manejosPlantios', ['id'=>$plantio->id])}}" class="btn btn-info" title="Consultar Manejos">
+                                                        <i class="fas fa-history" style="font-size:10px"></i>
+                                                    </a>
+                                            <a href="{{route('painel.plantio.edit', ['plantio'=>$plantio->id])}}" class="btn btn-success" title="Adicionar manejo neste plantio">
                                                 <i class="fa fa-plus"></i>
                                             </a>
                                         </td>
@@ -60,7 +56,6 @@ Plantio
                                         <th class="text-center">Data plantio</th>
                                         <th class="text-center">Talhão</th>
                                         <th class="text-center">Produto</th>
-                                        <th class="text-center">Consultar Manejos</th>
                                         <th class="text-center">Novo Manejo</th>
                                     </tr>
                                 </tfoot>

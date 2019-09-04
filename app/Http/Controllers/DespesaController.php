@@ -15,7 +15,7 @@ class DespesaController extends Controller{
 
     public function index(Request $request){
         $depesas = $this->despesaService->index();
-        return view('painel.despesas.index', ["depesas" => $depesas]);
+        return view('painel.despesas.index', ["despesas" => $depesas]);
 
         $propriedade = $this->getPropriedade($request);
         $despesas = Despesa::ler('propriedade_id', $propriedade->id);

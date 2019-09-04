@@ -31,14 +31,12 @@ Investimentos
                             <table id="table-1" class="table table-striped display nowrap" style="width:100%">
                                 <thead>
                                     <tr>
-                                        <th class="text-center">Produto</th>
+                                        <th class="text-center">Investimento</th>
+                                        <th class="text-center">Descrição</th>
                                         <th class="text-center">Quantidade</th>
-                                        <th class="text-center">Unidade</th>
-                                        <th class="text-center">Data Estoque</th>
-                                        <th class="text-center">Data semeadura</th>
-                                        <th class="text-center">Data plantio</th>
-                                        <th class="text-center">Talhão</th>
-                                        <th class="text-center">Data colheita</th>
+                                        <th class="text-center">Valor R$</th>
+                                        <th class="text-center">Data</th>
+                                        <th class="text-center">Propriedade</th>
                                         <th data-priority="1" class="text-center">Ação</th>
                                     </tr>
                                 </thead>
@@ -46,13 +44,11 @@ Investimentos
                                     @foreach ($investimentos as $investimento)
                                     <tr>
                                         <td class="text-center">{{$investimento->nome}}</td>
-                                        <td class="text-center">System Architect</td>
-                                        <td class="text-center">Edinburgh</td>
-                                        <td class="text-center">61</td>
-                                        <td class="text-center">2011/04/25</td>
-                                        <td class="text-center">2011/04/25</td>
-                                        <td class="text-center">2011/04/25</td>
-                                        <td class="text-center">2011/04/25</td>
+                                        <td class="text-center">{{$investimento->descricao}}</td>
+                                        <td class="text-center">{{$investimento->quantidade}}</td>
+                                        <td class="text-center">{{$investimento->valor_unit}}</td>
+                                        <td class="text-center">{{$investimento->data}}</td>
+                                        <td class="text-center">{{$investimento->propriedade->nome}}</td>
                                         <td class="text-center">
                                             <button class="btn btn-danger">
                                                 <i class="fa fa-trash"></i>
@@ -66,14 +62,12 @@ Investimentos
                                 </tbody>
                                 <tfoot>
                                     <tr>
-                                        <th class="text-center">Produto</th>
+                                        <th class="text-center">Investimento</th>
+                                        <th class="text-center">Descrição</th>
                                         <th class="text-center">Quantidade</th>
-                                        <th class="text-center">Unidade</th>
-                                        <th class="text-center">Data Estoque</th>
-                                        <th class="text-center">Data semeadura</th>
-                                        <th class="text-center">Data plantio</th>
-                                        <th class="text-center">Talhão</th>
-                                        <th class="text-center">Data colheita</th>
+                                        <th class="text-center">Valor R$</th>
+                                        <th class="text-center">Data</th>
+                                        <th class="text-center">Propriedade</th>
                                         <th class="text-center">Ação</th>
                                     </tr>
                                 </tfoot>

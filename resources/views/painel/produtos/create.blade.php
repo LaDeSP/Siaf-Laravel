@@ -10,9 +10,20 @@ Create User
         <h1>Add User</h1>
     </div>
     <div class="section-body">
-        <div class="row">
+        <div class="row d-flex justify-content-center">
+            <!--<div class="alert alert-success alert-dismissible show fade col-10">
+                <div class="alert-body">
+                    <button class="close" data-dismiss="alert">
+                        <span>×</span>
+                    </button>
+                    This is a danger alert.
+                </div>
+            </div>-->
             <div class="col-12">
                 <div class="card">
+                    <div class="card-header">
+                        <h4>Add a New User</h4>
+                    </div>
                     <form class="needs-validation p-0 col-sm-8 col-md-8 col-lg-8 align-self-center" novalidate="">
                         <div class="card-body">
                             <div class="form-group">

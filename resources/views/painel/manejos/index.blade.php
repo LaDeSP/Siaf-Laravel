@@ -6,7 +6,7 @@
 @endpush
 
 @section('title')
-Plantio
+Manejo
 @endsection
 
 @section('content')
@@ -28,18 +28,18 @@ Plantio
                             <table id="table-1" class="table table-striped display nowrap" style="width:100%">
                                 <thead>
                                     <tr>
-                                        <th class="text-center">Data plantio</th>
-                                        <th class="text-center">Talhão</th>
                                         <th class="text-center">Produto</th>
+                                        <th class="text-center">Data plantio</th>
+                                        <th class="text-center">Talhão</th>                                        
                                         <th data-priority="1" class="text-center">Ação</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($plantios as $plantio)
                                     <tr>
-                                        <td class="text-center">{{$plantio->data_semeadura}}</td>
-                                        <td class="text-center">{{$plantio->talhao->nome}}</td>
                                         <td class="text-center">{{$plantio->produto->nome}}</td>
+                                        <td class="text-center">{{$plantio->data_semeadura}}</td>
+                                        <td class="text-center">{{$plantio->talhao->nome}}</td>                                        
                                         <td class="text-center">
                                                 <a href="{{route('painel.manejosPlantios', ['id'=>$plantio->id])}}" class="btn btn-info" title="Consultar Manejos">
                                                         <i class="fas fa-history" style="font-size:10px"></i>
@@ -53,9 +53,9 @@ Plantio
                                 </tbody>
                                 <tfoot>
                                     <tr>
-                                        <th class="text-center">Data plantio</th>
-                                        <th class="text-center">Talhão</th>
                                         <th class="text-center">Produto</th>
+                                        <th class="text-center">Data plantio</th>
+                                        <th class="text-center">Talhão</th>                                        
                                         <th class="text-center">Novo Manejo</th>
                                     </tr>
                                 </tfoot>

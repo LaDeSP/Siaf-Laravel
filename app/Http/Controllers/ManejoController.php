@@ -79,12 +79,13 @@ class ManejoController extends Controller{
         if($manejosPlantio->isEmpty()){
             abort(404);            
         }else{
-            return view('painel.historicomanejoproduto.index', ["manejos" => $manejosPlantio, "produto"=>$plantio->produto->nome]);
+            return view('painel.historicomanejoproduto.index', ["manejos" => $manejosPlantio, "plantio"=>$plantio]);
         }
     }
     
     
-    public function create(Request $request,$plantio){
+    public function create(Request $request, Plantio $plantio){
+        return view('painel.historicomanejoproduto.create');
         $Manejos=Manejo::all();
         return view('manejoForm', ["User"=>$this->getFirstName($this->usuario['name']) ,'Plantio'=>$plantio , "Tela"=>"Adicionar Manejo" ,'Method'=>'post','Url'=>'/manejo', 'Manejos'=>$Manejos]);
     }

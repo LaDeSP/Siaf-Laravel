@@ -83,6 +83,7 @@ class PlantioController extends Controller{
     }
     
     public function create(Request $request){
+        return view('painel.plantios.create');
         $p=$this->getPropriedade($request);
         $tmp = array("propriedade"=> $p, "produto"=> Produto::all()->where('propriedade_id','=',$p['id'])->where('plantavel','=',1), 'talhao' => Talhao::all()->where('propriedade_id','=',$p['id']));
         return view('plantioForm', ["User"=>$this->getFirstName($this->usuario['name']) ,'Propriedade'=>$tmp , "Tela"=>"Adicionar Plantio" ,'Method'=>'post','Url'=>'/plantio']);

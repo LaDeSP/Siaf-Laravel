@@ -26,7 +26,7 @@ class DespesaController extends Controller{
 
     
     public function create(){
-        //
+        return view('painel.despesas.create');
     }
 
     

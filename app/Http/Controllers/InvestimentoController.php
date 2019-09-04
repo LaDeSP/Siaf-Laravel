@@ -24,6 +24,10 @@ class InvestimentoController extends Controller{
         }
         return view('investimento',["propriedade" => $propriedade,"dados" => $investimento, "User"=>$this->getFirstName($this->usuario['name']),"Tela" =>"Investimento"]);
     }
+
+    public function create(){
+        return view('painel.investimentos.create');
+    }
     
     public function store(Request $request){
         if ($request != null) {

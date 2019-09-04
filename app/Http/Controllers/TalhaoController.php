@@ -20,6 +20,7 @@ class TalhaoController extends Controller{
     }
    
     public function create(Request $request){
+        return view('painel.talhoes.create');
         $prop = $this->getPropriedade($request);
         return view('talhaoForm',["propriedade"=>$prop, "Title"=>"Adicionar talhão",'Method'=>'post','Url'=>'/talhao']);
     }

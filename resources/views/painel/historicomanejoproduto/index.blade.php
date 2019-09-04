@@ -12,7 +12,7 @@ Manejos
 @section('content')
 <section class="section">
     <div class="section-header">
-    <h1>Gestão de manejos do plantio {{$produto}}</h1>
+    <h1>Gestão de manejos do plantio {{$plantio->produto->nome}}</h1>
     </div>
     <div class="section-body">
         <div class="row">
@@ -21,7 +21,7 @@ Manejos
                     <div class="card-header">
                         <h4>Manejos <span>({{count($manejos)}})</span></h4>
                         <div class="card-header-action">
-                            <a href="{{route('painel.manejo.create')}}" class="btn btn-success">Adicionar <i class="fas fa-plus"></i></a>
+                            <a href="{{route('painel.manejo.create', ['plantio'=>$plantio->id])}}" class="btn btn-success">Adicionar <i class="fas fa-plus"></i></a>
                         </div>
                     </div>
                     <br>

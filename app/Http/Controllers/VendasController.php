@@ -34,6 +34,7 @@ class VendasController extends Controller{
 
     
     public function create(Request $request){
+        return view('painel.vendas.create');
         $destinos = Venda::destino();
         $p=$this->getPropriedade($request);
         $estoques = Estoque::estoquesPropriedade($p->id);

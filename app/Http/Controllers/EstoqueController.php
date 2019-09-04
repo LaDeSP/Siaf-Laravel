@@ -72,6 +72,7 @@ class EstoqueController extends Controller{
     }
     
     public function create(Request $request){
+        return view('painel.estoques.create');
         $propriedade=$this->getPropriedade($request);
         $produtos=Produto::all()->where('propriedade_id','=',$propriedade['id'])->where('plantavel','=',0);
         $tmp = array("propriedade"=> $propriedade, "produto"=>$produtos  );

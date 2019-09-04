@@ -44,7 +44,7 @@ Plantio
                                                 <a href="{{route('painel.manejosPlantios', ['id'=>$plantio->id])}}" class="btn btn-info" title="Consultar Manejos">
                                                         <i class="fas fa-history" style="font-size:10px"></i>
                                                     </a>
-                                            <a href="{{route('painel.plantio.edit', ['plantio'=>$plantio->id])}}" class="btn btn-success" title="Adicionar manejo neste plantio">
+                                            <a href="{{route('painel.manejo.create', ['plantio'=>$plantio->id])}}" class="btn btn-success" title="Adicionar manejo neste plantio">
                                                 <i class="fa fa-plus"></i>
                                             </a>
                                         </td>

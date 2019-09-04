@@ -12,7 +12,7 @@ Estoques
 @section('content')
 <section class="section">
     <div class="section-header">
-        <h1>Gestão de estoque</h1>
+        <h1>Gestão de estoque não plantável</h1>
     </div>
     <div class="section-body">
         <div class="row">
@@ -20,6 +20,9 @@ Estoques
                 <div class="card">
                     <div class="card-header">
                         <h4>Estoques <span>({{count($estoques)}})</span></h4>
+                        <div class="card-header-action">
+                            <a href="{{route('painel.estoque.create')}}" class="btn btn-success">Adicionar <i class="fas fa-plus"></i></a>
+                        </div>
                     </div>
                     <br>
                     <div class="card-body p-3">
@@ -31,25 +34,20 @@ Estoques
                                         <th class="text-center">Produto</th>
                                         <th class="text-center">Quantidade</th>
                                         <th class="text-center">Unidade</th>
+                                        <th class="text-center">Data Inicio</th>
+                                        <th class="text-center">Data Final</th>
                                         <th class="text-center">Data Estoque</th>
-                                        <th class="text-center">Data semeadura</th>
-                                        <th class="text-center">Data plantio</th>
-                                        <th class="text-center">Talhão</th>
-                                        <th class="text-center">Data colheita</th>
                                         <th data-priority="1" class="text-center">Ação</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($estoques as $estoque)
                                     <tr>
-                                        <td class="text-center">{{$estoque->produto->nome}}</td>
-                                        <td class="text-center">{{$estoque->quantidade}}</td>
-                                        <td class="text-center">{{$estoque->produto->unidade->nome}}</td>
-                                        <td class="text-center">{{$estoque->data}}</td>
-                                        <td class="text-center">{{$estoque->data}}</td>
-                                        <td class="text-center">{{$estoque->manejoplantio_id}}</td>
-                                        <td class="text-center">{{$estoque->manejoplantio->plantio->talhao->nome}}</td>
-                                        <td class="text-center">{{$estoque->data}}</td>
+                                        <td class="text-center">{{$estoque->id}}</td>
+                                        <td class="text-center">System Architect</td>
+                                        <td class="text-center">Edinburgh</td>
+                                        <td class="text-center">61</td>
+                                        <td class="text-center">2011/04/25</td>
                                         <td class="text-center">
                                             <button class="btn btn-danger">
                                                 <i class="fa fa-trash"></i>
@@ -66,11 +64,9 @@ Estoques
                                         <th class="text-center">Produto</th>
                                         <th class="text-center">Quantidade</th>
                                         <th class="text-center">Unidade</th>
+                                        <th class="text-center">Data Inicio</th>
+                                        <th class="text-center">Data Final</th>
                                         <th class="text-center">Data Estoque</th>
-                                        <th class="text-center">Data semeadura</th>
-                                        <th class="text-center">Data plantio</th>
-                                        <th class="text-center">Talhão</th>
-                                        <th class="text-center">Data colheita</th>
                                         <th class="text-center">Ação</th>
                                     </tr>
                                 </tfoot>

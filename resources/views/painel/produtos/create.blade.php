@@ -1,13 +1,13 @@
 @extends('layouts.admin-master')
 
 @section('title')
-Create User
+Adicionar Produto
 @endsection
 
 @section('content')
 <section class="section">
     <div class="section-header">
-        <h1>Add User</h1>
+        <h1>Adicionar Produto</h1>
     </div>
     <div class="section-body">
         <div class="row d-flex justify-content-center">
@@ -21,42 +21,36 @@ Create User
             </div>-->
             <div class="col-12">
                 <div class="card">
-                    <div class="card-header">
-                        <h4>Add a New User</h4>
-                    </div>
                     <form class="needs-validation p-0 col-sm-8 col-md-8 col-lg-8 align-self-center" novalidate="">
                         <div class="card-body">
                             <div class="form-group">
-                                <label>Your Name</label>
-                                <input type="text" class="form-control" required="">
+                                <label>Nome do produto<span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" required="" placeholder="Ex: Tomate">
                                 <div class="invalid-feedback">
-                                    What's your name?
+                                    Qual o nome do produto?
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label>Email</label>
-                                <input type="email" class="form-control" required="">
-                                <div class="invalid-feedback">
-                                    Oh no! Email is invalid.
-                                </div>
+                                <label>Unidade</label>
+                                <select class="form-control">
+                                    <option>KG</option>
+                                    <option>LT</option>
+                                    <option>UN</option>
+                                    <option>DZ</option>
+                                </select>
                             </div>
                             <div class="form-group">
-                                <label>Subject</label>
-                                <input type="email" class="form-control">
-                                <div class="valid-feedback">
-                                    Good job!
-                                </div>
+                            <div class="form-check">
+                              <label class="form-check-label" for="defaultCheck1">  
+                              <input class="form-check-input" type="checkbox" id="defaultCheck1">
+                              Plantável
+                              </label>
                             </div>
-                            <div class="form-group mb-0">
-                                <label>Message</label>
-                                <textarea class="form-control" required=""></textarea>
-                                <div class="invalid-feedback">
-                                    What do you wanna say?
-                                </div>
+
                             </div>
                         </div>
                         <div class="card-footer text-center">
-                            <button class="btn btn-primary">Submit</button>
+                            <button class="btn btn-success">Confirmar</button>
                         </div>
                     </form>
                 </div>

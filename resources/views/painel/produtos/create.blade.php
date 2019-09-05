@@ -11,46 +11,64 @@ Adicionar Produto
     </div>
     <div class="section-body">
         <div class="row d-flex justify-content-center">
-            <!--<div class="alert alert-success alert-dismissible show fade col-10">
+            @if(session()->has('success'))
+            <div class="alert alert-success alert-dismissible show fade col-10">
                 <div class="alert-body">
                     <button class="close" data-dismiss="alert">
                         <span>×</span>
                     </button>
-                    This is a danger alert.
+                    {{ session('success') }}
                 </div>
-            </div>-->
+            </div>
+            @elseif(session()->has('danger'))
+            <div class="alert alert-danger alert-dismissible show fade col-10">
+                    <div class="alert-body">
+                        <button class="close" data-dismiss="alert">
+                            <span>×</span>
+                        </button>
+                        {{ session('danger') }}
+                    </div>
+                </div>
+            @endif
             <div class="col-12">
                 <div class="card">
-                    <form class="needs-validation p-0 col-sm-8 col-md-8 col-lg-8 align-self-center" novalidate="">
+                    <p class="section-lead m-2">Campos marcado com (<b><span class="text-danger">*</span></b>) são obrigatórios</p>
+                    <form  method="POST" name="addproduto" action="{{ route('painel.produto.store') }}" class="needs-validation p-0 col-sm-8 col-md-8 col-lg-8 align-self-center" novalidate="">
+                        {{ csrf_field() }}
                         <div class="card-body">
                             <div class="form-group">
-                                <label>Nome do produto<span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" required="" placeholder="Ex: Tomate">
+                                <label>Nome do produto <span class="text-danger">*</span></label>
+                                <input name="nome_produto" type="text" class="form-control {{ $errors->has('nome_produto') ? ' is-invalid' : '' }}" required placeholder="Ex: Tomate">
+                                @if ($errors->has('nome_produto'))
                                 <div class="invalid-feedback">
-                                    Qual o nome do produto?
+                                    {{ $errors->first('nome_produto') }}
                                 </div>
+                                @endif
                             </div>
                             <div class="form-group">
-                                <label>Unidade</label>
-                                <select class="form-control">
-                                    <option>KG</option>
-                                    <option>LT</option>
-                                    <option>UN</option>
-                                    <option>DZ</option>
+                                <label>Unidade do produto <span class="text-danger">*</span></label>
+                                <select name="unidade" class="custom-select form-control {{ $errors->has('unidade') ? ' is-invalid' : '' }}" required>
+                                    <option selected="" value="">Selecione a unidade do seu produto</option>
+                                    @foreach ($unidades as $unidade)
+                                    <option value="{{$unidade->id}}">{{$unidade->nome}}</option>
+                                    @endforeach
                                 </select>
+                                @if ($errors->has('unidade'))
+                                <div class="invalid-feedback">
+                                    {{ $errors->first('unidade') }}
+                                </div>
+                                @endif
                             </div>
                             <div class="form-group">
-                            <div class="form-check">
-                              <label class="form-check-label" for="defaultCheck1">  
-                              <input class="form-check-input" type="checkbox" id="defaultCheck1">
-                              Plantável
-                              </label>
-                            </div>
-
+                                <div class="custom-control custom-checkbox">
+                                    <input name="plantavel" type="checkbox" class="custom-control-input" id="customCheck1">
+                                    <label class="custom-control-label" for="customCheck1">Selecione a caixa se seu produto é plantavel</label>
+                                </div>
+                                
                             </div>
                         </div>
                         <div class="card-footer text-center">
-                            <button class="btn btn-success">Confirmar</button>
+                            <button class="btn btn-success">Cadastrar Produto</button>
                         </div>
                     </form>
                 </div>

@@ -22,6 +22,7 @@ class PropriedadeController extends Controller{
     }
     
     public function index(Request $request){
+        dd($request);
         $prop = $this->userService->propriedadesUser();
         if($request['mensagem']){
             return view('propriedades', ["propriedade"=>$prop, "Tela"=>"Propriedade", 'mensagem'=>$request['mensagem'],'status'=>$request['status']]);

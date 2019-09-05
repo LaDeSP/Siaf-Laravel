@@ -17,7 +17,24 @@ class ProdutoService{
     }
 
     public function create(array $attributes){
-        //return $this->propriedadeRepository->create($attributes);
+        $produto = new Produto;
+        $produto->nome = $attributes['nome_produto'];
+        $produto->plantavel = array_key_exists('plantavel', $attributes) ? 1 : 0;
+        $produto->status = 1;
+        $produto->propriedade_id = $this->userService->propriedadesUser()->id;
+        $produto->unidade_id = $attributes['unidade'];
+        $saved = $produto->save();
+        if($saved){
+            return $data=[
+                'mensagem' => 'Produto salvo com sucesso!',
+                'class' => 'success'
+            ];
+        }else{
+            return $data=[
+                'mensagem' => 'Erro ao salvar produto, tente novamente!',
+                'class' => 'danger'
+            ];
+        }
     }
     
     public function read($id){

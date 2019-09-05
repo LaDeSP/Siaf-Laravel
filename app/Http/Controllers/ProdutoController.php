@@ -8,12 +8,13 @@ use App\Models\Talhao;
 use App\Models\Unidade;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Http\Requests\ProdutoFormRequest;
 
 use App\Services\ProdutoService;
 
 class ProdutoController extends Controller{
     protected $produtoService;
-
+    
     public function __construct(ProdutoService $produtoService){
         $this->produtoService = $produtoService;
     }
@@ -22,14 +23,18 @@ class ProdutoController extends Controller{
         $produtos = $this->produtoService->index();
         return view('painel.produtos.index', ["produtos" => $produtos]);
     }
-
+    
     public function create(Request $request){
-        return view('painel.produtos.create');
-        $prop = $this->getPropriedade($request);
-        return view('produtoForm',["propriedade"=>$prop, "unidades"=>Unidade::all(), "Title"=>"Adicionar produto",'Method'=>'post','Url'=>'/produto']);
+        return view('painel.produtos.create', ["unidades"=>Unidade::all()]);
     }
+    
+    public function store(ProdutoFormRequest $request){
+        $data = $this->produtoService->create($request->all());
+        return back()->with($data['class'], $data['mensagem']);
+        
 
-    public function store(Request $request){
+        return view('painel.produtos.create');
+        dd($data);
         if ($request != null) {
             $ret = Produto::insere($request);
             if( $ret == 200){
@@ -49,13 +54,13 @@ class ProdutoController extends Controller{
         }else{
             return redirect("/propriedades");
         }
-
+        
     }
-
+    
     public function show($id){
         return Produto::find($id);
     }
-
+    
     public function edit(Produto $produto){
         //$produto = Produto::find($id);
         //$prop = Propriedade::find($produto['propriedade_id']);
@@ -63,7 +68,7 @@ class ProdutoController extends Controller{
         dd($produto);
         return view('produtoForm',["propriedade"=>$prop, "produto"=>$produto, "munidade"=> $produto['unidade_id'], "unidades"=>Unidade::all(),'Method'=>'put','Url'=>'/produto'.'/'.$id, "Title"=>"Editar produto"]);
     }
-
+    
     public function update(Request $request, $id){
         if ($request != null and $id != null) {
             $ret = Produto::atualizar($request, $id);
@@ -85,7 +90,7 @@ class ProdutoController extends Controller{
             return redirect()->action('PropriedadeController@index');
         }
     }
-
+    
     public function destroy($id){
         try{
             $p = Produto::find($id);
@@ -95,12 +100,12 @@ class ProdutoController extends Controller{
                 $mensagem='Produto removido com sucesso!';
                 return redirect()->action('PropriedadeController@index', ['mensagem'=>$mensagem,'status'=>$status, 'produto'=>$this->pageproduto(), 'talhao'=>$this->pagetalhao()]);
             }else
-                throw new \Exception();
+            throw new \Exception();
         }catch (\Exception $e){
             $status='danger';
             $mensagem='Ocorreu um erro ao remover este produto!';
             return redirect()->action('PropriedadeController@index', ['mensagem'=>$mensagem,'status'=>$status]);
         }
-
+        
     }
 }

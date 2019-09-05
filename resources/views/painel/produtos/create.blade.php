@@ -22,13 +22,13 @@ Adicionar Produto
             </div>
             @elseif(session()->has('danger'))
             <div class="alert alert-danger alert-dismissible show fade col-10">
-                    <div class="alert-body">
-                        <button class="close" data-dismiss="alert">
-                            <span>×</span>
-                        </button>
-                        {{ session('danger') }}
-                    </div>
+                <div class="alert-body">
+                    <button class="close" data-dismiss="alert">
+                        <span>×</span>
+                    </button>
+                    {{ session('danger') }}
                 </div>
+            </div>
             @endif
             <div class="col-12">
                 <div class="card">
@@ -38,7 +38,10 @@ Adicionar Produto
                         <div class="card-body">
                             <div class="form-group">
                                 <label>Nome do produto <span class="text-danger">*</span></label>
-                                <input name="nome_produto" type="text" class="form-control {{ $errors->has('nome_produto') ? ' is-invalid' : '' }}" required placeholder="Ex: Tomate">
+                                <input name="nome_produto" type="text" class="form-control {{ $errors->has('nome_produto') ? ' is-invalid' : '' }}" required placeholder="Ex: Tomate" value="{{ old('nome_produto') }}">
+                                <div class="invalid-feedback">
+                                    Nome do produto é obrigatório!
+                                </div>
                                 @if ($errors->has('nome_produto'))
                                 <div class="invalid-feedback">
                                     {{ $errors->first('nome_produto') }}
@@ -47,12 +50,15 @@ Adicionar Produto
                             </div>
                             <div class="form-group">
                                 <label>Unidade do produto <span class="text-danger">*</span></label>
-                                <select name="unidade" class="custom-select form-control {{ $errors->has('unidade') ? ' is-invalid' : '' }}" required>
+                                <select name="unidade" class="custom-select form-control {{ $errors->has('unidade') ? ' is-invalid' : '' }}" required value="{{ old('unidade') }}">
                                     <option selected="" value="">Selecione a unidade do seu produto</option>
                                     @foreach ($unidades as $unidade)
                                     <option value="{{$unidade->id}}">{{$unidade->nome}}</option>
                                     @endforeach
                                 </select>
+                                <div class="invalid-feedback">
+                                    Unidade do produto é obrigatório!
+                                </div>
                                 @if ($errors->has('unidade'))
                                 <div class="invalid-feedback">
                                     {{ $errors->first('unidade') }}

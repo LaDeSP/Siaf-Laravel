@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Propriedade;
 use App\Models\Talhao;
+use App\Models\Propriedade;
 use Illuminate\Http\Request;
 
 use App\Services\TalhaoService;
+use App\Http\Requests\TalhaoFormRequest;
+
 class TalhaoController extends Controller{
     protected $talhaoService;
 
@@ -21,26 +23,11 @@ class TalhaoController extends Controller{
    
     public function create(Request $request){
         return view('painel.talhoes.create');
-        $prop = $this->getPropriedade($request);
-        return view('talhaoForm',["propriedade"=>$prop, "Title"=>"Adicionar talhão",'Method'=>'post','Url'=>'/talhao']);
     }
 
-   
-    public function store(Request $request){
-        if ($request != null) {
-            $ret = Talhao::inserir($request);
-            if( $ret == 200){
-                $status='success';
-                $mensagem='Talhão inserido com sucesso!';
-            }else{
-                $status='danger';
-                $mensagem='Ocorreu um erro ao salvar seu talhão!';
-            }
-            return redirect()->action('PropriedadeController@index', ['mensagem'=>$mensagem,'status'=>$status]);// ["propriedade"=>$prop,"talhao"=>$talhao, "unidades"=>Unidade::get(["id","nome"]),"produto"=>$produto, "User"=>$this->getFirstName($this->usuario['name']), "Tela"=>"Propriedade", ]);
-        }else{
-            return redirect("/propriedades");
-        }
-
+    public function store(TalhaoFormRequest $request){
+        $data = $this->talhaoService->create($request->all());
+        return back()->with($data['class'], $data['mensagem']); 
     }
 
     

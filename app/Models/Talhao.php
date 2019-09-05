@@ -12,10 +12,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use function PHPSTORM_META\type;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\DB;
+use Cviebrock\EloquentSluggable\Sluggable;
 
-class Talhao extends Eloquent
-{
-	use SoftDeletes;
+class Talhao extends Eloquent{
+    use SoftDeletes;
+    use Sluggable;
     protected $table='talhao';
 
 	protected $casts = [
@@ -27,37 +28,17 @@ class Talhao extends Eloquent
 		'area',
 		'nome',
         'propriedade_id',
-        'status'
 	];
 
-	public function propriedade()
-	{
+	public function propriedade(){
 		return $this->belongsTo(\App\Models\Propriedade::class);
 	}
 
-	public function plantios()
-	{
+	public function plantios(){
 		return $this->hasMany(\App\Models\Plantio::class);
     }
     
-    public static function inserir($data){
-        try {
-            $talhao = new Talhao();
-            $talhao->area = $data['area'];
-            $talhao->nome = $data['nome'];
-            $talhao->propriedade_id = $data['propriedade_id'];
-            $talhao->save();
-            return 200;
-        }catch(\Exception $e){
-            return 500;
-        }
-    }
     
-    /**
-    * @param $request
-    * @param $id
-    * @return \Exception|int
-    */
     public static function atualizar($request, $id){
         try{
             \App\Models\Talhao::find($id)->update(["area" => $request['area'], "nome" => $request['nome']]);
@@ -92,6 +73,18 @@ class Talhao extends Eloquent
             return false;
         }
         
+    }
+
+    public function sluggable(){
+        return [
+            'slug' => [
+                'source' => 'nome'
+            ]
+        ];
+	}
+	
+	public function getRouteKeyName(){
+        return 'slug';
     }
 
 }

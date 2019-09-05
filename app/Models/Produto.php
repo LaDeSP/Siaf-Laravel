@@ -13,8 +13,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Pagination\Paginator;
 use Cviebrock\EloquentSluggable\Sluggable;
 
-class Produto extends Eloquent
-{
+class Produto extends Eloquent{
 	protected $table="produto";
     use SoftDeletes;
     use Sluggable;
@@ -35,39 +34,20 @@ class Produto extends Eloquent
         'slug'
 	];
 
-	public function propriedade()
-	{
+	public function propriedade(){
 		return $this->belongsTo(\App\Models\Propriedade::class);
 	}
 
-	public function unidade()
-	{
+	public function unidade(){
 		return $this->belongsTo(\App\Models\Unidade::class);
 	}
 
-	public function estoques()
-	{
+	public function estoques(){
 		return $this->hasMany(\App\Models\Estoque::class);
 	}
 
-	public function plantios()
-	{
+	public function plantios(){
 		return $this->hasMany(\App\Models\Plantio::class);
-    }
-    
-    public static function insere($request){
-        try{
-            $prod = new Produto();
-            $prod->nome = $request->nome;
-            $prod->plantavel = ($request->plantavel=='on'? 1:0);
-            $prod->propriedade_id = $request->propriedade_id;
-            $prod->unidade_id = $request->unidade_id;
-            $prod->status = 1;
-            $prod->save();
-            return 200;
-        }catch (\Exception $e){
-            return 500;
-        }
     }
 
     public static function atualizar($request, $id){

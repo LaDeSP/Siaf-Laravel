@@ -30,31 +30,7 @@ class ProdutoController extends Controller{
     
     public function store(ProdutoFormRequest $request){
         $data = $this->produtoService->create($request->all());
-        return back()->with($data['class'], $data['mensagem']);
-        
-
-        return view('painel.produtos.create');
-        dd($data);
-        if ($request != null) {
-            $ret = Produto::insere($request);
-            if( $ret == 200){
-                $status='success';
-                $mensagem='Produto inserido com sucesso!';
-            }else{
-                $status='danger';
-                $mensagem='Ocorreu um erro ao salvar seu produto!';
-            }
-            $prop = $this->getPropriedade($request);
-            $talhao = Talhao::all()->where('propriedade_id','=',$prop['id']) ;
-            $produto = Produto::all()->where('propriedade_id','=',$prop['id']);
-            foreach ($produto as $p){
-                $p['unidade_id'] = DB::table('unidade')->where('id', $p['unidade_id'])->where('unidade.deleted_at','=',null)->value('nome');
-            }
-            return redirect()->action('PropriedadeController@index', ['mensagem'=>$mensagem,'status'=>$status]);// ["propriedade"=>$prop,"talhao"=>$talhao, "unidades"=>Unidade::get(["id","nome"]),"produto"=>$produto, "User"=>$this->getFirstName($this->usuario['name']), "Tela"=>"Propriedade", ]);
-        }else{
-            return redirect("/propriedades");
-        }
-        
+        return back()->with($data['class'], $data['mensagem']); 
     }
     
     public function show($id){

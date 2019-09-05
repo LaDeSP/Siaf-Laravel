@@ -1,9 +1,10 @@
 <?php
 namespace App\Services;
 
+use App\Models\Plantio;
+use \Illuminate\Support\Arr;
 use Illuminate\Http\Request;
 use App\Services\UserService;
-use \Illuminate\Support\Arr;
 
 class PlantioService{
     private $userService;
@@ -24,7 +25,31 @@ class PlantioService{
     }
     
     public function create(array $attributes){
-        //return $this->propriedadeRepository->create($attributes);
+        try {
+            $plantio = new Plantio;
+            $plantio->data_semeadura = $attributes['data_semeadura'];
+            $plantio->data_plantio =  $attributes['data_plantio'];
+            $plantio->quantidade_pantas = $attributes['numero_plantas'];
+            $plantio->talhao_id =  $attributes['talhao'];
+            $plantio->produto_id =  $attributes['produto'];
+            $saved = $plantio->save();
+            if($saved){
+                return $data=[
+                    'mensagem' => 'Plantio salvo com sucesso!',
+                    'class' => 'success'
+                ];
+            }else{
+                return $data=[
+                    'mensagem' => 'Erro ao salvar plantio, tente novamente!',
+                    'class' => 'danger'
+                ];
+            }
+        } catch (\Throwable $th) {
+            return $data=[
+                'mensagem' => 'Erro ao salvar plantio, tente novamente!',
+                'class' => 'danger'
+            ];
+        }    
     }
     
     public function read($id){

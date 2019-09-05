@@ -43,8 +43,8 @@ Plantio
                                     @foreach ($plantios as $plantio)
                                     <tr>
                                         <td class="text-center">{{$plantio->produto->nome}}</td>
-                                        <td class="text-center">{{$plantio->data_semeadura}}</td>
-                                        <td class="text-center">{{$plantio->data_plantio}}</td>
+                                        <td class="text-center">{{$plantio->data_semeadura ? date('d/m/Y', strtotime($plantio->data_semeadura)) : 'Sem Data'}}</td>
+                                        <td class="text-center">{{date('d/m/Y', strtotime($plantio->data_plantio))}}</td>
                                         <td class="text-center">{{$plantio->quantidade_pantas}}</td>
                                         <td class="text-center">{{$plantio->talhao->nome}}</td>
                                         <td class="text-center">

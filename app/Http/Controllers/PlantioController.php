@@ -1,21 +1,29 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\Plantio;
-use App\Models\Propriedade;
-use App\Models\Produto;
 use App\Models\Talhao;
+use App\Models\Plantio;
+use App\Models\Produto;
+use App\Models\Propriedade;
+use Illuminate\Http\Request;
 use App\Models\ManejoPlantio;
+use App\Services\TalhaoService;
+use App\Services\PlantioService;
+
+use App\Services\ProdutoService;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Pagination\Paginator;
-use Illuminate\Http\Request;
+use App\Http\Requests\PlantioFormRequest;
 
-use App\Services\PlantioService;
 class PlantioController extends Controller{
     protected $plantioService;
+    protected $talhaoService;
+    protected $produtoService;
 
-    public function __construct(PlantioService $plantioService){
+    public function __construct(PlantioService $plantioService, TalhaoService $talhaoService, ProdutoService $produtoService){
         $this->plantioService = $plantioService;
+        $this->talhaoService = $talhaoService;
+        $this->produtoService = $produtoService;
     }
 
     public function index(Request $request,$mensagem='',$status=''){
@@ -82,11 +90,15 @@ class PlantioController extends Controller{
         return $paginator;
     }
     
-    public function create(Request $request){
-        return view('painel.plantios.create');
-        $p=$this->getPropriedade($request);
-        $tmp = array("propriedade"=> $p, "produto"=> Produto::all()->where('propriedade_id','=',$p['id'])->where('plantavel','=',1), 'talhao' => Talhao::all()->where('propriedade_id','=',$p['id']));
-        return view('plantioForm', ["User"=>$this->getFirstName($this->usuario['name']) ,'Propriedade'=>$tmp , "Tela"=>"Adicionar Plantio" ,'Method'=>'post','Url'=>'/plantio']);
+    public function create(){
+        $talhoes = $this->talhaoService->index();
+        $produtos = $this->produtoService->indexProdutosPlantaveis();
+        return view('painel.plantios.create', ['talhoes'=>$talhoes, 'produtos'=>$produtos]);    
+    }
+
+    public function store(PlantioFormRequest $request){
+        $data = $this->plantioService->create($request->all());
+        return back()->with($data['class'], $data['mensagem']);
     }
     
     public function edit(Request $request,$id){
@@ -94,28 +106,6 @@ class PlantioController extends Controller{
         $p=$this->getPropriedade($request);
         $tmp = array("propriedade"=> $p, "produto"=> Produto::all()->where('propriedade_id','=',$p['id'])->where('plantavel','=',1), 'talhao' => Talhao::all()->where('propriedade_id','=',$p['id']));
         return view('plantioForm', ["User"=>$this->getFirstName($this->usuario['name']) ,'Propriedade'=>$tmp , "Tela"=>"Editar Plantio" ,'Method'=>'put','Url'=>'/plantio/'.$id ,'dados'=>$dados[0] ] );
-    }
-    
-    
-    
-    public function store(Request $request){
-        
-        $post = array_except($request,['_token'])->toArray();
-        $plantio = new Plantio($post);
-        $salva=$plantio->save();
-        if($salva==true){
-            $status='success';
-            $mensagem='Sucesso ao salvar o plantio!';
-        }
-        else{
-            $status='danger';
-            $mensagem='Erro ao salvar o plantio!';
-        }
-        //$plantios=$this->plantios($request);
-        
-        //return view('plantio', ["User"=>$this->getFirstName($this->usuario['name']) ,'Plantios'=>$plantios , "Tela"=>"Plantio",'mensagem'=>$mensagem,'status'=>$status]);
-        return redirect()->action('PlantioController@index', ['mensagem'=>$mensagem,'status'=>$status]);
-        
     }
     
     public function update(Request $request,$id){

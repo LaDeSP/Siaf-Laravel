@@ -15,6 +15,10 @@ class ProdutoService{
     public function index(){
         return $this->userService->propriedadesUser()->produtos()->get();
     }
+
+    public function indexProdutosPlantaveis(){
+        return $this->userService->propriedadesUser()->produtos()->where("plantavel","1")->get();
+    }
     
     public function create(array $attributes){
         try {

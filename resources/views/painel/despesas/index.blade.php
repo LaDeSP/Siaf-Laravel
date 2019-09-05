@@ -31,7 +31,7 @@ Despesas
                             <table id="table-1" class="table table-striped display nowrap" style="width:100%">
                                 <thead>
                                     <tr>
-                                        <th class="text-center">Investimento</th>
+                                        <th class="text-center">Despesa</th>
                                         <th class="text-center">Descrição</th>
                                         <th class="text-center">Quantidade</th>
                                         <th class="text-center">Valor R$</th>
@@ -62,7 +62,7 @@ Despesas
                                 </tbody>
                                 <tfoot>
                                     <tr>
-                                        <th class="text-center">Investimento</th>
+                                        <th class="text-center">Despesa</th>
                                         <th class="text-center">Descrição</th>
                                         <th class="text-center">Quantidade</th>
                                         <th class="text-center">Valor R$</th>

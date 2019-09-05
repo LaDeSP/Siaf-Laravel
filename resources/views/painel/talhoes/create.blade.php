@@ -50,7 +50,7 @@ Adicionar Talhão
                             </div>
                             <div class="form-group">
                                 <label>Área em m²<span class="text-danger">*</span></label>
-                                <input name="area_talhao" type="text" class="form-control {{ $errors->has('area_talhao') ? ' is-invalid' : '' }}" required="" placeholder="Ex: 50" value="{{ old('area_talhao') }}">
+                                <input name="area_talhao" type="number" class="form-control {{ $errors->has('area_talhao') ? ' is-invalid' : '' }}" required="" placeholder="Ex: 50" value="{{ old('area_talhao') }}">
                                 <div class="invalid-feedback">
                                     Área do talhão é obrigatório!
                                 </div>

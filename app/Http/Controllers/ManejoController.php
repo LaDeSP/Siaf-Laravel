@@ -12,9 +12,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Pagination\Paginator;
 
 use Illuminate\Http\Request;
-
 use App\Services\ManejoService;
-
+use App\Http\Requests\ManejoFormRequest;
 class ManejoController extends Controller{
     protected $manejoService;
     
@@ -22,54 +21,8 @@ class ManejoController extends Controller{
         $this->manejoService = $manejoService;
     }
     
-    public function plantiosManejos(Request $request,$id=''){
-        $propiedade=$this->getPropriedade($request);
-        if ($id){
-            $plantio=array(DB::table('plantio')->join('talhao', 'talhao.id', '=', 'plantio.talhao_id')->join('produto', 'produto.id', '=', 'plantio.produto_id') ->where('plantio.id','=',$id)->where('plantio.deleted_at','=',null)->get(['plantio.id','data_plantio','data_semeadura','quantidade_pantas','talhao_id','produto_id','talhao.nome as nomet','produto.nome as nomep'])->sortByDesc('data_plantio' )  );
-            return $plantio[0];
-        }
-        $talhoes=Talhao::all()->where('propriedade_id','=',$propiedade['id']);
-        $plantios = array();
-        foreach ($talhoes as $key => $talhao) {
-            $plantio=array(DB::table('plantio')->join('talhao', 'talhao.id', '=', 'plantio.talhao_id')->join('produto', 'produto.id', '=', 'plantio.produto_id')->where('plantio.deleted_at','=',null) ->where('talhao_id','=',$talhao['id'])->where('talhao.deleted_at','=',null)->get(['plantio.id','data_plantio','data_semeadura','quantidade_pantas','talhao_id','produto_id','talhao.nome as nomet','produto.nome as nomep'])->sortByDesc('data_plantio' )  );
-            foreach ($plantio[0] as $key => $value) {
-                $value->manejo=DB::table('manejoplantio')->join('manejo','manejo.id','=','manejo_id')->where('plantio_id','=',$value->id)->where('manejoplantio.deleted_at','=',null)->get(['manejoplantio.id','manejoplantio.descricao','manejoplantio.data_hora','manejoplantio.horas_utilizadas','manejo.nome','manejo.id as manejo_id']);
-                foreach ($value->manejo as $key => $val) {
-                    
-                    if($val->manejo_id==4){
-                        $estoque=Estoque::where('manejoplantio_id','=',$val->id)->get(['id'])->first();
-                        if(isset($estoque))
-                        $val->estoque=$estoque->id;
-                    }
-                    
-                }
-                
-                array_push($plantios,$value);
-            }
-            
-        }
-        //dd($plantios);
-        $numPagina=8;
-        if(isset($request['page'])){
-            $page=$request['page'];
-            if($page>0)
-            $offset=$page-1;
-            else {
-                $offset=0;
-            }
-            
-        }
-        else {
-            $offset=0;
-            $page=1;
-        }      
-        $plantios =new Paginator(collect($plantios)->slice($numPagina*$offset),$numPagina,$page);
-        return $plantios;
-    }
-    
-    
     public function index(Request $request){
-        $plantios = $this->manejoService->index();
+        $plantios = $this->manejoService->plantios();
         return view('painel.manejos.index', ["plantios" => $plantios]);
     }
 
@@ -83,30 +36,16 @@ class ManejoController extends Controller{
         }
     }
     
-    
-    public function create(Request $request, Plantio $plantio){
-        return view('painel.historicomanejoproduto.create');
-        $Manejos=Manejo::all();
-        return view('manejoForm', ["User"=>$this->getFirstName($this->usuario['name']) ,'Plantio'=>$plantio , "Tela"=>"Adicionar Manejo" ,'Method'=>'post','Url'=>'/manejo', 'Manejos'=>$Manejos]);
+    public function create(Plantio $plantio){
+        $this->authorize('view-manejos-plantio', $plantio);
+        $manejos = $this->manejoService->index();
+        return view('painel.historicomanejoproduto.create', ["manejos"=>$manejos, "plantio"=>$plantio]);
     }
     
     
-    public function store(Request $request){
-        $post = array_except($request,['_token'])->toArray();
-        $manejo = new ManejoPlantio($post);
-        $salva=$manejo->save();
-        if($salva==true){
-            $status='success';
-            $mensagem='Sucesso ao salvar o manejo!';
-        }
-        else{
-            $status='danger';
-            $mensagem='Erro ao salvar o manejo!';
-        }
-        
-        //$plantios=$this->plantiosManejos($request,$id='');
-        //return view('manejo', ["User"=>$this->getFirstName($this->usuario['name']), "Tela"=>"Manejo" ,'Plantios'=>$plantios,'mensagem'=>$mensagem,'status'=>$status ,'Mostrar'=>$manejo->plantio_id,'show'=>'show','disabled'=>'disabled'  ]);
-        return redirect()->action('ManejoController@index', ['Mensagem'=>$mensagem,'Status'=>$status,'Mostrar'=>$manejo->plantio_id,'page'=>$this->page()]);
+    public function store(ManejoFormRequest $request, Plantio $plantio){
+        $data = $this->manejoService->create($request->all(), $plantio);
+        return back()->with($data['class'], $data['mensagem']);
     }
     
     public function edit(Request $request,$manejo){

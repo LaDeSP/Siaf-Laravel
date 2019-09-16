@@ -11,7 +11,9 @@ Route::name('painel.')->prefix('painel')->middleware('auth')->group(function() {
     Route::resource('/plantio', "PlantioController", ['names' => [
         'create', 'store', 'edit', 'update', 'destroy']]);
     Route::resource('/manejo', "ManejoController", ['names' => [
-        'create/{plantio}', 'store', 'edit', 'update', 'destroy']]);
+        'edit', 'update', 'destroy']])->except('create', 'store');
+    Route::get('create/{plantio}', "ManejoController@create")->name('manejoCreate');
+    Route::post('store/{plantio}', "ManejoController@store")->name('manejoSave');
     Route::get('/manejo/{plantio}/manejos', 'ManejoController@showManejosPlantios')->name('manejosPlantios');
     Route::resource('/propriedade', "PropriedadeController", ['names' => [
         'create', 'store', 'edit', 'update', 'destroy']]);

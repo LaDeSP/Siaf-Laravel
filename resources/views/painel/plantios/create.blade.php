@@ -71,7 +71,7 @@ Adicionar plantio
                             </div>
                             <div class="form-group">
                                 <label>Talhão<span class="text-danger">*</span></label>
-                                <select name="talhao" class="custom-select form-control {{ $errors->has('talhao') ? ' is-invalid' : '' }}" required value="{{ old('unidade') }}" value="{{ old('talhao') }}">
+                                <select name="talhao" class="custom-select form-control {{ $errors->has('talhao') ? ' is-invalid' : '' }}" required value="{{ old('talhao') }}">
                                     <option selected="" value="">Selecione o talhão</option>
                                     @foreach ($talhoes as $talhao)
                                     <option value="{{$talhao->id}}">{{$talhao->nome}}</option>
@@ -88,7 +88,7 @@ Adicionar plantio
                             </div>
                             <div class="form-group">
                                 <label>Produto<span class="text-danger">*</span></label>
-                                <select name="produto" class="custom-select form-control {{ $errors->has('produto') ? ' is-invalid' : '' }}" required value="{{ old('unidade') }}" value="{{ old('produto') }}">
+                                <select name="produto" class="custom-select form-control {{ $errors->has('produto') ? ' is-invalid' : '' }}" required value="{{ old('produto') }}">
                                     <option selected="" value="">Selecione o produto</option>
                                     @foreach ($produtos as $produto)
                                     <option value="{{$produto->id}}">{{$produto->nome}}</option>

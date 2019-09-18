@@ -16,21 +16,18 @@ class ProdutoSeeder extends Seeder
             array('nome'              => 'tomate',
                   'propriedade_id'    => 1,
                   'status'            => 1,
-                  'slug'              => 'tomate',
                   'unidade_id'        => 1,
                   'plantavel'         => 1),
 
             array('nome'            => 'cenoura',
                 'propriedade_id'    => 1,
                 'status'            => 1,
-                'slug'              => 'cenoura',
                 'unidade_id'        => 3,
                 'plantavel'         => 1),
 
             array('nome'            => 'queijo',
                 'propriedade_id'    => 2,
                 'status'            => 1,
-                'slug'              => 'queijo',
                 'unidade_id'        => 4,
                 'plantavel'         => 0),
 
@@ -38,7 +35,6 @@ class ProdutoSeeder extends Seeder
                 'propriedade_id'    => 2,
                 'unidade_id'        => 4,
                 'status'            => 1,
-                'slug'              => 'milho',
                 'plantavel'         => 1),
         );
 

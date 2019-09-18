@@ -16,7 +16,6 @@ class CreateManejoTable extends Migration
         Schema::create('manejo', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nome');
-            $table->string('slug')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

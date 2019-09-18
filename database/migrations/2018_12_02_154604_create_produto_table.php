@@ -18,7 +18,6 @@ class CreateProdutoTable extends Migration
             $table->string('nome');
             $table->boolean('plantavel');
             $table->boolean('status');
-            $table->string('slug')->nullable();
             $table->unsignedInteger('propriedade_id');
             $table->foreign('propriedade_id')->references('id')->on('propriedade')->onDelete('cascade')->onUpdate('cascade');
             $table->unsignedInteger('unidade_id');

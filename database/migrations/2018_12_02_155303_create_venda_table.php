@@ -20,7 +20,6 @@ class CreateVendaTable extends Migration
             $table->decimal('valor_unit', 8, 2);
             $table->date('data');
             $table->string('nota')->nullable();
-            $table->string('slug')->nullable();
             $table->unsignedInteger('destino_id');
             $table->foreign('destino_id')->references('id')->on('destino');
             $table->unsignedInteger('estoque_id');

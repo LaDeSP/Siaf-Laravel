@@ -16,7 +16,6 @@ class CreateDestinoTable extends Migration
         Schema::create('destino', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nome');
-            $table->string('slug')->nullable();
             $table->unsignedInteger('tipo');
             $table->timestamps();
             $table->softDeletes();

@@ -18,7 +18,6 @@ class CreatePropriedadeTable extends Migration
             $table->unsignedInteger('users_id');
             $table->string('nome');
             $table->string('localizacao');
-            $table->string('slug')->nullable();
 
             $table->unsignedInteger('cidade_id');
             $table->foreign('cidade_id')->references('id')->on('cidade');

@@ -18,7 +18,6 @@ class CreateInvestimentoTable extends Migration
             $table->string('nome');
             $table->longText('descricao')->nullable();
             $table->decimal('valor_unit', 8, 2);
-            $table->string('slug')->nullable();
             $table->unsignedInteger('quantidade');
             $table->date('data');
             $table->unsignedInteger('propriedade_id');

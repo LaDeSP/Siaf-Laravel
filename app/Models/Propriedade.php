@@ -10,14 +10,12 @@ namespace App\Models;
 use Reliese\Database\Eloquent\Model as Eloquent;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\DB;
-use Cviebrock\EloquentSluggable\Sluggable;
 
 
 class Propriedade extends Eloquent
 {
 	use SoftDeletes;
 	protected $table = 'propriedade';
-	use Sluggable;
 
 	protected $casts = [
 		'users_id' => 'int',
@@ -88,16 +86,4 @@ class Propriedade extends Eloquent
             return $e;
         }
 	}
-	
-	public function sluggable(){
-        return [
-            'slug' => [
-                'source' => 'nome'
-            ]
-        ];
-	}
-	
-	public function getRouteKeyName(){
-        return 'slug';
-    }
 }

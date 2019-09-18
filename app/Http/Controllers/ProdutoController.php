@@ -38,6 +38,7 @@ class ProdutoController extends Controller{
     }
     
     public function edit(Produto $produto){
+        dd($produto->id);
         //$produto = Produto::find($id);
         //$prop = Propriedade::find($produto['propriedade_id']);
         $this->authorize('update-produto', $produto);

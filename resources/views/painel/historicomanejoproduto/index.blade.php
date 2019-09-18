@@ -12,7 +12,7 @@ Manejos
 @section('content')
 <section class="section">
     <div class="section-header">
-    <h1>Gestão de manejos do plantio {{$plantio->produto->nome}}</h1>
+        <h1>Gestão de manejos do plantio {{$plantio->produto->nome}}</h1>
     </div>
     <div class="section-body">
         <div class="row">
@@ -50,8 +50,13 @@ Manejos
                                                 <i class="fa fa-trash"></i>
                                             </button>
                                             <a href="{{route('painel.manejo.edit', ['id'=>$manejo->id])}}" class="btn btn-warning">
-                                                <i class="fa fa-edit"></i>
+                                                <i class="fa fa-edit" style="font-size:10px"></i>
                                             </a>
+                                            @if ($manejo->pivot->manejo_id == 4)
+                                            <a href="" class="btn btn-info" title="Estocar este plantio">
+                                                <i class="fas fa-history" style="font-size:10px"></i>
+                                            </a>
+                                            @endif
                                         </td>
                                     </tr>
                                     @endforeach
@@ -68,9 +73,9 @@ Manejos
                             </table>
                             @else
                             <div class="text-center p-3 text-muted">
-                                    <h5>{{ collect(explode(' ', ucwords(strtolower(Auth::user()->name))))->slice(0, 1)->implode(' ') }}, você não possui nenhum manejo para este plantio!</h5>
-                                    <p>Clique no botão Adicionar para novos manejos para este plantio.</p>
-                                </div>
+                                <h5>{{ collect(explode(' ', ucwords(strtolower(Auth::user()->name))))->slice(0, 1)->implode(' ') }}, você não possui nenhum manejo para este plantio!</h5>
+                                <p>Clique no botão Adicionar para novos manejos para este plantio.</p>
+                            </div>
                             @endif
                         </div>
                     </div>

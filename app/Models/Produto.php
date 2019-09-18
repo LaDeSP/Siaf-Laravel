@@ -11,12 +11,13 @@ use Reliese\Database\Eloquent\Model as Eloquent;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Pagination\Paginator;
-use Cviebrock\EloquentSluggable\Sluggable;
+use Balping\HashSlug\HasHashSlug;
+
 
 class Produto extends Eloquent{
 	protected $table="produto";
     use SoftDeletes;
-    use Sluggable;
+    use HasHashSlug;
 
 	protected $casts = [
 		'plantavel' => 'bool',
@@ -76,17 +77,5 @@ class Produto extends Eloquent{
             return $value;
         });
         return $p;
-    }
-
-    public function sluggable(){
-        return [
-            'slug' => [
-                'source' => 'nome'
-            ]
-        ];
-	}
-	
-	public function getRouteKeyName(){
-        return 'slug';
     }
 }

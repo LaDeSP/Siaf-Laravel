@@ -12,11 +12,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use function PHPSTORM_META\type;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\DB;
-use Cviebrock\EloquentSluggable\Sluggable;
 
 class Talhao extends Eloquent{
     use SoftDeletes;
-    use Sluggable;
     protected $table='talhao';
 
 	protected $casts = [
@@ -74,17 +72,4 @@ class Talhao extends Eloquent{
         }
         
     }
-
-    public function sluggable(){
-        return [
-            'slug' => [
-                'source' => 'nome'
-            ]
-        ];
-	}
-	
-	public function getRouteKeyName(){
-        return 'slug';
-    }
-
 }

@@ -9,10 +9,11 @@ namespace App\Models;
 
 use Reliese\Database\Eloquent\Model as Eloquent;
 use \Illuminate\Database\Eloquent\SoftDeletes;
+use Balping\HashSlug\HasHashSlug;
 
 class Plantio extends Eloquent{
-    
     use SoftDeletes;
+    use HasHashSlug;
     protected $table = 'plantio';
     
     protected $casts = [

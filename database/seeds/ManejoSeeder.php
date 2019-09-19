@@ -18,7 +18,8 @@ class ManejoSeeder extends Seeder
           array('nome' => "Colheita"),
           array('nome' => "Controle de pragas"),
           array('nome' => "Adubação"),
-          array('nome' => "Aração")
+          array('nome' => "Aração"),
+          array('nome' => "Perda")
         );
         DB::table('manejo')->insert($toInsert);
     }

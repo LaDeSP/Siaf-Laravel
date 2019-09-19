@@ -33,7 +33,7 @@ Adicionar Manejo
             <div class="col-12">
                 <div class="card">
                     <p class="section-lead m-2">Campos marcado com (<b><span class="text-danger">*</span></b>) são obrigatórios</p>
-                    <form method="POST" name="addmanejo" action="{{route('painel.manejoSave', ['id'=>$plantio->id])}}"  class="needs-validation p-0 col-sm-8 col-md-8 col-lg-8 align-self-center" novalidate="">
+                    <form method="POST" name="addmanejo" action="{{route('painel.manejoSave', ['plantio'=>$plantio])}}"  class="needs-validation p-0 col-sm-8 col-md-8 col-lg-8 align-self-center" novalidate="">
                         {{ csrf_field() }}
                         <div class="card-body">
                             <div class="form-group">

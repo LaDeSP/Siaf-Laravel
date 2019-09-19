@@ -21,7 +21,7 @@ Manejos
                     <div class="card-header">
                         <h4>Manejos <span>({{count($manejos)}})</span></h4>
                         <div class="card-header-action">
-                            <a href="{{route('painel.manejoCreate', ['id'=>$plantio->id])}}" class="btn btn-success">Adicionar <i class="fas fa-plus"></i></a>
+                            <a href="{{route('painel.manejoCreate', ['plantio'=>$plantio])}}" class="btn btn-success">Adicionar <i class="fas fa-plus"></i></a>
                         </div>
                     </div>
                     <br>

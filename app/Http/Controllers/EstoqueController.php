@@ -26,8 +26,8 @@ class EstoqueController extends Controller{
         return view('painel.estoques.indexPlantaveis', ["estoques" => $estoquePlantaveis]);
     }
 
-    public function estoquePropriedadeIndex(){
-        $estoquePropriedade = $this->estoqueService->estoquePropriedadeIndex();
+    public function estoqueProcessadoIndex(){
+        $estoquePropriedade = $this->estoqueService->estoqueProcessadoIndex();
         return view('painel.estoques.indexNaoPlantaveis', ["estoques" => $estoquePropriedade]);
     }
     

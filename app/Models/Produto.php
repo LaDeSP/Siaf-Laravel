@@ -2,7 +2,7 @@
 
 /**
  * Created by Reliese Model.
- * Date: Wed, 14 Aug 2019 18:57:14 +0000.
+ * Date: Thu, 19 Sep 2019 08:14:15 -0400.
  */
 
 namespace App\Models;
@@ -13,14 +13,12 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Pagination\Paginator;
 use Balping\HashSlug\HasHashSlug;
 
-
 class Produto extends Eloquent{
 	protected $table="produto";
     use SoftDeletes;
     use HasHashSlug;
 
 	protected $casts = [
-		'plantavel' => 'bool',
 		'status' => 'bool',
 		'propriedade_id' => 'int',
 		'unidade_id' => 'int'
@@ -28,11 +26,10 @@ class Produto extends Eloquent{
 
 	protected $fillable = [
 		'nome',
-		'plantavel',
+		'tipo',
 		'status',
 		'propriedade_id',
-        'unidade_id',
-        'slug'
+		'unidade_id'
 	];
 
 	public function propriedade(){

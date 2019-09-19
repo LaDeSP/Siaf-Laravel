@@ -16,7 +16,8 @@ class CreateProdutoTable extends Migration
         Schema::create('produto', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nome');
-            $table->boolean('plantavel');
+            /*Tipo do produto: processado, cultura permanente e cultura temporaria */
+            $table->enum('tipo', ['processado', 'c_temporaria', 'c_permanente']);	
             $table->boolean('status');
             $table->unsignedInteger('propriedade_id');
             $table->foreign('propriedade_id')->references('id')->on('propriedade')->onDelete('cascade')->onUpdate('cascade');

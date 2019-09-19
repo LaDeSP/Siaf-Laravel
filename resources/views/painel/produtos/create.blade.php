@@ -66,11 +66,21 @@ Adicionar Produto
                                 @endif
                             </div>
                             <div class="form-group">
-                                <div class="custom-control custom-checkbox">
-                                    <input name="plantavel" type="checkbox" class="custom-control-input" id="customCheck1">
-                                    <label class="custom-control-label" for="customCheck1">Selecione a caixa se seu produto é plantavel</label>
+                                <label>Categoria do produto <span class="text-danger">*</span></label>
+                                <select name="categoria" class="custom-select form-control {{ $errors->has('categoria') ? ' is-invalid' : '' }}" required value="{{ old('categoria') }}">
+                                    <option selected="" value="">Selecione a categoria do seu produto</option>
+                                    <option value="processado">Produto processado</option>
+                                    <option value="c_permanente">Cultura permanente</option>
+                                    <option value="c_temporaria">Cultura temporária</option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    Categoria do produto é obrigatório!
                                 </div>
-                                
+                                @if ($errors->has('categoria'))
+                                <div class="invalid-feedback">
+                                    {{ $errors->first('categoria') }}
+                                </div>
+                                @endif
                             </div>
                         </div>
                         <div class="card-footer text-center">

@@ -17,19 +17,19 @@ class EstoqueService{
         $estoques = [];
 
         foreach($estoquesProdutosPlantaveis as $estoque){
-            if($estoque->produto()->where("plantavel","1")->first()){
+            if($estoque->produto()->whereIn("tipo", ["c_permanente","c_temporaria"])->first()){
                 array_push($estoques, $estoque);
             }
         }
         return $estoques;
     }
 
-    public function estoquePropriedadeIndex(){
+    public function estoqueProcessadoIndex(){
         $estoquesProdutosPropriedade =  $this->userService->propriedadesUser()->estoques()->get();
         $estoques = [];
 
         foreach($estoquesProdutosPropriedade as $key => $estoque){
-            if($estoque->produto()->where("plantavel","0")->first()){
+            if($estoque->produto()->where("tipo","processado")->first()){
                 array_push($estoques, $estoque);
             }
         }

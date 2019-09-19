@@ -7,7 +7,7 @@ Route::name('painel.')->prefix('painel')->middleware('auth')->group(function() {
     Route::resource('/estoque', "EstoqueController", ['names' => [
         'create', 'store', 'edit', 'update', 'destroy']]);
     Route::get('/estoque/p/plantio', 'EstoqueController@estoquePlataveisIndex')->name('estoquePlantaveis');
-    Route::get('/estoque/p/propriedade', 'EstoqueController@estoquePropriedadeIndex')->name('estoquePropriedade');
+    Route::get('/estoque/p/propriedade', 'EstoqueController@estoqueProcessadoIndex')->name('estoquePropriedade');
     Route::resource('/plantio', "PlantioController", ['names' => [
         'create', 'store', 'edit', 'update', 'destroy']]);
     Route::resource('/manejo', "ManejoController", ['names' => [

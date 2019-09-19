@@ -16,15 +16,22 @@ class ProdutoService{
         return $this->userService->propriedadesUser()->produtos()->get();
     }
 
+    /*Retona todos os produtos plantaveis para criação de um plantio */
     public function indexProdutosPlantaveis(){
-        return $this->userService->propriedadesUser()->produtos()->where("plantavel","1")->get();
+        return $this->userService->propriedadesUser()->produtos()->whereIn("tipo", ["c_permanente","c_temporaria"])->get();
     }
     
     public function create(array $attributes){
         try {
             $produto = new Produto;
             $produto->nome = $attributes['nome_produto'];
-            $produto->plantavel = array_key_exists('plantavel', $attributes) ? 1 : 0;
+            if($attributes['categoria'] == 'processado'){
+                $produto->tipo = 'processado';
+            }else if($attributes['categoria'] == 'c_permanente'){
+                $produto->tipo = 'c_permanente';
+            }else{
+                $produto->tipo = 'c_temporaria';
+            }
             $produto->status = 1;
             $produto->propriedade_id = $this->userService->propriedadesUser()->id;
             $produto->unidade_id = $attributes['unidade'];

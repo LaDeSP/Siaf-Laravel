@@ -1,32 +1,51 @@
 <?php
 
+/**
+ * Created by Reliese Model.
+ * Date: Sun, 22 Sep 2019 18:39:14 -0400.
+ */
+
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Reliese\Database\Eloquent\Model as Eloquent;
 use \Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Support\Facades\DB;
 
-
-class Perda extends Model
-{
-  use SoftDeletes;
-  protected $table = 'perda';
-
+class Perda extends Eloquent{
+	use SoftDeletes;
+	protected $table = 'perda';
 
 	protected $casts = [
-		'ID' => 'int'
+		'quantidade' => 'int',
+		'estoque_id' => 'int',
+		'manejoplantio_id' => 'int',
+		'destino_id' => 'int'
 	];
 
 	protected $dates = [
-		'Data'
+		'data'
 	];
 
 	protected $fillable = [
-		'ID'=>'id',
-		'Descricao'=>'descricao',
-		'Quantidade'=>'quantidade',
-		'Data'=>'data',
-		'Estoque_id'=>'estoque_id',
-    'Destino_id'=>'destino_id'
+		'descricao',
+		'quantidade',
+		'data',
+		'estoque_id',
+		'manejoplantio_id',
+		'destino_id'
 	];
+
+	public function destino()
+	{
+		return $this->belongsTo(\App\Models\Destino::class);
+	}
+
+	public function estoque()
+	{
+		return $this->belongsTo(\App\Models\Estoque::class);
+	}
+
+	public function manejoplantio()
+	{
+		return $this->belongsTo(\App\Models\Manejoplantio::class);
+	}
 }

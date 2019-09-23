@@ -29,6 +29,10 @@ Route::name('painel.')->prefix('painel')->middleware('auth')->group(function() {
         'create', 'store', 'edit', 'update', 'destroy']]);
     Route::get('/manual', "ManualController@index")->name('manual');
     Route::get('/calendario', 'CalendarioController@index')->name('calendario');
+    Route::get('estoque/{estoque}/create/perda', "PerdaController@createPerdaEstoque")->name('createPerdaEstoque');
+    Route::get('plantio/{plantio}/create/perda', "PerdaController@createPerdaPlantio")->name('createPerdaPlantio');
+    Route::post('/perda/estoque/{estoque}', "PerdaController@storePerdaEstoque")->name('storePerdaEstoque');
+    Route::post('/perda/plantio/{plantio}', "PerdaController@storePerdaPlantio")->name('storePerdaPlantio');
 });
 
 /*
@@ -43,7 +47,6 @@ Route::group(['middleware'=>['web', 'auth']], function()
     Route::get('/manejo/estoque/{plantio}', "ManejoController@createEstoque");
     Route::post('/manejo/estoque/{plantio}', "ManejoController@storeEstoque");
     Route::get('/perda/{id}', "PerdaController@index");
-    Route::post('/perda', "PerdaController@create");
 });
 */
 

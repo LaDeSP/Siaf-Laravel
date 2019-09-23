@@ -12,10 +12,12 @@ use \Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\DB;
 use App\Models\Venda;
 use App\Models\Perda;
+use Balping\HashSlug\HasHashSlug;
 
 class Estoque extends Eloquent{
 	
 	use SoftDeletes;
+	use HasHashSlug;
 	protected $table = 'estoque';
 
 	protected $casts = [

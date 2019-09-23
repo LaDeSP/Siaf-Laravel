@@ -21,7 +21,7 @@ Estoques
                     <div class="card-header">
                         <h4>Estoques <span>({{count($estoques)}})</span></h4>
                     </div>
-                    <br>
+                    <br>storePerda
                     <div class="card-body p-3">
                         <div class="table-responsive table-invoice">
                             @if (count($estoques) > 0)
@@ -56,6 +56,9 @@ Estoques
                                             </button>
                                             <a href="{{route('painel.estoque.edit', ['estoque'=>$estoque->id])}}" class="btn btn-warning">
                                                 <i class="fa fa-edit"></i>
+                                            </a>
+                                            <a href="{{route('painel.createPerdaEstoque', ['estoque'=>$estoque])}}" class="btn btn-info">
+                                                    <i class="fa fa-archive"></i>  
                                             </a>
                                         </td>
                                     </tr>

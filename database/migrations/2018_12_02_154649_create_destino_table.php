@@ -16,6 +16,7 @@ class CreateDestinoTable extends Migration
         Schema::create('destino', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nome');
+            /*Tipo: 1 equivale a destino da venda e 0 equivale a destino da perda*/
             $table->unsignedInteger('tipo');
             $table->timestamps();
             $table->softDeletes();

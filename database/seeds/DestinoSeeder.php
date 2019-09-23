@@ -12,8 +12,7 @@ class DestinoSeeder extends Seeder
      */
     public function run()
     {
-        //Tipo 0 = Estoque
-        //Tipo 1 = Venda
+        /*Tipo: 1 equivale a destino da venda e 0 equivale a destino da perda*/
         $toInsert = array(
             array('nome'=>"Escola",
                   'tipo'=>1),

@@ -48,12 +48,16 @@ Estoques
                                         <td class="text-center">Edinburgh</td>
                                         <td class="text-center">61</td>
                                         <td class="text-center">2011/04/25</td>
+                                        <td class="text-center">2011/04/25</td>
                                         <td class="text-center">
                                             <button class="btn btn-danger">
                                                 <i class="fa fa-trash"></i>
                                             </button>
                                             <a href="{{route('painel.estoque.edit', ['estoque'=>$estoque->id])}}" class="btn btn-warning">
                                                 <i class="fa fa-edit"></i>
+                                            </a>
+                                            <a href="{{route('painel.createPerdaEstoque', ['estoque'=>$estoque])}}" class="btn btn-info">
+                                                    <i class="fa fa-archive"></i>  
                                             </a>
                                         </td>
                                     </tr>

@@ -54,6 +54,9 @@ Plantio
                                             <a href="{{route('painel.plantio.edit', ['plantio'=>$plantio->id])}}" class="btn btn-warning">
                                                 <i class="fa fa-edit"></i>
                                             </a>
+                                            <a href="{{route('painel.createPerdaPlantio', ['plantio'=>$plantio])}}" class="btn btn-info">
+                                                    <i class="fa fa-archive"></i>  
+                                            </a>
                                         </td>
                                     </tr>
                                     @endforeach

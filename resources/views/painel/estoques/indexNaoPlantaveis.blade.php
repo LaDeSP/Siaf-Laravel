@@ -56,8 +56,8 @@ Estoques
                                             <a href="{{route('painel.estoque.edit', ['estoque'=>$estoque->id])}}" class="btn btn-warning">
                                                 <i class="fa fa-edit"></i>
                                             </a>
-                                            <a href="{{route('painel.createPerdaEstoque', ['estoque'=>$estoque])}}" class="btn btn-info">
-                                                    <i class="fa fa-archive"></i>  
+                                            <a href="{{route('painel.createPerdaEstoque', ['estoque'=>$estoque])}}" class="btn btn-dark">
+                                                    <i class="fa fa-frown"></i>  
                                             </a>
                                         </td>
                                     </tr>

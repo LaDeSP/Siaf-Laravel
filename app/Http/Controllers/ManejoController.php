@@ -94,14 +94,16 @@ class ManejoController extends Controller{
         return redirect()->action('ManejoController@index', ['Mensagem'=>$mensagem,'Status'=>$status,'Mostrar'=>$result->plantio_id,'page'=>$this->page()]);
     }
     
-    public function createEstoque(Request $request,$manejo){
+    public function createEstoqueColheitaManejo(Request $request, ManejoPlantio $manejo){
+        $manejos = $this->manejoService->index();
+        return view('painel.historicomanejoproduto.create-estoque-colheita', ["manejos" => $manejos]);
         $Manejos=Manejo::all();
         $dados=ManejoPlantio::all()->where('id','=',$manejo);
         $dados=$dados->first();
         return view('manejoForm', ["User"=>$this->getFirstName($this->usuario['name']) , "Tela"=>"Adicionar ao Estoque" ,'Method'=>'post','Url'=>'manejo/estoque/'.$manejo, 'Manejos'=>$Manejos,'dados'=>$dados ,'select'=>'selected','disabled'=>'disabled' ] );
     }
     
-    public function storeEstoque(Request $request,$manejo){
+    public function storeEstoqueColheitaManejo(Request $request,$manejo){
         $result=ManejoPlantio::where('id','=',$manejo)->get(['id as manejoplantio_id','data_hora as data','plantio_id'])->first();
         $result->quantidade=$request->numero_produdos;
         $plantio=Plantio::where('id','=',$result->plantio_id)->get()->first();

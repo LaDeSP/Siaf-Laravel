@@ -10,9 +10,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\Pivot;
+use Balping\HashSlug\HasHashSlug;
 
 class ManejoPlantio extends Pivot{
-    use SoftDeletes;
+	use SoftDeletes;
+	use HasHashSlug;
     
 	protected $table = 'manejoplantio';
 
@@ -44,6 +46,6 @@ class ManejoPlantio extends Pivot{
 	}
 
 	public function estoques(){
-		return $this->hasMany(\App\Models\Estoque::class);
+		return $this->hasMany(\App\Models\Estoque::class, 'manejoplantio_id');
 	}
 }

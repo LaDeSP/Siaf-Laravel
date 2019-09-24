@@ -14,7 +14,7 @@ class ManejoService{
     public function __construct(UserService $userService){
         $this->userService = $userService;
     }
-
+    
     public function index(){
         $manejos = Manejo::all();
         return $manejos;
@@ -28,7 +28,16 @@ class ManejoService{
                 array_push($plantios, $talhao->plantios);
             }
         }
-        return Arr::collapse($plantios);
+        $plantios = Arr::collapse($plantios);  
+        foreach ($plantios as $plantio) {
+            if($plantio->manejos()->first()){
+                $plantio->manejo = 1;
+            }else{
+                $plantio->manejo = 0;
+            }
+        }
+        
+        return $plantios;
     }
     
     public function create(array $attributes, Plantio $plantio){
@@ -64,6 +73,14 @@ class ManejoService{
         if($manejos->isEmpty()){
             return collect([]);
         }else{
+            foreach ($manejos as $manejo) {
+                if($manejo->pivot->manejo_id == 4){
+                    /*Seto uma variavel boolean caso este manejo seja colheita e o mesmo já possua um estoque*/
+                    if($manejo->pivot->estoques()->first()){
+                        $manejo->estoque = 1;
+                    }
+                }
+            }
             return $manejos;
         }
     }

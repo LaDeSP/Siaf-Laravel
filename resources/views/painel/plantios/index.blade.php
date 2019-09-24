@@ -48,14 +48,14 @@ Plantio
                                         <td class="text-center">{{$plantio->quantidade_pantas}}</td>
                                         <td class="text-center">{{$plantio->talhao->nome}}</td>
                                         <td class="text-center">
-                                            <button class="btn btn-danger">
+                                            <a href="{{route('painel.plantio.edit', ['plantio'=>$plantio])}}" class="btn btn-danger @if(isset($plantio->perda) || isset($plantio->manejo)) disabled @endif">
                                                 <i class="fa fa-trash"></i>
-                                            </button>
-                                            <a href="{{route('painel.plantio.edit', ['plantio'=>$plantio->id])}}" class="btn btn-warning">
+                                            </a>
+                                            <a href="{{route('painel.plantio.edit', ['plantio'=>$plantio])}}" class="btn btn-warning @if(isset($plantio->perda) || isset($plantio->manejo)) disabled @endif">
                                                 <i class="fa fa-edit"></i>
                                             </a>
-                                            <a href="{{route('painel.createPerdaPlantio', ['plantio'=>$plantio])}}" class="btn btn-info">
-                                                    <i class="fa fa-archive"></i>  
+                                            <a href="{{route('painel.createPerdaPlantio', ['plantio'=>$plantio])}}" class="btn btn-info @if($plantio->quantidade_pantas == 0) disabled @endif">
+                                                <i class="fa fa-archive"></i>  
                                             </a>
                                         </td>
                                     </tr>
@@ -74,9 +74,9 @@ Plantio
                             </table>
                             @else
                             <div class="text-center p-3 text-muted">
-                                    <h5>{{ collect(explode(' ', ucwords(strtolower(Auth::user()->name))))->slice(0, 1)->implode(' ') }}, você não possui nenhum plantio cadastrado!</h5>
-                                    <p>Clique no botão Adicionar para cadastrar novos plantios.</p>
-                                </div>
+                                <h5>{{ collect(explode(' ', ucwords(strtolower(Auth::user()->name))))->slice(0, 1)->implode(' ') }}, você não possui nenhum plantio cadastrado!</h5>
+                                <p>Clique no botão Adicionar para cadastrar novos plantios.</p>
+                            </div>
                             @endif
                         </div>
                     </div>

@@ -101,11 +101,11 @@ class PlantioController extends Controller{
         return back()->with($data['class'], $data['mensagem']);
     }
     
-    public function edit(Request $request,$id){
-        $dados=$this->plantios($request,$id);
-        $p=$this->getPropriedade($request);
-        $tmp = array("propriedade"=> $p, "produto"=> Produto::all()->where('propriedade_id','=',$p['id'])->where('plantavel','=',1), 'talhao' => Talhao::all()->where('propriedade_id','=',$p['id']));
-        return view('plantioForm', ["User"=>$this->getFirstName($this->usuario['name']) ,'Propriedade'=>$tmp , "Tela"=>"Editar Plantio" ,'Method'=>'put','Url'=>'/plantio/'.$id ,'dados'=>$dados[0] ] );
+    public function edit(Request $request, Plantio $plantio){
+        dd($plantio);
+        $talhoes = $this->talhaoService->index();
+        $produtos = $this->produtoService->indexProdutosPlantaveis();
+        return view('painel.plantios.edit', ['talhoes'=>$talhoes, 'produtos'=>$produtos]);
     }
     
     public function update(Request $request,$id){

@@ -7,7 +7,7 @@ Adicionar plantio
 @section('content')
 <section class="section">
     <div class="section-header">
-        <h1>Adicionar plantio</h1>
+        <h1>Estocar a colheita do plantio (------)</h1>
     </div>
     <div class="section-body">
         <div class="row d-flex justify-content-center">
@@ -70,28 +70,11 @@ Adicionar plantio
                                 @endif
                             </div>
                             <div class="form-group">
-                                <label>Talhão<span class="text-danger">*</span></label>
-                                <select name="talhao" class="custom-select form-control {{ $errors->has('talhao') ? ' is-invalid' : '' }}" required value="{{ old('talhao') }}">
-                                    <option selected="" value="">Selecione o talhão</option>
-                                    @foreach ($talhoes as $talhao)
-                                    <option value="{{$talhao->id}}">{{$talhao->nome}}</option>
-                                    @endforeach
-                                </select>
-                                <div class="invalid-feedback">
-                                    Talhão é obrigatório!
-                                </div>
-                                @if ($errors->has('talhao'))
-                                <div class="invalid-feedback">
-                                    {{ $errors->first('talhao') }}
-                                </div>
-                                @endif
-                            </div>
-                            <div class="form-group">
                                 <label>Produto<span class="text-danger">*</span></label>
                                 <select name="produto" class="custom-select form-control {{ $errors->has('produto') ? ' is-invalid' : '' }}" required value="{{ old('produto') }}">
                                     <option selected="" value="">Selecione o produto</option>
-                                    @foreach ($produtos as $produto)
-                                    <option value="{{$produto->id}}">{{$produto->nome}}</option>
+                                    @foreach ($manejos as $manejo)
+                                    <option value="{{$manejo->id}}">{{$manejo->nome}}</option>
                                     @endforeach
                                 </select>
                                 <div class="invalid-feedback">

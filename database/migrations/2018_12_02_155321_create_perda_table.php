@@ -19,9 +19,9 @@ class CreatePerdaTable extends Migration
             $table->unsignedInteger('quantidade');
             $table->date('data');
             $table->unsignedInteger('estoque_id')->nullable();
-            $table->unsignedInteger('manejoplantio_id')->nullable();
+            $table->unsignedInteger('plantio_id')->nullable();
             $table->foreign('estoque_id')->references('id')->on('estoque')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('manejoplantio_id')->references('id')->on('manejoplantio')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('plantio_id')->references('id')->on('plantio')->onDelete('cascade')->onUpdate('cascade');
             $table->unsignedInteger('destino_id');
             $table->foreign('destino_id')->references('id')->on('destino');
             $table->timestamps();

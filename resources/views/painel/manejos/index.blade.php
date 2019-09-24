@@ -41,7 +41,7 @@ Manejo
                                         <td class="text-center">{{$plantio->data_plantio}}</td>
                                         <td class="text-center">{{$plantio->talhao->nome}}</td>                                        
                                         <td class="text-center">
-                                                <a href="{{route('painel.manejosPlantios', ['plantio'=>$plantio])}}" class="btn btn-info @if($plantio->manejos()->first() == null) disabled @endif"   title="Consultar Manejos">
+                                                <a href="{{route('painel.manejosPlantios', ['plantio'=>$plantio])}}" class="btn btn-info @if($plantio->manejo == 0) disabled @endif"   title="Consultar Manejos">
                                                         <i class="fas fa-history" style="font-size:10px"></i>
                                                     </a>
                                             <a href="{{route('painel.manejoCreate', ['plantio'=>$plantio])}}" class="btn btn-success" title="Adicionar manejo neste plantio">

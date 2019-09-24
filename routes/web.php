@@ -1,51 +1,77 @@
 <?php
 
 Route::name('painel.')->prefix('painel')->middleware('auth')->group(function() {
+    
+    /*Rotas referente a home*/
     Route::get('/', 'HomeController@index')->name('dashboard');
+
+    /*Rotas referente a venda*/
     Route::resource('/venda', "VendasController", ['names' => [
         'create', 'store', 'edit', 'update', 'destroy']]);
+    
+    /*Rotas referente a estoque*/
     Route::resource('/estoque', "EstoqueController", ['names' => [
         'create', 'store', 'edit', 'update', 'destroy']]);
     Route::get('/estoque/p/plantio', 'EstoqueController@estoquePlataveisIndex')->name('estoquePlantaveis');
     Route::get('/estoque/p/propriedade', 'EstoqueController@estoqueProcessadoIndex')->name('estoquePropriedade');
+    Route::get('/plantio/colheita/{manejo}/estoque', "ManejoController@createEstoqueColheitaManejo")->name('createEstoqueColheitaManejo');
+    Route::post('/plantio/colheita/{manejo}/estoque', "ManejoController@storeEstoqueColheitaManejo")->name('storeEstoqueColheitaManejo');
+    
+    /*Rotas referente a plantio*/
     Route::resource('/plantio', "PlantioController", ['names' => [
         'create', 'store', 'edit', 'update', 'destroy']]);
+        
+    /*Rotas referente a perda*/
+    Route::get('plantio/{plantio}/create/perda', "PerdaController@createPerdaPlantio")->name('createPerdaPlantio');
+    Route::post('/perda/plantio/{plantio}', "PerdaController@storePerdaPlantio")->name('storePerdaPlantio');
+    Route::get('estoque/{estoque}/create/perda', "PerdaController@createPerdaEstoque")->name('createPerdaEstoque');
+    Route::post('/perda/estoque/{estoque}', "PerdaController@storePerdaEstoque")->name('storePerdaEstoque');
+
+    /*Rotas referente a manejo*/
     Route::resource('/manejo', "ManejoController", ['names' => [
         'edit', 'update', 'destroy']])->except('create', 'store');
     Route::get('plantio/{plantio}/create/manejo', "ManejoController@create")->name('manejoCreate');
     Route::post('plantio/{plantio}/create/manejo', "ManejoController@store")->name('manejoSave');
     Route::get('/plantio/{plantio}/manejos', 'ManejoController@showManejosPlantios')->name('manejosPlantios');
+    
+
+    /*Rotas referente a propriedade*/
     Route::resource('/propriedade', "PropriedadeController", ['names' => [
         'create', 'store', 'edit', 'update', 'destroy']]);
+
+    /*Rotas referente a produto*/
     Route::resource('/produto', "ProdutoController", ['names' => [
         'create', 'store', 'edit', 'update', 'destroy']]);
+    
+    /*Rotas referente a talhao*/
     Route::resource('/talhao', "TalhaoController", ['names' => [
         'create', 'store', 'edit', 'update', 'destroy']]);
+
+    /*Rotas referente a investimento*/
     Route::resource('/investimento',"InvestimentoController", ['names' => [
         'create', 'store', 'edit', 'update', 'destroy']]);
+    
+    /*Rotas referente a despesa*/
     Route::resource('/despesa', "DespesaController", ['names' => [
         'create', 'store', 'edit', 'update', 'destroy']]);
+
+    /*Rotas referente a relatorio*/
     Route::resource('/relatorio', "RelatorioController", ['names' => [
         'create', 'store', 'edit', 'update', 'destroy']]);
-    Route::get('/manual', "ManualController@index")->name('manual');
+    
+    /*Rotas referente a calendario*/
     Route::get('/calendario', 'CalendarioController@index')->name('calendario');
-    Route::get('estoque/{estoque}/create/perda', "PerdaController@createPerdaEstoque")->name('createPerdaEstoque');
-    Route::get('plantio/{plantio}/create/perda', "PerdaController@createPerdaPlantio")->name('createPerdaPlantio');
-    Route::post('/perda/estoque/{estoque}', "PerdaController@storePerdaEstoque")->name('storePerdaEstoque');
-    Route::post('/perda/plantio/{plantio}', "PerdaController@storePerdaPlantio")->name('storePerdaPlantio');
+    
+    /*Rotas referente a manual*/
+    Route::get('/manual', "ManualController@index")->name('manual');
 });
 
 /*
 Route::group(['middleware'=>['web', 'auth']], function()
 {
-    Route::get('/home', 'HomeController@index')->name('home');
     Route::get('/quantidade/{estoque}', 'VendasController@quantidadeProduto');
-    Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
     Route::get('/usuario', "UsersController@index");
     Route::post('/usuario', "UsersController@update");
-    Route::get('/manejo/create/{plantio}', "ManejoController@create");
-    Route::get('/manejo/estoque/{plantio}', "ManejoController@createEstoque");
-    Route::post('/manejo/estoque/{plantio}', "ManejoController@storeEstoque");
     Route::get('/perda/{id}', "PerdaController@index");
 });
 */

@@ -46,14 +46,14 @@ Manejos
                                         <td class="text-center">{{$manejo->pivot->horas_utilizadas}}</td>
                                         <td class="text-center">{{$manejo->pivot->descricao}}</td>
                                         <td class="text-center">
-                                            <button class="btn btn-danger">
+                                            <a href="{{route('painel.manejo.edit', ['id'=>$manejo->id])}}" class="btn btn-danger @if(isset($manejo->estoque)) disabled @endif">
                                                 <i class="fa fa-trash"></i>
-                                            </button>
-                                            <a href="{{route('painel.manejo.edit', ['id'=>$manejo->id])}}" class="btn btn-warning">
+                                            </a>
+                                            <a href="{{route('painel.manejo.edit', ['id'=>$manejo->id])}}" class="btn btn-warning @if(isset($manejo->estoque)) disabled @endif">
                                                 <i class="fa fa-edit" style="font-size:10px"></i>
                                             </a>
                                             @if ($manejo->pivot->manejo_id == 4)
-                                            <a href="" class="btn btn-info" title="Estocar este plantio">
+                                            <a href="{{route('painel.createEstoqueColheitaManejo', ['manejo'=>$manejo->pivot])}}" class="btn btn-info @if(isset($manejo->estoque)) disabled @endif" title="Estocar este plantio">
                                                 <i class="fas fa-history" style="font-size:10px"></i>
                                             </a>
                                             @endif

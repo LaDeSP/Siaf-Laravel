@@ -21,7 +21,22 @@ class PlantioService{
                 array_push($plantios, $talhao->plantios);
             }
         }
-        return Arr::collapse($plantios);
+        $plantios = Arr::collapse($plantios);
+        /*Neste trecho calculamos a quantidade atual de plantas disponivel no plantio de produtos de cultura temporaria e permanente*/
+        foreach ($plantios as $plantio) {
+            if($plantio->produto()->where('tipo', 'c_temporaria')->first()){
+                $plantio->quantidade_pantas = $this->quantidadeDisponivelDePlantasTemporarias($plantio);
+            }if($plantio->produto()->where('tipo', 'c_permanente')->first()){
+                $plantio->quantidade_pantas = $this->quantidadeDisponivelDePlantasCulturais($plantio);
+            }if($plantio->perdas()->first()){
+                /*Seto uma variavel boolean se plantio tiver perda*/
+                $plantio->perda = 1; 
+            }if($plantio->manejos()->first()){
+                /*Seto uma variavel boolean se plantio tiver pelo menos um manejo*/
+                $plantio->manejo = 1;
+            }
+        }
+        return $plantios;
     }
     
     public function create(array $attributes){
@@ -61,4 +76,43 @@ class PlantioService{
 
     public function delete($id){
     }
+    
+    /*Função que calcula a quantidade disponivel de plantas para produtos de cultura temporaria*/
+    public function quantidadeDisponivelDePlantasTemporarias($plantio){
+        /*Soma todas as quantidades de perdas deste plantio*/
+        $quantidadePerdas = $plantio->perdas()->sum('quantidade');
+
+        /*Retorna somente os manejos com colheita deste plantio*/
+        $manejos = $plantio->manejos()->where('manejo_id', 4)->get();
+        
+        /*Variavel para armazena a quantidade de cada colheita deste plantio que esta armazenada no estoque*/
+        $quantidadeColheitaPlantioEstoques = 0;
+
+        /*Pecorre a tabela de estoque e soma todas as quantidades de cada estoque deste plantio*/
+        foreach ($manejos as $manejo) {
+            $quantidadeColheitaPlantioEstoques = $quantidadeColheitaPlantioEstoques+$manejo->pivot->estoques()->sum('quantidade');
+        }
+        
+        /*Quantidade atual do plantio antes do calculo */
+        $quantidadeAtualPlantio = $plantio->quantidade_pantas;
+
+        /*Calculo para determinar a quantidade do plantio subtraindo da tabelas (Perda e Estoque)*/
+        $novaQuantidadePlantio = $quantidadeAtualPlantio - ($quantidadePerdas+$quantidadeColheitaPlantioEstoques);
+
+        return $novaQuantidadePlantio;
+    }
+    
+    /*Função que calcula a quantidade disponivel de plantas para produtos de cultura permanente*/
+    public function quantidadeDisponivelDePlantasCulturais($plantio){
+        /*Soma todas as quantidades de perdas deste plantio*/
+        $quantidadePerdas = $plantio->perdas()->sum('quantidade');
+        
+        /*Quantidade atual do plantio antes do calculo */
+        $quantidadeAtualPlantio = $plantio->quantidade_pantas;
+
+        /*Calculo para determinar a quantidade do plantio subtraindo da tabela de Perda*/
+        $novaQuantidadePlantio = $quantidadeAtualPlantio - $quantidadePerdas;
+
+        return $novaQuantidadePlantio;
+	}
 }

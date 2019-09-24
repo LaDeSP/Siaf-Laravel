@@ -54,8 +54,8 @@ Plantio
                                             <a href="{{route('painel.plantio.edit', ['plantio'=>$plantio])}}" class="btn btn-warning @if(isset($plantio->perda) || isset($plantio->manejo)) disabled @endif">
                                                 <i class="fa fa-edit"></i>
                                             </a>
-                                            <a href="{{route('painel.createPerdaPlantio', ['plantio'=>$plantio])}}" class="btn btn-info @if($plantio->quantidade_pantas == 0) disabled @endif">
-                                                <i class="fa fa-archive"></i>  
+                                            <a href="{{route('painel.createPerdaPlantio', ['plantio'=>$plantio])}}" class="btn btn-dark @if($plantio->quantidade_pantas == 0) disabled @endif">
+                                                <i class="fa fa-frown"></i>  
                                             </a>
                                         </td>
                                     </tr>

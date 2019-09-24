@@ -37,23 +37,11 @@ Adicionar plantio
                         {{ csrf_field() }}
                         <div class="card-body">
                             <div class="form-group">
-                                <label>Data da semeadura</label>
+                                <label>Data de Estoque</label>
                                 <input name="data_semeadura" type="date" class="form-control {{ $errors->has('data_semeadura') ? ' is-invalid' : '' }}" value="{{ old('data_semeadura') }}">
                                 @if ($errors->has('data_semeadura'))
                                 <div class="invalid-feedback">
                                     {{ $errors->first('data_semeadura') }}
-                                </div>
-                                @endif
-                            </div>
-                            <div class="form-group">
-                                <label>Data do plantio<span class="text-danger">*</span></label>
-                                <input name="data_plantio" type="date" class="form-control {{ $errors->has('data_plantio') ? ' is-invalid' : '' }}" required="" value="{{ old('data_plantio') }}">
-                                <div class="invalid-feedback">
-                                    Qual foi a data do plantio?
-                                </div>
-                                @if ($errors->has('data_plantio'))
-                                <div class="invalid-feedback">
-                                    {{ $errors->first('data_plantio') }}
                                 </div>
                                 @endif
                             </div>
@@ -70,15 +58,15 @@ Adicionar plantio
                                 @endif
                             </div>
                             <div class="form-group">
-                                <label>Produto<span class="text-danger">*</span></label>
+                                <label>Manejo<span class="text-danger">*</span></label>
                                 <select name="produto" class="custom-select form-control {{ $errors->has('produto') ? ' is-invalid' : '' }}" required value="{{ old('produto') }}">
-                                    <option selected="" value="">Selecione o produto</option>
+                                    <option selected="" value="">Selecione o manejo</option>
                                     @foreach ($manejos as $manejo)
                                     <option value="{{$manejo->id}}">{{$manejo->nome}}</option>
                                     @endforeach
                                 </select>
                                 <div class="invalid-feedback">
-                                    Produto é obrigatório!
+                                    Manejo é obrigatório!
                                 </div>
                                 @if ($errors->has('produto'))
                                 <div class="invalid-feedback">
@@ -88,7 +76,7 @@ Adicionar plantio
                             </div>             
                         </div>
                         <div class="card-footer text-center">
-                            <button class="btn btn-success">Cadastrar Plantio</button>
+                            <button class="btn btn-success">Cadastrar Estoque</button>
                         </div>
                     </form>
                 </div>

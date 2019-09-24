@@ -37,8 +37,8 @@ Adicionar plantio
                         {{ csrf_field() }}
                         <div class="card-body">
                             <div class="form-group">
-                                <label>Data de Estoque</label>
-                                <input name="data_semeadura" type="date" class="form-control {{ $errors->has('data_semeadura') ? ' is-invalid' : '' }}" value="{{ old('data_semeadura') }}">
+                                <label>Data de Manejo</label>
+                                <input name="data_semeadura" type="date" class="form-control {{ $errors->has('data_semeadura') ? ' is-invalid' : '' }}" value="{{ old('data_semeadura') }}" disabled>
                                 @if ($errors->has('data_semeadura'))
                                 <div class="invalid-feedback">
                                     {{ $errors->first('data_semeadura') }}
@@ -46,10 +46,10 @@ Adicionar plantio
                                 @endif
                             </div>
                             <div class="form-group">
-                                <label>Número de plantas<span class="text-danger">*</span></label>
+                                <label>Número de produtos colhidos<span class="text-danger">*</span></label>
                                 <input name="numero_plantas" type="number" min="1" class="form-control {{ $errors->has('numero_plantas') ? ' is-invalid' : '' }}" required="" placeholder="Ex: 40" value="{{ old('numero_plantas') }}">
                                 <div class="invalid-feedback">
-                                    Qual a quantidade de plantas?
+                                    Qual a quantidade de produtos colhidos?
                                 </div>
                                 @if ($errors->has('numero_plantas'))
                                 <div class="invalid-feedback">
@@ -59,7 +59,7 @@ Adicionar plantio
                             </div>
                             <div class="form-group">
                                 <label>Manejo<span class="text-danger">*</span></label>
-                                <select name="produto" class="custom-select form-control {{ $errors->has('produto') ? ' is-invalid' : '' }}" required value="{{ old('produto') }}">
+                                <select name="produto" class="custom-select form-control {{ $errors->has('produto') ? ' is-invalid' : '' }}" required value="{{ old('produto') }}" disabled>
                                     <option selected="" value="">Selecione o manejo</option>
                                     @foreach ($manejos as $manejo)
                                     <option value="{{$manejo->id}}">{{$manejo->nome}}</option>
@@ -76,7 +76,7 @@ Adicionar plantio
                             </div>             
                         </div>
                         <div class="card-footer text-center">
-                            <button class="btn btn-success">Cadastrar Estoque</button>
+                            <button class="btn btn-success">Cadastrar Colheita</button>
                         </div>
                     </form>
                 </div>

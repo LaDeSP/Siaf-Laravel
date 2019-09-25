@@ -24,14 +24,11 @@ class PlantioService{
         $plantios = Arr::collapse($plantios);
         /*Neste trecho calculamos a quantidade atual de plantas disponivel no plantio de produtos de cultura temporaria e permanente*/
         foreach ($plantios as $plantio) {
-            if($plantio->produto()->where('tipo', 'c_temporaria')->first()){
-                $plantio->quantidade_pantas = $this->quantidadeDisponivelDePlantasTemporarias($plantio);
-            }if($plantio->produto()->where('tipo', 'c_permanente')->first()){
-                $plantio->quantidade_pantas = $this->quantidadeDisponivelDePlantasCulturais($plantio);
-            }if($plantio->perdas()->first()){
+            $plantio->quantidade_pantas = $this->novaQuantidadePlantio($plantio);
+            if($plantio->perdas()->first()){
                 /*Seto uma variavel boolean se plantio tiver perda*/
                 $plantio->perda = 1; 
-            }if($plantio->manejos()->first()){
+            }else if($plantio->manejos()->first()){
                 /*Seto uma variavel boolean se plantio tiver pelo menos um manejo*/
                 $plantio->manejo = 1;
             }
@@ -114,5 +111,15 @@ class PlantioService{
         $novaQuantidadePlantio = $quantidadeAtualPlantio - $quantidadePerdas;
 
         return $novaQuantidadePlantio;
-	}
+    }
+    
+    public function novaQuantidadePlantio($plantio){
+        if($plantio->produto->tipo == 'c_temporaria'){
+            $novaQuantidadePlantio = $plantio->quantidade_pantas = $this->quantidadeDisponivelDePlantasTemporarias($plantio);
+            return $novaQuantidadePlantio;
+        }else if($plantio->produto->tipo == 'c_permanente'){
+            $novaQuantidadePlantio = $plantio->quantidade_pantas = $this->quantidadeDisponivelDePlantasCulturais($plantio);
+            return $novaQuantidadePlantio;
+        }
+    }
 }

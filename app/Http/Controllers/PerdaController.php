@@ -11,29 +11,20 @@ use App\Models\Produto;
 use App\Models\Propriedade;
 use Illuminate\Http\Request;
 use App\Models\ManejoPlantio;
+use App\Services\PlantioService;
 use Illuminate\Support\Facades\DB;
+use App\Http\Requests\PerdaPlantioFormRequest;
 
 
 
 class PerdaController extends Controller{
+    protected $plantioService;
+
+    public function __construct(PlantioService $plantioService){
+        $this->plantioService = $plantioService;
+    }
     
-    
-    public function index(Request $request,$id){
-        $propriedade=$this->getPropriedade($request);
-        $destinos=$destinos = DB::table('destino')
-        ->select('destino.id', 'nome AS destino')
-        ->where('destino.deleted_at','=',null)
-        ->where('destino.tipo','=',0)
-        ->get();
-        $max=Estoque::produtosDisponiveis($id);
-        $estoque=DB::table('estoque')
-        ->join('produto', 'estoque.produto_id', '=', 'produto.id')
-        ->join('unidade', 'unidade.id', '=', 'produto.unidade_id')
-        ->where('estoque.deleted_at','=',null)
-        ->where('estoque.id','=',$id)
-        ->get(['produto.nome as nomep','unidade.nome as nomeu']);
-        $estoque=$estoque->first();
-        return view('perdaForm', ["User"=>$this->getFirstName($this->usuario['name']) , "Tela"=>"Perda", 'Url'=>'/perda','Method'=>'post','Estoque'=>$id,'Destinos'=>$destinos,'Max'=>$max,'Produto'=>$estoque->nomep,'Unidade'=>$estoque->nomeu ]);
+    public function index(Request $request){
     }
     
     public function createPerdaEstoque(Estoque $estoque){
@@ -43,6 +34,7 @@ class PerdaController extends Controller{
 
     public function createPerdaPlantio(Plantio $plantio){
         $destinosPerda = Destino::all()->where('tipo', 0);
+        $plantio->quantidade_pantas = $this->plantioService->novaQuantidadePlantio($plantio);
         return view('painel.plantios.create-perda', ['plantio'=>$plantio, 'destinos'=>$destinosPerda]);
     }
 
@@ -50,8 +42,8 @@ class PerdaController extends Controller{
         dd('entrei no store de perda para estoque');    
     }
     
-    public function storePerdaPlantio(Request $request, Plantio $plantio){
-        dd('entrei no store de perda para plantio');
+    public function storePerdaPlantio(PerdaPlantioFormRequest $request, Plantio $plantio){
+        dd($plantio);
     }
     
     public function page(){

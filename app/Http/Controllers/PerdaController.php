@@ -11,17 +11,21 @@ use App\Models\Produto;
 use App\Models\Propriedade;
 use Illuminate\Http\Request;
 use App\Models\ManejoPlantio;
+use App\Services\PerdaService;
 use App\Services\PlantioService;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Redirect;
 use App\Http\Requests\PerdaPlantioFormRequest;
 
 
 
 class PerdaController extends Controller{
     protected $plantioService;
+    protected $perdaService;
 
-    public function __construct(PlantioService $plantioService){
+    public function __construct(PlantioService $plantioService, PerdaService $perdaService){
         $this->plantioService = $plantioService;
+        $this->perdaService = $perdaService;
     }
     
     public function index(Request $request){
@@ -43,7 +47,13 @@ class PerdaController extends Controller{
     }
     
     public function storePerdaPlantio(PerdaPlantioFormRequest $request, Plantio $plantio){
-        dd($plantio);
+        $data = $this->perdaService->create($request->all(), $plantio);
+        $quantidade_plantas = $this->plantioService->novaQuantidadePlantio($plantio);
+        if($quantidade_plantas == 0){
+            return Redirect::route('painel.plantio.index')->with($data['class'], $data['mensagem']);
+        }else{
+            return back()->with($data['class'], $data['mensagem']);
+        }
     }
     
     public function page(){

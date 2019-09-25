@@ -91,7 +91,7 @@ class PlantioService{
         }
         
         /*Quantidade atual do plantio antes do calculo */
-        $quantidadeAtualPlantio = $plantio->quantidade_pantas;
+        $quantidadeAtualPlantio = $plantio->getOriginal('quantidade_pantas');
 
         /*Calculo para determinar a quantidade do plantio subtraindo da tabelas (Perda e Estoque)*/
         $novaQuantidadePlantio = $quantidadeAtualPlantio - ($quantidadePerdas+$quantidadeColheitaPlantioEstoques);
@@ -105,7 +105,7 @@ class PlantioService{
         $quantidadePerdas = $plantio->perdas()->sum('quantidade');
         
         /*Quantidade atual do plantio antes do calculo */
-        $quantidadeAtualPlantio = $plantio->quantidade_pantas;
+        $quantidadeAtualPlantio = $plantio->getOriginal('quantidade_pantas');
 
         /*Calculo para determinar a quantidade do plantio subtraindo da tabela de Perda*/
         $novaQuantidadePlantio = $quantidadeAtualPlantio - $quantidadePerdas;

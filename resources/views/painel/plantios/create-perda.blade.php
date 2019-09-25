@@ -66,7 +66,7 @@ Adicionar Manejo
                                 @endif
                             </div> 
                             <div class="form-group">
-                                <label>Quantidade de perda do plantio até {{$plantio->quantidade_pantas}}<span class="text-danger">*</span></label>
+                                <label>Quantidade máxima de perda: {{$plantio->quantidade_pantas}}<span class="text-danger">*</span></label>
                                 <input id="quantidade" name="quantidade_perda" type="number" min="1" max="{{$plantio->quantidade_pantas}}" class="form-control {{ $errors->has('quantidade_perda') ? ' is-invalid' : '' }}" required="" placeholder="Ex: 5">
                                 <div class="invalid-feedback">
                                     Quantidade é obrigatório!

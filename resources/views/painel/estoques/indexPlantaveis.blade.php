@@ -50,12 +50,6 @@ Estoques
                                         <td class="text-center">{{$estoque->manejoplantio->plantio->talhao->nome}}</td>
                                         <td class="text-center">{{$estoque->data}}</td>
                                         <td class="text-center">
-                                            <button class="btn btn-danger">
-                                                <i class="fa fa-trash"></i>
-                                            </button>
-                                            <a href="{{route('painel.estoque.edit', ['estoque'=>$estoque->id])}}" class="btn btn-warning">
-                                                <i class="fa fa-edit"></i>
-                                            </a>
                                             <a href="{{route('painel.createPerdaEstoque', ['estoque'=>$estoque])}}" class="btn btn-dark">
                                                     <i class="fa fa-frown"></i>  
                                             </a>

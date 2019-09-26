@@ -11,20 +11,24 @@ use Illuminate\Http\Request;
 use App\Models\ManejoPlantio;
 use App\Services\ManejoService;
 
+use App\Services\EstoqueService;
 use App\Services\PlantioService;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Pagination\Paginator;
 use App\Http\Requests\ManejoFormRequest;
+use Illuminate\Support\Facades\Redirect;
 use App\Http\Requests\EstoqueFormRequest;
 use App\Http\Requests\ColheitaFormRequest;
 
 class ManejoController extends Controller{
     protected $manejoService;
     protected $plantioService;
+    protected $estoqueService;
     
-    public function __construct(ManejoService $manejoService, PlantioService $plantioService){
+    public function __construct(ManejoService $manejoService, PlantioService $plantioService, EstoqueService $estoqueService){
         $this->manejoService = $manejoService;
         $this->plantioService= $plantioService;
+        $this->estoqueService= $estoqueService;
     }
     
     public function index(Request $request){
@@ -110,27 +114,12 @@ class ManejoController extends Controller{
     }
     
     public function storeEstoqueColheitaManejo(ColheitaFormRequest $request, ManejoPlantio $manejo){
-        dd($request->all());
-        $result=ManejoPlantio::where('id','=',$manejo)->get(['id as manejoplantio_id','data_hora as data','plantio_id'])->first();
-        $result->quantidade=$request->numero_produdos;
-        $plantio=Plantio::where('id','=',$result->plantio_id)->get()->first();
-        $result->produto_id=$plantio->produto_id;
-        $result->propriedade_id=$propiedade=$this->getPropriedade($request)->id;
-        $result=$result->toArray();
-        $estoque = new Estoque($result);
-        $salva=$estoque->save();
-        
-        if($salva==true){
-            $status='success';
-            $mensagem='Sucesso ao salvar estoque do manejo!';
+        $data = $this->estoqueService->create($request->all(), $manejo);
+        if($data['class'] == 'success'){
+            return Redirect::route('painel.manejosPlantios', ['plantio'=>$manejo->plantio()->first()])->with($data['class'], $data['mensagem']);
+        }else{
+            return back()->with($data['class'], $data['mensagem']);
         }
-        else{
-            $status='danger';
-            $mensagem='Erro ao salvar estoque do manejo!';
-        }
-        //$plantios=$this->plantiosManejos($request,$id='');
-        //return view('manejo', ["User"=>$this->getFirstName($this->usuario['name']), "Tela"=>"Manejo" ,'Plantios'=>$plantios,'mensagem'=>$mensagem,'status'=>$status,'Mostrar'=>$result['plantio_id'] ,'show'=>'show' ,'disabled'=>'disabled']);
-        return redirect()->action('ManejoController@index', ['Mensagem'=>$mensagem,'Status'=>$status,'Mostrar'=>$result['plantio_id'],'page'=>$this->page()]);
     }
     
     

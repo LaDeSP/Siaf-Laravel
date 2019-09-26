@@ -21,7 +21,6 @@ Estoques
                     <div class="card-header">
                         <h4>Estoques <span>({{count($estoques)}})</span></h4>
                     </div>
-                    <br>storePerda
                     <div class="card-body p-3">
                         <div class="table-responsive table-invoice">
                             @if (count($estoques) > 0)

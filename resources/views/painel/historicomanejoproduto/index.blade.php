@@ -53,7 +53,7 @@ Manejos
                                                 <i class="fa fa-edit" style="font-size:10px"></i>
                                             </a>
                                             @if ($manejo->pivot->manejo_id == 4)
-                                            <a href="{{route('painel.createEstoqueColheitaManejo', ['manejo'=>$manejo->pivot])}}" class="btn btn-primary @if(isset($manejo->estoque)) disabled @endif" title="Estocar este plantio">
+                                            <a href="{{route('painel.createEstoqueColheitaManejo', ['manejo'=>$manejo->pivot])}}" class="btn btn-primary @if(isset($manejo->estoque) || $plantio->quantidade_pantas == 0) disabled @endif" title="Estocar este plantio">
                                                 <i class="fa fa-archive" style="font-size:10px"></i>
                                             </a>
                                             @endif

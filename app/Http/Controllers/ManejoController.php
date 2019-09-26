@@ -2,23 +2,29 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Plantio;
-use App\Models\Propriedade;
 use App\Models\Manejo;
-use App\Models\ManejoPlantio;
 use App\Models\Talhao;
 use App\Models\Estoque;
+use App\Models\Plantio;
+use App\Models\Propriedade;
+use Illuminate\Http\Request;
+use App\Models\ManejoPlantio;
+use App\Services\ManejoService;
+
+use App\Services\PlantioService;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Pagination\Paginator;
-
-use Illuminate\Http\Request;
-use App\Services\ManejoService;
 use App\Http\Requests\ManejoFormRequest;
+use App\Http\Requests\EstoqueFormRequest;
+use App\Http\Requests\ColheitaFormRequest;
+
 class ManejoController extends Controller{
     protected $manejoService;
+    protected $plantioService;
     
-    public function __construct(ManejoService $manejoService){
+    public function __construct(ManejoService $manejoService, PlantioService $plantioService){
         $this->manejoService = $manejoService;
+        $this->plantioService= $plantioService;
     }
     
     public function index(Request $request){
@@ -29,6 +35,7 @@ class ManejoController extends Controller{
     public function showManejosPlantios(Plantio $plantio){
         $this->authorize('view-manejos-plantio', $plantio);
         $manejosPlantio = $this->manejoService->read($plantio);
+        $plantio->quantidade_pantas = $this->plantioService->novaQuantidadePlantio($plantio);
         if($manejosPlantio->isEmpty()){
             abort(404);            
         }else{
@@ -96,14 +103,14 @@ class ManejoController extends Controller{
     
     public function createEstoqueColheitaManejo(Request $request, ManejoPlantio $manejo){
         $manejos = $this->manejoService->index();
-        return view('painel.historicomanejoproduto.create-estoque-colheita', ["manejos" => $manejos]);
-        $Manejos=Manejo::all();
-        $dados=ManejoPlantio::all()->where('id','=',$manejo);
-        $dados=$dados->first();
-        return view('manejoForm', ["User"=>$this->getFirstName($this->usuario['name']) , "Tela"=>"Adicionar ao Estoque" ,'Method'=>'post','Url'=>'manejo/estoque/'.$manejo, 'Manejos'=>$Manejos,'dados'=>$dados ,'select'=>'selected','disabled'=>'disabled' ] );
+        $plantio = $manejo->plantio()->first();
+        $plantio->quantidade_pantas = $this->plantioService->novaQuantidadePlantio($plantio);
+        $plantio->produto = $plantio->produto()->first()->tipo == 'c_temporaria' ? $plantio->produto="c_temporaria" : $plantio->produto="c_permanente";
+        return view('painel.historicomanejoproduto.create-estoque-colheita', ["manejos" => $manejos, 'manejo'=>$manejo, 'plantio'=>$plantio]);
     }
     
-    public function storeEstoqueColheitaManejo(Request $request,$manejo){
+    public function storeEstoqueColheitaManejo(ColheitaFormRequest $request, ManejoPlantio $manejo){
+        dd($request->all());
         $result=ManejoPlantio::where('id','=',$manejo)->get(['id as manejoplantio_id','data_hora as data','plantio_id'])->first();
         $result->quantidade=$request->numero_produdos;
         $plantio=Plantio::where('id','=',$result->plantio_id)->get()->first();

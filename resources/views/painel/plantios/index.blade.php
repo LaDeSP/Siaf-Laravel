@@ -68,7 +68,7 @@ Plantio
                                                 <i class="fa fa-edit"></i>
                                             </a>
                                             <a href="{{route('painel.createPerdaPlantio', ['plantio'=>$plantio])}}" class="btn btn-dark @if($plantio->quantidade_pantas == 0) disabled @endif">
-                                                <i class="fa fa-frown"></i>  
+                                                <i class="fas fa-exclamation"></i>  
                                             </a>
                                         </td>
                                     </tr>

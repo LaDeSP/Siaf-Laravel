@@ -45,6 +45,7 @@ Plantio
                                 <thead>
                                     <tr>
                                         <th class="text-center">Produto</th>
+                                        <th class="text-center">Tipo do produto</th>
                                         <th class="text-center">Data semeadura</th>
                                         <th class="text-center">Data Plantio</th>
                                         <th class="text-center">Quantidade de plantas</th>
@@ -56,6 +57,7 @@ Plantio
                                     @foreach ($plantios as $plantio)
                                     <tr>
                                         <td class="text-center">{{$plantio->produto->nome}}</td>
+                                        <td class="text-center">{{$plantio->produto()->first()->tipo == "c_permanente"? "Permanente":"Temporário"}}</td>
                                         <td class="text-center">{{$plantio->data_semeadura ? date('d/m/Y', strtotime($plantio->data_semeadura)) : 'Sem Data'}}</td>
                                         <td class="text-center">{{date('d/m/Y', strtotime($plantio->data_plantio))}}</td>
                                         <td class="text-center">{{$plantio->quantidade_pantas}}</td>
@@ -77,6 +79,7 @@ Plantio
                                 <tfoot>
                                     <tr>
                                         <th class="text-center">Produto</th>
+                                        <th class="text-center">Tipo do produto</th>
                                         <th class="text-center">Data semeadura</th>
                                         <th class="text-center">Data Plantio</th>
                                         <th class="text-center">Quantidade de plantas</th>

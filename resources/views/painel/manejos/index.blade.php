@@ -29,6 +29,7 @@ Manejo
                                 <thead>
                                     <tr>
                                         <th class="text-center">Produto</th>
+                                        <th class="text-center">Tipo do produto</th>
                                         <th class="text-center">Data plantio</th>
                                         <th class="text-center">Talhão</th>                                        
                                         <th data-priority="1" class="text-center">Ação</th>
@@ -38,6 +39,7 @@ Manejo
                                     @foreach ($plantios as $plantio)
                                     <tr>
                                         <td class="text-center">{{$plantio->produto->nome}}</td>
+                                        <td class="text-center">{{$plantio->produto()->first()->tipo == "c_permanente"? "Permanente":"Temporário"}}</td>
                                         <td class="text-center">{{date('d/m/Y', strtotime($plantio->data_plantio))}}</td>
                                         <td class="text-center">{{$plantio->talhao->nome}}</td>                                        
                                         <td class="text-center">
@@ -54,6 +56,7 @@ Manejo
                                 <tfoot>
                                     <tr>
                                         <th class="text-center">Produto</th>
+                                        <th class="text-center">Tipo do produto</th>
                                         <th class="text-center">Data plantio</th>
                                         <th class="text-center">Talhão</th>                                        
                                         <th class="text-center">Novo Manejo</th>

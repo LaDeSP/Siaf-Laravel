@@ -51,7 +51,7 @@ Estoques
                                         <td class="text-center">{{$estoque->data}}</td>
                                         <td class="text-center">
                                             <a href="{{route('painel.createPerdaEstoque', ['estoque'=>$estoque])}}" class="btn btn-dark">
-                                                    <i class="fa fa-frown"></i>  
+                                                    <i class="fas fa-exclamation"></i>  
                                             </a>
                                         </td>
                                     </tr>

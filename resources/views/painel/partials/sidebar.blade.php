@@ -13,8 +13,8 @@
             <li class="dropdown {!! (Request::is('painel/estoque/p/plantio')|| Request::is( 'painel/estoque/p/propriedade') ? ' active' : '' )!!}">
                 <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i><img src="{{ asset('assets/img/estoque.png') }}" alt="logo" width="25"></i> <span>Estoque</span></a>
                 <ul class="dropdown-menu">
-                    <li class="{{ Request::route()->getName() == 'painel.estoquePlantaveis' ? ' active' : '' }}"><a class="nav-link" href="{{route('painel.estoquePlantaveis')}}">Estoque Plantio</a></li>
-                    <li class="{{ Request::route()->getName() == 'painel.estoquePropriedade' ? ' active' : '' }}"><a class="nav-link" href="{{route('painel.estoquePropriedade')}}">Estoque não plantio</a></li>
+                    <li class="{{ Request::route()->getName() == 'painel.estoquePlantaveis' ? ' active' : '' }}"><a class="nav-link" href="{{route('painel.estoquePlantaveis')}}">Produtos Plantáveis</a></li>
+                    <li class="{{ Request::route()->getName() == 'painel.estoquePropriedade' ? ' active' : '' }}"><a class="nav-link" href="{{route('painel.estoquePropriedade')}}">Produtos Processados</a></li>
                 </ul>
             </li>
             <li class="{{ Request::route()->getName() == 'painel.plantio.index' ? ' active' : '' }}"><a class="nav-link" href="{{route('painel.plantio.index')}}"><i><img src="{{ asset('assets/img/plantio.png') }}" alt="logo" width="25"></i> <span>Plantio</span></a></li>

@@ -29,6 +29,7 @@ class PerdaPlantioFormRequest extends FormRequest{
     }
 
     public function messages(){
+        /*Caso ele não tenha quantidade suficiente para perda e mesmo assim insista em adicionar um valor*/
         if($this->quantidadePlantio == 0){
             return [
                 'destino.required' => 'Destino é um campo obrigatório!',

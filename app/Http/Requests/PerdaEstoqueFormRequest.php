@@ -28,13 +28,24 @@ class PerdaEstoqueFormRequest extends FormRequest{
     }
 
     public function messages(){
-        return [
-            'destino.required' => 'Destino é um campo obrigatório!',
-            'quantidade_perda.required' => 'Destino é um campo obrigatório!',
-            'quantidade_perda.integer'     =>  'Quantidade de perda deve ser um número inteiro!',
-            'quantidade_perda.min'     =>  'Horas utilizadas deve ser maior que zero!',
-            'quantidade_perda.max'     =>  'Quantidade de perda deve ser menor ou igual a '.$this->quantidadeEstoque.'!',
-            'data_perda.required' => 'Data da perda é um campo obrigatório!',
-        ];
+        if($this->quantidadeEstoque == 0){
+            return [
+                'destino.required' => 'Destino é um campo obrigatório!',
+                'quantidade_perda.required' => 'Destino é um campo obrigatório!',
+                'quantidade_perda.integer'     =>  'Quantidade de perda deve ser um número inteiro!',
+                'quantidade_perda.min'     =>  'Quantidade deve ser maior que zero!',
+                'quantidade_perda.max'     =>  'Você não possui quantidade suficiente para perda deste estoque!',
+                'data_perda.required' => 'Data da perda é um campo obrigatório!',
+            ];
+        }else{
+            return [
+                'destino.required' => 'Destino é um campo obrigatório!',
+                'quantidade_perda.required' => 'Destino é um campo obrigatório!',
+                'quantidade_perda.integer'     =>  'Quantidade de perda deve ser um número inteiro!',
+                'quantidade_perda.min'     =>  'Quantidade deve ser maior que zero!',
+                'quantidade_perda.max'     =>  'Quantidade de perda deve ser menor ou igual a '.$this->quantidadeEstoque.'!',
+                'data_perda.required' => 'Data da perda é um campo obrigatório!',
+            ];
+        }
     }
 }

@@ -10,11 +10,11 @@
             <li class="menu-header">Menus</li>
             <li class="{{ Request::route()->getName() == 'painel.dashboard' ? ' active' : '' }}"><a class="nav-link" href="{{ route('painel.dashboard') }}"><i><img src="{{ asset('assets/img/inicio.png') }}" alt="logo" width="25"></i><span>Início</span></a></li>
             <li class="{{ Request::route()->getName() == 'painel.venda.index' ? ' active' : '' }}"><a class="nav-link" href="{{route('painel.venda.index')}}"><i><img src="{{ asset('assets/img/vendas.png') }}" alt="logo" width="25"></i> <span>Vendas</span></a></li>
-            <li class="dropdown {!! (Request::is('painel/estoque/p/plantio')|| Request::is( 'painel/estoque/p/propriedade') ? ' active' : '' )!!}">
+            <li class="dropdown {!! (Request::is('painel/estoque/produto/plantio')|| Request::is( 'painel/estoque/produto/processado') ? ' active' : '' )!!}">
                 <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i><img src="{{ asset('assets/img/estoque.png') }}" alt="logo" width="25"></i> <span>Estoque</span></a>
                 <ul class="dropdown-menu">
                     <li class="{{ Request::route()->getName() == 'painel.estoquePlantaveis' ? ' active' : '' }}"><a class="nav-link" href="{{route('painel.estoquePlantaveis')}}">Produtos Plantáveis</a></li>
-                    <li class="{{ Request::route()->getName() == 'painel.estoquePropriedade' ? ' active' : '' }}"><a class="nav-link" href="{{route('painel.estoquePropriedade')}}">Produtos Processados</a></li>
+                    <li class="{{ Request::route()->getName() == 'painel.estoqueProcessado' ? ' active' : '' }}"><a class="nav-link" href="{{route('painel.estoqueProcessado')}}">Produtos Processados</a></li>
                 </ul>
             </li>
             <li class="{{ Request::route()->getName() == 'painel.plantio.index' ? ' active' : '' }}"><a class="nav-link" href="{{route('painel.plantio.index')}}"><i><img src="{{ asset('assets/img/plantio.png') }}" alt="logo" width="25"></i> <span>Plantio</span></a></li>

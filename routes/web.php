@@ -12,8 +12,8 @@ Route::name('painel.')->prefix('painel')->middleware('auth')->group(function() {
     /*Rotas referente a estoque*/
     Route::resource('/estoque', "EstoqueController", ['names' => [
         'create', 'store', 'edit', 'update', 'destroy']]);
-    Route::get('/estoque/p/plantio', 'EstoqueController@estoquePlataveisIndex')->name('estoquePlantaveis');
-    Route::get('/estoque/p/propriedade', 'EstoqueController@estoqueProcessadoIndex')->name('estoquePropriedade');
+    Route::get('/estoque/produto/plantio', 'EstoqueController@estoquePlataveisIndex')->name('estoquePlantaveis');
+    Route::get('/estoque/produto/processado', 'EstoqueController@estoqueProcessadoIndex')->name('estoqueProcessado');
     Route::get('/plantio/colheita/{manejo}/estoque', "ManejoController@createEstoqueColheitaManejo")->name('createEstoqueColheitaManejo');
     Route::post('/plantio/colheita/{manejo}/estoque', "ManejoController@storeEstoqueColheitaManejo")->name('storeEstoqueColheitaManejo');
     

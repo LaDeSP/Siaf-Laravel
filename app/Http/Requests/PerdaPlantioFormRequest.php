@@ -35,7 +35,7 @@ class PerdaPlantioFormRequest extends FormRequest{
             'quantidade_perda.integer'     =>  'Quantidade de perda deve ser um número inteiro!',
             'quantidade_perda.min'     =>  'Horas utilizadas deve ser maior que zero!',
             'quantidade_perda.max'     =>  'Quantidade de perda deve ser menor ou igual a '.$this->quantidadePlantio.'!',
-            'data_perda.required' => 'Data do manejo é um campo obrigatório!',
+            'data_perda.required' => 'Data da perda é um campo obrigatório!',
         ];
     }
 }

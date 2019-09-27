@@ -15,6 +15,18 @@ Estoques
         <h1>Gestão de estoque não plantável</h1>
     </div>
     <div class="section-body">
+        <div class="row d-flex justify-content-center">
+            @if(session()->has('success'))
+            <div class="alert alert-success alert-dismissible show fade col-10">
+                <div class="alert-body">
+                    <button class="close" data-dismiss="alert">
+                        <span>×</span>
+                    </button>
+                    {{ session('success') }}
+                </div>
+            </div>
+            @endif
+        </div>
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
@@ -43,8 +55,8 @@ Estoques
                                 <tbody>
                                     @foreach ($estoques as $estoque)
                                     <tr>
-                                        <td class="text-center">{{$estoque->id}}</td>
-                                        <td class="text-center">System Architect</td>
+                                        <td class="text-center">{{$estoque->produto->nome}}</td>
+                                        <td class="text-center">{{$estoque->quantidade}}</td>
                                         <td class="text-center">Edinburgh</td>
                                         <td class="text-center">61</td>
                                         <td class="text-center">2011/04/25</td>
@@ -53,8 +65,8 @@ Estoques
                                             <a href="{{route('painel.estoque.edit', ['estoque'=>$estoque->id])}}" class="btn btn-warning">
                                                 <i class="fa fa-edit"></i>
                                             </a>
-                                            <a href="{{route('painel.createPerdaEstoque', ['estoque'=>$estoque])}}" class="btn btn-dark">
-                                                    <i class="fa fa-frown"></i>  
+                                            <a href="{{route('painel.createPerdaEstoque', ['estoque'=>$estoque])}}" class="btn btn-dark @if($estoque->quantidade == 0) disabled @endif">
+                                                <i class="fa fa-frown"></i>  
                                             </a>
                                         </td>
                                     </tr>
@@ -74,9 +86,9 @@ Estoques
                             </table>
                             @else
                             <div class="text-center p-3 text-muted">
-                                    <h5>{{ collect(explode(' ', ucwords(strtolower(Auth::user()->name))))->slice(0, 1)->implode(' ') }}, você não possui nenhum estoque cadastrado!</h5>
-                                    <p>Clique no botão Adicionar para cadastrar novos estoques.</p>
-                                </div>
+                                <h5>{{ collect(explode(' ', ucwords(strtolower(Auth::user()->name))))->slice(0, 1)->implode(' ') }}, você não possui nenhum estoque cadastrado!</h5>
+                                <p>Clique no botão Adicionar para cadastrar novos estoques.</p>
+                            </div>
                             @endif
                         </div>
                     </div>

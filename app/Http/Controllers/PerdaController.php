@@ -12,9 +12,11 @@ use App\Models\Propriedade;
 use Illuminate\Http\Request;
 use App\Models\ManejoPlantio;
 use App\Services\PerdaService;
+use App\Services\EstoqueService;
 use App\Services\PlantioService;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
+use App\Http\Requests\PerdaEstoqueFormRequest;
 use App\Http\Requests\PerdaPlantioFormRequest;
 
 
@@ -22,10 +24,12 @@ use App\Http\Requests\PerdaPlantioFormRequest;
 class PerdaController extends Controller{
     protected $plantioService;
     protected $perdaService;
+    protected $estoqueService;
 
-    public function __construct(PlantioService $plantioService, PerdaService $perdaService){
+    public function __construct(PlantioService $plantioService, PerdaService $perdaService, EstoqueService $estoqueService){
         $this->plantioService = $plantioService;
         $this->perdaService = $perdaService;
+        $this->estoqueService = $estoqueService;
     }
     
     public function index(Request $request){
@@ -42,8 +46,19 @@ class PerdaController extends Controller{
         return view('painel.plantios.create-perda', ['plantio'=>$plantio, 'destinos'=>$destinosPerda]);
     }
 
-    public function storePerdaEstoque(Request $request, Estoque $estoque){    
-        dd('entrei no store de perda para estoque');    
+    public function storePerdaEstoque(PerdaEstoqueFormRequest $request, Estoque $estoque){    
+        $data = $this->perdaService->create($request->all(), $plantio=null, $estoque);
+        $quantidadeEstoque = $this->estoqueService->quantidadeDisponivelDeProdutoEstoque($estoque);
+        $tipoProduto = $estoque->produto->first()->tipo;
+        if($quantidadeEstoque == 0){
+            if($tipoProduto == 'c_temporaria' || $tipoProduto == 'c_permanente'){
+                return Redirect::route('painel.estoquePlantaveis')->with($data['class'], $data['mensagem']);
+            }else{
+                return Redirect::route('painel.estoqueProcessado')->with($data['class'], $data['mensagem']);
+            }
+        }else{
+            return back()->with($data['class'], $data['mensagem']);
+        }    
     }
     
     public function storePerdaPlantio(PerdaPlantioFormRequest $request, Plantio $plantio){

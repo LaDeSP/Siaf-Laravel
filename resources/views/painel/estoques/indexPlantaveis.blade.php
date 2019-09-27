@@ -15,6 +15,18 @@ Estoques
         <h1>Gestão de estoque</h1>
     </div>
     <div class="section-body">
+            <div class="row d-flex justify-content-center">
+                    @if(session()->has('success'))
+                    <div class="alert alert-success alert-dismissible show fade col-10">
+                        <div class="alert-body">
+                            <button class="close" data-dismiss="alert">
+                                <span>×</span>
+                            </button>
+                            {{ session('success') }}
+                        </div>
+                    </div>
+                    @endif
+            </div>
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
@@ -50,7 +62,7 @@ Estoques
                                         <td class="text-center">{{$estoque->manejoplantio->plantio->talhao->nome}}</td>
                                         <td class="text-center">{{$estoque->data}}</td>
                                         <td class="text-center">
-                                            <a href="{{route('painel.createPerdaEstoque', ['estoque'=>$estoque])}}" class="btn btn-dark">
+                                            <a href="{{route('painel.createPerdaEstoque', ['estoque'=>$estoque])}}" class="btn btn-dark @if($estoque->quantidade == 0) disabled @endif">
                                                     <i class="fas fa-exclamation"></i>  
                                             </a>
                                         </td>

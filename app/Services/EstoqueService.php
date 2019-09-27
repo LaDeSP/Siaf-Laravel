@@ -21,6 +21,7 @@ class EstoqueService{
         
         foreach($estoquesProdutosPlantaveis as $estoque){
             if($estoque->produto()->whereIn("tipo", ["c_permanente","c_temporaria"])->first()){
+                $estoque->quantidade = $this->quantidadeDisponivelDeProdutoEstoque($estoque);
                 array_push($estoques, $estoque);
             }
         }
@@ -32,6 +33,7 @@ class EstoqueService{
         $estoques = [];
         foreach($estoquesProdutosPropriedade as $key => $estoque){
             if($estoque->produto()->where("tipo","processado")->first()){
+                $estoque->quantidade = $this->quantidadeDisponivelDeProdutoEstoque($estoque);
                 array_push($estoques, $estoque);
             }
         }

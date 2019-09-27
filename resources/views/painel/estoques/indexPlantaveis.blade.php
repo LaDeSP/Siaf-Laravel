@@ -43,10 +43,8 @@ Estoques
                                         <th class="text-center">Quantidade</th>
                                         <th class="text-center">Unidade</th>
                                         <th class="text-center">Data Estoque</th>
-                                        <th class="text-center">Data semeadura</th>
-                                        <th class="text-center">Data plantio</th>
-                                        <th class="text-center">Talhão</th>
-                                        <th class="text-center">Data colheita</th>
+                                        <th class="text-center">Data colheita</th>                                       
+                                        <th class="text-center">Talhão</th>                                        
                                         <th data-priority="1" class="text-center">Ação</th>
                                     </tr>
                                 </thead>
@@ -57,10 +55,8 @@ Estoques
                                         <td class="text-center">{{$estoque->quantidade}}</td>
                                         <td class="text-center">{{$estoque->produto->unidade->nome}}</td>
                                         <td class="text-center">{{$estoque->data}}</td>
-                                        <td class="text-center">{{$estoque->data}}</td>
-                                        <td class="text-center">{{$estoque->manejoplantio_id}}</td>
+                                        <td class="text-center">{{$estoque->manejoplantio()->first()->data_hora}}</td>
                                         <td class="text-center">{{$estoque->manejoplantio->plantio->talhao->nome}}</td>
-                                        <td class="text-center">{{$estoque->data}}</td>
                                         <td class="text-center">
                                             <a href="{{route('painel.createPerdaEstoque', ['estoque'=>$estoque])}}" class="btn btn-dark @if($estoque->quantidade == 0) disabled @endif">
                                                     <i class="fas fa-exclamation"></i>  
@@ -75,10 +71,8 @@ Estoques
                                         <th class="text-center">Quantidade</th>
                                         <th class="text-center">Unidade</th>
                                         <th class="text-center">Data Estoque</th>
-                                        <th class="text-center">Data semeadura</th>
-                                        <th class="text-center">Data plantio</th>
-                                        <th class="text-center">Talhão</th>
-                                        <th class="text-center">Data colheita</th>
+                                        <th class="text-center">Data colheita</th>                               
+                                        <th class="text-center">Talhão</th>                                        
                                         <th class="text-center">Ação</th>
                                     </tr>
                                 </tfoot>

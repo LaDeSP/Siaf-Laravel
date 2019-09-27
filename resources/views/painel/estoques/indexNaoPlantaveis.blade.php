@@ -44,10 +44,8 @@ Estoques
                                 <thead>
                                     <tr>
                                         <th class="text-center">Produto</th>
-                                        <th class="text-center">Quantidade</th>
                                         <th class="text-center">Unidade</th>
-                                        <th class="text-center">Data Inicio</th>
-                                        <th class="text-center">Data Final</th>
+                                        <th class="text-center">Quantidade</th>
                                         <th class="text-center">Data Estoque</th>
                                         <th data-priority="1" class="text-center">Ação</th>
                                     </tr>
@@ -56,17 +54,15 @@ Estoques
                                     @foreach ($estoques as $estoque)
                                     <tr>
                                         <td class="text-center">{{$estoque->produto->nome}}</td>
+                                        <td class="text-center">{{$estoque->produto->unidade->nome}}</td>
                                         <td class="text-center">{{$estoque->quantidade}}</td>
-                                        <td class="text-center">Edinburgh</td>
-                                        <td class="text-center">61</td>
-                                        <td class="text-center">2011/04/25</td>
-                                        <td class="text-center">2011/04/25</td>
+                                        <td class="text-center">{{$estoque->data}}</td>
                                         <td class="text-center">
                                             <a href="{{route('painel.estoque.edit', ['estoque'=>$estoque->id])}}" class="btn btn-warning">
                                                 <i class="fa fa-edit"></i>
                                             </a>
                                             <a href="{{route('painel.createPerdaEstoque', ['estoque'=>$estoque])}}" class="btn btn-dark @if($estoque->quantidade == 0) disabled @endif">
-                                                <i class="fa fa-frown"></i>  
+                                                <i class="fas fa-exclamation"></i>  
                                             </a>
                                         </td>
                                     </tr>
@@ -75,10 +71,8 @@ Estoques
                                 <tfoot>
                                     <tr>
                                         <th class="text-center">Produto</th>
-                                        <th class="text-center">Quantidade</th>
                                         <th class="text-center">Unidade</th>
-                                        <th class="text-center">Data Inicio</th>
-                                        <th class="text-center">Data Final</th>
+                                        <th class="text-center">Quantidade</th>
                                         <th class="text-center">Data Estoque</th>
                                         <th class="text-center">Ação</th>
                                     </tr>

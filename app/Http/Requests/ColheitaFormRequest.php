@@ -38,14 +38,25 @@ class ColheitaFormRequest extends FormRequest{
 
     public function messages(){
         if($this->manejo->plantio()->first()->produto()->first()->tipo == "c_temporaria"){
-            return [
-                'produto.required' => 'Produto é um campo obrigatório!',
-                'quantidade.required' => 'Quantidade é um campo obrigatório!',
-                'quantidade.integer'     =>  'Quantidade de perda deve ser um número inteiro!',
-                'quantidade.min'     =>  'Quantidade de colheita deve ser maior que zero!',
-                'quantidade.max'     =>  'Quantidade de colheita deve ser menor ou igual a '.$this->quantidadePlantio.'!',
-                'data_manejo.required' => 'Data do manejo é um campo obrigatório!',
-            ];
+            if($this->quantidadePlantio == 0){
+                return [
+                    'produto.required' => 'Produto é um campo obrigatório!',
+                    'quantidade.required' => 'Quantidade é um campo obrigatório!',
+                    'quantidade.integer'     =>  'Quantidade de colheita deve ser um número inteiro!',
+                    'quantidade.min'     =>  'Quantidade de colheita deve ser maior que zero!',
+                    'quantidade.max'     =>  'Você não possui quantidade suficiente neste plantio para esta colheita',
+                    'data_manejo.required' => 'Data do manejo é um campo obrigatório!',
+                ];
+            }else{
+                return [
+                    'produto.required' => 'Produto é um campo obrigatório!',
+                    'quantidade.required' => 'Quantidade é um campo obrigatório!',
+                    'quantidade.integer'     =>  'Quantidade de colheita deve ser um número inteiro!',
+                    'quantidade.min'     =>  'Quantidade de colheita deve ser maior que zero!',
+                    'quantidade.max'     =>  'Quantidade de colheita deve ser menor ou igual a '.$this->quantidadePlantio.'!',
+                    'data_manejo.required' => 'Data do manejo é um campo obrigatório!',
+                ];
+            }
         }else{
             return [
                 'produto.required' => 'Produto é um campo obrigatório!',

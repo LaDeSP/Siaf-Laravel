@@ -37,6 +37,7 @@ class PerdaController extends Controller{
     
     public function createPerdaEstoque(Estoque $estoque){
         $destinosPerda = Destino::all()->where('tipo', 0);
+        $estoque->quantidade = $this->estoqueService->quantidadeDisponivelDeProdutoEstoque($estoque);
         return view('painel.estoques.create-perda', ['estoque'=>$estoque, 'destinos'=>$destinosPerda]);
     }
 
@@ -49,8 +50,8 @@ class PerdaController extends Controller{
     public function storePerdaEstoque(PerdaEstoqueFormRequest $request, Estoque $estoque){    
         $data = $this->perdaService->create($request->all(), $plantio=null, $estoque);
         $quantidadeEstoque = $this->estoqueService->quantidadeDisponivelDeProdutoEstoque($estoque);
-        $tipoProduto = $estoque->produto->first()->tipo;
         if($quantidadeEstoque == 0){
+            $tipoProduto = $estoque->produto()->first()->tipo;
             if($tipoProduto == 'c_temporaria' || $tipoProduto == 'c_permanente'){
                 return Redirect::route('painel.estoquePlantaveis')->with($data['class'], $data['mensagem']);
             }else{

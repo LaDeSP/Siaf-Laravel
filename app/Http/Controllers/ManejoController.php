@@ -39,7 +39,12 @@ class ManejoController extends Controller{
     public function showManejosPlantios(Plantio $plantio){
         $this->authorize('view-manejos-plantio', $plantio);
         $manejosPlantio = $this->manejoService->read($plantio);
-        $plantio->quantidade_pantas = $this->plantioService->novaQuantidadePlantio($plantio);
+
+        /*Quando for para view, somente os manejos colheitas terão o botão de colheita desabilitado quando quantidade for igual a zero*/
+        if($plantio->produto()->first()->tipo == "c_temporaria"){
+            $plantio->quantidade_pantas = $this->plantioService->novaQuantidadePlantio($plantio);
+        }
+        /*Caso o plantio não tenha manejos*/
         if($manejosPlantio->isEmpty()){
             abort(404);            
         }else{

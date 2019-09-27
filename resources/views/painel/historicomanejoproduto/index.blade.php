@@ -54,7 +54,7 @@ Manejos
                                     @foreach ($manejos as $manejo)
                                     <tr>
                                         <td class="text-center">{{$manejo->pivot->manejo->nome}}</td>
-                                        <td class="text-center">{{$manejo->pivot->data_hora}}</td>
+                                        <td class="text-center">{{date('d/m/Y', strtotime($manejo->pivot->data_hora))}}</td>
                                         <td class="text-center">{{$manejo->pivot->horas_utilizadas}}</td>
                                         <td class="text-center">{{$manejo->pivot->descricao}}</td>
                                         <td class="text-center">

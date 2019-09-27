@@ -47,7 +47,7 @@ Despesas
                                         <td class="text-center">{{$despesa->descricao}}</td>
                                         <td class="text-center">{{$despesa->quantidade}}</td>
                                         <td class="text-center">{{$despesa->valor_unit}}</td>
-                                        <td class="text-center">{{$despesa->data}}</td>
+                                        <td class="text-center">{{date('d/m/Y', strtotime($despesa->data))}}</td>
                                         <td class="text-center">{{$despesa->propriedade->nome}}</td>
                                         <td class="text-center">
                                             <button class="btn btn-danger">

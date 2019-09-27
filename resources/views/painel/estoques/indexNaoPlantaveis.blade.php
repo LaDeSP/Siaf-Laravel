@@ -56,7 +56,7 @@ Estoques
                                         <td class="text-center">{{$estoque->produto->nome}}</td>
                                         <td class="text-center">{{$estoque->produto->unidade->nome}}</td>
                                         <td class="text-center">{{$estoque->quantidade}}</td>
-                                        <td class="text-center">{{$estoque->data}}</td>
+                                        <td class="text-center">{{date('d/m/Y', strtotime($estoque->data))}}</td>
                                         <td class="text-center">
                                             <a href="{{route('painel.estoque.edit', ['estoque'=>$estoque->id])}}" class="btn btn-warning">
                                                 <i class="fa fa-edit"></i>

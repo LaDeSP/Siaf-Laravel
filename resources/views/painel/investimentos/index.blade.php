@@ -47,7 +47,7 @@ Investimentos
                                         <td class="text-center">{{$investimento->descricao}}</td>
                                         <td class="text-center">{{$investimento->quantidade}}</td>
                                         <td class="text-center">{{$investimento->valor_unit}}</td>
-                                        <td class="text-center">{{$investimento->data}}</td>
+                                        <td class="text-center">{{date('d/m/Y', strtotime($investimento->data))}}</td>
                                         <td class="text-center">{{$investimento->propriedade->nome}}</td>
                                         <td class="text-center">
                                             <button class="btn btn-danger">

@@ -50,7 +50,7 @@ Vendas
                                         <td class="text-center">{{$venda->valor_unit}}</td>
                                         <td class="text-center">2011/04/25</td>
                                         <td class="text-center">{{$venda->destino->nome}}</td>
-                                        <td class="text-center">{{$venda->data}}</td>
+                                        <td class="text-center">{{date('d/m/Y', strtotime($venda->data))}}</td>
                                         <td class="text-center">
                                             <button class="btn btn-danger">
                                                 <i class="fa fa-trash"></i>

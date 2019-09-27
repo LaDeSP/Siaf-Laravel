@@ -38,7 +38,7 @@ Manejo
                                     @foreach ($plantios as $plantio)
                                     <tr>
                                         <td class="text-center">{{$plantio->produto->nome}}</td>
-                                        <td class="text-center">{{$plantio->data_plantio}}</td>
+                                        <td class="text-center">{{date('d/m/Y', strtotime($plantio->data_plantio))}}</td>
                                         <td class="text-center">{{$plantio->talhao->nome}}</td>                                        
                                         <td class="text-center">
                                                 <a href="{{route('painel.manejosPlantios', ['plantio'=>$plantio])}}" class="btn btn-info @if($plantio->manejo == 0) disabled @endif"   title="Consultar Manejos">

@@ -44,7 +44,7 @@ Manejos
                                 <thead>
                                     <tr>
                                         <th class="text-center">Manejo</th>
-                                        <th class="text-center">Horário</th>
+                                        <th class="text-center">Data Manejo</th>
                                         <th class="text-center">Quantidade de Horas</th>
                                         <th class="text-center">Descrição</th>
                                         <th data-priority="1" class="text-center">Ação</th>

@@ -2,23 +2,28 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\Estoque;
-use App\Models\Produto;
-use App\Models\Talhao;
-use App\Models\Plantio;
-use App\Models\Propriedade;
-use App\Models\ManejoPlantio;
 use App\Models\Perda;
+use App\Models\Talhao;
+use App\Models\Estoque;
+use App\Models\Plantio;
+use App\Models\Produto;
+use App\Models\Propriedade;
+use Illuminate\Http\Request;
+use App\Models\ManejoPlantio;
+use App\Services\EstoqueService;
+use App\Services\ProdutoService;
+
 use Illuminate\Support\Facades\DB;
 use Illuminate\Pagination\Paginator;
+use App\Http\Requests\EstoqueFormRequest;
 
-use App\Services\EstoqueService;
 class EstoqueController extends Controller{
     protected $estoqueService;
+    protected $produtoService;
 
-    public function __construct(EstoqueService $estoqueService){
+    public function __construct(EstoqueService $estoqueService, ProdutoService $produtoService){
         $this->estoqueService = $estoqueService;
+        $this->produtoService = $produtoService;
     }
     
     public function estoquePlataveisIndex(){
@@ -71,16 +76,15 @@ class EstoqueController extends Controller{
         
     }
     
-    public function create(Request $request){
-        return view('painel.estoques.create');
-        $propriedade=$this->getPropriedade($request);
-        $produtos=Produto::all()->where('propriedade_id','=',$propriedade['id'])->where('plantavel','=',0);
-        $tmp = array("propriedade"=> $propriedade, "produto"=>$produtos  );
-        
-        return view('estoqueForm', ["User"=>$this->getFirstName($this->usuario['name']) ,'Propriedade'=>$tmp , "Tela"=>"Adicionar Estoque" ,'Method'=>'post','Url'=>'/estoque']);
+    public function create(){
+        $produtosProcessados = $this->produtoService->index()->where('tipo', 'processado');
+        return view('painel.estoques.create', ['produtos'=>$produtosProcessados]);
     }
     
-    public function store(Request $request){
+    public function store(EstoqueFormRequest $request){
+        $data = $this->estoqueService->create($request->all());
+        return back()->with($data['class'], $data['mensagem']);
+
         $post = array_except($request,['_token'])->toArray();
         $plantio = new Estoque($post);
         $salva=$plantio->save();

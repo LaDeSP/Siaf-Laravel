@@ -47,9 +47,9 @@ class EstoqueService{
                 $estoque->manejoplantio_id =  $manejo->id;
                 $estoque->data = $date->format('Y-m-d H:i:s');
                 $estoque->produto_id =  $manejo->plantio()->first()->produto()->first()->id;
-                /*Estoque para produto processado*/    
+            /*Estoque para produto processado*/    
             }else{
-                $estoque->produto_id =  $attributes['produto'];
+                $estoque->produto_id =  decrypt($attributes['produto']);
                 $estoque->data = $attributes['data_estoque'];
             }
             $estoque->quantidade = $attributes['quantidade'];
@@ -81,7 +81,7 @@ class EstoqueService{
         } catch (\Throwable $th) {
             if($estoque->manejoplantio_id){
                 return $data=[
-                    'mensagem' => 'Eriiiiiro ao salvar colheita no estoque, tente novamente!',
+                    'mensagem' => 'Erro ao salvar colheita no estoque, tente novamente!',
                     'class' => 'danger'
                 ];
             }

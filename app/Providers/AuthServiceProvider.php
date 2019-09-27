@@ -33,6 +33,10 @@ class AuthServiceProvider extends ServiceProvider
             return $user->propriedades()->first()->id == $produto->propriedade_id;
         });
 
+        Gate::define('view-produto', function(User $user, Produto $produto){ 
+            return $user->propriedades()->first()->id == $produto->propriedade_id;
+        });
+
         Gate::define('view-manejos-plantio', function(User $user, Plantio $plantio){ 
             $talhoes = $user->propriedades()->first()->talhoes()->get();
             

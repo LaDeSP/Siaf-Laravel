@@ -115,6 +115,7 @@ class ManejoController extends Controller{
     
     public function storeEstoqueColheitaManejo(ColheitaFormRequest $request, ManejoPlantio $manejo){
         $data = $this->estoqueService->create($request->all(), $manejo);
+        /*Caso não ocorra nenhum problema no estoque de plantio*/
         if($data['class'] == 'success'){
             return Redirect::route('painel.manejosPlantios', ['plantio'=>$manejo->plantio()->first()])->with($data['class'], $data['mensagem']);
         }else{

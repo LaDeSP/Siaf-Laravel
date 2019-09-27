@@ -33,42 +33,47 @@ Create User
             <div class="col-12">
                 <div class="card">
                     <p class="section-lead m-2">Campos marcado com (<b><span class="text-danger">*</span></b>) são obrigatórios</p>
-                    <form  method="POST" name="addproduto" action="{{ route('painel.produto.store') }}" class="needs-validation p-0 col-sm-8 col-md-8 col-lg-8 align-self-center" novalidate="">
+                    <form  method="POST" name="addproduto" action="{{ route('painel.estoque.store') }}" class="needs-validation p-0 col-sm-8 col-md-8 col-lg-8 align-self-center" novalidate="">
                         {{ csrf_field() }}
                         <div class="card-body">
                             <div class="form-group">
-                                <label>Nome do produto <span class="text-danger">*</span></label>
-                                <input name="nome_produto" type="text" class="form-control {{ $errors->has('nome_produto') ? ' is-invalid' : '' }}" required placeholder="Ex: Manteiga" value="{{ old('nome_produto') }}">
+                                <label>Produto<span class="text-danger">*</span></label>
+                                <select name="produto" class="custom-select form-control {{ $errors->has('produto') ? ' is-invalid' : '' }}" required value="{{ old('produto') }}">
+                                    <option selected="" value="">Selecione o produto</option>
+                                    @foreach ($produtos as $produto)
+                                    <option value="{{encrypt($produto->id)}}">{{$produto->nome}}</option>
+                                    @endforeach
+                                </select>
                                 <div class="invalid-feedback">
-                                    Nome do produto é obrigatório!
+                                    Produto é obrigatório!
                                 </div>
-                                @if ($errors->has('nome_produto'))
+                                @if ($errors->has('produto'))
                                 <div class="invalid-feedback">
-                                    {{ $errors->first('nome_produto') }}
+                                    {{ $errors->first('produto') }}
                                 </div>
                                 @endif
                             </div>
                             <div class="form-group">
                                 <label>Data<span class="text-danger">*</span></label>
-                                <input name="data_plantio" type="date" class="form-control {{ $errors->has('data_plantio') ? ' is-invalid' : '' }}" required="" value="{{ old('data_plantio') }}">
+                                <input name="data_estoque" type="date" class="form-control {{ $errors->has('data_estoque') ? ' is-invalid' : '' }}" required="" value="{{ old('data_estoque') }}">
                                 <div class="invalid-feedback">
-                                    Qual foi a data de estoque do produto?
+                                    Data de estoque é obrigatório!
                                 </div>
-                                @if ($errors->has('data_plantio'))
+                                @if ($errors->has('data_estoque'))
                                 <div class="invalid-feedback">
-                                    {{ $errors->first('data_plantio') }}
+                                    {{ $errors->first('data_estoque') }}
                                 </div>
                                 @endif
                             </div>
                             <div class="form-group">
-                                <label>Quantidade<span class="text-danger">*</span></label>
-                                <input name="numero_plantas" type="number" min="1" class="form-control {{ $errors->has('numero_plantas') ? ' is-invalid' : '' }}" required="" placeholder="Ex: 40" value="{{ old('numero_plantas') }}">
+                                <label>Quantidade produto<span class="text-danger">*</span></label>
+                                <input name="quantidade" type="number" min="1" class="form-control {{ $errors->has('data_estoque') ? ' is-invalid' : '' }}" required="" placeholder="Ex: 40" value="{{ old('data_estoque') }}">
                                 <div class="invalid-feedback">
-                                    Qual a quantidade de produto estocado?
+                                    Quantidade de produto é obrigatório!
                                 </div>
-                                @if ($errors->has('numero_plantas'))
+                                @if ($errors->has('data_estoque'))
                                 <div class="invalid-feedback">
-                                    {{ $errors->first('numero_plantas') }}
+                                    {{ $errors->first('data_estoque') }}
                                 </div>
                                 @endif
                             </div>

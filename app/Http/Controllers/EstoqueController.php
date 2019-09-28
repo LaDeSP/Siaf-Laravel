@@ -77,7 +77,7 @@ class EstoqueController extends Controller{
     }
     
     public function create(){
-        $produtosProcessados = $this->produtoService->index()->where('tipo', 'processado');
+        $produtosProcessados = $this->produtoService->index()->where('tipo', 'Processado');
         return view('painel.estoques.create', ['produtos'=>$produtosProcessados]);
     }
     

@@ -15,6 +15,19 @@ class EstoqueService{
         $this->userService = $userService;
     }
     
+    /*Retorna somente os estoques que tenham quantidade maior que zero*/
+    public function indexEstoquesQuantidadeDisponivel(){
+        $estoques = $this->userService->propriedadesUser()->estoques()->get();
+        $estoquesDisponiveis = [];
+        foreach ($estoques as $estoque) {
+            $estoque->quantidade = $this->quantidadeDisponivelDeProdutoEstoque($estoque);
+            if($estoque->quantidade > 0){
+                array_push($estoquesDisponiveis, $estoque);
+            }
+        }
+        return $estoquesDisponiveis;
+    }
+
     public function estoquePlataveisIndex(){
         $estoquesProdutosPlantaveis =  $this->userService->propriedadesUser()->estoques()->get();
         $estoques = [];

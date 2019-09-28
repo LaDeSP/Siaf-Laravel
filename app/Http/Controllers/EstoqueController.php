@@ -83,21 +83,7 @@ class EstoqueController extends Controller{
     
     public function store(EstoqueFormRequest $request){
         $data = $this->estoqueService->create($request->all());
-        return back()->with($data['class'], $data['mensagem']);
-
-        $post = array_except($request,['_token'])->toArray();
-        $plantio = new Estoque($post);
-        $salva=$plantio->save();
-        if($salva==true){
-            $status='success';
-            $mensagem='Sucesso ao salvar o Estoque!';
-        }
-        else{
-            $status='danger';
-            $mensagem='Erro ao salvar o Estoque!';
-        }
-        return redirect()->action('EstoqueController@index', ['mensagem'=>$mensagem,'status'=>$status]);
-        
+        return back()->with($data['class'], $data['mensagem']); 
     }
     
     public function edit(Request $request,$id){

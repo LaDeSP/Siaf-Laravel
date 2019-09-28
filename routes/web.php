@@ -64,12 +64,14 @@ Route::name('painel.')->prefix('painel')->middleware('auth')->group(function() {
     
     /*Rotas referente a manual*/
     Route::get('/manual', "ManualController@index")->name('manual');
+
+    Route::get('/estoque/{id}/quantidade', 'VendasController@quantidadeProdutoEstoque');
 });
 
 /*
 Route::group(['middleware'=>['web', 'auth']], function()
 {
-    Route::get('/quantidade/{estoque}', 'VendasController@quantidadeProduto');
+    
     Route::get('/usuario', "UsersController@index");
     Route::post('/usuario', "UsersController@update");
     Route::get('/perda/{id}', "PerdaController@index");

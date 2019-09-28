@@ -1,9 +1,10 @@
 <?php
 namespace App\Services;
 
+use App\Models\Venda;
+use \Illuminate\Support\Arr;
 use Illuminate\Http\Request;
 use App\Services\UserService;
-use \Illuminate\Support\Arr;
 
 class VendaService{
     private $userService;
@@ -24,7 +25,32 @@ class VendaService{
     }
     
     public function create(array $attributes){
-        //return $this->propriedadeRepository->create($attributes);
+        try {
+            $venda = new Venda;
+            $venda->quantidade = $attributes['quantidade_venda'];
+            $venda->valor_unit =  $attributes['valor_unit'];
+            $venda->data = $attributes['data_venda'];
+            //$venda->nota =  $attributes['nota'];
+            $venda->destino_id =  $attributes['destino'];
+            $venda->estoque_id =  decrypt($attributes['estoque']);
+            $saved = $venda->save();
+            if($saved){
+                return $data=[
+                    'mensagem' => 'Venda salva com sucesso!',
+                    'class' => 'success'
+                ];
+            }else{
+                return $data=[
+                    'mensagem' => 'Erro ao salvar venda, tente novamente!',
+                    'class' => 'danger'
+                ];
+            }
+        } catch (\Throwable $th) {
+            return $data=[
+                'mensagem' => 'Erro ao salvar venda, tente novamente!',
+                'class' => 'danger'
+            ];
+        }
     }
     
     public function read($id){

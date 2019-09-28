@@ -32,7 +32,7 @@ class PerdaEstoqueFormRequest extends FormRequest{
         if($this->quantidadeEstoque == 0){
             return [
                 'destino.required' => 'Destino é um campo obrigatório!',
-                'quantidade_perda.required' => 'Destino é um campo obrigatório!',
+                'quantidade_perda.required' => 'Quantidade é um campo obrigatório!',
                 'quantidade_perda.integer'     =>  'Quantidade de perda deve ser um número inteiro!',
                 'quantidade_perda.min'     =>  'Quantidade deve ser maior que zero!',
                 'quantidade_perda.max'     =>  'Você não possui quantidade suficiente para perda deste estoque!',
@@ -41,7 +41,7 @@ class PerdaEstoqueFormRequest extends FormRequest{
         }else{
             return [
                 'destino.required' => 'Destino é um campo obrigatório!',
-                'quantidade_perda.required' => 'Destino é um campo obrigatório!',
+                'quantidade_perda.required' => 'Quantidade é um campo obrigatório!',
                 'quantidade_perda.integer'     =>  'Quantidade de perda deve ser um número inteiro!',
                 'quantidade_perda.min'     =>  'Quantidade deve ser maior que zero!',
                 'quantidade_perda.max'     =>  'Quantidade de perda deve ser menor ou igual a '.$this->quantidadeEstoque.'!',

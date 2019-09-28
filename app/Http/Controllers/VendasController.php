@@ -12,6 +12,7 @@ use App\Services\VendaService;
 
 use App\Services\EstoqueService;
 use Illuminate\Support\Facades\DB;
+use App\Http\Requests\VendaFormRequest;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Contracts\Encryption\DecryptException;
 
@@ -36,26 +37,9 @@ class VendasController extends Controller{
         return view('painel.vendas.create', ['estoques'=>$estoques, 'destinos'=>$destinosVenda]);        
     }
     
-    public function store(Request $request){
-        dd($request->all());
-        $data = $request->all();
-        $venda = new Venda($data);
-        $salva=$venda->save();
-        if($salva==true)
-        {
-            $status='success';
-            $mensagem='Sucesso ao salvar a venda!';
-        }
-        else
-        {
-            $status='danger';
-            $mensagem='Erro ao salvar a venda!';
-        }
-        
-        $propriedade = $this->getPropriedade($request);
-        $allVenda = Venda::vendas($propriedade, $id='');
-        return view('venda', ["User"=>$this->getFirstName($this->usuario['name']) ,'Vendas'=>$allVenda , "Tela"=>"Venda",'mensagem'=>$mensagem,'status'=>$status]);
-        
+    public function store(VendaFormRequest $request){
+        $data = $this->vendaService->create($request->all());
+        return back()->with($data['class'], $data['mensagem']);     
     }
     
     

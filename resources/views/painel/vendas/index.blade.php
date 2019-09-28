@@ -44,11 +44,11 @@ Vendas
                                 <tbody>
                                     @foreach ($vendas as $venda)
                                     <tr>
-                                        <td class="text-center">{{$venda->id}}</td>
+                                        <td class="text-center">{{$venda->estoque()->first()->produto()->first()->nome}}</td>
                                         <td class="text-center">{{$venda->quantidade}}</td>
                                         <td class="text-center">{{$venda->estoque->produto->unidade->nome}}</td>
                                         <td class="text-center">{{$venda->valor_unit}}</td>
-                                        <td class="text-center">2011/04/25</td>
+                                        <td class="text-center">{{$venda->valor_unit*$venda->quantidade}} R$</td>
                                         <td class="text-center">{{$venda->destino->nome}}</td>
                                         <td class="text-center">{{date('d/m/Y', strtotime($venda->data))}}</td>
                                         <td class="text-center">

@@ -13,7 +13,17 @@ class ProdutoService{
     }
     
     public function index(){
-        return $this->userService->propriedadesUser()->produtos()->get();
+        $produtos = $this->userService->propriedadesUser()->produtos()->get();
+        foreach ($produtos as $produto) {
+            if($produto->tipo == "c_permanente"){
+                $produto->tipo = "Permanente";
+            }else if($produto->tipo == "c_temporaria"){
+                $produto->tipo = "Temporário";
+            }else{
+                $produto->tipo = "Processado";
+            }
+        }
+        return $produtos;
     }
 
     /*Retona todos os produtos plantaveis para criação de um plantio */

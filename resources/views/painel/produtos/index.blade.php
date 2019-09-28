@@ -33,7 +33,7 @@ Produtos
                                     <tr>
                                         <th class="text-center">Produto</th>
                                         <th class="text-center">Unidade</th>
-                                        <th class="text-center">Plantável</th>
+                                        <th class="text-center">Tipo</th>
                                         <th data-priority="1" class="text-center">Ação</th>
                                     </tr>
                                 </thead>
@@ -42,7 +42,7 @@ Produtos
                                     <tr>
                                         <td class="text-center">{{$produto->nome}}</td>
                                         <td class="text-center">{{$produto->unidade->nome}}</td>
-                                        <td class="text-center">{{$produto->plantavel?'Sim' : 'Não'}}</td>
+                                        <td class="text-center">{{$produto->tipo}}</td>
                                         <td class="text-center">
                                             <button class="btn btn-danger">
                                                 <i class="fa fa-trash"></i>
@@ -58,7 +58,7 @@ Produtos
                                     <tr>
                                         <th class="text-center">Produto</th>
                                         <th class="text-center">Unidade</th>
-                                        <th class="text-center">Plantável</th>
+                                        <th class="text-center">Tipo</th>
                                         <th class="text-center">Ação</th>
                                     </tr>
                                 </tfoot>

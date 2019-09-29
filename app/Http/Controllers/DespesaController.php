@@ -16,43 +16,21 @@ class DespesaController extends Controller{
     public function index(Request $request){
         $depesas = $this->despesaService->index();
         return view('painel.despesas.index', ["despesas" => $depesas]);
-
-        $propriedade = $this->getPropriedade($request);
-        $despesas = Despesa::ler('propriedade_id', $propriedade->id);
-        if(!$despesas)
-          return redirect()->action('DespesaController@index', ['mensagem'=>$request->mensagem,'status'=>$request->status,'page'=>$this->page()-1]);
-        return view('despesa', ["propriedade" => $propriedade, "dados" => $despesas,"User"=>$this->getFirstName($this->usuario['name']), "Tela"=>"Despesa",'mensagem'=>$request->mensagem,'status'=>$request->status]);
     }
-
     
     public function create(){
         return view('painel.despesas.create');
     }
 
-    
     public function store(Request $request){
-        if ($request != null) {
-            $propriedade = $this->getPropriedade($request);
-            $despesa =  Despesa::inserir($request->all());
-            $despesas = Despesa::ler('propriedade_id', $propriedade->id);
-            if ($despesa == 200) {
-                $status='success';
-                $mensagem='Sucesso ao salvar a despesa!';
-            }else{
-                $status='danger';
-                $mensagem='Sucesso ao salvar a despesa';
-            }
-            return redirect()->action('DespesaController@index', ['mensagem'=>$mensagem,'status'=>$status]);
-        }else{
-            return 405;
-        }
+        $data = $this->despesaService->create($request->all());
+        return back()->with($data['class'], $data['mensagem']);
     }
 
     public function show($id=null,$variable=null){
         return Despesa::ler($id, $variable);
     }
 
-    
     public function edit($id){
         //
     }

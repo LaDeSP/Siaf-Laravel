@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Investimento;
+use Illuminate\Http\Request;
 
 use App\Services\InvestimentoService;
+use App\Http\Requests\FinancaFormRequest;
+
 class InvestimentoController extends Controller{
     protected $investimentoService;
 
@@ -16,36 +18,15 @@ class InvestimentoController extends Controller{
     public function index(Request $request){
         $investimentos = $this->investimentoService->index();
         return view('painel.investimentos.index', ["investimentos" => $investimentos]);
-
-        $propriedade = $this->getPropriedade($request);
-        $investimento = Investimento::ler('propriedade_id', $propriedade->id);
-        if(!$investimento){
-            return redirect()->action('InvestimentoController@index', ['mensagem'=>$request->mensagem,'status'=>$request->status,'page'=>$this->page()-1]);
-        }
-        return view('investimento',["propriedade" => $propriedade,"dados" => $investimento, "User"=>$this->getFirstName($this->usuario['name']),"Tela" =>"Investimento"]);
     }
 
     public function create(){
         return view('painel.investimentos.create');
     }
     
-    public function store(Request $request){
-        if ($request != null) {
-            $investimento = Investimento::insere($request->all());
-            if($investimento == 200){
-                $status='success';
-                $mensagem='Sucesso ao salvar o investimento!';
-            }else{
-                $status='danger';
-                $mensagem='Erro ao salvar o investimento!';
-            }
-            $propriedade = $this->getPropriedade($request);
-            $investimento = Investimento::ler('propriedade_id', $propriedade->id);
-            //return view('investimento',["propriedade" => $propriedade,"dados" => $investimento, "User"=>$this->getFirstName( $this->usuario['nome']) , "Tela"=>"Investimentos",'mensagem'=>$mensagem,'status'=>$status]);
-            return redirect()->action('InvestimentoController@index', ['mensagem'=>$mensagem,'status'=>$status,'page'=>$this->page()]);
-        }else{
-            return 405;
-        }
+    public function store(FinancaFormRequest $request){
+        $data = $this->investimentoService->create($request->all());
+        return back()->with($data['class'], $data['mensagem']);
     }
 
 

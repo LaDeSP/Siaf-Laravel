@@ -1,6 +1,7 @@
 <?php
 namespace App\Services;
 
+use App\Models\Investimento;
 use Illuminate\Http\Request;
 use App\Services\UserService;
 
@@ -16,7 +17,32 @@ class InvestimentoService{
     }
 
     public function create(array $attributes){
-        //return $this->propriedadeRepository->create($attributes);
+        try {
+            $investimento = new Investimento;
+            $investimento->nome = $attributes['investimento'];
+            $investimento->descricao =  $attributes['descricao'];
+            $investimento->valor_unit = $attributes['valor_investimento'];
+            $investimento->quantidade =  $attributes['quantidade'];
+            $investimento->data =  $attributes['data_investimento'];
+            $investimento->propriedade_id = $this->userService->propriedadesUser()->id;
+            $saved = $investimento->save();
+            if($saved){
+                return $data=[
+                    'mensagem' => 'Investimento salvo com sucesso!',
+                    'class' => 'success'
+                ];
+            }else{
+                return $data=[
+                    'mensagem' => 'Erro ao salvar investimento, tente novamente!',
+                    'class' => 'danger'
+                ];
+            }
+        } catch (\Throwable $th) {
+            return $data=[
+                'mensagem' => 'Erro ao salvar investimento, tente novamente!',
+                'class' => 'danger'
+            ];
+        }
     }
     
     public function read($id){

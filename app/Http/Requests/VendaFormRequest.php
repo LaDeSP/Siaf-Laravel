@@ -55,7 +55,9 @@ class VendaFormRequest extends FormRequest{
                 'quantidade_venda.min'     =>  'Quantidade deve ser maior que zero!',
                 'quantidade_venda.max'     =>  'Você não possui quantidade suficiente para venda deste estoque!',
                 'data_venda.required' => 'Data da venda é um campo obrigatório!',
-                'valor_unit.between' => 'O valor deve ser um número!'
+                'valor_unit.required' => 'O valor é um campo obrigatório!!',
+                'valor_unit.numeric' => 'O valor deve ser um número!',
+                'valor_unit.between' => 'O valor deve ser um número!',
             ];
         }else{
             return [
@@ -66,7 +68,9 @@ class VendaFormRequest extends FormRequest{
                 'quantidade_venda.min'     =>  'Quantidade deve ser maior que zero!',
                 'quantidade_venda.max'     =>  'Quantidade da venda deve ser menor ou igual a '.$this->quantidadeEstoque.'!',
                 'data_venda.required' => 'Data da venda é um campo obrigatório!',
-                'valor_unit.between' => 'O valor deve ser um número!'
+                'valor_unit.required' => 'O valor é um campo obrigatório!!',
+                'valor_unit.numeric' => 'O valor deve ser um número!',
+                'valor_unit.between' => 'O valor deve ser um número!',
             ];
         }
     }

@@ -65,7 +65,7 @@ Route::name('painel.')->prefix('painel')->middleware('auth')->group(function() {
     /*Rotas referente a manual*/
     Route::get('/manual', "ManualController@index")->name('manual');
 
-    Route::get('/estoque/{id}/quantidade', 'VendasController@quantidadeProdutoEstoque');
+    Route::get('/estoque/{estoque}/quantidade', 'VendasController@quantidadeProdutoEstoque');
 });
 
 /*

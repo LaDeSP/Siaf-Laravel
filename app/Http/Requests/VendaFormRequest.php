@@ -3,38 +3,24 @@
 namespace App\Http\Requests;
 
 use App\Models\Estoque;
-use App\Services\VendaService;
 use App\Services\EstoqueService;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Contracts\Encryption\DecryptException;
 
 class VendaFormRequest extends FormRequest{
-    protected $vendaService;
     protected $estoqueService;
     protected $quantidadeEstoque;
-    protected $vendaEstoque;
     
-    public function __construct(VendaService $vendaService, EstoqueService $estoqueService){
-        $this->vendaService = $vendaService;
+    public function __construct(EstoqueService $estoqueService){
         $this->estoqueService = $estoqueService;
     }
 
     public function authorize(){
-        /*Descriptografa o id do estoque que vem do form*/
-        try {
-            $this->estoque = decrypt($this->estoque);
-            return true;
-        /*Caso alguém altere o hash do id*/
-        } catch (DecryptException $e) {
-            abort(404);
-        }
+        return true;
     }
-
+   
     public function rules(){
-        $idEstoque = decrypt($this->estoque);
-        $this->vendaEstoque = Estoque::all()->where('id', $idEstoque)->first();
-        $this->quantidadeEstoque = $this->estoqueService->quantidadeDisponivelDeProdutoEstoque($this->vendaEstoque);
-        
+        $this->estoque = Estoque::findBySlugOrFail($this->estoque);
+        $this->quantidadeEstoque = $this->estoqueService->quantidadeDisponivelDeProdutoEstoque($this->estoque);
         return [
             'estoque'      =>  'required',
             'destino'      =>  'required',

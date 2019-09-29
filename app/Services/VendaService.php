@@ -2,6 +2,7 @@
 namespace App\Services;
 
 use App\Models\Venda;
+use App\Models\Estoque;
 use \Illuminate\Support\Arr;
 use Illuminate\Http\Request;
 use App\Services\UserService;
@@ -32,7 +33,7 @@ class VendaService{
             $venda->data = $attributes['data_venda'];
             //$venda->nota =  $attributes['nota'];
             $venda->destino_id =  $attributes['destino'];
-            $venda->estoque_id =  decrypt($attributes['estoque']);
+            $venda->estoque_id =  Estoque::findBySlugOrFail($attributes['estoque'])->id;
             $saved = $venda->save();
             if($saved){
                 return $data=[

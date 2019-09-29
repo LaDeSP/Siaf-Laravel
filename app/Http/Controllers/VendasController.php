@@ -110,16 +110,11 @@ class VendasController extends Controller{
         return redirect()->action('VendasController@index', ['mensagem'=>$mensagem,'status'=>$status,'page'=>$this->page()]);
     }
     
-    public function quantidadeProdutoEstoque($id){
+    public function quantidadeProdutoEstoque(Estoque $estoque){
         /*Descriptografa o id do estoque que vem do form*/
-        try {
-            $id = decrypt($id);
-            $estoque = Estoque::all()->where('id', $id)->first();
             $quantidade = $this->estoqueService->quantidadeDisponivelDeProdutoEstoque($estoque);
             return $quantidade;
         /*Caso alguém altere o hash do id*/
-        } catch (DecryptException $e) {
-            abort(404);
-        }
+        
     }
 }

@@ -41,7 +41,7 @@ Adicionar venda
                                 <select name="estoque" class="custom-select form-control {{ $errors->has('estoque') ? ' is-invalid' : '' }}" required value="{{ old('estoque') }}">
                                     <option selected="" value="">Selecione um estoque</option>
                                     @foreach ($estoques as $estoque)
-                                    <option value="{{encrypt($estoque->id)}}">{{$estoque->produto()->first()->nome}}</option>
+                                    <option value="{{$estoque->slug()}}">{{$estoque->produto()->first()->nome}}</option>
                                     @endforeach
                                 </select>
                                 <div class="invalid-feedback">

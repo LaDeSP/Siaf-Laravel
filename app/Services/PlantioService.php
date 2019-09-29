@@ -42,8 +42,8 @@ class PlantioService{
             $plantio->data_semeadura = $attributes['data_semeadura'];
             $plantio->data_plantio =  $attributes['data_plantio'];
             $plantio->quantidade_pantas = $attributes['numero_plantas'];
-            $plantio->talhao_id =  $attributes['talhao'];
-            $plantio->produto_id =  $attributes['produto'];
+            $plantio->talhao_id =  decrypt($attributes['talhao']);
+            $plantio->produto_id =  decrypt($attributes['produto']);
             $saved = $plantio->save();
             if($saved){
                 return $data=[

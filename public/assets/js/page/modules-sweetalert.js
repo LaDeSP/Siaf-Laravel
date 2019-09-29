@@ -1,62 +1,66 @@
 "use strict";
 
-$("#swal-1").click(function() {
-	swal('Hello');
-});
+/*Delete dados SIAF*/
 
-$("#swal-2").click(function() {
-	swal('Good Job', 'You clicked the button!', 'success');
-});
-
-$("#swal-3").click(function() {
-	swal('Good Job', 'You clicked the button!', 'warning');
-});
-
-$("#swal-4").click(function() {
-	swal('Good Job', 'You clicked the button!', 'info');
-});
-
-$("#swal-5").click(function() {
-	swal('Good Job', 'You clicked the button!', 'error');
-});
-
-$("#swal-6").click(function() {
-  swal({
-      title: 'Are you sure?',
-      text: 'Once deleted, you will not be able to recover this imaginary file!',
-      icon: 'warning',
-      buttons: true,
-      dangerMode: true,
+/*Exclusão de plantio*/
+$(".delete-plantio").click(function() {
+    var id = $(this).data("id");
+    var parent = $(this).parent();
+    swal({
+        title: "Tem certeza?",
+        text: "Ao deletar este plantio, a ação não poderá ser desfeita!",
+        icon: "warning",
+        buttons: {
+            cancel: {
+                text: "Cancelar",
+                visible: true,
+                closeModal: true,
+            },
+            confirm: {
+                text: "Deletar",
+                closeModal: true
+            }
+        },
+        dangerMode: true,
     })
     .then((willDelete) => {
-      if (willDelete) {
-      swal('Poof! Your imaginary file has been deleted!', {
-        icon: 'success',
-      });
-      } else {
-      swal('Your imaginary file is safe!');
-      }
+        if (willDelete) {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                url: "/painel/plantio/"+id,
+                type: 'DELETE', // requisição do tipo delete
+                dataType: "JSON",
+                data: {
+                    "id": id // obtem os dados a serem retornados
+                },
+                /*Caso não tenha dado nenhum problema na requisição*/
+                success: function (data){
+                    /*Remove o elemento da tabela*/
+                    parent.slideUp(10, function () {
+                        parent.closest("tr").remove();
+                    });
+                    /*Caso o dado tenha sido deletado com sucesso*/
+                    if(data['success']){
+                        swal(data['success'], {
+                            icon: "success",
+                        });
+                    }else{
+                        swal(data['error'], {
+                            icon: "error",
+                        });
+                    }
+                },
+                /*Caso tenha dado algum problema na requisição*/
+                error: function(data) {
+                    swal("Não foi possível executar está ação, tente novamente!", {
+                        icon: "error",
+                    });
+                }
+            });
+        }
     });
-});
-
-$("#swal-7").click(function() {
-  swal({
-    title: 'What is your name?',
-    content: {
-    element: 'input',
-    attributes: {
-      placeholder: 'Type your name',
-      type: 'text',
-    },
-    },
-  }).then((data) => {
-    swal('Hello, ' + data + '!');
-  });
-});
-
-$("#swal-8").click(function() {
-  swal('This modal will disappear soon!', {
-    buttons: false,
-    timer: 3000,
-  });
 });

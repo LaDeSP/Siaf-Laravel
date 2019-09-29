@@ -63,7 +63,7 @@ Plantio
                                         <td class="text-center">{{$plantio->quantidade_pantas}}</td>
                                         <td class="text-center">{{$plantio->talhao->nome}}</td>
                                         <td class="text-center">
-                                            <a href="{{route('painel.plantio.edit', ['plantio'=>$plantio])}}" class="btn btn-danger @if(isset($plantio->perda) || isset($plantio->manejo)) disabled @endif">
+                                            <a data-id="{{$plantio->slug()}}" href="#" class="btn btn-danger @if(isset($plantio->perda) || isset($plantio->manejo)) disabled @endif delete-plantio">
                                                 <i class="fa fa-trash"></i>
                                             </a>
                                             <a href="{{route('painel.plantio.edit', ['plantio'=>$plantio])}}" class="btn btn-warning @if(isset($plantio->perda) || isset($plantio->manejo)) disabled @endif">
@@ -108,6 +108,8 @@ Plantio
 <script type="text/javascript" src="{{ asset('assets/modules/datatables/DataTables-1.10.18/js/jquery.dataTables.js')}}"></script>
 <script type="text/javascript" src="{{ asset('assets/modules/datatables/DataTables-1.10.18/js/dataTables.bootstrap4.js')}}"></script>
 <script type="text/javascript" src="{{ asset('assets/modules/datatables/Responsive-2.2.2/js/dataTables.responsive.js')}}"></script>
+<script src="{{ asset('assets/modules/sweetalert/sweetalert.min.js')}}"></script>
+<script src="{{ asset('assets/js/page/modules-sweetalert.js')}}"></script>
 <script>
     $(document).ready( function () {
         $('#table-1')

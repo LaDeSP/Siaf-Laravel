@@ -65,17 +65,9 @@ class PlantioController extends Controller{
         return redirect()->action('PlantioController@index', ['mensagem'=>$mensagem,'status'=>$status,'page'=>$this->page()]);
     }
     
-    public function destroy(Request $request,$id){
-        $salva=Plantio::where('id',$id)->delete();
-        if($salva==true){
-            $status='success';
-            $mensagem='Sucesso ao excluir o plantio!';
-        }
-        else{
-            $status='danger';
-            $mensagem='Erro ao excluir o plantio!';
-        }    
-        return redirect()->action('PlantioController@index', ['mensagem'=>$mensagem,'status'=>$status,'page'=>$this->page()]);
+    public function destroy(Plantio $plantio){
+        $data = $this->plantioService->delete($plantio);
+        return $data;
     }
     
     

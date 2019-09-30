@@ -58,7 +58,7 @@ Manejos
                                         <td class="text-center">{{$manejo->pivot->horas_utilizadas}}</td>
                                         <td class="text-center">{{$manejo->pivot->descricao}}</td>
                                         <td class="text-center">
-                                            <a href="{{route('painel.manejo.edit', ['id'=>$manejo->id])}}" class="btn btn-danger @if(isset($manejo->estoque)) disabled @endif">
+                                            <a data-id="{{$manejo->slug()}}" href="#" class="btn btn-danger @if($manejo->plantios()->first()) disabled @endif delete-manejo">
                                                 <i class="fa fa-trash"></i>
                                             </a>
                                             <a href="{{route('painel.manejo.edit', ['id'=>$manejo->id])}}" class="btn btn-warning @if(isset($manejo->estoque)) disabled @endif">

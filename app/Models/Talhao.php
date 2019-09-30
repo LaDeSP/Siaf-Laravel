@@ -12,9 +12,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use function PHPSTORM_META\type;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\DB;
+use Balping\HashSlug\HasHashSlug;
 
 class Talhao extends Eloquent{
     use SoftDeletes;
+    use HasHashSlug;
     protected $table='talhao';
 
 	protected $casts = [

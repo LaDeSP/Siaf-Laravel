@@ -8,15 +8,7 @@ use Illuminate\Contracts\Encryption\DecryptException;
 class PlantioFormRequest extends FormRequest{
     
     public function authorize(){
-        /*Descriptografa o id do produto e do talhao que vem do form*/
-        try {
-            $this->talhao = decrypt($this->talhao);
-            $this->produto = decrypt($this->produto);
-            return true;
-        /*Caso alguém altere o hash do id*/
-        } catch (DecryptException $e) {
-            abort(404);
-        }
+        return true;
     }
 
     public function rules(){

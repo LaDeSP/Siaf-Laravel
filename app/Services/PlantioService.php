@@ -1,7 +1,9 @@
 <?php
 namespace App\Services;
 
+use App\Models\Talhao;
 use App\Models\Plantio;
+use App\Models\Produto;
 use \Illuminate\Support\Arr;
 use Illuminate\Http\Request;
 use App\Services\UserService;
@@ -42,8 +44,8 @@ class PlantioService{
             $plantio->data_semeadura = $attributes['data_semeadura'];
             $plantio->data_plantio =  $attributes['data_plantio'];
             $plantio->quantidade_pantas = $attributes['numero_plantas'];
-            $plantio->talhao_id =  decrypt($attributes['talhao']);
-            $plantio->produto_id =  decrypt($attributes['produto']);
+            $plantio->talhao_id =  Talhao::findBySlugOrFail($attributes['talhao'])->id;
+            $plantio->produto_id =  Produto::findBySlugOrFail($attributes['produto'])->id;
             $saved = $plantio->save();
             if($saved){
                 return $data=[

@@ -74,7 +74,7 @@ Adicionar plantio
                                 <select name="talhao" class="custom-select form-control {{ $errors->has('talhao') ? ' is-invalid' : '' }}" required value="{{ old('talhao') }}">
                                     <option selected="" value="">Selecione o talhão</option>
                                     @foreach ($talhoes as $talhao)
-                                    <option value="{{encrypt($talhao->id)}}">{{$talhao->nome}}</option>
+                                    <option value="{{$talhao->slug()}}">{{$talhao->nome}}</option>
                                     @endforeach
                                 </select>
                                 <div class="invalid-feedback">
@@ -91,7 +91,7 @@ Adicionar plantio
                                 <select name="produto" class="custom-select form-control {{ $errors->has('produto') ? ' is-invalid' : '' }}" required value="{{ old('produto') }}">
                                     <option selected="" value="">Selecione o produto</option>
                                     @foreach ($produtos as $produto)
-                                    <option value="{{encrypt($produto->id)}}">{{$produto->nome}}</option>
+                                    <option value="{{$produto->slug()}}">{{$produto->nome}}</option>
                                     @endforeach
                                 </select>
                                 <div class="invalid-feedback">

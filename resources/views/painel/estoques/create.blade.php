@@ -41,7 +41,7 @@ Create User
                                 <select name="produto" class="custom-select form-control {{ $errors->has('produto') ? ' is-invalid' : '' }}" required value="{{ old('produto') }}">
                                     <option selected="" value="">Selecione o produto</option>
                                     @foreach ($produtos as $produto)
-                                    <option value="{{encrypt($produto->id)}}">{{$produto->nome}}</option>
+                                    <option value="{{$produto->slug()}}">{{$produto->nome}}</option>
                                     @endforeach
                                 </select>
                                 <div class="invalid-feedback">

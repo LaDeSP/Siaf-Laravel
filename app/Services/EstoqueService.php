@@ -4,6 +4,7 @@ namespace App\Services;
 use DateTime;
 use DateTimeZone;
 use App\Models\Estoque;
+use App\Models\Produto;
 use \Illuminate\Support\Arr;
 use Illuminate\Http\Request;
 use App\Services\UserService;
@@ -64,7 +65,7 @@ class EstoqueService{
                 $estoque->produto_id =  $manejo->plantio()->first()->produto()->first()->id;
             /*Estoque para produto processado*/    
             }else{
-                $estoque->produto_id =  decrypt($attributes['produto']);
+                $estoque->produto_id =  Produto::findBySlugOrFail($attributes['produto'])->id;
                 $estoque->data = $attributes['data_estoque'];
             }
             $estoque->quantidade = $attributes['quantidade'];

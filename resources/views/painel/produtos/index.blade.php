@@ -44,9 +44,9 @@ Produtos
                                         <td class="text-center">{{$produto->unidade->nome}}</td>
                                         <td class="text-center">{{$produto->tipo}}</td>
                                         <td class="text-center">
-                                            <button class="btn btn-danger">
+                                        <a data-id="{{$produto->slug()}}" href="#" class="btn btn-danger delete-produto">
                                                 <i class="fa fa-trash"></i>
-                                            </button>
+                                        </a>
                                             <a href="{{route('painel.produto.edit', ['produto'=>$produto])}}" class="btn btn-warning">
                                                 <i class="fa fa-edit"></i>
                                             </a>
@@ -83,6 +83,8 @@ Produtos
 <script type="text/javascript" src="{{ asset('assets/modules/datatables/DataTables-1.10.18/js/jquery.dataTables.js')}}"></script>
 <script type="text/javascript" src="{{ asset('assets/modules/datatables/DataTables-1.10.18/js/dataTables.bootstrap4.js')}}"></script>
 <script type="text/javascript" src="{{ asset('assets/modules/datatables/Responsive-2.2.2/js/dataTables.responsive.js')}}"></script>
+<script src="{{ asset('assets/modules/sweetalert/sweetalert.min.js')}}"></script>
+<script src="{{ asset('assets/js/page/modules-sweetalert.js')}}"></script>
 <script>
     $(document).ready( function () {
         $('#table-1')

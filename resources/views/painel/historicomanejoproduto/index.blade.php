@@ -58,7 +58,7 @@ Manejos
                                         <td class="text-center">{{$manejo->pivot->horas_utilizadas}}</td>
                                         <td class="text-center">{{$manejo->pivot->descricao}}</td>
                                         <td class="text-center">
-                                            <a data-id="{{$manejo->slug()}}" href="#" class="btn btn-danger @if($manejo->plantios()->first()) disabled @endif delete-manejo">
+                                            <a data-id="{{$manejo->pivot->slug()}}" href="#" class="btn btn-danger @if(isset($manejo->estoque)) disabled @endif delete-manejo">
                                                 <i class="fa fa-trash"></i>
                                             </a>
                                             <a href="{{route('painel.manejo.edit', ['id'=>$manejo->id])}}" class="btn btn-warning @if(isset($manejo->estoque)) disabled @endif">
@@ -103,6 +103,8 @@ Manejos
 <script type="text/javascript" src="{{ asset('assets/modules/datatables/DataTables-1.10.18/js/jquery.dataTables.js')}}"></script>
 <script type="text/javascript" src="{{ asset('assets/modules/datatables/DataTables-1.10.18/js/dataTables.bootstrap4.js')}}"></script>
 <script type="text/javascript" src="{{ asset('assets/modules/datatables/Responsive-2.2.2/js/dataTables.responsive.js')}}"></script>
+<script src="{{ asset('assets/modules/sweetalert/sweetalert.min.js')}}"></script>
+<script src="{{ asset('assets/js/page/modules-sweetalert.js')}}"></script>
 <script>
     $(document).ready( function () {
         $('#table-1')

@@ -38,16 +38,16 @@ Talhões
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($talhoes as $talhão)
+                                    @foreach ($talhoes as $talhao)
                                     <tr>
-                                        <td class="text-center">{{$talhão->nome}}</td>
-                                        <td class="text-center">{{$talhão->area}}</td>
-                                        <td class="text-center">{{$talhão->propriedade->nome}}</td>
+                                        <td class="text-center">{{$talhao->nome}}</td>
+                                        <td class="text-center">{{$talhao->area}}</td>
+                                        <td class="text-center">{{$talhao->propriedade->nome}}</td>
                                         <td class="text-center">
                                             <a data-id="{{$talhao->slug()}}" href="#" class="btn btn-danger @if($talhao->plantios()->first()) disabled @endif delete-talhao">
                                                 <i class="fa fa-trash"></i>
                                             </a>
-                                            <a href="{{route('painel.produto.edit', ['produto'=>$talhão->id])}}" class="btn btn-warning">
+                                            <a href="{{route('painel.produto.edit', ['produto'=>$talhao->id])}}" class="btn btn-warning">
                                                 <i class="fa fa-edit"></i>
                                             </a>
                                         </td>
@@ -83,6 +83,8 @@ Talhões
 <script type="text/javascript" src="{{ asset('assets/modules/datatables/DataTables-1.10.18/js/jquery.dataTables.js')}}"></script>
 <script type="text/javascript" src="{{ asset('assets/modules/datatables/DataTables-1.10.18/js/dataTables.bootstrap4.js')}}"></script>
 <script type="text/javascript" src="{{ asset('assets/modules/datatables/Responsive-2.2.2/js/dataTables.responsive.js')}}"></script>
+<script src="{{ asset('assets/modules/sweetalert/sweetalert.min.js')}}"></script>
+<script src="{{ asset('assets/js/page/modules-sweetalert.js')}}"></script>
 <script>
     $(document).ready( function () {
         $('#table-1')

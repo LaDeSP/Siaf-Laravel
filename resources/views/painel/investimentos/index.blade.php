@@ -50,10 +50,10 @@ Investimentos
                                         <td class="text-center">{{date('d/m/Y', strtotime($investimento->data))}}</td>
                                         <td class="text-center">{{$investimento->propriedade->nome}}</td>
                                         <td class="text-center">
-                                            <button class="btn btn-danger">
+                                        <a data-id="{{$investimento->slug()}}" href="#" class="btn btn-danger delete-investimento">
                                                 <i class="fa fa-trash"></i>
-                                            </button>
-                                            <a href="{{route('painel.investimento.edit', ['id'=>$investimento->id])}}" class="btn btn-warning">
+                                        </a>
+                                            <a href="{{route('painel.investimento.edit', ['investimento'=>$investimento])}}" class="btn btn-warning">
                                                 <i class="fa fa-edit"></i>
                                             </a>
                                         </td>
@@ -92,6 +92,8 @@ Investimentos
 <script type="text/javascript" src="{{ asset('assets/modules/datatables/DataTables-1.10.18/js/jquery.dataTables.js')}}"></script>
 <script type="text/javascript" src="{{ asset('assets/modules/datatables/DataTables-1.10.18/js/dataTables.bootstrap4.js')}}"></script>
 <script type="text/javascript" src="{{ asset('assets/modules/datatables/Responsive-2.2.2/js/dataTables.responsive.js')}}"></script>
+<script src="{{ asset('assets/modules/sweetalert/sweetalert.min.js')}}"></script>
+<script src="{{ asset('assets/js/page/modules-sweetalert.js')}}"></script>
 <script>
     $(document).ready( function () {
         $('#table-1')

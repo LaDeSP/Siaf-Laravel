@@ -10,10 +10,11 @@ namespace App\Models;
 use Reliese\Database\Eloquent\Model as Eloquent;
 use \Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Pagination\Paginator;
+use Balping\HashSlug\HasHashSlug;
 
 class Investimento extends Eloquent{
 	use SoftDeletes;
-	
+	use HasHashSlug;
 	const totalPages = 8;
 	
 	protected $table = 'investimento';

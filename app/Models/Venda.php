@@ -11,10 +11,12 @@ use Reliese\Database\Eloquent\Model as Eloquent;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Pagination\Paginator;
 use \Illuminate\Database\Eloquent\SoftDeletes;
+use Balping\HashSlug\HasHashSlug;
 
 class Venda extends Eloquent{
 	
 	use SoftDeletes;
+	use HasHashSlug;
 	protected $table = 'venda';
 
 	protected $casts = [

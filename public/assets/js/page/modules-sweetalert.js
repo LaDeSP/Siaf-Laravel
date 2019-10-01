@@ -39,14 +39,14 @@ $(".delete-plantio").click(function() {
                 },
                 /*Caso não tenha dado nenhum problema na requisição*/
                 success: function (data){
-                    /*Remove o elemento da tabela*/
-                    parent.slideUp(10, function () {
-                        parent.closest("tr").remove();
-                    });
                     /*Caso o dado tenha sido deletado com sucesso*/
                     if(data['success']){
                         swal(data['success'], {
                             icon: "success",
+                        });
+                        /*Remove o elemento da tabela*/
+                        parent.slideUp(10, function () {
+                            parent.closest("tr").remove();
                         });
                     }else{
                         swal(data['error'], {
@@ -102,14 +102,14 @@ $(".delete-talhao").click(function() {
                 },
                 /*Caso não tenha dado nenhum problema na requisição*/
                 success: function (data){
-                    /*Remove o elemento da tabela*/
-                    parent.slideUp(10, function () {
-                        parent.closest("tr").remove();
-                    });
                     /*Caso o dado tenha sido deletado com sucesso*/
                     if(data['success']){
                         swal(data['success'], {
                             icon: "success",
+                        });
+                        /*Remove o elemento da tabela*/
+                        parent.slideUp(10, function () {
+                            parent.closest("tr").remove();
                         });
                     }else{
                         swal(data['error'], {
@@ -165,14 +165,14 @@ $(".delete-manejo").click(function() {
                 },
                 /*Caso não tenha dado nenhum problema na requisição*/
                 success: function (data){
-                    /*Remove o elemento da tabela*/
-                    parent.slideUp(10, function () {
-                        parent.closest("tr").remove();
-                    });
                     /*Caso o dado tenha sido deletado com sucesso*/
                     if(data['success']){
                         swal(data['success'], {
                             icon: "success",
+                        });
+                        /*Remove o elemento da tabela*/
+                        parent.slideUp(10, function () {
+                            parent.closest("tr").remove();
                         });
                     }else{
                         swal(data['error'], {

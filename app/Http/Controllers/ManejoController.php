@@ -61,7 +61,11 @@ class ManejoController extends Controller{
     
     public function store(ManejoFormRequest $request, Plantio $plantio){
         $data = $this->manejoService->create($request->all(), $plantio);
-        return back()->with($data['class'], $data['mensagem']);
+        if($data['class'] == 'success'){
+            return Redirect::route('painel.manejosPlantios', ['plantio'=>$plantio])->with($data['class'], $data['mensagem']);
+        }else{
+            return back()->with($data['class'], $data['mensagem']);
+        }
     }
     
     public function edit(Request $request,$manejo){

@@ -98,20 +98,9 @@ class ManejoController extends Controller{
         
     }
     
-    public function destroy(Request $request,$manejo){
-        $result=ManejoPlantio::find($manejo);
-        $salva=ManejoPlantio::where('id',$manejo)->delete();
-        if($salva==true){
-            $status='success';
-            $mensagem='Sucesso ao excluir o manejo!';
-        }
-        else{
-            $status='danger';
-            $mensagem='Erro ao excluir o manejo!';
-        }
-        //$plantios=$this->plantiosManejos($request,$id='');
-        //return view('manejo', ["User"=>$this->getFirstName($this->usuario['name']), "Tela"=>"Manejo" ,'Plantios'=>$plantios,'mensagem'=>$mensagem,'status'=>$status,'Mostrar'=>$result->plantio_id ,'show'=>'show','disabled'=>'disabled']);
-        return redirect()->action('ManejoController@index', ['Mensagem'=>$mensagem,'Status'=>$status,'Mostrar'=>$result->plantio_id,'page'=>$this->page()]);
+    public function destroy(ManejoPlantio $manejo){
+        $data = $this->manejoService->delete($manejo);
+        return $data;
     }
     
     public function createEstoqueColheitaManejo(Request $request, ManejoPlantio $manejo){

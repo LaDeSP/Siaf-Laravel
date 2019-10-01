@@ -88,6 +88,21 @@ class ManejoService{
     public function update(Request $request, $id){
     }
     
-    public function delete($id){
+    public function delete($manejo){
+        try {
+            $status = $manejo->estoques()->first();
+            if($status){
+                return response()->json(['error'=>'Este manejo já está em uso e não pode ser deletado!']);
+            }else{
+                $deleted = $manejo->delete();
+                if($deleted){
+                    return response()->json(['success'=>'Manejo deletado com sucesso!']);
+                }else{
+                    return response()->json(['error'=>'Erro ao deletar manejo, tente novamente!']);
+                }
+            }
+        } catch (\Throwable $th) {
+            return response()->json(['error'=>'Erro ao deletar manejo, tente novamente!']);
+        }
     }
 }

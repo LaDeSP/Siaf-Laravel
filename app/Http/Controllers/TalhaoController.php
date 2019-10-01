@@ -61,21 +61,8 @@ class TalhaoController extends Controller{
     }
 
    
-    public function destroy($id){
-        try{
-            $t = Talhao::find($id);
-            if(!PropriedadeController::findUsageT($t)){
-                $t->delete();
-                $status='success';
-                $mensagem='Talhão removido com sucesso!';
-                return redirect()->action('PropriedadeController@index', ['mensagem'=>$mensagem,'status'=>$status, 'talhao'=>$this->pagetalhao(), 'produto'=>$this->pageproduto()]);
-            }else
-                throw new \Exception();
-        }catch (\Exception $e){
-            $status='danger';
-            $mensagem='Ocorreu um erro ao remover este Talhão!';
-            return redirect()->action('PropriedadeController@index', ['mensagem'=>$mensagem,'status'=>$status]);
-        }
-
+    public function destroy(Talhao $talhao){
+        $data = $this->talhaoService->delete($talhao);
+        return $data;
     }
 }

@@ -57,7 +57,21 @@ class TalhaoService{
         return $this->talhaoRepository->update($id, $attributes);
     }
     
-    public function delete($id){
-        return $this->talhaoRepository->delete($id);
+    public function delete($talhao){
+        try {
+            $status = $talhao->plantios()->first();
+            if($status){
+                return response()->json(['error'=>'Este talhão já está em uso e não pode ser deletado!']);
+            }else{
+                $deleted = $talhao->delete();
+                if($deleted){
+                    return response()->json(['success'=>'Talhão deletado com sucesso!']);
+                }else{
+                    return response()->json(['error'=>'Erro ao deletar talhão, tente novamente!']);
+                }
+            }
+        } catch (\Throwable $th) {
+            return response()->json(['error'=>'Erro ao deletar talhão, tente novamente!']);
+        }
     }
 }

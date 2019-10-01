@@ -75,11 +75,16 @@ class PlantioService{
     
     public function delete($plantio){
         try {
-            $deleted = $plantio->delete();
-            if($deleted){
-                return response()->json(['success'=>'Plantio deletado com sucesso!']);
+            $status = $this->verificaPlantioTemPerdaOuManejo($plantio);
+            if($status){
+                return response()->json(['error'=>'Este plantio já está em uso e não pode ser deletado!']);
             }else{
-                return response()->json(['error'=>'Erro ao deletar plantio, tente novamente!']);
+                $deleted = $plantio->delete();
+                if($deleted){
+                    return response()->json(['success'=>'Plantio deletado com sucesso!']);
+                }else{
+                    return response()->json(['error'=>'Erro ao deletar plantio, tente novamente!']);
+                }
             }
         } catch (\Throwable $th) {
             return response()->json(['error'=>'Erro ao deletar plantio, tente novamente!']);
@@ -132,6 +137,14 @@ class PlantioService{
         }else if($plantio->produto->tipo == 'c_permanente'){
             $novaQuantidadePlantio = $plantio->quantidade_pantas = $this->quantidadeDisponivelDePlantasCulturais($plantio);
             return $novaQuantidadePlantio;
+        }
+    }
+    
+    public function verificaPlantioTemPerdaOuManejo($plantio){
+        if($plantio->perdas()->first() || $plantio->manejos()->first()){
+            return true;
+        }else{
+            return false;
         }
     }
 }

@@ -52,7 +52,7 @@ Vendas
                                         <td class="text-center">{{$venda->destino->nome}}</td>
                                         <td class="text-center">{{date('d/m/Y', strtotime($venda->data))}}</td>
                                         <td class="text-center">
-                                        <a data-id="{{$venda->slug()}}" href="#" class="btn btn-danger delete-produto">
+                                        <a data-id="{{$venda->slug()}}" href="#" class="btn btn-danger delete-venda">
                                                 <i class="fa fa-trash"></i>
                                         </a>
                                             <a href="{{route('painel.venda.edit', ['venda'=>$venda])}}" class="btn btn-warning">

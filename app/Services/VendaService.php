@@ -61,6 +61,16 @@ class VendaService{
     public function update(Request $request, $id){
     }
     
-    public function delete($id){
+    public function delete($venda){
+        try {
+            $deleted = $venda->delete();
+            if($deleted){
+                return response()->json(['success'=>'Venda deletada com sucesso. Estoque foi atualizado!']);
+            }else{
+                return response()->json(['error'=>'Erro ao deletar venda, tente novamente!']);
+            }
+        } catch (\Throwable $th) {
+            return response()->json(['error'=>'Erro ao deletar venda, tente novamente!']);
+        }
     }
 }

@@ -89,25 +89,9 @@ class VendasController extends Controller{
     }
     
     
-    public function destroy(Request $request,$id)
-    {
-        $salva=Venda::where('id',$id)->delete();
-        if($salva==true)
-        {
-            $status='success';
-            $mensagem='Sucesso ao excluir a venda!';
-        }
-        else
-        {
-            $status='danger';
-            $mensagem='Erro ao excluir a venda!';
-        }
-        
-        $propriedade = $this->getPropriedade($request);
-        $allVenda = Venda::vendas($propriedade, $id='');
-        
-        //return view('venda', ["User"=>$this->getFirstName($this->usuario['name']) ,'Vendas'=>$allVenda , "Tela"=>"Plantio",'mensagem'=>$mensagem,'status'=>$status]);
-        return redirect()->action('VendasController@index', ['mensagem'=>$mensagem,'status'=>$status,'page'=>$this->page()]);
+    public function destroy(Venda $venda){
+        $data = $this->vendaService->delete($venda);
+        return $data;
     }
     
     public function quantidadeProdutoEstoque(Estoque $estoque){

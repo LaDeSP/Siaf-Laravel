@@ -61,7 +61,7 @@ Manejos
                                             <a data-id="{{$manejo->pivot->slug()}}" href="#" class="btn btn-danger @if(isset($manejo->estoque)) disabled @endif delete-manejo">
                                                 <i class="fa fa-trash"></i>
                                             </a>
-                                            <a href="{{route('painel.manejo.edit', ['id'=>$manejo->id])}}" class="btn btn-warning @if(isset($manejo->estoque)) disabled @endif">
+                                            <a href="{{route('painel.manejo.edit', ['manejo'=>$manejo->pivot])}}" class="btn btn-warning @if(isset($manejo->estoque)) disabled @endif">
                                                 <i class="fa fa-edit" style="font-size:10px"></i>
                                             </a>
                                             @if ($manejo->pivot->manejo_id == 4)

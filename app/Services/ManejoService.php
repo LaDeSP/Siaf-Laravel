@@ -7,6 +7,7 @@ use \Illuminate\Support\Arr;
 use Illuminate\Http\Request;
 use App\Models\ManejoPlantio;
 use App\Services\UserService;
+use Illuminate\Support\Carbon;
 
 class ManejoService{
     private $userService;
@@ -30,7 +31,7 @@ class ManejoService{
         }
         $plantios = Arr::collapse($plantios);  
         foreach ($plantios as $plantio) {
-            if($plantio->manejos()->first()){
+            if($plantio->manejos()->wherePivot('deleted_at', null)->first()){
                 $plantio->manejo = 1;
             }else{
                 $plantio->manejo = 0;
@@ -70,10 +71,14 @@ class ManejoService{
     
     public function read($plantio){
         $manejos = $plantio->manejos()->get();
-        if($manejos->isEmpty()){
-            return collect([]);
-        }else{
-            foreach ($manejos as $manejo) {
+        $manejosAtivos = [];
+        foreach ($manejos as $manejo) {
+            if($manejo->pivot->deleted_at == null){
+                array_push($manejosAtivos, $manejo);
+            }
+        }
+        if($manejosAtivos){
+            foreach ($manejosAtivos as $manejo) {
                 if($manejo->pivot->manejo_id == 4){
                     /*Seto uma variavel boolean caso este manejo seja colheita e o mesmo já possua um estoque*/
                     if($manejo->pivot->estoques()->first()){
@@ -81,7 +86,9 @@ class ManejoService{
                     }
                 }
             }
-            return $manejos;
+            return $manejosAtivos;
+        }else{
+            return null;
         }
     }
     
@@ -94,7 +101,8 @@ class ManejoService{
             if($status){
                 return response()->json(['error'=>'Este manejo já está em uso e não pode ser deletado!']);
             }else{
-                $deleted = $manejo->delete();
+                $plantio = $manejo->plantio()->first();
+                $deleted = $plantio->manejos()->wherePivot('id', $manejo->id)->updateExistingPivot($manejo->manejo_id, ['deleted_at' => Carbon::now()]);
                 if($deleted){
                     return response()->json(['success'=>'Manejo deletado com sucesso!']);
                 }else{

@@ -19,7 +19,7 @@ class CreateManejoplantioTable extends Migration
             $table->date('data_hora');
             $table->unsignedInteger('horas_utilizadas');
             $table->unsignedInteger('plantio_id');
-            $table->foreign('plantio_id')->references('id')->on('plantio');
+            $table->foreign('plantio_id')->references('id')->on('plantio')->onDelete('cascade')->onUpdate('cascade');
             $table->unsignedInteger('manejo_id');
             $table->foreign('manejo_id')->references('id')->on('manejo')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();

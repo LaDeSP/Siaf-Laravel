@@ -65,7 +65,7 @@ $(".delete-plantio").click(function() {
     });
 });
 
-/*Exclusão de manejo*/
+/*Exclusão de manejo do manejo-plantio*/
 $(".delete-manejo").click(function() {
     var id = $(this).data("id");
     var parent = $(this).parent();

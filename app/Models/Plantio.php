@@ -45,9 +45,11 @@ class Plantio extends Eloquent{
 	}
 
 	public function manejos(){
-        return $this->belongsToMany(\App\Models\Manejo::class, 'manejoplantio')
-                    ->using('App\Models\ManejoPlantio')
-                    ->withPivot('id', 'descricao', 'data_hora', 'horas_utilizadas');
+		return $this->belongsToMany(\App\Models\Manejo::class, 'manejoplantio')
+					->withTimestamps()
+					->withPivot(['id', 'descricao', 'data_hora', 'horas_utilizadas', 'created_at', 'updated_at', 'deleted_at'])
+					->using(\App\Models\ManejoPlantio::class);
+
     }
 
 	public function perdas(){

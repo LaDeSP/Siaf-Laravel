@@ -9,8 +9,9 @@ use App\Models\Plantio;
 use App\Models\Propriedade;
 use Illuminate\Http\Request;
 use App\Models\ManejoPlantio;
-use App\Services\ManejoService;
+use Illuminate\Support\Carbon;
 
+use App\Services\ManejoService;
 use App\Services\EstoqueService;
 use App\Services\PlantioService;
 use Illuminate\Support\Facades\DB;
@@ -31,24 +32,24 @@ class ManejoController extends Controller{
         $this->estoqueService= $estoqueService;
     }
     
-    public function index(Request $request){
+    public function index(){
         $plantios = $this->manejoService->plantios();
         return view('painel.manejos.index', ["plantios" => $plantios]);
     }
-
+    
     public function showManejosPlantios(Plantio $plantio){
         $this->authorize('view-manejos-plantio', $plantio);
         $manejosPlantio = $this->manejoService->read($plantio);
-
+        
         /*Quando for para view, somente os manejos colheitas terão o botão de colheita desabilitado quando quantidade for igual a zero*/
         if($plantio->produto()->first()->tipo == "c_temporaria"){
             $plantio->quantidade_pantas = $this->plantioService->novaQuantidadePlantio($plantio);
         }
         /*Caso o plantio não tenha manejos*/
-        if($manejosPlantio->isEmpty()){
-            abort(404);            
+        if($manejosPlantio){
+            return view('painel.historicomanejoproduto.index', ["manejos" => $manejosPlantio, "plantio"=>$plantio]);            
         }else{
-            return view('painel.historicomanejoproduto.index', ["manejos" => $manejosPlantio, "plantio"=>$plantio]);
+            return Redirect::route('painel.manejo.index');
         }
     }
     
@@ -76,31 +77,23 @@ class ManejoController extends Controller{
     }
     
     public function update(Request $request,$manejo){
-        //      return $request;
-        $Manejo = ManejoPlantio::find($manejo);
-        
-        $post = array_except($request,['_token'])->toArray();
-        $post = array_except($request,['id'])->toArray();
-        $salva=$Manejo->update($post);
-        if($salva==true){
-            $status='success';
-            $mensagem='Sucesso ao editar o manejo!';
-        }
-        else{
-            $status='danger';
-            $mensagem='Erro ao editar o manejo!';
-        }
-        
-        //$plantios=$this->plantiosManejos($request,$id='');
-        //return view('manejo', ["User"=>$this->getFirstName($this->usuario['name']), "Tela"=>"Manejo" ,'Plantios'=>$plantios,'mensagem'=>$mensagem,'status'=>$status,'Mostrar'=>$Manejo->plantio_id,'show'=>'show' ,'disabled'=>'disabled' ]);
-        
-        return redirect()->action('ManejoController@index', ['Mensagem'=>$mensagem,'Status'=>$status,'Mostrar'=>$Manejo->plantio_id,'page'=>$this->page()]);
-        
     }
     
+    
     public function destroy(ManejoPlantio $manejo){
-        $data = $this->manejoService->delete($manejo);
-        return $data;
+        $plantio = $manejo->plantio()->first();
+        $manejos = $plantio->manejos()->get();
+        if(count($manejos) < 1){
+            return Redirect::route('painel.manejo.index');
+        }else{
+            $data = $this->manejoService->delete($manejo);
+            $manejos = $plantio->manejos()->get();
+            if(count($manejos) < 1){
+                return Redirect::route('painel.manejo.index');
+            }else{
+                return $data;
+            }
+        }
     }
     
     public function createEstoqueColheitaManejo(Request $request, ManejoPlantio $manejo){
@@ -120,7 +113,4 @@ class ManejoController extends Controller{
             return back()->with($data['class'], $data['mensagem']);
         }
     }
-    
-    
-    
 }

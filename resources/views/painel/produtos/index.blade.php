@@ -44,10 +44,10 @@ Produtos
                                         <td class="text-center">{{$produto->unidade->nome}}</td>
                                         <td class="text-center">{{$produto->tipo}}</td>
                                         <td class="text-center">
-                                        <a data-id="{{$produto->slug()}}" href="#" class="btn btn-danger delete-produto">
+                                        <a data-id="{{$produto->slug()}}" href="#" class="btn btn-danger @if($produto->emUso) disabled @endif delete-produto">
                                                 <i class="fa fa-trash"></i>
                                         </a>
-                                            <a href="{{route('painel.produto.edit', ['produto'=>$produto])}}" class="btn btn-warning">
+                                            <a href="{{route('painel.produto.edit', ['produto'=>$produto])}}" class="btn btn-warning @if($produto->emUso) disabled @endif">
                                                 <i class="fa fa-edit"></i>
                                             </a>
                                         </td>

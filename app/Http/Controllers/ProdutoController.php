@@ -68,21 +68,8 @@ class ProdutoController extends Controller{
         }
     }
     
-    public function destroy($id){
-        try{
-            $p = Produto::find($id);
-            if(!$p->estoques()->first() || $p->plantios()->first()){
-                $p->delete();
-                $status='success';
-                $mensagem='Produto removido com sucesso!';
-                return redirect()->action('PropriedadeController@index', ['mensagem'=>$mensagem,'status'=>$status, 'produto'=>$this->pageproduto(), 'talhao'=>$this->pagetalhao()]);
-            }else
-            throw new \Exception();
-        }catch (\Exception $e){
-            $status='danger';
-            $mensagem='Ocorreu um erro ao remover este produto!';
-            return redirect()->action('PropriedadeController@index', ['mensagem'=>$mensagem,'status'=>$status]);
-        }
-        
+    public function destroy(Produto $produto){
+        $data = $this->produtoService->delete($produto);
+        return $data; 
     }
 }

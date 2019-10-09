@@ -17,11 +17,12 @@ class ProdutoService{
         foreach ($produtos as $produto) {
             if($produto->tipo == "c_permanente"){
                 $produto->tipo = "Permanente";
-            }else if($produto->tipo == "c_temporaria"){
+            }if($produto->tipo == "c_temporaria"){
                 $produto->tipo = "Temporário";
             }else{
                 $produto->tipo = "Processado";
             }
+            $produto->emUso = $this->verificaProdutoEmUso($produto);
         }
         return $produtos;
     }
@@ -72,6 +73,28 @@ class ProdutoService{
     public function update(Request $request, $id){
     }
     
-    public function delete($id){
+    public function delete($produto){
+        try {
+            if($this->verificaProdutoEmUso($produto)){
+                return response()->json(['error'=>'Este produto já está em uso e não pode ser deletado!']);
+            }else{
+                $deleted = $produto->delete();
+                if($deleted){
+                    return response()->json(['success'=>'Produto deletado com sucesso!']);
+                }else{
+                    return response()->json(['error'=>'Erro ao deletar produto, tente novamente!']);
+                }
+            }
+        } catch (\Throwable $th) {
+            return response()->json(['error'=>'Erro ao deletar produto, tente novamente!']);
+        }
+    }
+
+    public function verificaProdutoEmUso($produto){
+        if($produto->estoques()->first() || $produto->plantios()->first()){
+            return true;
+        }else{
+            return false;
+        }
     }
 }

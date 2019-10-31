@@ -47,7 +47,7 @@ Talhões
                                             <a data-id="{{$talhao->slug()}}" href="#" class="btn btn-danger @if($talhao->plantios()->first()) disabled @endif delete-talhao">
                                                 <i class="fa fa-trash"></i>
                                             </a>
-                                            <a href="{{route('painel.produto.edit', ['produto'=>$talhao->id])}}" class="btn btn-warning">
+                                            <a href="{{route('painel.talhao.edit', ['talhao'=>$talhao])}}" class="btn btn-warning">
                                                 <i class="fa fa-edit"></i>
                                             </a>
                                         </td>

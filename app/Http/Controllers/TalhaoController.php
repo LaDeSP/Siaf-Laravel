@@ -3,9 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Talhao;
-use App\Models\Propriedade;
 use Illuminate\Http\Request;
-
 use App\Services\TalhaoService;
 use App\Http\Requests\TalhaoFormRequest;
 
@@ -21,7 +19,7 @@ class TalhaoController extends Controller{
         return view('painel.talhoes.index', ["talhoes" => $talhoes]);
     }
    
-    public function create(Request $request){
+    public function create(){
         return view('painel.talhoes.create');
     }
 
@@ -29,38 +27,16 @@ class TalhaoController extends Controller{
         $data = $this->talhaoService->create($request->all());
         return back()->with($data['class'], $data['mensagem']); 
     }
-
-    
-    public function show($id){
-        return Talhao::find($id);
+   
+    public function edit(Talhao $talhao){
+        return view('painel.talhoes.edit', ['talhao'=>$talhao]);
+    }
+   
+    public function update(TalhaoFormRequest $request, Talhao $talhao){
+        $data = $this->talhaoService->update($request->all(), $talhao);
+        return back()->with($data['class'], $data['mensagem']);
     }
 
-   
-    public function edit($id){
-        $talhao = Talhao::find($id);
-        $prop = Propriedade::find($talhao['propriedade_id']);
-        return view('talhaoForm',["propriedade"=>$prop, "talhao"=>$talhao, 'Method'=>'put','Url'=>'/talhao'.'/'.$id, "Title"=>"Editar Talhão"]);
-
-    }
-
-   
-    public function update(Request $request, $id){
-        if ($request != null and $id != null) {
-            $ret = Talhao::atualizar($request, $id);
-            if( $ret == 200){
-                $status='success';
-                $mensagem='Talhão atualizado com sucesso!';
-            }else{
-                $status='danger';
-                $mensagem='Ocorreu um erro ao atualizar este talhão!';
-            }
-            return redirect()->action('PropriedadeController@index', ['mensagem'=>$mensagem,'status'=>$status, 'talhao'=>$this->pagetalhao(), 'produto'=>$this->pageproduto()]);// ["propriedade"=>$prop,"talhao"=>$talhao, "unidades"=>Unidade::get(["id","nome"]),"produto"=>$produto, "User"=>$this->getFirstName($this->usuario['name']), "Tela"=>"Propriedade", ]);
-        }else{
-            return redirect()->action('PropriedadeController@index');
-        }
-    }
-
-   
     public function destroy(Talhao $talhao){
         $data = $this->talhaoService->delete($talhao);
         return $data;

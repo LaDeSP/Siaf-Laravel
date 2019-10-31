@@ -45,11 +45,32 @@ class InvestimentoService{
         }
     }
     
-    public function read($id){
-        //return $this->propriedadeRepository->find($id);
-    }
-    
-    public function update(Request $request, $id){
+    public function update(array $attributes, $investimento){
+        try {
+            $investimento->nome = $attributes['investimento'];
+            $investimento->descricao =  $attributes['descricao'];
+            $investimento->valor_unit = $attributes['valor_investimento'];
+            $investimento->quantidade =  $attributes['quantidade'];
+            $investimento->data =  $attributes['data_investimento'];
+            $investimento->propriedade_id = $this->userService->propriedadesUser()->id;
+            $saved = $investimento->update();
+            if($saved){
+                return $data=[
+                    'mensagem' => 'Investimento atualizado com sucesso!',
+                    'class' => 'info'
+                ];
+            }else{
+                return $data=[
+                    'mensagem' => 'Erro ao atualizar investimento, tente novamente!',
+                    'class' => 'danger'
+                ];
+            }
+        } catch (\Throwable $th) {
+            return $data=[
+                'mensagem' => 'Erro ao atualizar investimento, tente novamente!',
+                'class' => 'danger'
+            ];
+        }
     }
     
     public function delete($investimento){

@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Investimento;
 use Illuminate\Http\Request;
-
 use App\Services\InvestimentoService;
 use App\Http\Requests\FinancaFormRequest;
 
@@ -29,28 +28,13 @@ class InvestimentoController extends Controller{
         return back()->with($data['class'], $data['mensagem']);
     }
 
-
-    public function show($id= null,$variable=null){
-        return Investimento::ler($id, $variable);
+    public function edit(Investimento $investimento){
+        return view('painel.investimentos.edit', ['investimento'=>$investimento]);
     }
 
-    public function update(Request $request, $id){
-        if ($request != null) {
-            $investimento = Investimento::alterar($request, $id);
-            if($investimento == 200){
-                $status='success';
-                $mensagem='Sucesso ao editar o investimento!';
-            }else{
-                $status='danger';
-                $mensagem='Erro ao editar o investimento!';
-            }
-            $propriedade = $this->getPropriedade($request);
-            $investimento = Investimento::ler('propriedade_id', $propriedade->id);
-            return redirect()->action('InvestimentoController@index', ['mensagem'=>$mensagem,'status'=>$status,'page'=>$this->page()]);
-            //return view('investimento', ["propriedade" => $propriedade,"dados" => $investimento, "User"=>$this->getFirstName($this->usuario['name']),"Tela" =>"Investimentos",'mensagem'=>$mensagem,'status'=>$status]);
-        }else{
-            return 405;
-        }
+    public function update(FinancaFormRequest $request, Investimento $investimento){
+        $data = $this->investimentoService->update($request->all(), $investimento);
+        return back()->with($data['class'], $data['mensagem']);
     }
 
     public function destroy(Investimento $investimento){

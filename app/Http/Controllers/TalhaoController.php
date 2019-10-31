@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Talhao;
-use Illuminate\Http\Request;
 use App\Services\TalhaoService;
 use App\Http\Requests\TalhaoFormRequest;
 

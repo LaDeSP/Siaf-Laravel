@@ -1,7 +1,6 @@
 <?php
 namespace App\Services;
 
-use Illuminate\Http\Request;
 use App\Models\Produto;
 use App\Services\UserService;
 
@@ -66,11 +65,36 @@ class ProdutoService{
         }    
     }
     
-    public function read($id){
-        //return $this->propriedadeRepository->find($id);
-    }
-    
-    public function update(Request $request, $id){
+    public function update(array $attributes, $produto){
+        try {
+            $produto->nome = title_case($attributes['nome_produto']);
+            if($attributes['categoria'] == 'processado'){
+                $produto->tipo = 'processado';
+            }else if($attributes['categoria'] == 'c_permanente'){
+                $produto->tipo = 'c_permanente';
+            }else{
+                $produto->tipo = 'c_temporaria';
+            }
+            $produto->status = 1;
+            $produto->unidade_id = $attributes['unidade'];
+            $saved = $produto->update();
+            if($saved){
+                return $data=[
+                    'mensagem' => 'Produto atualizado com sucesso!',
+                    'class' => 'info'
+                ];
+            }else{
+                return $data=[
+                    'mensagem' => 'Erro ao atualizar produto, tente novamente!',
+                    'class' => 'danger'
+                ];
+            }
+        } catch (\Throwable $th) {
+            return $data=[
+                'mensagem' => 'Erro ao atualizar produto, tente novamente!',
+                'class' => 'danger'
+            ];
+        }
     }
     
     public function delete($produto){

@@ -2,7 +2,6 @@
 namespace App\Services;
 
 use App\Models\Despesa;
-use Illuminate\Http\Request;
 use App\Services\UserService;
 
 class DespesaService{
@@ -45,11 +44,31 @@ class DespesaService{
         }
     }
     
-    public function read($id){
-        //return $this->propriedadeRepository->find($id);
-    }
-    
-    public function update(Request $request, $id){
+    public function update(array $attributes, $despesa){
+        try {
+            $despesa->nome = $attributes['despesa'];
+            $despesa->descricao =  $attributes['descricao'];
+            $despesa->valor_unit = $attributes['valor_despesa'];
+            $despesa->quantidade =  $attributes['quantidade'];
+            $despesa->data =  $attributes['data_despesa'];
+            $saved = $despesa->update();
+            if($saved){
+                return $data=[
+                    'mensagem' => 'Despesa atualizada com sucesso!',
+                    'class' => 'info'
+                ];
+            }else{
+                return $data=[
+                    'mensagem' => 'Erro ao atualizar despesa, tente novamente!',
+                    'class' => 'danger'
+                ];
+            }
+        } catch (\Throwable $th) {
+            return $data=[
+                'mensagem' => 'Erro ao atualizar despesa, tente novamente!',
+                'class' => 'danger'
+            ];
+        }
     }
 
     public function delete($despesa){

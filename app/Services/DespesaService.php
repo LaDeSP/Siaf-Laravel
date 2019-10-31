@@ -52,6 +52,16 @@ class DespesaService{
     public function update(Request $request, $id){
     }
 
-    public function delete($id){
+    public function delete($despesa){
+        try {
+            $deleted = $despesa->delete();
+            if($deleted){
+                return response()->json(['success'=>'Despesa deletado com sucesso!']);
+            }else{
+                return response()->json(['error'=>'Erro ao deletar despesa, tente novamente!']);
+            }
+        } catch (\Throwable $th) {
+            return response()->json(['error'=>'Erro ao deletar despesa, tente novamente!']);
+        }
     }
 }

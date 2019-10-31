@@ -53,21 +53,8 @@ class InvestimentoController extends Controller{
         }
     }
 
-    public function destroy(Request $request,$id){
-        if ($id != null) {
-            $investimento = Investimento::excluir($id);
-            if($investimento == 200){
-                $status='success';
-                $mensagem='Sucesso ao excluir o investimento!';
-            }else{
-                $status='danger';
-                $mensagem='Erro ao excluir o investimento!';
-            }
-            $propriedade = $this->getPropriedade($request);
-            $investimento = Investimento::ler('propriedade_id', $propriedade->id);
-            //return view('investimento',["propriedade" => $propriedade,"dados" => $investimento, "User"=>$this->getFirstName($this->usuario['name']) , "Tela"=>"Investimentos",'mensagem'=>$mensagem,'status'=>$status]);
-            return redirect()->action('InvestimentoController@index', ['mensagem'=>$mensagem,'status'=>$status,'page'=>$this->page()]);
-        }
-        return 405;
+    public function destroy(Investimento $investimento){
+        $data = $this->investimentoService->delete($investimento);
+        return $data;
     }
 }

@@ -55,21 +55,8 @@ class DespesaController extends Controller{
     }
 
     
-    public function destroy(Request $request, $id){
-        if ($id != null) {
-            $propriedade = $this->getPropriedade($request);
-            $despesa =  Despesa::excluir($id);
-            $despesas = Despesa::ler('propriedade_id', $propriedade->id);
-            if ($despesa == 200) {
-                $status='success';
-                $mensagem='Sucesso ao excluir a despesa!';
-            }else{
-                $status='danger';
-                $mensagem='Sucesso ao excluir a despesa';
-            }
-            return redirect()->action('DespesaController@index', ['mensagem'=>$mensagem,'status'=>$status,'page'=>$this->page()]);
-            //return view('despesa', ["propriedade" => $propriedade, "dados" => $despesas,"User"=>$this->getFirstName($this->usuario['name']), "Tela"=>"Despesas", "status" => $status, "mensagem" => $mensagem]);
-        }
-        return 405;
+    public function destroy(Despesa $despesa){
+        $data = $this->despesaService->delete($despesa);
+        return $data;
     }
 }

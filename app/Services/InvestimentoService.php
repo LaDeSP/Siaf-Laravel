@@ -7,7 +7,7 @@ use App\Services\UserService;
 
 class InvestimentoService{
     private $userService;
-
+    
     public function __construct(UserService $userService){
         $this->userService = $userService;
     }
@@ -15,7 +15,7 @@ class InvestimentoService{
     public function index(){
         return $this->userService->propriedadesUser()->investimentos()->get();
     }
-
+    
     public function create(array $attributes){
         try {
             $investimento = new Investimento;
@@ -51,7 +51,17 @@ class InvestimentoService{
     
     public function update(Request $request, $id){
     }
-
-    public function delete($id){
+    
+    public function delete($investimento){
+        try {
+            $deleted = $investimento->delete();
+            if($deleted){
+                return response()->json(['success'=>'Investimento deletado com sucesso!']);
+            }else{
+                return response()->json(['error'=>'Erro ao deletar investimento, tente novamente!']);
+            }
+        } catch (\Throwable $th) {
+            return response()->json(['error'=>'Erro ao deletar investimento, tente novamente!']);
+        }
     }
 }

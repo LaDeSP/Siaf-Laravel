@@ -2,10 +2,8 @@
 namespace App\Services;
 
 use App\Models\Talhao;
-use App\Models\Plantio;
 use App\Models\Produto;
 use \Illuminate\Support\Arr;
-use Illuminate\Http\Request;
 use App\Services\UserService;
 
 class PlantioService{
@@ -66,11 +64,31 @@ class PlantioService{
         }    
     }
     
-    public function read($id){
-        //return $this->propriedadeRepository->find($id);
-    }
-    
-    public function update(Request $request, $id){
+    public function update(array $attributes, $plantio){
+        try {
+            $plantio->data_semeadura = $attributes['data_semeadura'];
+            $plantio->data_plantio =  $attributes['data_plantio'];
+            $plantio->quantidade_pantas = $attributes['numero_plantas'];
+            $plantio->talhao_id =  Talhao::findBySlugOrFail($attributes['talhao'])->id;
+            $plantio->produto_id =  Produto::findBySlugOrFail($attributes['produto'])->id;
+            $saved = $plantio->update();
+            if($saved){
+                return $data=[
+                    'mensagem' => 'Plantio atualizado com sucesso!',
+                    'class' => 'info'
+                ];
+            }else{
+                return $data=[
+                    'mensagem' => 'Erro ao atualizar plantio, tente novamente!',
+                    'class' => 'danger'
+                ];
+            }
+        } catch (\Throwable $th) {
+            return $data=[
+                'mensagem' => 'Erro ao atualizar plantio, tente novamente!',
+                'class' => 'danger'
+            ];
+        }
     }
     
     public function delete($plantio){

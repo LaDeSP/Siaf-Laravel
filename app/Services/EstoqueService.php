@@ -2,11 +2,8 @@
 namespace App\Services;
 
 use DateTime;
-use DateTimeZone;
 use App\Models\Estoque;
 use App\Models\Produto;
-use \Illuminate\Support\Arr;
-use Illuminate\Http\Request;
 use App\Services\UserService;
 
 class EstoqueService{
@@ -108,14 +105,30 @@ class EstoqueService{
         }
     }
     
-    public function read($id){
-        //return $this->propriedadeRepository->find($id);
-    }
-    
-    public function update(Request $request, $id){
-    }
-    
-    public function delete($id){
+    public function update(array $attributes, $estoque){
+        try {
+            /*Estoque para produto processado*/    
+            $estoque->produto_id =  Produto::findBySlugOrFail($attributes['produto'])->id;
+            $estoque->data = $attributes['data_estoque'];
+            $estoque->quantidade = $attributes['quantidade'];
+            $saved = $estoque->update();
+            if($saved){
+                return $data=[
+                    'mensagem' => 'Estoque atualizado com sucesso!',
+                    'class' => 'info'
+                ];
+            }else{
+                return $data=[
+                    'mensagem' => 'Erro ao atualizar estoque, tente novamente!',
+                    'class' => 'danger'
+                ];
+            }
+        } catch (\Throwable $th) {
+            return $data=[
+                'mensagem' => 'Erro ao atualizar estoque, tente novamente!',
+                'class' => 'danger'
+            ];
+        }
     }
     
     /*Função que calcula a quantidade disponivel do produto estocado*/

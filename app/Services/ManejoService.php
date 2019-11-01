@@ -4,7 +4,6 @@ namespace App\Services;
 use App\Models\Manejo;
 use App\Models\Plantio;
 use \Illuminate\Support\Arr;
-use Illuminate\Http\Request;
 use App\Models\ManejoPlantio;
 use App\Services\UserService;
 use Illuminate\Support\Carbon;
@@ -92,7 +91,33 @@ class ManejoService{
         }
     }
     
-    public function update(Request $request, $id){
+    public function update(array $attributes, ManejoPlantio $manejoPlantio){
+        try {
+            $attributesPivot = [
+                'descricao' => $attributes['descricao'],
+                'data_hora' => $attributes['data_manejo'],
+                'horas_utilizadas' => $attributes['horas_utilizadas'],
+                'manejo_id' => $attributes['manejo']
+            ];
+            $plantio = $manejoPlantio->plantio()->first();
+            $saved = $plantio->manejos()->wherePivot('id', $manejoPlantio->id)->updateExistingPivot($manejoPlantio->manejo_id, $attributesPivot);
+            if($saved){
+                return $data=[
+                    'mensagem' => 'Manejo atualizado com sucesso!',
+                    'class' => 'info'
+                ];
+            }else{
+                return $data=[
+                    'mensagem' => 'Erro ao atualizar este manejo, tente novamente!',
+                    'class' => 'danger'
+                ];
+            }
+        } catch (\Throwable $th) {
+            return $data=[
+                'mensagem' => 'Erro ao atualizar este manejo, tente novamente!',
+                'class' => 'danger'
+            ];
+        }
     }
     
     public function delete($manejo){

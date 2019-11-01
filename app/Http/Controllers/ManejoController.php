@@ -2,23 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Manejo;
-use App\Models\Talhao;
-use App\Models\Estoque;
 use App\Models\Plantio;
-use App\Models\Propriedade;
-use Illuminate\Http\Request;
 use App\Models\ManejoPlantio;
-use Illuminate\Support\Carbon;
-
 use App\Services\ManejoService;
 use App\Services\EstoqueService;
 use App\Services\PlantioService;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Pagination\Paginator;
 use App\Http\Requests\ManejoFormRequest;
 use Illuminate\Support\Facades\Redirect;
-use App\Http\Requests\EstoqueFormRequest;
 use App\Http\Requests\ColheitaFormRequest;
 
 class ManejoController extends Controller{
@@ -69,14 +59,14 @@ class ManejoController extends Controller{
         }
     }
     
-    public function edit(Request $request,$manejo){
-        $Manejos=Manejo::all();
-        $dados=ManejoPlantio::all()->where('id','=',$manejo);
-        $dados=$dados->first();
-        return view('manejoForm', ["User"=>$this->getFirstName($this->usuario['name']) , "Tela"=>"Editar Manejo" ,'Method'=>'put','Url'=>'manejo/'.$manejo, 'Manejos'=>$Manejos,'dados'=>$dados,'select'=>'selected']);
+    public function edit(ManejoPlantio $manejo){
+        $manejos = $this->manejoService->index();
+        return view('painel.historicomanejoproduto.edit', ["manejos"=>$manejos, "manejoPlantio"=>$manejo, "plantio"=>$manejo->plantio()->first()]);
     }
     
-    public function update(Request $request,$manejo){
+    public function update(ManejoFormRequest $request, ManejoPlantio $manejo){
+        $data = $this->manejoService->update($request->all(), $manejo);
+        return back()->with($data['class'], $data['mensagem']);
     }
     
     
@@ -96,7 +86,7 @@ class ManejoController extends Controller{
         }
     }
     
-    public function createEstoqueColheitaManejo(Request $request, ManejoPlantio $manejo){
+    public function createEstoqueColheitaManejo(ManejoPlantio $manejo){
         $manejos = $this->manejoService->index();
         $plantio = $manejo->plantio()->first();
         $plantio->quantidade_pantas = $this->plantioService->novaQuantidadePlantio($plantio);

@@ -8,7 +8,11 @@ class ManejoFormRequest extends FormRequest{
     
     public function authorize(){
         $plantio = $this->route('plantio');
-        return $plantio && $this->user()->can('view-manejos-plantio', $plantio);
+        if($plantio){
+            return $plantio && $this->user()->can('view-manejos-plantio', $plantio);
+        }else{
+            return true;
+        }
     }
 
     public function rules(){

@@ -4,7 +4,6 @@ namespace App\Services;
 use App\Models\Venda;
 use App\Models\Estoque;
 use \Illuminate\Support\Arr;
-use Illuminate\Http\Request;
 use App\Services\UserService;
 
 class VendaService{
@@ -54,11 +53,31 @@ class VendaService{
         }
     }
     
-    public function read($id){
-        //return $this->propriedadeRepository->find($id);
-    }
-    
-    public function update(Request $request, $id){
+    public function update(array $attributes, $venda){
+        try {
+            $venda->quantidade = $attributes['quantidade_venda'];
+            $venda->valor_unit =  $attributes['valor_unit'];
+            $venda->data = $attributes['data_venda'];
+            $venda->destino_id =  $attributes['destino'];
+            $venda->estoque_id =  Estoque::findBySlugOrFail($attributes['estoque'])->id;
+            $saved = $venda->update();
+            if($saved){
+                return $data=[
+                    'mensagem' => 'Venda atualizada com sucesso!',
+                    'class' => 'info'
+                ];
+            }else{
+                return $data=[
+                    'mensagem' => 'Erro ao atualizar venda, tente novamente!',
+                    'class' => 'danger'
+                ];
+            }
+        } catch (\Throwable $th) {
+            return $data=[
+                'mensagem' => 'Erro ao atualizar venda, tente novamente!',
+                'class' => 'danger'
+            ];
+        }
     }
     
     public function delete($venda){

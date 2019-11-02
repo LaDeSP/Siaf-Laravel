@@ -33,17 +33,13 @@ Adicionar venda
             <div class="col-12">
                 <div class="card">
                     <p class="section-lead m-2">Campos marcado com (<b><span class="text-danger">*</span></b>) são obrigatórios</p>
-                    <form method="POST" name="addvenda" action="{{route('painel.venda.store')}}" class="needs-validation p-0 col-sm-8 col-md-8 col-lg-8 align-self-center" novalidate="">
+                    <form method="POST" name="addvenda" action="{{route('painel.venda.update', ['venda'=>$venda])}}" class="needs-validation p-0 col-sm-8 col-md-8 col-lg-8 align-self-center" novalidate="">
                         {{ csrf_field() }}
+                        {{ method_field('PUT') }}
                         <div class="card-body">
                             <div class="form-group">
                                 <label>Estoque<span class="text-danger">*</span></label>
-                                <select name="estoque" class="custom-select form-control {{ $errors->has('estoque') ? ' is-invalid' : '' }}" required value="{{ old('estoque') }}">
-                                    <option selected="" value="">Selecione um estoque</option>
-                                    @foreach ($estoques as $estoque)
-                                    <option value={{$estoque->slug()}} {{ ($estoque->id == $venda->estoque_id) ? 'selected' : '' }}>{{$estoque->produto()->first()->nome}}</option>
-                                    @endforeach
-                                </select>
+                                <input name="estoque" type="text" value={{$estoque}}  class="form-control {{ $errors->has('estoque') ? ' is-invalid' : '' }}" required value="{{ old('estoque') }}" readonly>
                                 <div class="invalid-feedback">
                                     Estoque é obrigatório!
                                 </div>
@@ -71,9 +67,9 @@ Adicionar venda
                                 @endif
                             </div>
                             <div class="form-group">
-                                <label>Quantidade máxima para venda: <span id="span" name="resultado">0</span> 
+                                <label>Quantidade máxima para venda: <span id="span" name="resultado">{{$quantidadeEstoqueAtual+$venda->quantidade}}</span> 
                                 <span class="text-danger">*</span></label>
-                                <input id="quantidade" name="quantidade_venda" type="number" min="1" max="" class="form-control {{ $errors->has('quantidade_venda') ? ' is-invalid' : '' }}" required="" placeholder="Ex: 5" disabled>
+                                <input id="quantidade" name="quantidade_venda" type="number" value="{{$venda->quantidade}}" min="1" max="{{$quantidadeEstoqueAtual+$venda->quantidade}}" class="form-control {{ $errors->has('quantidade_venda') ? ' is-invalid' : '' }}" required="" placeholder="Ex: 5">
                                 <div class="invalid-feedback">
                                     Quantidade é obrigatório!
                                 </div>
@@ -85,7 +81,7 @@ Adicionar venda
                             </div>
                             <div class="form-group">
                                 <label>Preço unitário<span class="text-danger">*</span></label>
-                                <input name="valor_unit" type="number" min="1" step="0.01" class="form-control {{ $errors->has('valor_unit') ? ' is-invalid' : '' }}" pattern="[0-9]$" required="" placeholder="Ex: 5,50">
+                            <input name="valor_unit" type="number" min="1" step="0.01" value="{{$venda->valor_unit}}" class="form-control {{ $errors->has('valor_unit') ? ' is-invalid' : '' }}" pattern="[0-9]$" required="" placeholder="Ex: 5,50">
                                 <div class="invalid-feedback">
                                         Preço unitário é obrigatório!
                                     </div>
@@ -97,7 +93,7 @@ Adicionar venda
                             </div>
                             <div class="form-group">
                                     <label>Data venda<span class="text-danger">*</span></label>
-                                    <input name="data_venda" type="date" class="form-control {{ $errors->has('data_venda') ? ' is-invalid' : '' }}" required="" value="{{ old('data_venda') }}">
+                                    <input name="data_venda" type="date" value="{{date('Y-m-d', strtotime($venda->data))}}" class="form-control {{ $errors->has('data_venda') ? ' is-invalid' : '' }}" required="" value="{{ old('data_venda') }}">
                                     <div class="invalid-feedback">
                                         Data venda é obrigatório!
                                     </div>
@@ -118,42 +114,3 @@ Adicionar venda
     </div>
 </section>
 @endsection
-
-@push('scripts')
-<script>
-    $( document ).ready(function() {
-      $('select[name=estoque]').change(function () {
-         var idEstoque = $(this).val();
-         var inputE = document.getElementById("quantidade");
-         if(idEstoque){
-            $.ajax({
-                url: '/painel/estoque/'+idEstoque+'/quantidade', 
-                success: function(quantidade){
-                    inputE.disabled = false;
-                    var input=$('#quantidade')
-                    input.val('');
-                    input.attr({'max':quantidade})
-                    document.getElementById("span").innerHTML = quantidade;
-                },
-                error: function(data) {
-                    inputE.disabled = true;
-                    alert('Erro na solicitação')
-                },
-            });
-        }else{
-            document.getElementById("span").innerHTML = 0;
-            inputE.disabled = true;
-        }       
-      });
-      
-      $('#quantidade').change(function (){
-         if(( parseInt( $(this).val(),10 ) > parseInt( $(this).attr('max'), 10))) {
-            $(this).val($(this).attr('max') )
-         }
-         if($(this).val()< $(this).attr('min')  ) {
-            $(this).val($(this).attr('min'))
-         }
-      });
-   });
-</script>
-@endpush

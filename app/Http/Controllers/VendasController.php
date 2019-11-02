@@ -36,8 +36,8 @@ class VendasController extends Controller{
     
     public function edit(Venda $venda){
         $destinosVenda = Destino::all()->where('tipo', 1);
-        $estoques = $this->estoqueService->indexEstoquesQuantidadeDisponivel();
-        return view('painel.vendas.edit', ['estoques'=>$estoques, 'destinos'=>$destinosVenda, 'venda'=>$venda]);
+        $quantidadeEstoqueVendaAtual = $this->quantidadeProdutoEstoque($venda->estoque()->first());
+        return view('painel.vendas.edit', ['estoque'=>$venda->estoque()->first()->produto()->first()->nome,'quantidadeEstoqueAtual'=>$quantidadeEstoqueVendaAtual, 'destinos'=>$destinosVenda, 'venda'=>$venda]);
     }
     
     public function update(VendaFormRequest $request, Venda $venda){

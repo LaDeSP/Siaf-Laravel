@@ -59,7 +59,6 @@ class VendaService{
             $venda->valor_unit =  $attributes['valor_unit'];
             $venda->data = $attributes['data_venda'];
             $venda->destino_id =  $attributes['destino'];
-            $venda->estoque_id =  Estoque::findBySlugOrFail($attributes['estoque'])->id;
             $saved = $venda->update();
             if($saved){
                 return $data=[

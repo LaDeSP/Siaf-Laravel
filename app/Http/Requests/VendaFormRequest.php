@@ -19,8 +19,17 @@ class VendaFormRequest extends FormRequest{
     }
    
     public function rules(){
-        $this->estoque = Estoque::findBySlugOrFail($this->estoque);
-        $this->quantidadeEstoque = $this->estoqueService->quantidadeDisponivelDeProdutoEstoque($this->estoque);
+        /*Está vindo do form de edição de venda*/
+        if($this->venda){
+            $estoquee = $this->venda->estoque()->first();
+        /*Está vindo do form de cadastro de estoque*/
+        }else{
+            $estoquee = Estoque::findBySlugOrFail($this->estoque);
+        }
+        $this->quantidadeEstoque = $this->estoqueService->quantidadeDisponivelDeProdutoEstoque($estoquee);
+        if($this->venda){
+            $this->quantidadeEstoque = $this->quantidadeEstoque+$this->venda->quantidade;
+        }
         return [
             'estoque'      =>  'required',
             'destino'      =>  'required',

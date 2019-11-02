@@ -16,7 +16,7 @@ class ProdutoService{
         foreach ($produtos as $produto) {
             if($produto->tipo == "c_permanente"){
                 $produto->tipo = "Permanente";
-            }if($produto->tipo == "c_temporaria"){
+            }else if($produto->tipo == "c_temporaria"){
                 $produto->tipo = "Temporário";
             }else{
                 $produto->tipo = "Processado";

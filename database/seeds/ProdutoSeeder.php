@@ -45,8 +45,8 @@ class ProdutoSeeder extends Seeder
             
             array('nome'            => 'milho',
             'propriedade_id'    => 2,
+            'tipo'            => 'c_temporaria',
             'unidade_id'        => 4,
-            'tipo'            => 1,
             'status'         => 1),
         );
         

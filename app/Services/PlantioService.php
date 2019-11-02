@@ -2,6 +2,7 @@
 namespace App\Services;
 
 use App\Models\Talhao;
+use App\Models\Plantio;
 use App\Models\Produto;
 use \Illuminate\Support\Arr;
 use App\Services\UserService;

@@ -34,18 +34,15 @@ class Perda extends Eloquent{
 		'destino_id'
 	];
 
-	public function destino()
-	{
+	public function destino(){
 		return $this->belongsTo(\App\Models\Destino::class);
 	}
 
-	public function estoque()
-	{
+	public function estoque(){
 		return $this->belongsTo(\App\Models\Estoque::class);
 	}
 
-	public function manejoplantio()
-	{
+	public function manejoplantio(){
 		return $this->belongsTo(\App\Models\Manejoplantio::class);
 	}
 }

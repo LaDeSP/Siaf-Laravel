@@ -55,13 +55,4 @@ class Plantio extends Eloquent{
 	public function perdas(){
 		return $this->hasMany(\App\Models\Perda::class);
     }
-    
-    public static function get($id=null){
-        if ($id == null){
-            $plantio = self::all();
-            return $plantio;
-        }
-        $plantio = self::find($id);
-        return [$plantio, 200];
-    }
 }

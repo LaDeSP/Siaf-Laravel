@@ -11,7 +11,6 @@ use Reliese\Database\Eloquent\Model as Eloquent;
 use \Illuminate\Database\Eloquent\SoftDeletes;
 
 class Manejo extends Eloquent{
-    
     protected $table = 'manejo';
     use SoftDeletes;
     

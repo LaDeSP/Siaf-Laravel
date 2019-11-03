@@ -2,12 +2,8 @@
 namespace App\Services;
 
 use App\Models\Perda;
-use Illuminate\Http\Request;
 
 class PerdaService{
-    
-    public function __construct(){
-    }
     
     public function create(array $attributes, $plantio=null, $estoque=null){
         try {
@@ -39,15 +35,5 @@ class PerdaService{
                 'class' => 'danger'
             ];
         }
-    }
-    
-    public function read($id){
-        
-    }
-    
-    public function update(Request $request, $id){
-    }
-
-    public function delete($id){
     }
 }

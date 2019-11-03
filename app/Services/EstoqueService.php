@@ -42,11 +42,12 @@ class EstoqueService{
     public function estoqueProcessadoIndex(){
         $estoquesProdutosPropriedade =  $this->userService->propriedadesUser()->estoques()->get();
         $estoques = [];
-        foreach($estoquesProdutosPropriedade as $key => $estoque){
+        foreach($estoquesProdutosPropriedade as $estoque){
             if($estoque->produto()->where("tipo","processado")->first()){
                 $estoque->quantidade = $this->quantidadeDisponivelDeProdutoEstoque($estoque);
                 array_push($estoques, $estoque);
             }
+            $estoque->emUso = $this->estoqueEmUso($estoque);
         }
         return $estoques;
     }
@@ -145,5 +146,13 @@ class EstoqueService{
         /*Calculo para determinar a quantidade do produto no estoque subtraindo da tabela de venda e perda*/
         $novaQuantidadeEstoque = $quantidadeAtualEstoque - ($quantidadeProdutoVenda + $quantidadeProdutoPerdas);
         return $novaQuantidadeEstoque;
+    }
+
+    public function estoqueEmUso($estoque){
+        if($estoque->perdas()->first() || $estoque->vendas()->first()){
+            return true;
+        }else{
+            return false;
+        }
     }
 }

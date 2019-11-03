@@ -13,7 +13,11 @@ class TalhaoService{
     }
     
     public function index(){
-        return $this->userService->propriedadesUser()->talhoes()->get();
+        $talhoes = $this->userService->propriedadesUser()->talhoes()->get();
+        foreach ($talhoes as $talhao) {
+            $talhao->emUso = $this->verificaTalhaoEmUso($talhao);
+        }
+        return $talhoes;
     }
     
     public function create(array $attributes){
@@ -68,7 +72,7 @@ class TalhaoService{
     
     public function delete($talhao){
         try {
-            $status = $talhao->plantios()->first();
+            $status = $this->verificaTalhaoEmUso($talhao);
             if($status){
                 return response()->json(['error'=>'Este talhão já está em uso e não pode ser deletado!']);
             }else{
@@ -81,6 +85,14 @@ class TalhaoService{
             }
         } catch (\Throwable $th) {
             return response()->json(['error'=>'Erro ao deletar talhão, tente novamente!']);
+        }
+    }
+
+    public function verificaTalhaoEmUso($talhao){
+        if($talhao->plantios()->first()){
+            return true;
+        }else{
+            return false;
         }
     }
 }

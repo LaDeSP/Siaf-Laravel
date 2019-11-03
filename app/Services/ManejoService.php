@@ -78,12 +78,7 @@ class ManejoService{
         }
         if($manejosAtivos){
             foreach ($manejosAtivos as $manejo) {
-                if($manejo->pivot->manejo_id == 4){
-                    /*Seto uma variavel boolean caso este manejo seja colheita e o mesmo já possua um estoque*/
-                    if($manejo->pivot->estoques()->first()){
-                        $manejo->estoque = 1;
-                    }
-                }
+                $manejo->emUso = $this->verificaManejoEmUso($manejo->pivot);
             }
             return $manejosAtivos;
         }else{
@@ -122,7 +117,7 @@ class ManejoService{
     
     public function delete($manejo){
         try {
-            $status = $manejo->estoques()->first();
+            $status = $this->verificaManejoEmUso($manejo);
             if($status){
                 return response()->json(['error'=>'Este manejo já está em uso e não pode ser deletado!']);
             }else{
@@ -136,6 +131,14 @@ class ManejoService{
             }
         } catch (\Throwable $th) {
             return response()->json(['error'=>'Erro ao deletar manejo, tente novamente!']);
+        }
+    }
+
+    public function verificaManejoEmUso($manejo){
+        if($manejo->estoques()->first()){
+            return true;
+        }else{
+            return false;
         }
     }
 }

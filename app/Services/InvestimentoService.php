@@ -2,7 +2,6 @@
 namespace App\Services;
 
 use App\Models\Investimento;
-use Illuminate\Http\Request;
 use App\Services\UserService;
 
 class InvestimentoService{
@@ -24,6 +23,7 @@ class InvestimentoService{
             $investimento->valor_unit = $attributes['valor_investimento'];
             $investimento->quantidade =  $attributes['quantidade'];
             $investimento->data =  $attributes['data_investimento'];
+            $investimento->propriedade_id = $this->userService->propriedadesUser()->id;
             $saved = $investimento->save();
             if($saved){
                 return $data=[
@@ -51,7 +51,6 @@ class InvestimentoService{
             $investimento->valor_unit = $attributes['valor_investimento'];
             $investimento->quantidade =  $attributes['quantidade'];
             $investimento->data =  $attributes['data_investimento'];
-            $investimento->propriedade_id = $this->userService->propriedadesUser()->id;
             $saved = $investimento->update();
             if($saved){
                 return $data=[

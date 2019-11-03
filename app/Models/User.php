@@ -14,12 +14,13 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Notifications\ResetPassword;
 use Illuminate\Support\Facades\DB;
 use App\Traits\UserTrait;
+use Balping\HashSlug\HasHashSlug;
 
-class User extends Authenticatable
-{
+class User extends Authenticatable{
 	use Notifiable;
 	use SoftDeletes;
 	use UserTrait;
+	use HasHashSlug;
 
 	protected $dates = [
 		'email_verified_at'
@@ -46,10 +47,9 @@ class User extends Authenticatable
 		'remember_token'
 	];
 
-	protected $appends = ['profilelink', 'avatarlink'];
+	protected $appends = ['avatarlink'];
 
-	public function propriedades()
-	{
+	public function propriedades(){
 		return $this->hasMany(\App\Models\Propriedade::class, 'users_id');
 	}
 }

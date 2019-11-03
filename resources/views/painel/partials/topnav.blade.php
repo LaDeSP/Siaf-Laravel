@@ -41,7 +41,7 @@
     <div class="d-sm-none d-lg-inline-block">Olá, {{ collect(explode(' ', ucwords(strtolower(Auth::user()->name))))->slice(0, 1)->implode(' ') }}</div></a>
     <div class="dropdown-menu dropdown-menu-right">
       <div class="dropdown-title">Bem vindo, {{ collect(explode(' ', ucwords(strtolower(Auth::user()->name))))->slice(0, 1)->implode(' ') }}</div>
-      <a href="{{ Auth::user()->profilelink }}" class="dropdown-item has-icon">
+      <a href="{{route('painel.perfil', ['user'=>Auth::user()])}}" class="dropdown-item has-icon">
         <i class="far fa-user"></i> Perfil
       </a>
       <div class="dropdown-divider"></div>

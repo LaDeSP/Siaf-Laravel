@@ -2,17 +2,11 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\User;
-use App\Models\Propriedade;
-use App\Str;
+use App\Models\Estado;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\Rule;
-use Illuminate\Foundation\Auth\RegistersUsers;
-use Illuminate\Support\Facades\DB;
 use App\Services\RegistrationService;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Foundation\Auth\RegistersUsers;
 
 
 class RegisterController extends Controller{
@@ -25,30 +19,45 @@ class RegisterController extends Controller{
         $this->registerService = $register;
     }
     
-    protected function validator(array $data){   
+    protected function validator(array $data){
+        $messages = $this->messages(); 
+        $data['cpf'] = preg_replace("/[^0-9]/", "", $data['cpf']);  
         return Validator::make($data, [
-            'cpf' => 'required|formato_cpf|unique:users',
+            'cpf' => 'required|cpf|unique:users',
             'name' => ['required', 'string', 'max:255'],
-            'email' => 'max:100|unique:users',
+            'email' => 'max:100',
             'senha' => 'min:6|required',
             'confirme_senha' => 'min:6|same:senha',
             'nome' =>'required',
             'localizacao' =>'required',
             'cidade' =>'required'
-            ]);
+        ], $messages);
     }
-        
+    
+    protected function messages(){
+        return [
+            'cpf.required' => 'CPF é obrigatório!',
+            'cpf.cpf' => 'CPF inválido!',
+            'cpf.unique' => 'Este CPF já está em uso!',
+            'name.required' => 'Nome é obrigatório!',
+            'name.string' => 'Nome deve conter somenete letras!',
+            'email.unique' => 'Este email já está em uso!',
+            'senha.required' => 'Senha é obrigatório!',
+            'senha.min' => 'Senha deve ter no mínimo 6 caracteres!',
+            'confirme_senha.same' => 'A senha deve ser igual!',
+            'confirme_senha.min' => 'Senha deve ter no mínimo 6 caracteres!',
+            'nome.required' => 'Nome é obrigatório!',
+            'localizacao.required' => 'Localização é obrigatório!',
+            'cidade.required' => 'Cidade é obrigatório!',
+        ];
+    }
+    
+    public function showRegistrationForm(){
+        $estados = Estado::orderBy('nome')->get();
+        return view('auth.register', ['estados'=>$estados]);
+    }
+    
     protected function create(array $data){
-        $data['cpf'] = preg_replace("/[^0-9]/", "", $data['cpf']);
-            $sucesso =  User::create([
-                'cpf' => $data['cpf'],
-                'name' => $data['name'],
-                'email' => $data['email'],
-                'password' => Hash::make($data['senha']),
-                'telefone' =>$data['telefone'],
-                ]);
-                Propriedade::inserir($data);
-                return $sucesso;
+        return $this->registerService->create($data);
     }
 }            
-        

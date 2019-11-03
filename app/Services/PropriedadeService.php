@@ -1,29 +1,26 @@
 <?php
 namespace App\Services;
 
-use Illuminate\Http\Request;
-use App\Repositories\PropriedadeRepository;
-use Illuminate\Support\Facades\Auth;
+use App\Models\Propriedade;
 
-class PropriedadeService
-{
-    private $propriedadeRepository;
+class PropriedadeService{
 
-    public function __construct(PropriedadeRepository $propriedade){
-        $this->propriedadeRepository = $propriedade;
-    }
-    
     public function create(array $attributes){
-        return $this->propriedadeRepository->create($attributes);
-    }
-    
-    public function read($id){
-        return $this->propriedadeRepository->find($id);
-    }
-
-    public function propriedadeReadUser(){
-        $id = Auth::user()->id;
-        return $this->propriedadeRepository->propriedadeFindUser($id);
+        try {
+            $propriedade = new Propriedade;
+            $propriedade->users_id = $attributes['users_id'];
+            $propriedade->nome =  $attributes['nome'];
+            $propriedade->localizacao = $attributes['localizacao'];
+            $propriedade->cidade_id =  $attributes['cidade_id'];
+            $saved = $propriedade->save();
+            if($saved){
+                return true;
+            }else{
+                return false;
+            }
+        } catch (\Throwable $th) {
+            return false;
+        }
     }
     
     public function update(Request $request, $id){
@@ -46,7 +43,4 @@ class PropriedadeService
         }
     }
 
-    public function delete($id){
-        return $this->propriedadeRepository->delete($id);
-    }
 }

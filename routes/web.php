@@ -1,5 +1,7 @@
 <?php
 
+Route::get('/cidades/{id}', 'CidadeController@show');
+
 Route::name('painel.')->prefix('painel')->middleware('auth')->group(function() {
     
     /*Rotas referente a home*/
@@ -78,10 +80,6 @@ Route::group(['middleware'=>['web', 'auth']], function()
 });
 */
 
-Route::get('/teste', function() {
-    return view('teste');
-});
-
 Route::get('/', function() {
     return redirect(route('painel.dashboard'));
 });
@@ -93,7 +91,7 @@ Route::get('home', function() {
 
 Route::middleware('auth')->get('logout', function() {
     Auth::logout();
-    return redirect(route('login'))->withInfo('You have successfully logged out!');
+    return redirect(route('login'))->withInfo('Você saiu com sucesso!');
 })->name('logout');
 
 Auth::routes(['verify' => true]);

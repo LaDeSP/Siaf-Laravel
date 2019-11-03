@@ -32,6 +32,11 @@ Adicionar Manejo
             @endif
             <div class="col-12">
                 <div class="card">
+                    <div class="card-header">
+                        <div class="card-header-action">
+                            <a href="{{route('painel.manejosPlantios', ['plantio'=>$plantio])}}" class="btn btn-success">Listar Manejos <i class="fas fa-list"></i></a>
+                        </div>
+                    </div>
                     <p class="section-lead m-2">Campos marcado com (<b><span class="text-danger">*</span></b>) são obrigatórios</p>
                     <form method="POST" name="addmanejo" action="{{route('painel.manejo.update', ['manejoPlantio'=>$manejoPlantio])}}"  class="needs-validation p-0 col-sm-8 col-md-8 col-lg-8 align-self-center" novalidate="">
                       {{ csrf_field() }}

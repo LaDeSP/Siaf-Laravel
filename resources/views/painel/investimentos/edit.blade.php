@@ -32,14 +32,19 @@ Adicionar Investimento
             @endif
             <div class="col-12">
                 <div class="card">
+                    <div class="card-header">
+                        <div class="card-header-action">
+                            <a href="{{route('painel.investimento.index')}}" class="btn btn-success">Listar Investimentos <i class="fas fa-list"></i></a>
+                        </div>
+                    </div>
                     <p class="section-lead m-2">Campos marcado com (<b><span class="text-danger">*</span></b>) são obrigatórios</p>
                     <form method="POST" name="addinvestimento" action="{{ route('painel.investimento.update', ['investimento'=>$investimento]) }}" class="needs-validation p-0 col-sm-8 col-md-8 col-lg-8 align-self-center" novalidate="">
-                      {{ csrf_field() }}
-                      {{ method_field('PUT') }}
+                        {{ csrf_field() }}
+                        {{ method_field('PUT') }}
                         <div class="card-body">
                             <div class="form-group">
                                 <label>Investimento<span class="text-danger">*</span></label>
-                            <input name="investimento" type="text" value="{{$investimento->nome}}" class="form-control {{ $errors->has('investimento') ? ' is-invalid' : '' }}" value="{{ old('investimento') }}" required="" placeholder="Ex: Compra de pá">
+                                <input name="investimento" type="text" value="{{$investimento->nome}}" class="form-control {{ $errors->has('investimento') ? ' is-invalid' : '' }}" value="{{ old('investimento') }}" required="" placeholder="Ex: Compra de pá">
                                 <div class="invalid-feedback">
                                     Investimento é obrigatório!
                                 </div>

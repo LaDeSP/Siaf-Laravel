@@ -32,6 +32,11 @@ Adicionar Despesa
             @endif
             <div class="col-12">
                 <div class="card">
+                    <div class="card-header">
+                        <div class="card-header-action">
+                            <a href="{{route('painel.despesa.index')}}" class="btn btn-success">Listar Despesas <i class="fas fa-list"></i></a>
+                        </div>
+                    </div>
                     <p class="section-lead m-2">Campos marcado com (<b><span class="text-danger">*</span></b>) são obrigatórios</p>
                     <form method="POST" name="addDespesa" action="{{ route('painel.despesa.update', ['despesa'=>$despesa])}}" class="needs-validation p-0 col-sm-8 col-md-8 col-lg-8 align-self-center" novalidate="">
                         {{ csrf_field() }}
@@ -39,7 +44,7 @@ Adicionar Despesa
                         <div class="card-body">
                             <div class="form-group">
                                 <label>Despesa<span class="text-danger">*</span></label>
-                            <input name="despesa" type="text" value="{{$despesa->nome}}" class="form-control {{ $errors->has('despesa') ? ' is-invalid' : '' }}" value="{{ old('despesa') }}" required="" placeholder="Ex: Compra de pá">
+                                <input name="despesa" type="text" value="{{$despesa->nome}}" class="form-control {{ $errors->has('despesa') ? ' is-invalid' : '' }}" value="{{ old('despesa') }}" required="" placeholder="Ex: Compra de pá">
                                 <div class="invalid-feedback">
                                     Despesa é obrigatório!
                                 </div>

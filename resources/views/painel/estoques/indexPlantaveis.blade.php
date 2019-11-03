@@ -58,7 +58,7 @@ Estoques
                                         <td class="text-center">{{date('d/m/Y', strtotime($estoque->manejoplantio()->first()->data_hora))}}</td>
                                         <td class="text-center">{{$estoque->manejoplantio->plantio->talhao->nome}}</td>
                                         <td class="text-center">
-                                            <a href="{{route('painel.createPerdaEstoque', ['estoque'=>$estoque])}}" class="btn btn-dark @if($estoque->quantidade == 0) disabled @endif">
+                                            <a @if($estoque->quantidade == 0) href="#" @else href="{{route('painel.createPerdaEstoque', ['estoque'=>$estoque])}}" @endif class="btn btn-dark @if($estoque->quantidade == 0) disabled @endif">
                                                     <i class="fas fa-exclamation"></i>  
                                             </a>
                                         </td>

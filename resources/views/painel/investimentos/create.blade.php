@@ -11,16 +11,7 @@ Adicionar Investimento
     </div>
     <div class="section-body">
         <div class="row d-flex justify-content-center">
-            @if(session()->has('success'))
-            <div class="alert alert-success alert-dismissible show fade col-10">
-                <div class="alert-body">
-                    <button class="close" data-dismiss="alert">
-                        <span>×</span>
-                    </button>
-                    {{ session('success') }}
-                </div>
-            </div>
-            @elseif(session()->has('danger'))
+            @if(session()->has('danger'))
             <div class="alert alert-danger alert-dismissible show fade col-10">
                 <div class="alert-body">
                     <button class="close" data-dismiss="alert">
@@ -32,9 +23,14 @@ Adicionar Investimento
             @endif
             <div class="col-12">
                 <div class="card">
+                    <div class="card-header">
+                        <div class="card-header-action">
+                            <a href="{{route('painel.investimento.index')}}" class="btn btn-success">Listar Investimentos <i class="fas fa-list"></i></a>
+                        </div>
+                    </div>
                     <p class="section-lead m-2">Campos marcado com (<b><span class="text-danger">*</span></b>) são obrigatórios</p>
                     <form method="POST" name="addinvestimento" action="{{ route('painel.investimento.store') }}" class="needs-validation p-0 col-sm-8 col-md-8 col-lg-8 align-self-center" novalidate="">
-                            {{ csrf_field() }}
+                        {{ csrf_field() }}
                         <div class="card-body">
                             <div class="form-group">
                                 <label>Investimento<span class="text-danger">*</span></label>

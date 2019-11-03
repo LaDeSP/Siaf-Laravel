@@ -32,6 +32,11 @@ Adicionar Talhão
             @endif
             <div class="col-12">
                 <div class="card">
+                    <div class="card-header">
+                        <div class="card-header-action">
+                            <a href="{{route('painel.talhao.index')}}" class="btn btn-success">Listar Talhões <i class="fas fa-list"></i></a>
+                        </div>
+                    </div>
                     <p class="section-lead m-2">Campos marcado com (<b><span class="text-danger">*</span></b>) são obrigatórios</p>
                     <form method="POST" name="addtalhao" action="{{ route('painel.talhao.update', ['talhao'=>$talhao]) }}" class="needs-validation p-0 col-sm-8 col-md-8 col-lg-8 align-self-center" novalidate="">
                         {{ csrf_field() }}
@@ -39,7 +44,7 @@ Adicionar Talhão
                         <div class="card-body">
                             <div class="form-group">
                                 <label>Nome do talhão<span class="text-danger">*</span></label>
-                            <input name="nome_talhao" type="text" value="{{$talhao->nome}}" class="form-control {{ $errors->has('nome_talhao') ? ' is-invalid' : '' }}" required="" placeholder="Ex: Talhão 1" value="{{ old('nome_talhao') }}">
+                                <input name="nome_talhao" type="text" value="{{$talhao->nome}}" class="form-control {{ $errors->has('nome_talhao') ? ' is-invalid' : '' }}" required="" placeholder="Ex: Talhão 1" value="{{ old('nome_talhao') }}">
                                 <div class="invalid-feedback">
                                     Nome do talhão é obrigatório!
                                 </div>

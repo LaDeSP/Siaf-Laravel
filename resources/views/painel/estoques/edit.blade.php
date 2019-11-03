@@ -32,10 +32,15 @@ Create User
             @endif
             <div class="col-12">
                 <div class="card">
+                    <div class="card-header">
+                        <div class="card-header-action">
+                            <a href="{{route('painel.estoqueProcessado')}}" class="btn btn-success">Listar Estoque <i class="fas fa-list"></i></a>
+                        </div>
+                    </div>
                     <p class="section-lead m-2">Campos marcado com (<b><span class="text-danger">*</span></b>) são obrigatórios</p>
                     <form  method="POST" name="addproduto" action="{{ route('painel.estoque.update', ['estoque'=>$estoque])}}" class="needs-validation p-0 col-sm-8 col-md-8 col-lg-8 align-self-center" novalidate="">
-                      {{ csrf_field() }}
-                      {{ method_field('PUT') }}
+                        {{ csrf_field() }}
+                        {{ method_field('PUT') }}
                         <div class="card-body">
                             <div class="form-group">
                                 <label>Produto<span class="text-danger">*</span></label>
@@ -68,7 +73,7 @@ Create User
                             </div>
                             <div class="form-group">
                                 <label>Quantidade produto<span class="text-danger">*</span></label>
-                            <input name="quantidade" type="number" value="{{$estoque->quantidade}}" min="1" class="form-control {{ $errors->has('data_estoque') ? ' is-invalid' : '' }}" required="" placeholder="Ex: 40" value="{{ old('data_estoque') }}">
+                                <input name="quantidade" type="number" value="{{$estoque->quantidade}}" min="1" class="form-control {{ $errors->has('data_estoque') ? ' is-invalid' : '' }}" required="" placeholder="Ex: 40" value="{{ old('data_estoque') }}">
                                 <div class="invalid-feedback">
                                     Quantidade de produto é obrigatório!
                                 </div>

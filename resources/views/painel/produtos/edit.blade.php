@@ -32,14 +32,19 @@ Adicionar Produto
             @endif
             <div class="col-12">
                 <div class="card">
+                    <div class="card-header">
+                        <div class="card-header-action">
+                            <a href="{{route('painel.produto.index')}}" class="btn btn-success">Listar Produtos <i class="fas fa-list"></i></a>
+                        </div>
+                    </div>
                     <p class="section-lead m-2">Campos marcado com (<b><span class="text-danger">*</span></b>) são obrigatórios</p>
                     <form  method="POST" name="addproduto" action="{{ route('painel.produto.update', ['produto'=>$produto]) }}" class="needs-validation p-0 col-sm-8 col-md-8 col-lg-8 align-self-center" novalidate="">
-                      {{ csrf_field() }}
-                      {{ method_field('PUT') }}
+                        {{ csrf_field() }}
+                        {{ method_field('PUT') }}
                         <div class="card-body">
                             <div class="form-group">
                                 <label>Nome do produto <span class="text-danger">*</span></label>
-                            <input name="nome_produto" type="text" value="{{$produto->nome}}" class="form-control {{ $errors->has('nome_produto') ? ' is-invalid' : '' }}" required placeholder="Ex: Tomate" value="{{ old('nome_produto') }}">
+                                <input name="nome_produto" type="text" value="{{$produto->nome}}" class="form-control {{ $errors->has('nome_produto') ? ' is-invalid' : '' }}" required placeholder="Ex: Tomate" value="{{ old('nome_produto') }}">
                                 <div class="invalid-feedback">
                                     Nome do produto é obrigatório!
                                 </div>

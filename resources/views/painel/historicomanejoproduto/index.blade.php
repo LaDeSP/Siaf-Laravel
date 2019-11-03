@@ -58,14 +58,14 @@ Manejos
                                         <td class="text-center">{{$manejo->pivot->horas_utilizadas}}</td>
                                         <td class="text-center">{{$manejo->pivot->descricao}}</td>
                                         <td class="text-center">
-                                            <a data-id="{{$manejo->pivot->slug()}}" href="#" class="btn btn-danger @if(isset($manejo->estoque)) disabled @endif delete-manejo">
+                                            <a data-id="{{$manejo->pivot->slug()}}" href="#" class="btn btn-danger @if($manejo->emUso) disabled @endif delete-manejo">
                                                 <i class="fa fa-trash"></i>
                                             </a>
-                                            <a href="{{route('painel.manejo.edit', ['manejo'=>$manejo->pivot->slug()])}}" class="btn btn-warning @if(isset($manejo->estoque)) disabled @endif">
+                                            <a @if($manejo->emUso) href="#" @else href="{{route('painel.manejo.edit', ['manejo'=>$manejo->pivot->slug()])}}" @endif class="btn btn-warning @if($manejo->emUso) disabled @endif">
                                                 <i class="fa fa-edit" style="font-size:10px"></i>
                                             </a>
                                             @if ($manejo->pivot->manejo_id == 4)
-                                            <a href="{{route('painel.createEstoqueColheitaManejo', ['manejo'=>$manejo->pivot])}}" class="btn btn-primary @if(isset($manejo->estoque) || $plantio->quantidade_pantas == 0) disabled @endif" title="Estocar este plantio">
+                                            <a @if($manejo->emUso || $plantio->quantidade_pantas == 0) href="#" @else href="{{route('painel.createEstoqueColheitaManejo', ['manejo'=>$manejo->pivot])}}" @endif class="btn btn-primary @if($manejo->emUso || $plantio->quantidade_pantas == 0) disabled @endif" title="Estocar este plantio">
                                                 <i class="fa fa-archive" style="font-size:10px"></i>
                                             </a>
                                             @endif

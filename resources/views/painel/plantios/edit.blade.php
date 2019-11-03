@@ -7,7 +7,7 @@ Adicionar plantio
 @section('content')
 <section class="section">
     <div class="section-header">
-    <h1>Editar o plantio de {{$plantio->produto()->first()->nome}}</h1>
+        <h1>Editar o plantio de {{$plantio->produto()->first()->nome}}</h1>
     </div>
     <div class="section-body">
         <div class="row d-flex justify-content-center">
@@ -32,6 +32,11 @@ Adicionar plantio
             @endif
             <div class="col-12">
                 <div class="card">
+                    <div class="card-header">
+                        <div class="card-header-action">
+                            <a href="{{route('painel.plantio.index')}}" class="btn btn-success">Listar Plantios <i class="fas fa-list"></i></a>
+                        </div>
+                    </div>
                     <p class="section-lead m-2">Campos marcado com (<b><span class="text-danger">*</span></b>) são obrigatórios</p>
                     <form method="POST" name="addplantio" action="{{ route('painel.plantio.update', ['plantio'=>$plantio]) }}" class="needs-validation p-0 col-sm-8 col-md-8 col-lg-8 align-self-center" novalidate="">
                         {{ csrf_field() }}
@@ -60,7 +65,7 @@ Adicionar plantio
                             </div>
                             <div class="form-group">
                                 <label>Número de plantas<span class="text-danger">*</span></label>
-                            <input name="numero_plantas" type="number" value="{{$plantio->quantidade_pantas}}" min="1" class="form-control {{ $errors->has('numero_plantas') ? ' is-invalid' : '' }}" required="" placeholder="Ex: 40" value="{{ old('numero_plantas') }}">
+                                <input name="numero_plantas" type="number" value="{{$plantio->quantidade_pantas}}" min="1" class="form-control {{ $errors->has('numero_plantas') ? ' is-invalid' : '' }}" required="" placeholder="Ex: 40" value="{{ old('numero_plantas') }}">
                                 <div class="invalid-feedback">
                                     Qual a quantidade de plantas?
                                 </div>

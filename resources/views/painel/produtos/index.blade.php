@@ -15,6 +15,18 @@ Produtos
         <h1>Gestão de Produtos</h1>
     </div>
     <div class="section-body">
+        <div class="row d-flex justify-content-center">
+            @if(session()->has('success'))
+            <div class="alert alert-success alert-dismissible show fade col-10">
+                <div class="alert-body">
+                    <button class="close" data-dismiss="alert">
+                        <span>×</span>
+                    </button>
+                    {{ session('success') }}
+                </div>
+            </div>
+            @endif
+        </div>
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
@@ -44,10 +56,10 @@ Produtos
                                         <td class="text-center">{{$produto->unidade->nome}}</td>
                                         <td class="text-center">{{$produto->tipo}}</td>
                                         <td class="text-center">
-                                        <a data-id="{{$produto->slug()}}" href="#" class="btn btn-danger @if($produto->emUso) disabled @endif delete-produto">
+                                            <a data-id="{{$produto->slug()}}" href="#" class="btn btn-danger @if($produto->emUso) disabled @endif delete-produto">
                                                 <i class="fa fa-trash"></i>
-                                        </a>
-                                            <a href="{{route('painel.produto.edit', ['produto'=>$produto])}}" class="btn btn-warning @if($produto->emUso) disabled @endif">
+                                            </a>
+                                            <a @if($produto->emUso) href="#" @else href="{{route('painel.produto.edit', ['produto'=>$produto])}}" @endif class="btn btn-warning @if($produto->emUso) disabled @endif">
                                                 <i class="fa fa-edit"></i>
                                             </a>
                                         </td>
@@ -65,9 +77,9 @@ Produtos
                             </table>
                             @else
                             <div class="text-center p-3 text-muted">
-                                    <h5>{{ collect(explode(' ', ucwords(strtolower(Auth::user()->name))))->slice(0, 1)->implode(' ') }}, você não possui nenhum produto cadastrado!</h5>
-                                    <p>Clique no botão Adicionar para cadastrar novos produtos.</p>
-                                </div>
+                                <h5>{{ collect(explode(' ', ucwords(strtolower(Auth::user()->name))))->slice(0, 1)->implode(' ') }}, você não possui nenhum produto cadastrado!</h5>
+                                <p>Clique no botão Adicionar para cadastrar novos produtos.</p>
+                            </div>
                             @endif
                         </div>
                     </div>

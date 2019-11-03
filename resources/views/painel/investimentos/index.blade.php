@@ -15,6 +15,18 @@ Investimentos
         <h1>Gestão de Investimentos</h1>
     </div>
     <div class="section-body">
+        <div class="row d-flex justify-content-center">
+            @if(session()->has('success'))
+            <div class="alert alert-success alert-dismissible show fade col-10">
+                <div class="alert-body">
+                    <button class="close" data-dismiss="alert">
+                        <span>×</span>
+                    </button>
+                    {{ session('success') }}
+                </div>
+            </div>
+            @endif
+        </div>
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
@@ -50,9 +62,9 @@ Investimentos
                                         <td class="text-center">{{date('d/m/Y', strtotime($investimento->data))}}</td>
                                         <td class="text-center">{{$investimento->propriedade->nome}}</td>
                                         <td class="text-center">
-                                        <a data-id="{{$investimento->slug()}}" href="#" class="btn btn-danger delete-investimento">
+                                            <a data-id="{{$investimento->slug()}}" href="#" class="btn btn-danger delete-investimento">
                                                 <i class="fa fa-trash"></i>
-                                        </a>
+                                            </a>
                                             <a href="{{route('painel.investimento.edit', ['investimento'=>$investimento])}}" class="btn btn-warning">
                                                 <i class="fa fa-edit"></i>
                                             </a>
@@ -74,9 +86,9 @@ Investimentos
                             </table>
                             @else
                             <div class="text-center p-3 text-muted">
-                                    <h5>{{ collect(explode(' ', ucwords(strtolower(Auth::user()->name))))->slice(0, 1)->implode(' ') }}, você não possui nenhum investimento cadastrado!</h5>
-                                    <p>Clique no botão Adicionar para cadastrar novos investimentos.</p>
-                                </div>
+                                <h5>{{ collect(explode(' ', ucwords(strtolower(Auth::user()->name))))->slice(0, 1)->implode(' ') }}, você não possui nenhum investimento cadastrado!</h5>
+                                <p>Clique no botão Adicionar para cadastrar novos investimentos.</p>
+                            </div>
                             @endif
                         </div>
                     </div>

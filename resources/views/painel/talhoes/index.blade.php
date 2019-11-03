@@ -15,6 +15,18 @@ Talhões
         <h1>Gestão de Talhões</h1>
     </div>
     <div class="section-body">
+        <div class="row d-flex justify-content-center">
+            @if(session()->has('success'))
+            <div class="alert alert-success alert-dismissible show fade col-10">
+                <div class="alert-body">
+                    <button class="close" data-dismiss="alert">
+                        <span>×</span>
+                    </button>
+                    {{ session('success') }}
+                </div>
+            </div>
+            @endif
+        </div>
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
@@ -44,10 +56,10 @@ Talhões
                                         <td class="text-center">{{$talhao->area}}</td>
                                         <td class="text-center">{{$talhao->propriedade->nome}}</td>
                                         <td class="text-center">
-                                            <a data-id="{{$talhao->slug()}}" href="#" class="btn btn-danger @if($talhao->plantios()->first()) disabled @endif delete-talhao">
+                                            <a data-id="{{$talhao->slug()}}" href="#" class="btn btn-danger @if($talhao->emUso) disabled @endif delete-talhao">
                                                 <i class="fa fa-trash"></i>
                                             </a>
-                                            <a href="{{route('painel.talhao.edit', ['talhao'=>$talhao])}}" class="btn btn-warning">
+                                            <a  @if($talhao->emUso) href="#" @else href="{{route('painel.talhao.edit', ['talhao'=>$talhao])}}" @endif class="btn btn-warning  @if($talhao->emUso) disabled @endif">
                                                 <i class="fa fa-edit"></i>
                                             </a>
                                         </td>
@@ -65,9 +77,9 @@ Talhões
                             </table>
                             @else
                             <div class="text-center p-3 text-muted">
-                                    <h5>{{ collect(explode(' ', ucwords(strtolower(Auth::user()->name))))->slice(0, 1)->implode(' ') }}, você não possui nenhum talhão cadastrado!</h5>
-                                    <p>Clique no botão Adicionar para cadastrar novos talhões.</p>
-                                </div>
+                                <h5>{{ collect(explode(' ', ucwords(strtolower(Auth::user()->name))))->slice(0, 1)->implode(' ') }}, você não possui nenhum talhão cadastrado!</h5>
+                                <p>Clique no botão Adicionar para cadastrar novos talhões.</p>
+                            </div>
                             @endif
                         </div>
                     </div>

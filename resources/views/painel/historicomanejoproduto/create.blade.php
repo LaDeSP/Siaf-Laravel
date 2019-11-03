@@ -11,16 +11,7 @@ Adicionar Manejo
     </div>
     <div class="section-body">
         <div class="row d-flex justify-content-center">
-            @if(session()->has('success'))
-            <div class="alert alert-success alert-dismissible show fade col-10">
-                <div class="alert-body">
-                    <button class="close" data-dismiss="alert">
-                        <span>×</span>
-                    </button>
-                    {{ session('success') }}
-                </div>
-            </div>
-            @elseif(session()->has('danger'))
+            @if(session()->has('danger'))
             <div class="alert alert-danger alert-dismissible show fade col-10">
                 <div class="alert-body">
                     <button class="close" data-dismiss="alert">
@@ -32,6 +23,13 @@ Adicionar Manejo
             @endif
             <div class="col-12">
                 <div class="card">
+                    @if($plantio->manejos()->wherePivot('deleted_at', null)->first())
+                    <div class="card-header">
+                        <div class="card-header-action">
+                            <a href="{{route('painel.manejosPlantios', ['plantio'=>$plantio])}}" class="btn btn-success">Listar Manejos <i class="fas fa-list"></i></a>
+                        </div>
+                    </div>
+                    @endif
                     <p class="section-lead m-2">Campos marcado com (<b><span class="text-danger">*</span></b>) são obrigatórios</p>
                     <form method="POST" name="addmanejo" action="{{route('painel.manejoSave', ['plantio'=>$plantio])}}"  class="needs-validation p-0 col-sm-8 col-md-8 col-lg-8 align-self-center" novalidate="">
                         {{ csrf_field() }}

@@ -58,10 +58,10 @@ Estoques
                                         <td class="text-center">{{$estoque->quantidade}}</td>
                                         <td class="text-center">{{date('d/m/Y', strtotime($estoque->data))}}</td>
                                         <td class="text-center">
-                                            <a href="{{route('painel.estoque.edit', ['estoque'=>$estoque])}}" class="btn btn-warning">
+                                            <a @if($estoque->emUso) href="#" @else href="{{route('painel.estoque.edit', ['estoque'=>$estoque])}}" @endif class="btn btn-warning @if($estoque->emUso) disabled @endif">
                                                 <i class="fa fa-edit"></i>
                                             </a>
-                                            <a href="{{route('painel.createPerdaEstoque', ['estoque'=>$estoque])}}" class="btn btn-dark @if($estoque->quantidade == 0) disabled @endif">
+                                            <a @if($estoque->quantidade == 0) href="#" @else href="{{route('painel.createPerdaEstoque', ['estoque'=>$estoque])}}" @endif class="btn btn-dark @if($estoque->quantidade == 0) disabled @endif">
                                                 <i class="fas fa-exclamation"></i>  
                                             </a>
                                         </td>

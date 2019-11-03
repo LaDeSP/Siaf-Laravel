@@ -15,19 +15,18 @@ Plantio
         <h1>Gestão de plantios</h1>
     </div>
     <div class="section-body">
-            <div class="row d-flex justify-content-center">
-                    @if(session()->has('success'))
-                    <div class="alert alert-success alert-dismissible show fade col-10">
-                        <div class="alert-body">
-                            <button class="close" data-dismiss="alert">
-                                <span>×</span>
-                            </button>
-                            {{ session('success') }}
-                        </div>
-                    </div>
-                    @endif
+        <div class="row d-flex justify-content-center">
+            @if(session()->has('success'))
+            <div class="alert alert-success alert-dismissible show fade col-10">
+                <div class="alert-body">
+                    <button class="close" data-dismiss="alert">
+                        <span>×</span>
+                    </button>
+                    {{ session('success') }}
+                </div>
             </div>
-            
+            @endif
+        </div>
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
@@ -66,10 +65,10 @@ Plantio
                                             <a data-id="{{$plantio->slug()}}" href="#" class="btn btn-danger @if(isset($plantio->perda) || isset($plantio->manejo)) disabled @endif delete-plantio">
                                                 <i class="fa fa-trash"></i>
                                             </a>
-                                            <a href="{{route('painel.plantio.edit', ['plantio'=>$plantio])}}" class="btn btn-warning @if(isset($plantio->perda) || isset($plantio->manejo)) disabled @endif">
+                                            <a @if(isset($plantio->perda) || isset($plantio->manejo)) href="#" @else href="{{route('painel.plantio.edit', ['plantio'=>$plantio])}}" @endif class="btn btn-warning @if(isset($plantio->perda) || isset($plantio->manejo)) disabled @endif">
                                                 <i class="fa fa-edit"></i>
                                             </a>
-                                            <a href="{{route('painel.createPerdaPlantio', ['plantio'=>$plantio])}}" class="btn btn-dark @if($plantio->quantidade_pantas == 0) disabled @endif">
+                                            <a @if($plantio->quantidade_pantas == 0) href="#" @else href="{{route('painel.createPerdaPlantio', ['plantio'=>$plantio])}}" @endif class="btn btn-dark @if($plantio->quantidade_pantas == 0) disabled @endif">
                                                 <i class="fas fa-exclamation"></i>  
                                             </a>
                                         </td>

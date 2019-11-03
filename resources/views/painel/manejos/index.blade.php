@@ -59,7 +59,7 @@ Manejo
                                         <th class="text-center">Tipo do produto</th>
                                         <th class="text-center">Data plantio</th>
                                         <th class="text-center">Talhão</th>                                        
-                                        <th class="text-center">Novo Manejo</th>
+                                        <th class="text-center">Ação</th>
                                     </tr>
                                 </tfoot>
                             </table>

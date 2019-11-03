@@ -49,7 +49,6 @@ class ManejoController extends Controller{
         return view('painel.historicomanejoproduto.create', ["manejos"=>$manejos, "plantio"=>$plantio]);
     }
     
-    
     public function store(ManejoFormRequest $request, Plantio $plantio){
         $data = $this->manejoService->create($request->all(), $plantio);
         if($data['class'] == 'success'){
@@ -68,7 +67,6 @@ class ManejoController extends Controller{
         $data = $this->manejoService->update($request->all(), $manejo);
         return back()->with($data['class'], $data['mensagem']);
     }
-    
     
     public function destroy(ManejoPlantio $manejo){
         $plantio = $manejo->plantio()->first();

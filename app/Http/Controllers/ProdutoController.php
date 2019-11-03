@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Produto;
 use App\Models\Unidade;
-use App\Http\Requests\ProdutoFormRequest;
 use App\Services\ProdutoService;
+use Illuminate\Support\Facades\Redirect;
+use App\Http\Requests\ProdutoFormRequest;
 
 class ProdutoController extends Controller{
     protected $produtoService;
@@ -25,7 +26,11 @@ class ProdutoController extends Controller{
     
     public function store(ProdutoFormRequest $request){
         $data = $this->produtoService->create($request->all());
-        return back()->with($data['class'], $data['mensagem']); 
+        if($data['class'] == 'success'){
+            return Redirect::route('painel.produto.index')->with($data['class'], $data['mensagem']);
+        }else{
+            return back()->with($data['class'], $data['mensagem']);
+        } 
     }
     
     public function edit(Produto $produto){

@@ -6,6 +6,7 @@ use App\Models\Plantio;
 use App\Services\TalhaoService;
 use App\Services\PlantioService;
 use App\Services\ProdutoService;
+use Illuminate\Support\Facades\Redirect;
 use App\Http\Requests\PlantioFormRequest;
 
 class PlantioController extends Controller{
@@ -32,7 +33,11 @@ class PlantioController extends Controller{
 
     public function store(PlantioFormRequest $request){
         $data = $this->plantioService->create($request->all());
-        return back()->with($data['class'], $data['mensagem']);
+        if($data['class'] == 'success'){
+            return Redirect::route('painel.plantio.index')->with($data['class'], $data['mensagem']);
+        }else{
+            return back()->with($data['class'], $data['mensagem']);
+        }
     }
     
     public function edit(Plantio $plantio){

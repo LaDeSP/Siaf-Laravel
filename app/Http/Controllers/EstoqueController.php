@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Estoque;
 use App\Services\EstoqueService;
 use App\Services\ProdutoService;
+use Illuminate\Support\Facades\Redirect;
 use App\Http\Requests\EstoqueFormRequest;
 
 class EstoqueController extends Controller{
@@ -33,7 +34,11 @@ class EstoqueController extends Controller{
     
     public function store(EstoqueFormRequest $request){
         $data = $this->estoqueService->create($request->all());
-        return back()->with($data['class'], $data['mensagem']); 
+        if($data['class'] == 'success'){
+            return Redirect::route('painel.estoqueProcessado')->with($data['class'], $data['mensagem']);
+        }else{
+            return back()->with($data['class'], $data['mensagem']);
+        }
     }
     
     public function edit(Estoque $estoque){

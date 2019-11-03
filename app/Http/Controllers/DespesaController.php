@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Despesa;
 use App\Services\DespesaService;
+use Illuminate\Support\Facades\Redirect;
 use App\Http\Requests\FinancaFormRequest;
 
 class DespesaController extends Controller{
@@ -24,7 +25,11 @@ class DespesaController extends Controller{
 
     public function store(FinancaFormRequest $request){
         $data = $this->despesaService->create($request->all());
-        return back()->with($data['class'], $data['mensagem']);
+        if($data['class'] == 'success'){
+            return Redirect::route('painel.despesa.index')->with($data['class'], $data['mensagem']);
+        }else{
+            return back()->with($data['class'], $data['mensagem']);
+        }
     }
 
     public function edit(Despesa $despesa){

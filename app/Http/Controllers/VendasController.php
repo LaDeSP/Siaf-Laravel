@@ -8,6 +8,7 @@ use App\Models\Estoque;
 use App\Services\VendaService;
 use App\Services\EstoqueService;
 use App\Http\Requests\VendaFormRequest;
+use Illuminate\Support\Facades\Redirect;
 
 class VendasController extends Controller{
     protected $vendaService;
@@ -31,7 +32,11 @@ class VendasController extends Controller{
     
     public function store(VendaFormRequest $request){
         $data = $this->vendaService->create($request->all());
-        return back()->with($data['class'], $data['mensagem']);     
+        if($data['class'] == 'success'){
+            return Redirect::route('painel.venda.index')->with($data['class'], $data['mensagem']);
+        }else{
+            return back()->with($data['class'], $data['mensagem']);
+        }    
     }
     
     public function edit(Venda $venda){

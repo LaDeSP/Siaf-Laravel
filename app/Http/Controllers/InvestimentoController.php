@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Investimento;
 use Illuminate\Http\Request;
 use App\Services\InvestimentoService;
+use Illuminate\Support\Facades\Redirect;
 use App\Http\Requests\FinancaFormRequest;
 
 class InvestimentoController extends Controller{
@@ -25,7 +26,11 @@ class InvestimentoController extends Controller{
     
     public function store(FinancaFormRequest $request){
         $data = $this->investimentoService->create($request->all());
-        return back()->with($data['class'], $data['mensagem']);
+        if($data['class'] == 'success'){
+            return Redirect::route('painel.investimento.index')->with($data['class'], $data['mensagem']);
+        }else{
+            return back()->with($data['class'], $data['mensagem']);
+        }
     }
 
     public function edit(Investimento $investimento){

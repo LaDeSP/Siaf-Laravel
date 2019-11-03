@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Talhao;
 use App\Services\TalhaoService;
 use App\Http\Requests\TalhaoFormRequest;
+use Illuminate\Support\Facades\Redirect;
 
 class TalhaoController extends Controller{
     protected $talhaoService;
@@ -24,7 +25,11 @@ class TalhaoController extends Controller{
 
     public function store(TalhaoFormRequest $request){
         $data = $this->talhaoService->create($request->all());
-        return back()->with($data['class'], $data['mensagem']); 
+        if($data['class'] == 'success'){
+            return Redirect::route('painel.talhao.index')->with($data['class'], $data['mensagem']);
+        }else{
+            return back()->with($data['class'], $data['mensagem']);
+        } 
     }
    
     public function edit(Talhao $talhao){

@@ -42,9 +42,6 @@ class User extends Authenticatable{
 		'name',
 		'email',
 		'telefone',
-		'email_verified_at',
-		'password',
-		'remember_token'
 	];
 
 	protected $appends = ['avatarlink'];

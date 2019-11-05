@@ -71,6 +71,7 @@ Route::name('painel.')->prefix('painel')->middleware('auth')->group(function() {
 
     /*Rotas referente a perfil usuario*/
     Route::get('/user/{user}', "UsersController@edit")->name('perfil');
+    Route::put('/user/{user}', "UsersController@update")->name('perfil');
 });
 
 /*

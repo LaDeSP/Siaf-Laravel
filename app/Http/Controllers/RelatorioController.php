@@ -16,15 +16,11 @@ use App\Models\Produto;
 use App\Models\Estoque;
 use Illuminate\Support\Facades\DB;
 
-class RelatorioController extends Controller
-{
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index(Request $request)
-    {
+class RelatorioController extends Controller{
+    
+    public function index(Request $request){
+
+        return view('painel.relatorios.index');
         $propriedades= Propriedade::all()->where('users_id','=',$this->usuario['cpf']);
         // dd($request);
         if(!(empty( $request->session()->get('r')))){

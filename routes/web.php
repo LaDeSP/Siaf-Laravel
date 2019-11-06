@@ -14,8 +14,6 @@ Route::name('painel.')->prefix('painel')->middleware('auth')->group(function() {
     /*Rotas referente a estoque*/
     Route::resource('/estoque', "EstoqueController", ['names' => [
         'create', 'store', 'edit', 'update', 'destroy']]);
-    Route::get('/estoque/produto/plantio', 'EstoqueController@estoquePlataveisIndex')->name('estoquePlantaveis');
-    Route::get('/estoque/produto/processado', 'EstoqueController@estoqueProcessadoIndex')->name('estoqueProcessado');
     Route::get('/plantio/colheita/{manejo}/estoque', "ManejoController@createEstoqueColheitaManejo")->name('createEstoqueColheitaManejo');
     Route::post('/plantio/colheita/{manejo}/estoque', "ManejoController@storeEstoqueColheitaManejo")->name('storeEstoqueColheitaManejo');
     
@@ -58,8 +56,8 @@ Route::name('painel.')->prefix('painel')->middleware('auth')->group(function() {
         'create', 'store', 'edit', 'update', 'destroy']]);
 
     /*Rotas referente a relatorio*/
-    Route::resource('/relatorio', "RelatorioController", ['names' => [
-        'create', 'store', 'edit', 'update', 'destroy']]);
+    Route::get('/relatorio', 'RelatorioController@index')->name('indexRelatorio');    
+    Route::get('/relatorio/gerar', 'RelatorioController@gerarRelatorio')->name('gerarRelatorio');
     
     /*Rotas referente a calendario*/
     Route::get('/calendario', 'CalendarioController@index')->name('calendario');

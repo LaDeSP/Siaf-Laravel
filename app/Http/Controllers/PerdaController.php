@@ -38,23 +38,10 @@ class PerdaController extends Controller{
     public function storePerdaEstoque(PerdaEstoqueFormRequest $request, Estoque $estoque){    
         $data = $this->perdaService->create($request->all(), $plantio=null, $estoque);
         $quantidadeEstoque = $this->estoqueService->quantidadeDisponivelDeProdutoEstoque($estoque);
-        $tipoProduto = $estoque->produto()->first()->tipo;
         if($quantidadeEstoque == 0){
-            if($tipoProduto == 'c_temporaria' || $tipoProduto == 'c_permanente'){
-                return Redirect::route('painel.estoquePlantaveis')->with($data['class'], $data['mensagem']);
-            }else{
-                return Redirect::route('painel.estoqueProcessado')->with($data['class'], $data['mensagem']);
-            }
+            return Redirect::route('painel.estoque.index')->with($data['class'], $data['mensagem']);
         }else{
-            if($data['class'] == 'success'){
-                if($tipoProduto == 'c_temporaria' || $tipoProduto == 'c_permanente'){
-                    return Redirect::route('painel.estoquePlantaveis')->with($data['class'], $data['mensagem']);
-                }else{
-                    return Redirect::route('painel.estoqueProcessado')->with($data['class'], $data['mensagem']);
-                }
-            }else{
-                return back()->with($data['class'], $data['mensagem']);
-            }
+            return back()->with($data['class'], $data['mensagem']);
         }    
     }
     

@@ -13,6 +13,18 @@ class EstoqueService{
         $this->userService = $userService;
     }
     
+    public function index(){
+        $estoques =  $this->userService->propriedadesUser()->estoques()->get();
+        foreach ($estoques as $estoque) {
+            $estoque->quantidade = $this->quantidadeDisponivelDeProdutoEstoque($estoque);
+            $estoque->emUso = $this->estoqueEmUso($estoque);
+            if($estoque->manejoplantio_id){
+                $estoque->plantavel = true;
+            }
+        }
+        return $estoques;
+    }
+
     /*Retorna somente os estoques que tenham quantidade maior que zero*/
     public function indexEstoquesQuantidadeDisponivel(){
         $estoques = $this->userService->propriedadesUser()->estoques()->get();
@@ -24,32 +36,6 @@ class EstoqueService{
             }
         }
         return $estoquesDisponiveis;
-    }
-
-    public function estoquePlataveisIndex(){
-        $estoquesProdutosPlantaveis =  $this->userService->propriedadesUser()->estoques()->get();
-        $estoques = [];
-        
-        foreach($estoquesProdutosPlantaveis as $estoque){
-            if($estoque->produto()->whereIn("tipo", ["c_permanente","c_temporaria"])->first()){
-                $estoque->quantidade = $this->quantidadeDisponivelDeProdutoEstoque($estoque);
-                array_push($estoques, $estoque);
-            }
-        }
-        return $estoques;
-    }
-    
-    public function estoqueProcessadoIndex(){
-        $estoquesProdutosPropriedade =  $this->userService->propriedadesUser()->estoques()->get();
-        $estoques = [];
-        foreach($estoquesProdutosPropriedade as $estoque){
-            if($estoque->produto()->where("tipo","processado")->first()){
-                $estoque->quantidade = $this->quantidadeDisponivelDeProdutoEstoque($estoque);
-                array_push($estoques, $estoque);
-            }
-            $estoque->emUso = $this->estoqueEmUso($estoque);
-        }
-        return $estoques;
     }
     
     public function create(array $attributes, $manejo=null){

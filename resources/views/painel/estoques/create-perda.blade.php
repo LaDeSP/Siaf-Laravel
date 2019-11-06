@@ -11,7 +11,16 @@ Adicionar Manejo
     </div>
     <div class="section-body">
         <div class="row d-flex justify-content-center">
-            @if(session()->has('danger'))
+            @if(session()->has('success'))
+            <div class="alert alert-success alert-dismissible show fade col-10">
+                <div class="alert-body">
+                    <button class="close" data-dismiss="alert">
+                        <span>×</span>
+                    </button>
+                    {{ session('success') }}
+                </div>
+            </div>
+            @elseif(session()->has('danger'))
             <div class="alert alert-danger alert-dismissible show fade col-10">
                 <div class="alert-body">
                     <button class="close" data-dismiss="alert">
@@ -25,11 +34,7 @@ Adicionar Manejo
                 <div class="card">
                     <div class="card-header">
                         <div class="card-header-action">
-                            @if($estoque->produto()->first()->tipo == 'c_temporaria' || $estoque->produto()->first()->tipo == 'c_permanente')
-                            <a href="{{route('painel.estoquePlantaveis')}}" class="btn btn-success">Listar Estoque <i class="fas fa-list"></i></a>
-                            @else
-                            <a href="{{route('painel.estoqueProcessado')}}" class="btn btn-success">Listar Estoque <i class="fas fa-list"></i></a>
-                            @endif
+                            <a href="{{route('painel.estoque.index')}}" class="btn btn-success">Listar Estoque <i class="fas fa-list"></i></a>
                         </div>
                     </div>
                     <p class="section-lead m-2">Campos marcado com (<b><span class="text-danger">*</span></b>) são obrigatórios</p>

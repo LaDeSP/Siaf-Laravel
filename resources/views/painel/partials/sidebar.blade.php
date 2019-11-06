@@ -10,13 +10,7 @@
             <li class="menu-header">Menus</li>
             <li class="{{ Request::route()->getName() == 'painel.dashboard' ? ' active' : '' }}"><a class="nav-link" href="{{ route('painel.dashboard') }}"><i><img src="{{ asset('assets/img/inicio.png') }}" alt="logo" width="25"></i><span>Início</span></a></li>
             <li class="{{ Request::route()->getName() == 'painel.venda.index' ? ' active' : '' }}"><a class="nav-link" href="{{route('painel.venda.index')}}"><i><img src="{{ asset('assets/img/vendas.png') }}" alt="logo" width="25"></i> <span>Vendas</span></a></li>
-            <li class="dropdown {!! (Request::is('painel/estoque/produto/plantio')|| Request::is( 'painel/estoque/produto/processado') ? ' active' : '' )!!}">
-                <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i><img src="{{ asset('assets/img/estoque.png') }}" alt="logo" width="25"></i> <span>Estoque</span></a>
-                <ul class="dropdown-menu">
-                    <li class="{{ Request::route()->getName() == 'painel.estoquePlantaveis' ? ' active' : '' }}"><a class="nav-link" href="{{route('painel.estoquePlantaveis')}}">Produtos Plantáveis</a></li>
-                    <li class="{{ Request::route()->getName() == 'painel.estoqueProcessado' ? ' active' : '' }}"><a class="nav-link" href="{{route('painel.estoqueProcessado')}}">Produtos Processados</a></li>
-                </ul>
-            </li>
+            <li class="{{ Request::route()->getName() == 'painel.estoque.index' ? ' active' : '' }}"><a class="nav-link" href="{{route('painel.estoque.index')}}"><i><img src="{{ asset('assets/img/estoque.png') }}" alt="logo" width="25"></i> <span>Estoques</span></a></li>
             <li class="{{ Request::route()->getName() == 'painel.plantio.index' ? ' active' : '' }}"><a class="nav-link" href="{{route('painel.plantio.index')}}"><i><img src="{{ asset('assets/img/plantio.png') }}" alt="logo" width="25"></i> <span>Plantio</span></a></li>
             <li class="{{ Request::route()->getName() == 'painel.manejo.index' ? ' active' : '' }}"><a class="nav-link" href="{{route('painel.manejo.index')}}"><i><img src="{{ asset('assets/img/manejo.png') }}" alt="logo" width="25"></i> <span>Manejo</span></a></li>
             <li class="dropdown {!! (Request::is('painel/produto')|| Request::is( 'painel/talhao') ? ' active' : '' )!!}">
@@ -34,7 +28,7 @@
                 </ul>
             </li>
             <li class="{{ Request::route()->getName() == 'painel.calendario' ? ' active' : '' }}"><a class="nav-link" href="{{route('painel.calendario')}}"><i><img src="{{ asset('assets/img/calendario.png') }}" alt="logo" width="20"></i> <span>Calendário</span></a></li></li>
-        <li class=""><a class="nav-link" href="{{route('painel.relatorio.index')}}"><i><img src="{{ asset('assets/img/relatorio.png') }}" alt="logo" width="22"></i> <span>Relatório</span></a></li>
+        <li class=""><a class="nav-link" href="{{route('painel.indexRelatorio')}}"><i><img src="{{ asset('assets/img/relatorio.png') }}" alt="logo" width="22"></i> <span>Relatório</span></a></li>
             <li class=""><a class="nav-link" href=""><i><img src="{{ asset('assets/img/manual.png') }}" alt="logo" width="25"></i> <span>Manual</span></a></li>
         </ul>
     </aside>

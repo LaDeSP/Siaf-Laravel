@@ -25,7 +25,7 @@ Create User
                 <div class="card">
                     <div class="card-header">
                         <div class="card-header-action">
-                            <a href="{{route('painel.estoqueProcessado')}}" class="btn btn-success">Listar Estoque <i class="fas fa-list"></i></a>
+                            <a href="{{route('painel.estoque.index')}}" class="btn btn-success">Listar Estoque <i class="fas fa-list"></i></a>
                         </div>
                     </div>
                     <p class="section-lead m-2">Campos marcado com (<b><span class="text-danger">*</span></b>) são obrigatórios</p>

@@ -16,15 +16,10 @@ class EstoqueController extends Controller{
         $this->estoqueService = $estoqueService;
         $this->produtoService = $produtoService;
     }
-    
-    public function estoquePlataveisIndex(){
-        $estoquePlantaveis = $this->estoqueService->estoquePlataveisIndex();
-        return view('painel.estoques.indexPlantaveis', ["estoques" => $estoquePlantaveis]);
-    }
 
-    public function estoqueProcessadoIndex(){
-        $estoquePropriedade = $this->estoqueService->estoqueProcessadoIndex();
-        return view('painel.estoques.indexNaoPlantaveis', ["estoques" => $estoquePropriedade]);
+    public function index(){
+        $estoques = $this->estoqueService->index();
+        return view('painel.estoques.index', ["estoques" => $estoques]);
     }
     
     public function create(){
@@ -35,7 +30,7 @@ class EstoqueController extends Controller{
     public function store(EstoqueFormRequest $request){
         $data = $this->estoqueService->create($request->all());
         if($data['class'] == 'success'){
-            return Redirect::route('painel.estoqueProcessado')->with($data['class'], $data['mensagem']);
+            return Redirect::route('painel.estoque.index')->with($data['class'], $data['mensagem']);
         }else{
             return back()->with($data['class'], $data['mensagem']);
         }

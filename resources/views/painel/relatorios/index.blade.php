@@ -28,7 +28,7 @@ Gerar Relatórios
             <div class="col-12">
                 <div class="card">
                     <p class="section-lead m-2">Campos marcado com (<b><span class="text-danger">*</span></b>) são obrigatórios</p>
-                    <form method="POST" name="addinvestimento" action="{{ route('painel.investimento.store') }}" class="needs-validation p-0 col-sm-8 col-md-8 col-lg-8 align-self-center" novalidate="">
+                    <form method="GET" name="addinvestimento" action="{{ route('painel.gerarRelatorio') }}" class="needs-validation p-0 col-sm-8 col-md-8 col-lg-8 align-self-center" novalidate="">
                         {{ csrf_field() }}
                         <div class="card-body">
                             <div class="form-group">
@@ -91,6 +91,8 @@ Gerar Relatórios
     $(function() {
         $('input[name="dates"]').daterangepicker({
             autoUpdateInput: false,
+            showDropdowns: true,
+            opens: 'center',
             locale: {
                 "format": "DD/MM/YYYY",
                 "separator": " - ",
@@ -122,7 +124,7 @@ Gerar Relatórios
                 "Novembro",
                 "Dezembro"
                 ],
-                "firstDay": 0
+                "firstDay": 1
             }
         });
         

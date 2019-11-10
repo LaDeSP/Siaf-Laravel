@@ -2,103 +2,91 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Models\Perda;
 use App\Models\Venda;
+use App\Models\Talhao;
 use App\Models\Despesa;
 use App\Models\Destino;
-use App\Models\Investimento;
-use App\Models\Propriedade;
-use App\Models\Talhao;
-use App\Models\Plantio;
-use App\Models\ManejoPlantio;
-use App\Models\Perda;
-use App\Models\Produto;
 use App\Models\Estoque;
+use App\Models\Plantio;
+use App\Models\Produto;
+use App\Models\Relatorio;
+use App\Models\Propriedade;
+use App\Models\Investimento;
+use Illuminate\Http\Request;
+use App\Models\ManejoPlantio;
+use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Support\Facades\DB;
 
 class RelatorioController extends Controller{
+    protected $modelRelatorio;
     
-    public function index(Request $request){
-
-        return view('painel.relatorios.index');
-        $propriedades= Propriedade::all()->where('users_id','=',$this->usuario['cpf']);
-        // dd($request);
-        if(!(empty( $request->session()->get('r')))){
-            // $request->session()->get('r');
-            $corpo = $this->defineQ($request);
-            $request->session()->forget('r');
-            if (!(empty($corpo['mensagem']))) {
-                return view('relatorio', ["User"=>$this->getFirstName($this->usuario['name']), "Tela"=>"Relatório", "propriedades" =>$propriedades, 'mensagem'=>$corpo['mensagem'], 'status'=>$corpo['status']]);
-            }
-            // dd($corpo);
-            return view('relatorio', ["User"=>$this->getFirstName($this->usuario['name']), "Tela"=>"Relatório", "topo"=>$corpo['topo'], "conteudo"=>$corpo['conteudo'], "tipo" => $corpo["tipo"], "inicio"=>$corpo['inicio'], "final"=>$corpo['final'],'lastLine'=>$corpo['lastLine'], 'totalG'=> $corpo['totalG'], "propriedades" =>$propriedades, "formatDataTopo" =>$corpo['formatDataTopo'], "formatDataLast" =>$corpo['formatDataLast']]);
-        }else{
-            return view('relatorio', ["User"=>$this->getFirstName($this->usuario['name']), "Tela"=>"Relatório", "propriedades" =>$propriedades]);
-        }
+    public function __construct(Relatorio $relatorio){
+        $this->modelRelatorio = $relatorio;
     }
 
+    public function index(){
+        return view('painel.relatorios.index');
+    }
     
     public function gerarRelatorio(Request $request){
+        $relatorio = $this->tipoRelatorio($request);
+        //dd($relatorio['linhasTabela']);
+        if($relatorio != false){
+            
+                $pdf = PDF::loadView('painel.relatorios.pdf_view', ['relatorio'=>$relatorio]);  
+                //$pdf->set_base_path('public/assets');
+                return $pdf->stream($relatorio['tituloRelatorio'].'.pdf');
+                $data = $this->erroRelatorio();
+                return back()->with($data['class'], $data['mensagem']);
+            
+        }else{
+            $data = $this->erroRelatorio();
+            return back()->with($data['class'], $data['mensagem']);
+        }
+        
         $data = $request->all(); 
         $datas = explode("até", $data['dates']);
         dd($datas);
     }
-
-    public function create()
-    {
-        //
+    
+    public function erroRelatorio(){
+        return $data=[
+            'mensagem' => 'Erro ao gerar relatório, tente novamente!',
+            'class' => 'danger'
+        ];
     }
-    function defineQ($request){
-        $head=$request->session()->get('r');
-        try{
-            if ($head['tipo'] == "Selecione uma opção") {
-                $propriedades= Propriedade::all()->where('users_id','=',$this->usuario['cpf']);
-                $mensagem='Por favor, selecione uma opção.';
-                $status='danger';
-                return ['mensagem'=>$mensagem,'status'=>$status];
-            }else if ($head['tipo'] == "talhão") {
+    
+    function tipoRelatorio($request){
+        
+            if ($request['tipoRelatorio'] == "talhao") {
                 return $this->talhoes($request);
-            }else if ($head['tipo'] == "plantios") {
+            }else if ($request['tipoRelatorio'] == "plantios") {
                 return $this->plantios($request);
-            }else if ($head['tipo'] == "despesa") {
+            }else if ($request['tipoRelatorio'] == "despesa") {
                 return $this->despesas($request);
-            } else if($head['tipo'] == "vendas"){
-                 return $this->vendas($request); 
-            }else if ($head['tipo'] == "investimentos") {
-                return $this->investimentos($request);
-            }else if ($head['tipo'] == "manejo-talhão") {
+            } else if($request['tipoRelatorio'] == "vendas"){
+                return $this->vendas($request); 
+            }else if ($request['tipoRelatorio'] == "investimentos") {
+                return $this->modelRelatorio->investimentos($request->all());
+            }else if ($request['tipoRelatorio'] == "manejoTalhao") {
                 return $this->manejosTalhao($request);
-            }else if($head['tipo'] == "perdas"){
+            }else if($request['tipoRelatorio'] == "perdas"){
                 return $this->perdas($request);
-            }else if ($head['tipo'] == "manejo-propriedade") {
+            }else if ($request['tipoRelatorio'] == "manejoPropriedade") {
                 return $this->manejosPropriedade($request);
-            }else if ($head['tipo'] == "colheitas") {
+            }else if ($request['tipoRelatorio'] == "colheitas") {
                 return $this->colheitas($request);
-            }else if ($head['tipo'] == "produtos-ativos-e-não-propriedade") {
+            }else if ($request['tipoRelatorio'] == "produtosAtivosInativos") {
                 return $this->produtosAtivosEnaoPropriedade($request); /*a fazer */
-            }else if ($head['tipo'] == "historico-manejo-plantio") {
+            }else if ($request['tipoRelatorio'] == "historicoManejoPlantio") {
                 return $this->historicoManejoPlantio($request);
-            }else if ($head['tipo'] == "estoque-propriedade") {
+            }else if ($request['tipoRelatorio'] == "estoquePropriedade") {
                 return $this->estoquePropriedade($request);
             }
-        }catch(\Exception $e){
-             $request->session()->forget('r');
-            return redirect()->action("RelatorioController@index");
-        }
+        
     }
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {   $request->session()->forget('r');
-        $t  = array_except($request,['_token'])->toArray();
-        $request->session()->put(['r'=>$t]);
-        return redirect()->action("RelatorioController@index");
-    }
-
+    
     function vendas($request){
         $propriedade = $this->getPropriedade($request);
         $request =$request->session()->get('r');
@@ -127,14 +115,11 @@ class RelatorioController extends Controller{
         ->orderBy('total', 'desc')
         ->get();
         return ["topo"=>$topo, "conteudo"=> $data, "tipo" => $request["tipo"], "inicio"=>$request['date-inicio'], "final"=>$request['date-final'],'lastLine'=>$lastLine, 'totalG'=> $totalG, "formatDataTopo" =>$formatDataTopo, "formatDataLast" =>$formatDataLast];
-
-        //    $v = Venda::with(['estoque_id', 'quantidade'])
-        //                 ->whereBetween('data', [$request['date-inicio'], $request['date-fim']])
-        //                 ->select(DB::raw('*'));
-        // $todo = array("topo"=>["Estoque","Quantidade"],"conteudo"=>$v);
-        // return redirect()->action("RelatorioController@index",["todo" => $todo]);
     }
-    function investimentos( $request){
+    
+    function investimentos($request){
+        return $this->modelRelatorio->investimentos($request);
+
         $propriedades= Propriedade::all()->where('users_id','=',$this->usuario['cpf']);
         $propriedade = $this->getPropriedade($request);
         $request =$request->session()->get('r');
@@ -154,6 +139,7 @@ class RelatorioController extends Controller{
         ->get();
         return ["topo"=>$topo, "conteudo"=> $data, "tipo" => $request["tipo"], "inicio"=>$request['date-inicio'], "final"=>$request['date-final'],'lastLine'=>$lastLine, 'totalG'=> $totalG, "formatDataTopo" =>$formatDataTopo, "formatDataLast" =>$formatDataLast];
     }
+    
     function despesas( $request){
         $propriedades= Propriedade::all()->where('users_id','=',$this->usuario['cpf']);
         $propriedade = $this->getPropriedade($request);
@@ -174,6 +160,7 @@ class RelatorioController extends Controller{
         ->get();
         return ["topo"=>$topo, "conteudo"=> $data, "tipo" => $request["tipo"], "inicio"=>$request['date-inicio'], "final"=>$request['date-final'],'lastLine'=>$lastLine, 'totalG'=> $totalG, "formatDataTopo" =>$formatDataTopo, "formatDataLast" =>$formatDataLast];
     }
+    
     function talhoes( $request){
         $propriedades= Propriedade::all()->where('users_id','=',$this->usuario['cpf']);
         $propriedade = $this->getPropriedade($request);
@@ -195,6 +182,7 @@ class RelatorioController extends Controller{
         ->get();
         return ["topo"=>$topo, "conteudo"=> $data, "tipo" => $request["tipo"], "inicio"=>$request['date-inicio'], "final"=>$request['date-final'],'lastLine'=>$lastLine, 'totalG'=> $totalG, "formatDataTopo" =>$formatDataTopo, "formatDataLast" =>$formatDataLast];
     }
+    
     function plantios( $request){
         $propriedades= Propriedade::all()->where('users_id','=',$this->usuario['cpf']);
         $propriedade = $this->getPropriedade($request);
@@ -213,11 +201,12 @@ class RelatorioController extends Controller{
         ->join('produto', 'plantio.produto_id','=','produto.id')
         ->select('produto.nome as produto',(DB::raw('SUM( plantio.quantidade_pantas) as quantidade_total')))
         ->whereBetween('plantio.data_plantio', [$request['date-inicio'], $request['date-final']])
-         ->where('talhao.propriedade_id', '=',$propriedade->id)
+        ->where('talhao.propriedade_id', '=',$propriedade->id)
         ->groupBy('plantio.produto_id')->orderBy('quantidade_total', 'desc')
         ->get();
         return ["topo"=>$topo, "conteudo"=> $data, "tipo" => $request["tipo"], "inicio"=>$request['date-inicio'], "final"=>$request['date-final'],'lastLine'=>$lastLine, 'totalG'=> $totalG, "formatDataTopo" =>$formatDataTopo, "formatDataLast" =>$formatDataLast];
     }
+    
     function manejosTalhao( $request){
         $propriedades= Propriedade::all()->where('users_id','=',$this->usuario['cpf']);
         $propriedade = $this->getPropriedade($request);
@@ -245,6 +234,7 @@ class RelatorioController extends Controller{
         ->get();
         return ["topo"=>$topo, "conteudo"=> $data, "tipo" => $request["tipo"], "inicio"=>$request['date-inicio'], "final"=>$request['date-final'],'lastLine'=>$lastLine, 'totalG'=> $totalG, "formatDataTopo" =>$formatDataTopo, "formatDataLast" =>$formatDataLast];
     }
+    
     function perdas( $request){
         $propriedades= Propriedade::all()->where('users_id','=',$this->usuario['cpf']);
         $propriedade = $this->getPropriedade($request);
@@ -274,6 +264,7 @@ class RelatorioController extends Controller{
         ->get();
         return ["topo"=>$topo, "conteudo"=> $data, "tipo" => $request["tipo"], "inicio"=>$request['date-inicio'], "final"=>$request['date-final'],'lastLine'=>$lastLine, 'totalG'=> $totalG, "formatDataTopo" =>$formatDataTopo, "formatDataLast" =>$formatDataLast];
     }
+    
     function manejosPropriedade( $request){
         $propriedades= Propriedade::all()->where('users_id','=',$this->usuario['cpf']);
         // $propriedade = $this->getPropriedade($request);
@@ -303,6 +294,7 @@ class RelatorioController extends Controller{
         ->get();
         return ["topo"=>$topo, "conteudo"=> $data, "tipo" => $request["tipo"], "inicio"=>$request['date-inicio'], "final"=>$request['date-final'],'lastLine'=>$lastLine, 'totalG'=> $totalG, "formatDataTopo" =>$formatDataTopo, "formatDataLast" =>$formatDataLast];
     }
+    
     function colheitas( $request){
         $propriedades= Propriedade::all()->where('users_id','=',$this->usuario['cpf']);
         $propriedade = $this->getPropriedade($request);
@@ -337,6 +329,7 @@ class RelatorioController extends Controller{
         ->get();
         return ["topo"=>$topo, "conteudo"=> $data, "tipo" => $request["tipo"], "inicio"=>$request['date-inicio'], "final"=>$request['date-final'],'lastLine'=>$lastLine, 'totalG'=> $totalG, "formatDataTopo" =>$formatDataTopo, "formatDataLast" =>$formatDataLast];
     }
+    
     function produtosAtivosEnaoPropriedade( $request){
         $propriedades= Propriedade::all()->where('users_id','=',$this->usuario['cpf']);
         $propriedade = $this->getPropriedade($request);
@@ -357,6 +350,7 @@ class RelatorioController extends Controller{
         ->get();
         return ["topo"=>$topo, "conteudo"=> $data, "tipo" => $request["tipo"], "inicio"=>$request['date-inicio'], "final"=>$request['date-final'],'lastLine'=>$lastLine, 'totalG'=> $totalG, "formatDataTopo" =>$formatDataTopo, "formatDataLast" =>$formatDataLast];
     }
+    
     function historicoManejoPlantio( $request){
         $propriedades= Propriedade::all()->where('users_id','=',$this->usuario['cpf']);
         $propriedade = $this->getPropriedade($request);
@@ -387,6 +381,7 @@ class RelatorioController extends Controller{
         ->get();
         return ["topo"=>$topo, "conteudo"=> $data, "tipo" => $request["tipo"], "inicio"=>$request['date-inicio'], "final"=>$request['date-final'],'lastLine'=>$lastLine, 'totalG'=> $totalG, "formatDataTopo" =>$formatDataTopo, "formatDataLast" =>$formatDataLast];
     }
+    
     function estoquePropriedade( $request){
         $propriedades= Propriedade::all()->where('users_id','=',$this->usuario['cpf']);
         $propriedade = $this->getPropriedade($request);
@@ -405,10 +400,6 @@ class RelatorioController extends Controller{
         ->where('estoque.propriedade_id', '=', $request['propriedade_id'])
         ->groupBy('estoque.id')
         ->get();
-       /* $data->getCollection()->transform(function ($value) {
-            $value['Atual'] = $value->Quantidade-(Venda::all()->where('estoque_id','=',$value->id)->sum('quantidade')+Perda::all()->where('estoque_id','=',$value->id)->sum('quantidade'));
-            return $value;
-        });*/
         foreach ($data as $key => $value) {
             $value->Atual= $value->Quantidade-(Venda::all()->where('estoque_id','=',$value->id)->sum('quantidade')+Perda::all()->where('estoque_id','=',$value->id)->sum('quantidade'));
         }
@@ -426,51 +417,7 @@ class RelatorioController extends Controller{
             $pv = (Venda::join('estoque','venda.estoque_id','=','estoque.id')->where('estoque.produto_id','=',$value->produto_id)->where('estoque.propriedade_id','=',$request['propriedade_id'])->whereBetween('estoque.data', [$request['date-inicio'], $request['date-final']])->sum('venda.quantidade'))+(Perda::join('estoque','perda.estoque_id','=','estoque.id')->where('estoque.produto_id','=',$value->produto_id)->where('estoque.propriedade_id','=',$request['propriedade_id'])->whereBetween('estoque.data', [$request['date-inicio'], $request['date-final']])->sum('perda.quantidade'));
             $value->total_atual= $value->total_atual - $pv;
         }
-
+        
         return ["topo"=>$topo, "conteudo"=> $data, "tipo" => $request["tipo"], "inicio"=>$request['date-inicio'], "final"=>$request['date-final'],'lastLine'=>$lastLine, 'totalG'=> $totalG, "formatDataTopo" =>$formatDataTopo, "formatDataLast" =>$formatDataLast];
-    }
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Request $request, $qual)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 }

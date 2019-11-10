@@ -58,7 +58,7 @@ Route::name('painel.')->prefix('painel')->middleware('auth')->group(function() {
     /*Rotas referente a relatorio*/
     Route::get('/relatorio', 'RelatorioController@index')->name('indexRelatorio');    
     Route::get('/relatorio/gerar', 'RelatorioController@gerarRelatorio')->name('gerarRelatorio');
-    
+        
     /*Rotas referente a calendario*/
     Route::get('/calendario', 'CalendarioController@index')->name('calendario');
     

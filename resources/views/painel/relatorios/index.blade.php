@@ -33,27 +33,27 @@ Gerar Relatórios
                         <div class="card-body">
                             <div class="form-group">
                                 <label>Relatório que deseja gerar<span class="text-danger">*</span></label>
-                                <select name="categoria" class="custom-select form-control {{ $errors->has('categoria') ? ' is-invalid' : '' }}" required value="{{ old('categoria') }}">
+                                <select name="tipoRelatorio" class="custom-select form-control {{ $errors->has('tipoRelatorio') ? ' is-invalid' : '' }}" required value="{{ old('tipoRelatorio') }}">
                                     <option selected="" value="">Selecione um relatório</option>
                                     <option value="investimentos"> Investimentos realizados por período </option>
                                     <option value="despesa"> Despesa realizadas por período</option>
                                     <option value="plantios"> Plantios realizados por período</option>
-                                    <option value="manejo-talhão"> Manejos realizados por período por talhão </option>
-                                    <option value="manejo-propriedade"> Manejos realizados por período por propriedade </option>
+                                    <option value="manejoTalhao"> Manejos realizados por período por talhão </option>
+                                    <option value="manejoPropriedade"> Manejos realizados por período por propriedade </option>
                                     <option value="colheitas">Colheitas realizadas por período </option>
-                                    <option value="talhão"> Talhões por propriedade</option>
-                                    <option value="produtos-ativos-e-não-propriedade"> Produtos ativos e inativos por propriedade</option>
-                                    <option value="historico-manejo-plantio"> Histórico de manejo por plantio</option>
-                                    <option value="estoque-propriedade"> Estoque por propriedade por período </option>
+                                    <option value="talhao"> Talhões por propriedade</option>
+                                    <option value="produtosAtivosInativos"> Produtos ativos e inativos por propriedade</option>
+                                    <option value="historicoManejoPlantio"> Histórico de manejo por plantio</option>
+                                    <option value="estoquePropriedade"> Estoque por propriedade por período </option>
                                     <option value="vendas"> Vendas realizadas por período</option>
                                     <option value="perdas"> Perdas por período</option>
                                 </select>
                                 <div class="invalid-feedback">
                                     Escolha um relatório!
                                 </div>
-                                @if ($errors->has('categoria'))
+                                @if ($errors->has('tipoRelatorio'))
                                 <div class="invalid-feedback">
-                                    {{ $errors->first('categoria') }}
+                                    {{ $errors->first('tipoRelatorio') }}
                                 </div>
                                 @endif
                             </div>
@@ -64,16 +64,16 @@ Gerar Relatórios
                                     <div class="invalid-feedback">
                                         Escolha o períododo do relatório!
                                     </div>
-                                    @if ($errors->has('categoria'))
+                                    @if ($errors->has('dates'))
                                     <div class="invalid-feedback">
-                                        {{ $errors->first('categoria') }}
+                                        {{ $errors->first('dates') }}
                                     </div>
                                     @endif
                                 </div>
                             </div>        
                         </div>
                         <div class="card-footer text-center">
-                            <button class="btn btn-success">Confirmar</button>
+                            <button class="btn btn-success" formtarget="_blank">Confirmar</button>
                         </div>
                     </form>
                 </div>

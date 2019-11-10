@@ -9,16 +9,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class Relatorio extends Model{
     protected $userService;
-    protected $colunasTabelaHistorico;
-    protected $colunasTabelaResumo;
-    protected $linhasTabelaHistorico;
-    protected $linhasTabelaResumo;
     protected $dataRelatorio;
+    protected $modelInvestimento;
     
-    public function __construct(UserService $userService){
+    public function __construct(UserService $userService, Investimento $investimento){
         $this->userService = $userService;
+        $this->modelInvestimento = $investimento;
     }
-
+    
     public function replaceDataRelatorio($datas){
         $datas = explode("até", $datas);
         $dataInicio = trim($datas[0]);
@@ -31,26 +29,15 @@ class Relatorio extends Model{
     }
     
     public function investimentos(array $request){
-        $this->replaceDataRelatorio($request['dates']);
-        $this->colunasTabelaHistorico = ['Investimento','Data','Quantidade','Valor Unitário R$', 'Total Investimento R$'];
-        $this->colunasTabelaResumo= ['Total Investido R$',' Total Quantidade'];
-        $this->linhasTabelaHistorico = $this->userService->propriedadesUser()->investimentos()->groupBy('id')
-                        ->orderBy('created_at', 'desc')
-                        ->whereBetween('data', [$this->dataRelatorio['dataInicio'], $this->dataRelatorio['dataFim']])
-                        ->selectRaw('nome as \'1\', data as \'2\', quantidade as \'3\', valor_unit as \'4\', sum(valor_unit*quantidade) as \'5\'')
-                        ->get();
-        $linhasTabelaResumo = $this->userService->propriedadesUser()->investimentos()->groupBy('id')
-                        ->orderBy('created_at', 'desc')
-                        ->whereBetween('data', [$this->dataRelatorio['dataInicio'], $this->dataRelatorio['dataFim']])
-                        ->selectRaw('sum(valor_unit*quantidade) as \'1\'')
-                        ->selectRaw('sum(quantidade) as \'2\'')
-                        ->get();
-        $this->linhasTabelaResumo = ['1' =>$linhasTabelaResumo->sum('1'), '2'=>$linhasTabelaResumo->sum('2')];
+        if($request['dates']){
+            $this->replaceDataRelatorio($request['dates']);
+        }
+        $resultadoRelatorio = $this->modelInvestimento->relatorioInvestimentos($this->userService->propriedadesUser(), $this->dataRelatorio);
         return [
-            "colunasTabelaHistorico"=>$this->colunasTabelaHistorico, /*Array */
-            "colunasTabelaResumo"=>$this->colunasTabelaResumo, /*Array */
-            "linhasTabelaHistorico"=> $this->linhasTabelaHistorico, /*Array */
-            "linhasTabelaResumo"=>$this->linhasTabelaResumo, /*Array */
+            "colunasTabelaHistorico"=> ['Investimento','Data','Quantidade','Valor Unitário R$', 'Total Investimento R$'], /*Array */
+            "colunasTabelaResumo"=> ['Total Investido R$',' Total Quantidade'], /*Array */
+            "linhasTabelaHistorico"=> $resultadoRelatorio['linhasTabelaHistorico'], /*Array */
+            "linhasTabelaResumo"=> $resultadoRelatorio['linhasTabelaResumo'], /*Array */
             "dataRelatorio"=>$this->dataRelatorio,
             "tituloTabelaResumo"=> "Resumo de investimentos",
             "tituloTabelaHistorico"=> "Histórico de investimentos",

@@ -58,9 +58,9 @@ Gerar Relatórios
                                 @endif
                             </div>
                             <div class="form-group">
-                                <label>Período do relatório<span class="text-danger">*</span></label>
+                                <label>Período do relatório</label>
                                 <div class="form-group">
-                                    <input type="text" class="form-control" name="dates" required>
+                                    <input type="text" class="form-control" name="dates">
                                     <div class="invalid-feedback">
                                         Escolha o períododo do relatório!
                                     </div>

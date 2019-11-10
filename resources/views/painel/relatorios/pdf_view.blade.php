@@ -44,8 +44,10 @@
         <img src="assets/img/logo_SIAF.png" alt="" width="70px">
         <br>
         {{$relatorio['tituloRelatorio']}}
-        <br>
-        Período de {{date('d/m/Y', strtotime($relatorio['dataRelatorio']['dataInicio']))}} até  {{date('d/m/Y', strtotime($relatorio['dataRelatorio']['dataFim']))}}
+        @if($relatorio['dataRelatorio'])
+            <br>
+            Período de {{date('d/m/Y', strtotime($relatorio['dataRelatorio']['dataInicio']))}} até  {{date('d/m/Y', strtotime($relatorio['dataRelatorio']['dataFim']))}}
+        @endif
         <br>
         Emitido em: {{$relatorio['DataEmissaoRelatorio']->format('d/m/Y H:i:s')}}
     </header>

@@ -72,10 +72,8 @@ class Relatorio extends Model{
         if($request['dates']){
             $this->replaceDataRelatorio($request['dates']);
         }
-        $resultadoRelatorio = Plantio::all()->with('talhao')->where('propriedade_id', $this->userService->propriedadesUser());
-        //$this->userService->propriedadesUser()->talhoes()->whereHas('plantios')->get();
-        //$resultadoRelatorio = $resultadoRelatorio->whereHas('plantios');
-        //Plantio::with('talhao')->propriedade()->get();
+        $resultadoRelatorio = $this->userService->propriedadesUser()->talhoes()->whereHas('plantios')
+        ->get()->pluck('plantios')->flatten()->unique();
         //$this->userService->propriedadesUser()->talhoes()->whereHas('plantios')->with('plantios')->get();
         dd($resultadoRelatorio);
         return [

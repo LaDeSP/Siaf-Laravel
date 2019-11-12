@@ -39,4 +39,33 @@ class Despesa extends Eloquent{
 	public function propriedade(){
 		return $this->belongsTo(\App\Models\Propriedade::class);
 	}
+
+	public function relatorioDespesas($propriedade, $periodo = null){
+		if($periodo){
+			$tabelaHistorico = $propriedade->despesas()->groupBy('id')->orderBy('created_at', 'desc')
+			->whereBetween('data', [$periodo['dataInicio'], $periodo['dataFim']])
+			->selectRaw('nome as \'1\', data as \'2\', quantidade as \'3\', valor_unit as \'4\', sum(valor_unit*quantidade) as \'5\'')
+			->get();
+
+			$tabelaResumo = $propriedade->despesas()->groupBy('id')->orderBy('created_at', 'desc')
+			->whereBetween('data', [$periodo['dataInicio'], $periodo['dataFim']])
+			->selectRaw('sum(valor_unit*quantidade) as \'1\'')
+			->selectRaw('sum(quantidade) as \'2\'')
+			->get();
+		}else{
+			$tabelaHistorico = $propriedade->despesas()->groupBy('id')->orderBy('created_at', 'desc')
+			->selectRaw('nome as \'1\', data as \'2\', quantidade as \'3\', valor_unit as \'4\', sum(valor_unit*quantidade) as \'5\'')
+			->get();
+			
+			$tabelaResumo = $propriedade->despesas()->groupBy('id')->orderBy('created_at', 'desc')
+			->selectRaw('sum(valor_unit*quantidade) as \'1\'')
+			->selectRaw('sum(quantidade) as \'2\'')
+			->get();
+		}
+		$tabelaResumo = ['1' =>$tabelaResumo->sum('1'), '2'=>$tabelaResumo->sum('2')];
+		return [
+			'linhasTabelaHistorico'=>$tabelaHistorico,
+			'linhasTabelaResumo'=>$tabelaResumo
+		];
+	}
 }

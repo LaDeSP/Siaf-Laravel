@@ -49,7 +49,7 @@
             Período de {{date('d/m/Y', strtotime($relatorio['dataRelatorio']['dataInicio']))}} até  {{date('d/m/Y', strtotime($relatorio['dataRelatorio']['dataFim']))}}
         @endif
         <br>
-        Emitido em: {{$relatorio['DataEmissaoRelatorio']->format('d/m/Y H:i:s')}}
+        Emitido em: {{$relatorio['DataEmissaoRelatorio']->format('d/m/Y - H:i:s')}}
     </header>
     <h4 style="text-align:center;">{{$relatorio['tituloTabelaResumo']}}</h4>
     <table>

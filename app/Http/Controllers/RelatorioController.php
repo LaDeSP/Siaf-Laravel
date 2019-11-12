@@ -64,7 +64,7 @@ class RelatorioController extends Controller{
             }else if ($request['tipoRelatorio'] == "plantios") {
                 return $this->plantios($request);
             }else if ($request['tipoRelatorio'] == "despesa") {
-                return $this->despesas($request);
+                return $this->modelRelatorio->despesas($request->all());
             } else if($request['tipoRelatorio'] == "vendas"){
                 return $this->vendas($request); 
             }else if ($request['tipoRelatorio'] == "investimentos") {
@@ -112,29 +112,6 @@ class RelatorioController extends Controller{
         ->where('estoque.propriedade_id', '=',$propriedade->id)
         ->where('destino.tipo', '=',1)
         ->groupBy('produto.id')
-        ->orderBy('total', 'desc')
-        ->get();
-        return ["topo"=>$topo, "conteudo"=> $data, "tipo" => $request["tipo"], "inicio"=>$request['date-inicio'], "final"=>$request['date-final'],'lastLine'=>$lastLine, 'totalG'=> $totalG, "formatDataTopo" =>$formatDataTopo, "formatDataLast" =>$formatDataLast];
-    }
-    
-    function investimentos($request){
-        return $this->modelRelatorio->investimentos($request);
-
-        $propriedades= Propriedade::all()->where('users_id','=',$this->usuario['cpf']);
-        $propriedade = $this->getPropriedade($request);
-        $request =$request->session()->get('r');
-        $topo = ['Investimento','Descrição','Data', 'Quantidade','Valor Unitário'];
-        $lastLine= ['Total',' Total Quantidade'];
-        $formatDataTopo= ['Data'];
-        $formatDataLast= [];
-        $data = Investimento::select('investimento.nome as investimento','investimento.descricao as descricao','investimento.data as data', 'investimento.quantidade as quantidade','investimento.valor_unit as valor_unitario', (DB::raw('sum(valor_unit*quantidade) as total')))
-        ->whereBetween('investimento.data', [$request['date-inicio'], $request['date-final']])
-        ->where('propriedade_id', '=',$propriedade->id)
-        ->groupBy('id')
-        ->get();
-        $totalG= Investimento::select((DB::raw(' SUM(valor_unit*quantidade) as total, SUM(quantidade) as total_quantidade')))
-        ->whereBetween('investimento.data', [$request['date-inicio'], $request['date-final']])
-        ->where('propriedade_id', '=',$propriedade->id)
         ->orderBy('total', 'desc')
         ->get();
         return ["topo"=>$topo, "conteudo"=> $data, "tipo" => $request["tipo"], "inicio"=>$request['date-inicio'], "final"=>$request['date-final'],'lastLine'=>$lastLine, 'totalG'=> $totalG, "formatDataTopo" =>$formatDataTopo, "formatDataLast" =>$formatDataLast];

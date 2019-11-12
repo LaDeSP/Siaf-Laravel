@@ -4,6 +4,7 @@ namespace App\Models;
 
 use DateTime;
 use App\Models\Despesa;
+use App\Models\Plantio;
 use App\Models\Investimento;
 use App\Services\UserService;
 use Illuminate\Database\Eloquent\Model;
@@ -38,7 +39,7 @@ class Relatorio extends Model{
         $resultadoRelatorio = $this->modelInvestimento->relatorioInvestimentos($this->userService->propriedadesUser(), $this->dataRelatorio);
         return [
             "colunasTabelaHistorico"=> ['Investimento','Data','Quantidade','Valor Unitário R$', 'Total Investimento R$'], /*Array */
-            "colunasTabelaResumo"=> ['Total Investido R$',' Total Quantidade'], /*Array */
+            "colunasTabelaResumo"=> ['Total Investido R$', 'Quantidade Total'], /*Array */
             "linhasTabelaHistorico"=> $resultadoRelatorio['linhasTabelaHistorico'], /*Array */
             "linhasTabelaResumo"=> $resultadoRelatorio['linhasTabelaResumo'], /*Array */
             "dataRelatorio"=>$this->dataRelatorio,
@@ -56,7 +57,30 @@ class Relatorio extends Model{
         $resultadoRelatorio = $this->modelDespesa->relatorioDespesas($this->userService->propriedadesUser(), $this->dataRelatorio);
         return [
             "colunasTabelaHistorico"=> ['Despesa','Data','Quantidade','Valor Unitário R$', 'Total Despesa R$'], /*Array */
-            "colunasTabelaResumo"=> ['Total Gasto R$',' Total Quantidade'], /*Array */
+            "colunasTabelaResumo"=> ['Total Gasto R$', 'Quantidade Total'], /*Array */
+            "linhasTabelaHistorico"=> $resultadoRelatorio['linhasTabelaHistorico'], /*Array */
+            "linhasTabelaResumo"=> $resultadoRelatorio['linhasTabelaResumo'], /*Array */
+            "dataRelatorio"=>$this->dataRelatorio,
+            "tituloTabelaResumo"=> "Resumo de Despesas",
+            "tituloTabelaHistorico"=> "Histórico de Despesas",
+            "tituloRelatorio"=> "Relatório de Despesas",
+            "DataEmissaoRelatorio"=> new DateTime()
+        ];
+    }
+
+    public function plantios(array $request){
+        if($request['dates']){
+            $this->replaceDataRelatorio($request['dates']);
+        }
+        $resultadoRelatorio = Plantio::all()->with('talhao')->where('propriedade_id', $this->userService->propriedadesUser());
+        //$this->userService->propriedadesUser()->talhoes()->whereHas('plantios')->get();
+        //$resultadoRelatorio = $resultadoRelatorio->whereHas('plantios');
+        //Plantio::with('talhao')->propriedade()->get();
+        //$this->userService->propriedadesUser()->talhoes()->whereHas('plantios')->with('plantios')->get();
+        dd($resultadoRelatorio);
+        return [
+            "colunasTabelaHistorico"=> ['Produto','Talhão','Quantidade no Talhão','Data do Plantio ', 'Data da Semeadura'], /*Array */
+            "colunasTabelaResumo"=> ['Produto', 'Quantidade Total'], /*Array */
             "linhasTabelaHistorico"=> $resultadoRelatorio['linhasTabelaHistorico'], /*Array */
             "linhasTabelaResumo"=> $resultadoRelatorio['linhasTabelaResumo'], /*Array */
             "dataRelatorio"=>$this->dataRelatorio,

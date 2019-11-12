@@ -77,14 +77,14 @@ class Relatorio extends Model{
         //$this->userService->propriedadesUser()->talhoes()->whereHas('plantios')->with('plantios')->get();
         dd($resultadoRelatorio);
         return [
-            "colunasTabelaHistorico"=> ['Produto','Talhão','Quantidade no Talhão','Data do Plantio ', 'Data da Semeadura'], /*Array */
+            "colunasTabelaHistorico"=> ['Produto', 'Quantidade no Plantio', 'Talhão','Data do Plantio ', 'Data da Semeadura'], /*Array */
             "colunasTabelaResumo"=> ['Produto', 'Quantidade Total'], /*Array */
             "linhasTabelaHistorico"=> $resultadoRelatorio['linhasTabelaHistorico'], /*Array */
             "linhasTabelaResumo"=> $resultadoRelatorio['linhasTabelaResumo'], /*Array */
             "dataRelatorio"=>$this->dataRelatorio,
-            "tituloTabelaResumo"=> "Resumo de Despesas",
-            "tituloTabelaHistorico"=> "Histórico de Despesas",
-            "tituloRelatorio"=> "Relatório de Despesas",
+            "tituloTabelaResumo"=> "Resumo de Plantios",
+            "tituloTabelaHistorico"=> "Histórico de Plantios",
+            "tituloRelatorio"=> "Relatório de Plantios",
             "DataEmissaoRelatorio"=> new DateTime()
         ];
     }

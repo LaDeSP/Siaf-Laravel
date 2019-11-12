@@ -9,11 +9,8 @@ namespace App\Models;
 
 use Reliese\Database\Eloquent\Model as Eloquent;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Support\Facades\DB;
 
-
-class Propriedade extends Eloquent
-{
+class Propriedade extends Eloquent{
 	use SoftDeletes;
 	protected $table = 'propriedade';
 
@@ -57,33 +54,4 @@ class Propriedade extends Eloquent
 	public function talhoes(){
 		return $this->hasMany(\App\Models\Talhao::class);
     }
-    
-    public static function propriedadeByUser($id){
-		return DB::table('propriedade')->where('users_id', $id)->first();
-	}
-
-	/*public static function inserir($data){
-        $propriedade = new Propriedade();
-        $propriedade->users_id= $data['cpf'];
-        $propriedade->nome=$data['nome'];
-        $propriedade->localizacao= $data['localizacao'];
-        $propriedade->cidade_id= $data['cidade'];
-        $propriedade->save();
-    }
-    */
-    
-    public static function atualizar($request, $id){
-        try{
-            $prop = \App\Models\Propriedade::find($id);
-
-            $prop->nome = $request['nome'];
-            $prop->localizacao= $request['localiza'];
-            $prop->cidade_id = $request['cidade'];
-
-            $prop->save();
-            return 200;
-        }catch(\Exception $e){
-            return $e;
-        }
-	}
 }

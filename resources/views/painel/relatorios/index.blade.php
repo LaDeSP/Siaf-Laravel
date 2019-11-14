@@ -60,7 +60,7 @@ Gerar Relatórios
                             <div class="form-group">
                                 <label>Período do relatório</label>
                                 <div class="form-group">
-                                    <input type="text" class="form-control" name="dates">
+                                    <input type="text" class="form-control" name="dates" id="dates">
                                     <div class="invalid-feedback">
                                         Escolha o períododo do relatório!
                                     </div>
@@ -136,6 +136,15 @@ Gerar Relatórios
             $(this).val('');
         });
         
+        $('select[name=tipoRelatorio]').change(function () {
+            tipo = $(this).val();
+            var inputE = document.getElementById("dates");
+            if (tipo == 'talhao'){
+                inputE.disabled = true;
+            }else{
+                inputE.disabled = false;
+            }                   
+        });
     });
 </script>
 @endpush

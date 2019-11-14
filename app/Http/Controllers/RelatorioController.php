@@ -75,7 +75,7 @@ class RelatorioController extends Controller{
         }else if ($request['tipoRelatorio'] == "manejoPropriedade") {
             return $this->modelRelatorio->relatorioManejosPorPropriedade($request->all());
         }else if ($request['tipoRelatorio'] == "colheitas") {
-            return $this->colheitas($request);
+            return $this->modelRelatorio->colheitas($request->all());
         }else if ($request['tipoRelatorio'] == "produtosAtivosInativos") {
             return $this->produtosAtivosEnaoPropriedade($request); /*a fazer */
         }else if ($request['tipoRelatorio'] == "historicoManejoPlantio") {

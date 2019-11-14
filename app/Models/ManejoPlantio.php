@@ -151,4 +151,63 @@ class ManejoPlantio extends Pivot{
 			'linhasTabelaResumo'=>$tabelaResumo
 		];
 	}
+
+	public function colheitas($propriedade, $periodo = null){
+		if($periodo){
+			$tabelaHistorico = ManejoPlantio::join('estoque', 'manejoplantio.id','=','estoque.manejoplantio_id')
+			->join('plantio', 'manejoplantio.plantio_id','=','plantio.id')
+			->join('produto', 'plantio.produto_id','=','produto.id')
+			->join('talhao', 'plantio.talhao_id','=','talhao.id')
+			->join('manejo', 'manejoplantio.manejo_id','=','manejo.id')
+			->select('produto.nome as 1','manejoplantio.data_hora as 2','estoque.quantidade as 3', 'talhao.nome as 4')
+			->whereBetween('manejoplantio.data_hora', [$periodo['dataInicio'], $periodo['dataFim']])
+			->where('produto.propriedade_id', '=', $propriedade->id)
+			->where('manejo.nome', '=', 'Colheita')
+			->groupBy('manejoplantio.id')
+			->orderBy('3','desc')
+			->get();
+			
+			$tabelaResumo = ManejoPlantio::join('estoque', 'manejoplantio.id','=','estoque.manejoplantio_id')
+			->join('plantio', 'manejoplantio.plantio_id','=','plantio.id')
+			->join('produto', 'plantio.produto_id','=','produto.id')
+			->join('talhao', 'plantio.talhao_id','=','talhao.id')
+			->join('manejo', 'manejoplantio.manejo_id','=','manejo.id')
+			->select('produto.nome as 1', (DB::raw('sum(estoque.quantidade) as \'2\'')))
+			->whereBetween('manejoplantio.data_hora', [$periodo['dataInicio'], $periodo['dataFim']])
+			->where('produto.propriedade_id', '=', $propriedade->id)
+			->where('manejo.nome', '=', 'Colheita')
+			->groupBy('produto.id')
+			->orderBy('2', 'desc')
+			->get();
+			
+		}else{
+			$tabelaHistorico = ManejoPlantio::join('estoque', 'manejoplantio.id','=','estoque.manejoplantio_id')
+			->join('plantio', 'manejoplantio.plantio_id','=','plantio.id')
+			->join('produto', 'plantio.produto_id','=','produto.id')
+			->join('talhao', 'plantio.talhao_id','=','talhao.id')
+			->join('manejo', 'manejoplantio.manejo_id','=','manejo.id')
+			->select('produto.nome as 1','manejoplantio.data_hora as 2','estoque.quantidade as 3', 'talhao.nome as 4')
+			->where('produto.propriedade_id', '=', $propriedade->id)
+			->where('manejo.nome', '=', 'Colheita')
+			->groupBy('manejoplantio.id')
+			->orderBy('3','desc')
+			->get();
+			
+			$tabelaResumo = ManejoPlantio::join('estoque', 'manejoplantio.id','=','estoque.manejoplantio_id')
+			->join('plantio', 'manejoplantio.plantio_id','=','plantio.id')
+			->join('produto', 'plantio.produto_id','=','produto.id')
+			->join('talhao', 'plantio.talhao_id','=','talhao.id')
+			->join('manejo', 'manejoplantio.manejo_id','=','manejo.id')
+			->select('produto.nome as 1', (DB::raw('sum(estoque.quantidade) as \'2\'')))
+			->where('produto.propriedade_id', '=', $propriedade->id)
+			->where('manejo.nome', '=', 'Colheita')
+			->groupBy('produto.id')
+			->orderBy('2', 'desc')
+			->get();
+		}
+		return [
+			'linhasTabelaHistorico'=>$tabelaHistorico,
+			'linhasTabelaResumo'=>$tabelaResumo
+		];
+	}
 }

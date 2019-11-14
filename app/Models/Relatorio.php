@@ -126,4 +126,22 @@ class Relatorio extends Model{
             "DataEmissaoRelatorio"=> new DateTime()
         ];
     }
+
+    public function colheitas(array $request){
+        if($request['dates']){
+            $this->replaceDataRelatorio($request['dates']);
+        }
+        $resultadoRelatorio = $this->modelManejoPlantio->colheitas($this->userService->propriedadesUser(), $this->dataRelatorio);
+        return [
+            "colunasTabelaHistorico"=> ['Produto', 'Data do Manejo', 'Quantidade Colhida', 'Talhão'], /*Array */
+            "colunasTabelaResumo"=> ['Produto', 'Quantidade Total Colhida'], /*Array */
+            "linhasTabelaHistorico"=> $resultadoRelatorio['linhasTabelaHistorico'], /*Array */
+            "linhasTabelaResumo"=> $resultadoRelatorio['linhasTabelaResumo'], /*Array */
+            "dataRelatorio"=>$this->dataRelatorio,
+            "tituloTabelaResumo"=> "Resumo de Colheitas",
+            "tituloTabelaHistorico"=> "Histórico de Colheitas",
+            "tituloRelatorio"=> "Histórico de Colheitas",
+            "DataEmissaoRelatorio"=> new DateTime()
+        ];
+    }
 }

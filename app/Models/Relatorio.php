@@ -108,4 +108,22 @@ class Relatorio extends Model{
             "DataEmissaoRelatorio"=> new DateTime()
         ];
     }
+
+    public function relatorioManejosPorPropriedade(array $request){
+        if($request['dates']){
+            $this->replaceDataRelatorio($request['dates']);
+        }
+        $resultadoRelatorio = $this->modelManejoPlantio->relatorioManejosPorPropriedade($this->userService->propriedadesUser(), $this->dataRelatorio);
+        return [
+            "colunasTabelaHistorico"=> ['Propriedade', 'Manejo', 'Data do Manejo', 'Data do Plantio', 'Tempo Gasto'], /*Array */
+            "colunasTabelaResumo"=> ['Propriedade', 'Manejo', 'Tempo Total Gasto (H)'], /*Array */
+            "linhasTabelaHistorico"=> $resultadoRelatorio['linhasTabelaHistorico'], /*Array */
+            "linhasTabelaResumo"=> $resultadoRelatorio['linhasTabelaResumo'], /*Array */
+            "dataRelatorio"=>$this->dataRelatorio,
+            "tituloTabelaResumo"=> "Resumo de Tempo Total Gasto em cada Propriedade",
+            "tituloTabelaHistorico"=> "Histórico de Manejos Realizados por Propriedade",
+            "tituloRelatorio"=> "Histórico de Manejos Realizados por Propriedade",
+            "DataEmissaoRelatorio"=> new DateTime()
+        ];
+    }
 }

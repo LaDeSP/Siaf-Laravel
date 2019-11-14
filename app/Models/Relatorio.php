@@ -6,6 +6,7 @@ use DateTime;
 use App\Models\Despesa;
 use App\Models\Plantio;
 use App\Models\Investimento;
+use App\Models\ManejoPlantio;
 use App\Services\UserService;
 use Illuminate\Database\Eloquent\Model;
 
@@ -15,13 +16,15 @@ class Relatorio extends Model{
     protected $modelInvestimento;
     protected $modelDespesa;
     protected $modelPlantio;
+    protected $modelManejoPlantio;
     
     public function __construct(UserService $userService, Investimento $investimento, Despesa $despesa,
-    Plantio $plantio){
+    Plantio $plantio, ManejoPlantio $manejoPlantio){
         $this->userService = $userService;
         $this->modelInvestimento = $investimento;
         $this->modelDespesa = $despesa;
         $this->modelPlantio = $plantio;
+        $this->modelManejoPlantio = $manejoPlantio;
     }
     
     public function replaceDataRelatorio($datas){
@@ -85,6 +88,24 @@ class Relatorio extends Model{
             "tituloTabelaResumo"=> "Resumo de Plantios",
             "tituloTabelaHistorico"=> "Histórico de Plantios",
             "tituloRelatorio"=> "Relatório de Plantios",
+            "DataEmissaoRelatorio"=> new DateTime()
+        ];
+    }
+
+    public function relatorioManejosPorTalhao(array $request){
+        if($request['dates']){
+            $this->replaceDataRelatorio($request['dates']);
+        }
+        $resultadoRelatorio = $this->modelManejoPlantio->relatorioManejosPorTalhao($this->userService->propriedadesUser(), $this->dataRelatorio);
+        return [
+            "colunasTabelaHistorico"=> ['Manejo', 'Talhão', 'Data do Manejo', 'Data do Plantio', 'Tempo Gasto'], /*Array */
+            "colunasTabelaResumo"=> ['Talhão', 'Tempo Total Gasto (H)'], /*Array */
+            "linhasTabelaHistorico"=> $resultadoRelatorio['linhasTabelaHistorico'], /*Array */
+            "linhasTabelaResumo"=> $resultadoRelatorio['linhasTabelaResumo'], /*Array */
+            "dataRelatorio"=>$this->dataRelatorio,
+            "tituloTabelaResumo"=> "Resumo de Tempo Total Gasto em cada Talhão",
+            "tituloTabelaHistorico"=> "Histórico de Manejos Realizados por Talhão",
+            "tituloRelatorio"=> "Histórico de Manejos Realizados por Talhão",
             "DataEmissaoRelatorio"=> new DateTime()
         ];
     }

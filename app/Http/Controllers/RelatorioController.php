@@ -24,7 +24,7 @@ class RelatorioController extends Controller{
     public function __construct(Relatorio $relatorio){
         $this->modelRelatorio = $relatorio;
     }
-
+    
     public function index(){
         return view('painel.relatorios.index');
     }
@@ -34,11 +34,11 @@ class RelatorioController extends Controller{
         //dd($relatorio['linhasTabela']);
         if($relatorio != false){
             
-                $pdf = PDF::loadView('painel.relatorios.pdf_view', ['relatorio'=>$relatorio]);  
-                //$pdf->set_base_path('public/assets');
-                return $pdf->stream($relatorio['tituloRelatorio'].'.pdf');
-                $data = $this->erroRelatorio();
-                return back()->with($data['class'], $data['mensagem']);
+            $pdf = PDF::loadView('painel.relatorios.pdf_view', ['relatorio'=>$relatorio]);  
+            //$pdf->set_base_path('public/assets');
+            return $pdf->stream($relatorio['tituloRelatorio'].'.pdf');
+            $data = $this->erroRelatorio();
+            return back()->with($data['class'], $data['mensagem']);
             
         }else{
             $data = $this->erroRelatorio();
@@ -58,33 +58,31 @@ class RelatorioController extends Controller{
     }
     
     function tipoRelatorio($request){
-        
-            if ($request['tipoRelatorio'] == "talhao") {
-                return $this->talhoes($request);
-            }else if ($request['tipoRelatorio'] == "plantios") {
-                return $this->modelRelatorio->plantios($request->all());
-            }else if ($request['tipoRelatorio'] == "despesa") {
-                return $this->modelRelatorio->despesas($request->all());
-            } else if($request['tipoRelatorio'] == "vendas"){
-                return $this->vendas($request); 
-            }else if ($request['tipoRelatorio'] == "investimentos") {
-                return $this->modelRelatorio->investimentos($request->all());
-            }else if ($request['tipoRelatorio'] == "manejoTalhao") {
-                return $this->manejosTalhao($request);
-            }else if($request['tipoRelatorio'] == "perdas"){
-                return $this->perdas($request);
-            }else if ($request['tipoRelatorio'] == "manejoPropriedade") {
-                return $this->manejosPropriedade($request);
-            }else if ($request['tipoRelatorio'] == "colheitas") {
-                return $this->colheitas($request);
-            }else if ($request['tipoRelatorio'] == "produtosAtivosInativos") {
-                return $this->produtosAtivosEnaoPropriedade($request); /*a fazer */
-            }else if ($request['tipoRelatorio'] == "historicoManejoPlantio") {
-                return $this->historicoManejoPlantio($request);
-            }else if ($request['tipoRelatorio'] == "estoquePropriedade") {
-                return $this->estoquePropriedade($request);
-            }
-        
+        if ($request['tipoRelatorio'] == "talhao") {
+            return $this->talhoes($request);
+        }else if ($request['tipoRelatorio'] == "plantios") {
+            return $this->modelRelatorio->plantios($request->all());
+        }else if ($request['tipoRelatorio'] == "despesa") {
+            return $this->modelRelatorio->despesas($request->all());
+        } else if($request['tipoRelatorio'] == "vendas"){
+            return $this->vendas($request); 
+        }else if ($request['tipoRelatorio'] == "investimentos") {
+            return $this->modelRelatorio->investimentos($request->all());
+        }else if ($request['tipoRelatorio'] == "manejoTalhao") {
+            return $this->modelRelatorio->relatorioManejosPorTalhao($request->all());
+        }else if($request['tipoRelatorio'] == "perdas"){
+            return $this->perdas($request);
+        }else if ($request['tipoRelatorio'] == "manejoPropriedade") {
+            return $this->manejosPropriedade($request);
+        }else if ($request['tipoRelatorio'] == "colheitas") {
+            return $this->colheitas($request);
+        }else if ($request['tipoRelatorio'] == "produtosAtivosInativos") {
+            return $this->produtosAtivosEnaoPropriedade($request); /*a fazer */
+        }else if ($request['tipoRelatorio'] == "historicoManejoPlantio") {
+            return $this->historicoManejoPlantio($request);
+        }else if ($request['tipoRelatorio'] == "estoquePropriedade") {
+            return $this->estoquePropriedade($request);
+        }
     }
     
     function vendas($request){

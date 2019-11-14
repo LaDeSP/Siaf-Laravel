@@ -7,10 +7,11 @@
 
 namespace App\Models;
 
+use Balping\HashSlug\HasHashSlug;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\Pivot;
-use Balping\HashSlug\HasHashSlug;
 
 
 class ManejoPlantio extends Pivot{
@@ -49,5 +50,52 @@ class ManejoPlantio extends Pivot{
 
 	public function estoques(){
 		return $this->hasMany(\App\Models\Estoque::class, 'manejoplantio_id');
+	}
+
+	public function relatorioManejosPorTalhao($propriedade, $periodo = null){
+		if($periodo){
+			$tabelaHistorico = ManejoPlantio::join('manejo', 'manejoplantio.manejo_id','=','manejo.id')
+			->join('plantio', 'manejoplantio.plantio_id','=','plantio.id')
+			->join('talhao', 'plantio.talhao_id','=','talhao.id')
+			->select('manejo.nome as 1','talhao.nome as 2', 'manejoplantio.data_hora as 3',
+			'plantio.data_plantio as 4', 'manejoplantio.horas_utilizadas as 5')
+			->whereBetween('manejoplantio.data_hora', [$periodo['dataInicio'], $periodo['dataFim']])
+			->where('talhao.propriedade_id', '=', $propriedade->id)
+			->groupBy('manejoplantio.id','talhao.id')
+			->orderBy('manejoplantio.data_hora','desc')
+			->get();
+			
+			$tabelaResumo = ManejoPlantio::join('manejo', 'manejoplantio.manejo_id','=','manejo.id')
+			->join('plantio', 'manejoplantio.plantio_id','=','plantio.id')
+			->join('talhao', 'plantio.talhao_id','=','talhao.id')
+			->select('talhao.nome as 1', (DB::raw('sum(manejoplantio.horas_utilizadas) as \'2\'')))
+			->whereBetween('manejoplantio.data_hora', [$periodo['dataInicio'], $periodo['dataFim']])
+			->where('talhao.propriedade_id', '=', $propriedade->id)
+			->groupBy('talhao.id')->orderBy('2', 'desc')
+			->get();
+			
+		}else{
+			$tabelaHistorico = ManejoPlantio::join('manejo', 'manejoplantio.manejo_id','=','manejo.id')
+			->join('plantio', 'manejoplantio.plantio_id','=','plantio.id')
+			->join('talhao', 'plantio.talhao_id','=','talhao.id')
+			->select('manejo.nome as 1','talhao.nome as 2', 'manejoplantio.data_hora as 3',
+			'plantio.data_plantio as 4', 'manejoplantio.horas_utilizadas as 5')
+			->where('talhao.propriedade_id', '=', $propriedade->id)
+			->groupBy('manejoplantio.id','talhao.id')
+			->orderBy('manejoplantio.data_hora','desc')
+			->get();
+			
+			$tabelaResumo = ManejoPlantio::join('manejo', 'manejoplantio.manejo_id','=','manejo.id')
+			->join('plantio', 'manejoplantio.plantio_id','=','plantio.id')
+			->join('talhao', 'plantio.talhao_id','=','talhao.id')
+			->select('talhao.nome as 1', (DB::raw('sum(manejoplantio.horas_utilizadas) as \'2\'')))
+			->where('talhao.propriedade_id', '=', $propriedade->id)
+			->groupBy('talhao.id')->orderBy('2', 'desc')
+			->get();
+		}
+		return [
+			'linhasTabelaHistorico'=>$tabelaHistorico,
+			'linhasTabelaResumo'=>$tabelaResumo
+		];
 	}
 }

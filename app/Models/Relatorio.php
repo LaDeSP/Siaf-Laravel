@@ -27,14 +27,13 @@ class Relatorio extends Model{
         $this->modelManejoPlantio = $manejoPlantio;
     }
     
+
     public function replaceDataRelatorio($datas){
         $datas = explode("até", $datas);
         $dataInicio = trim($datas[0]);
         $dataFim = trim($datas[1]);
-        $dataInicio =  strtotime($datas[0]);
-        $dataFim =  strtotime($datas[1]);
-        $dataInicio = date("Y-d-m", $dataInicio);
-        $dataFim = date("Y-d-m", $dataFim);
+        $dataInicio = implode("-",array_reverse(explode("/",$dataInicio)));
+        $dataFim = implode("-",array_reverse(explode("/",$dataFim)));
         $this->dataRelatorio = ['dataInicio'=>$dataInicio, 'dataFim'=>$dataFim];
     }
     
@@ -91,7 +90,7 @@ class Relatorio extends Model{
             "DataEmissaoRelatorio"=> new DateTime()
         ];
     }
-
+    
     public function relatorioManejosPorTalhao(array $request){
         if($request['dates']){
             $this->replaceDataRelatorio($request['dates']);

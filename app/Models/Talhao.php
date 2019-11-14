@@ -7,9 +7,10 @@
 
 namespace App\Models;
 
-use Reliese\Database\Eloquent\Model as Eloquent;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Balping\HashSlug\HasHashSlug;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Reliese\Database\Eloquent\Model as Eloquent;
 
 class Talhao extends Eloquent{
     use SoftDeletes;
@@ -33,5 +34,25 @@ class Talhao extends Eloquent{
 
 	public function plantios(){
 		return $this->hasMany(\App\Models\Plantio::class);
-    }
+	}
+	
+	public function relatorioTalhoes($propriedade){
+			$tabelaHistorico = Talhao::join('propriedade', 'talhao.propriedade_id','=','propriedade.id')
+			->select('propriedade.nome as 1', 'talhao.nome as 2', 'talhao.area as 3')
+			->where('talhao.propriedade_id', '=',$propriedade->id)
+			->groupBy('talhao.id')
+			->get();
+			
+			$tabelaResumo = Talhao::join('propriedade', 'talhao.propriedade_id','=','propriedade.id')
+			->select(DB::raw('propriedade.nome as \'1\', sum(talhao.area) as \'2\''))
+			->where('talhao.propriedade_id', '=',$propriedade->id)
+			->groupBy('talhao.propriedade_id')
+			->orderBy('2', 'desc')
+			->get();
+			
+		return [
+			'linhasTabelaHistorico'=>$tabelaHistorico,
+			'linhasTabelaResumo'=>$tabelaResumo
+		];
+	}
 }

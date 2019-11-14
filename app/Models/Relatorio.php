@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use DateTime;
+use App\Models\Talhao;
 use App\Models\Despesa;
 use App\Models\Plantio;
 use App\Models\Investimento;
@@ -17,14 +18,16 @@ class Relatorio extends Model{
     protected $modelDespesa;
     protected $modelPlantio;
     protected $modelManejoPlantio;
+    protected $modelTalhao;
     
     public function __construct(UserService $userService, Investimento $investimento, Despesa $despesa,
-    Plantio $plantio, ManejoPlantio $manejoPlantio){
+    Plantio $plantio, ManejoPlantio $manejoPlantio, Talhao $talhao){
         $this->userService = $userService;
         $this->modelInvestimento = $investimento;
         $this->modelDespesa = $despesa;
         $this->modelPlantio = $plantio;
         $this->modelManejoPlantio = $manejoPlantio;
+        $this->modelTalhao = $talhao;
     }
     
 
@@ -141,6 +144,21 @@ class Relatorio extends Model{
             "tituloTabelaResumo"=> "Resumo de Colheitas",
             "tituloTabelaHistorico"=> "Histórico de Colheitas",
             "tituloRelatorio"=> "Histórico de Colheitas",
+            "DataEmissaoRelatorio"=> new DateTime()
+        ];
+    }
+
+    public function talhoes(){
+        $resultadoRelatorio = $this->modelTalhao->relatorioTalhoes($this->userService->propriedadesUser());
+        return [
+            "colunasTabelaHistorico"=> ['Propriedade', 'Talhão', 'Área em (m²)'], /*Array */
+            "colunasTabelaResumo"=> ['Propriedade', 'Área Total em (m²) dos Talhões'], /*Array */
+            "linhasTabelaHistorico"=> $resultadoRelatorio['linhasTabelaHistorico'], /*Array */
+            "linhasTabelaResumo"=> $resultadoRelatorio['linhasTabelaResumo'], /*Array */
+            "dataRelatorio"=>$this->dataRelatorio,
+            "tituloTabelaResumo"=> "Resumo de Talhões da Propriedade",
+            "tituloTabelaHistorico"=> "Histórico de Talhões da Propriedade",
+            "tituloRelatorio"=> "Histórico de Talhões da Propriedade",
             "DataEmissaoRelatorio"=> new DateTime()
         ];
     }

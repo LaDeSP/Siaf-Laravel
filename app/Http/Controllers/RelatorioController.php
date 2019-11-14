@@ -139,30 +139,6 @@ class RelatorioController extends Controller{
         return ["topo"=>$topo, "conteudo"=> $data, "tipo" => $request["tipo"], "inicio"=>$request['date-inicio'], "final"=>$request['date-final'],'lastLine'=>$lastLine, 'totalG'=> $totalG, "formatDataTopo" =>$formatDataTopo, "formatDataLast" =>$formatDataLast];
     }
     
-    function plantios( $request){
-        $propriedades= Propriedade::all()->where('users_id','=',$this->usuario['cpf']);
-        $propriedade = $this->getPropriedade($request);
-        $request =$request->session()->get('r');
-        $topo = ['Produto','Talhão', 'Quantidade no talhão', 'Data do plantio', 'Data da semeadura'];
-        $lastLine= ['Produto','Quantidade total'];
-        $formatDataTopo= ['Data do plantio', 'Data da semeadura'];
-        $formatDataLast= [];
-        $data = Plantio::join('talhao', 'plantio.talhao_id','=','talhao.id')
-        ->join('produto', 'plantio.produto_id','=','produto.id')
-        ->select('produto.nome as produto','talhao.id as talhao','plantio.quantidade_pantas as quantidade_no_talhao','plantio.data_plantio as data_do_plantio','plantio.data_semeadura as data_da_semeadura')
-        ->whereBetween('plantio.data_plantio', [$request['date-inicio'], $request['date-final']])
-        ->where('talhao.propriedade_id', '=',$propriedade->id)
-        ->groupBy('plantio.id','talhao.id')->get();
-        $totalG= Plantio::join('talhao', 'plantio.talhao_id','=','talhao.id')
-        ->join('produto', 'plantio.produto_id','=','produto.id')
-        ->select('produto.nome as produto',(DB::raw('SUM( plantio.quantidade_pantas) as quantidade_total')))
-        ->whereBetween('plantio.data_plantio', [$request['date-inicio'], $request['date-final']])
-        ->where('talhao.propriedade_id', '=',$propriedade->id)
-        ->groupBy('plantio.produto_id')->orderBy('quantidade_total', 'desc')
-        ->get();
-        return ["topo"=>$topo, "conteudo"=> $data, "tipo" => $request["tipo"], "inicio"=>$request['date-inicio'], "final"=>$request['date-final'],'lastLine'=>$lastLine, 'totalG'=> $totalG, "formatDataTopo" =>$formatDataTopo, "formatDataLast" =>$formatDataLast];
-    }
-    
     function manejosTalhao( $request){
         $propriedades= Propriedade::all()->where('users_id','=',$this->usuario['cpf']);
         $propriedade = $this->getPropriedade($request);

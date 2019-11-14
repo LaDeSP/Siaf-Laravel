@@ -14,11 +14,14 @@ class Relatorio extends Model{
     protected $dataRelatorio;
     protected $modelInvestimento;
     protected $modelDespesa;
+    protected $modelPlantio;
     
-    public function __construct(UserService $userService, Investimento $investimento, Despesa $despesa){
+    public function __construct(UserService $userService, Investimento $investimento, Despesa $despesa,
+    Plantio $plantio){
         $this->userService = $userService;
         $this->modelInvestimento = $investimento;
         $this->modelDespesa = $despesa;
+        $this->modelPlantio = $plantio;
     }
     
     public function replaceDataRelatorio($datas){
@@ -49,7 +52,7 @@ class Relatorio extends Model{
             "DataEmissaoRelatorio"=> new DateTime()
         ];
     }
-
+    
     public function despesas(array $request){
         if($request['dates']){
             $this->replaceDataRelatorio($request['dates']);
@@ -67,18 +70,15 @@ class Relatorio extends Model{
             "DataEmissaoRelatorio"=> new DateTime()
         ];
     }
-
+    
     public function plantios(array $request){
         if($request['dates']){
             $this->replaceDataRelatorio($request['dates']);
         }
-        $resultadoRelatorio = $this->userService->propriedadesUser()->talhoes()->whereHas('plantios')
-        ->get()->pluck('plantios')->flatten()->unique();
-        //$this->userService->propriedadesUser()->talhoes()->whereHas('plantios')->with('plantios')->get();
-        dd($resultadoRelatorio);
+        $resultadoRelatorio = $this->modelPlantio->relatorioPlantios($this->userService->propriedadesUser(), $this->dataRelatorio);
         return [
             "colunasTabelaHistorico"=> ['Produto', 'Quantidade no Plantio', 'Talhão','Data do Plantio ', 'Data da Semeadura'], /*Array */
-            "colunasTabelaResumo"=> ['Produto', 'Quantidade Total'], /*Array */
+            "colunasTabelaResumo"=> ['Produto', 'Quantidade Plantada'], /*Array */
             "linhasTabelaHistorico"=> $resultadoRelatorio['linhasTabelaHistorico'], /*Array */
             "linhasTabelaResumo"=> $resultadoRelatorio['linhasTabelaResumo'], /*Array */
             "dataRelatorio"=>$this->dataRelatorio,

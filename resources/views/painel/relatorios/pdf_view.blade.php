@@ -56,40 +56,50 @@
         <thead>
             <tr>
                 @foreach ($relatorio['colunasTabelaResumo'] as $coluna)
-                <th>{{$coluna}}</th>
+                    <th>{{$coluna}}</th>
                 @endforeach
             </tr>
         </thead>
         <tbody>
-            <tr>
-                @for ($i = 1; $i <= count($relatorio['linhasTabelaResumo']); $i++)
-                <td>{{$relatorio['linhasTabelaResumo'][$i]}}</td>
-                @endfor
-            </tr>
+            @if (is_array($relatorio['linhasTabelaResumo']))
+                <tr>
+                    @for ($i = 1; $i <= count($relatorio['linhasTabelaResumo']); $i++)
+                        <td>{{$relatorio['linhasTabelaResumo'][$i]}}</td>
+                    @endfor
+                </tr>
+            @else
+                @foreach ($relatorio['linhasTabelaResumo'] as $linha)
+                <tr>
+                    @for ($i = 1; $i <= count($linha->getOriginal()); $i++)
+                        <td>{{$linha[$i]}}</td>
+                    @endfor
+                </tr>
+                @endforeach
+            @endif
         </tbody>
     </table>
-
+    
     <h4 style="text-align:center;">{{$relatorio['tituloTabelaHistorico']}}</h4>
     
     <table>
         <thead>
             <tr>
                 @foreach ($relatorio['colunasTabelaHistorico'] as $coluna)
-                <th>{{$coluna}}</th>
+                    <th>{{$coluna}}</th>
                 @endforeach
             </tr>
         </thead>
         <tbody>
             @foreach ($relatorio['linhasTabelaHistorico'] as $linha)
-            <tr>
-                @for ($i = 1; $i <= count($linha->getOriginal()); $i++)
-                @if(date('Y-m-d', strtotime($linha[$i])) == $linha[$i])
-                <td>{{date('d/m/Y', strtotime($linha[$i]))}}</td>
-                @else
-                <td>{{$linha[$i]}}</td>
-                @endif
-                @endfor
-            </tr>
+                <tr>
+                    @for ($i = 1; $i <= count($linha->getOriginal()); $i++)
+                        @if(date('Y-m-d', strtotime($linha[$i])) == $linha[$i])
+                            <td>{{date('d/m/Y', strtotime($linha[$i]))}}</td>
+                        @else
+                            <td>{{$linha[$i]}}</td>
+                        @endif
+                    @endfor
+                </tr>
             @endforeach
         </tbody>
     </table>

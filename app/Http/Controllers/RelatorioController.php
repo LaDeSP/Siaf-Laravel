@@ -2,21 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Perda;
-use App\Models\Venda;
-use App\Models\Talhao;
-use App\Models\Despesa;
-use App\Models\Destino;
-use App\Models\Estoque;
-use App\Models\Plantio;
-use App\Models\Produto;
 use App\Models\Relatorio;
-use App\Models\Propriedade;
-use App\Models\Investimento;
 use Illuminate\Http\Request;
-use App\Models\ManejoPlantio;
 use Barryvdh\DomPDF\Facade as PDF;
-use Illuminate\Support\Facades\DB;
 
 class RelatorioController extends Controller{
     protected $modelRelatorio;
@@ -30,24 +18,14 @@ class RelatorioController extends Controller{
     }
     
     public function gerarRelatorio(Request $request){
-        $relatorio = $this->tipoRelatorio($request);
-        //dd($relatorio['linhasTabela']);
-        if($relatorio != false){
-            
+        try {
+            $relatorio = $this->tipoRelatorio($request);
             $pdf = PDF::loadView('painel.relatorios.pdf_view', ['relatorio'=>$relatorio]);  
-            //$pdf->set_base_path('public/assets');
             return $pdf->stream($relatorio['tituloRelatorio'].'.pdf');
-            $data = $this->erroRelatorio();
-            return back()->with($data['class'], $data['mensagem']);
-            
-        }else{
+        } catch (\Throwable $th) {
             $data = $this->erroRelatorio();
             return back()->with($data['class'], $data['mensagem']);
         }
-        
-        $data = $request->all(); 
-        $datas = explode("até", $data['dates']);
-        dd($datas);
     }
     
     public function erroRelatorio(){

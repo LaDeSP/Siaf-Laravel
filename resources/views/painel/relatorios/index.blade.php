@@ -35,18 +35,18 @@ Gerar Relatórios
                                 <label>Relatório que deseja gerar<span class="text-danger">*</span></label>
                                 <select name="tipoRelatorio" class="custom-select form-control {{ $errors->has('tipoRelatorio') ? ' is-invalid' : '' }}" required value="{{ old('tipoRelatorio') }}">
                                     <option selected="" value="">Selecione um relatório</option>
-                                    <option value="investimentos"> Investimentos realizados por período </option>
-                                    <option value="despesa"> Despesa realizadas por período</option>
-                                    <option value="plantios"> Plantios realizados por período</option>
-                                    <option value="manejoTalhao"> Manejos realizados por período por talhão </option>
-                                    <option value="manejoPropriedade"> Manejos realizados por período por propriedade </option>
-                                    <option value="colheitas">Colheitas realizadas por período </option>
-                                    <option value="talhao"> Talhões por propriedade</option>
-                                    <option value="produtosAtivosInativos"> Produtos ativos e inativos por propriedade</option>
-                                    <option value="historicoManejoPlantio"> Histórico de manejo por plantio</option>
-                                    <option value="estoquePropriedade"> Estoque por propriedade por período </option>
-                                    <option value="vendas"> Vendas realizadas por período</option>
-                                    <option value="perdas"> Perdas por período</option>
+                                    <option value="investimentos"> Investimentos Realizados</option>
+                                    <option value="despesa"> Despesa Realizadas Obtidas</option>
+                                    <option value="plantios"> Plantios Realizados</option>
+                                    <option value="manejoTalhao"> Manejos Realizados por Talhão </option>
+                                    <option value="manejoPropriedade"> Manejos Realizados por Propriedade </option>
+                                    <option value="colheitas">Colheitas Realizadas </option>
+                                    <option value="talhao"> Talhões por Propriedade</option>
+                                    <option value="produtosAtivosInativos"> Produtos Ativos e Inativos por Propriedade</option>
+                                    <option value="historicoManejoPlantio"> Histórico de Manejos por Plantio</option>
+                                    <option value="estoquePropriedade"> Estoque por Propriedade </option>
+                                    <option value="vendas"> Vendas realizadas</option>
+                                    <option value="perdas"> Perdas Obtidas</option>
                                 </select>
                                 <div class="invalid-feedback">
                                     Escolha um relatório!

@@ -113,7 +113,7 @@ class Relatorio extends Model{
             "DataEmissaoRelatorio"=> new DateTime()
         ];
     }
-
+    
     public function relatorioManejosPorPropriedade(array $request){
         if($request['dates']){
             $this->replaceDataRelatorio($request['dates']);
@@ -131,7 +131,7 @@ class Relatorio extends Model{
             "DataEmissaoRelatorio"=> new DateTime()
         ];
     }
-
+    
     public function colheitas(array $request){
         if($request['dates']){
             $this->replaceDataRelatorio($request['dates']);
@@ -149,7 +149,7 @@ class Relatorio extends Model{
             "DataEmissaoRelatorio"=> new DateTime()
         ];
     }
-
+    
     public function talhoes(){
         $resultadoRelatorio = $this->modelTalhao->relatorioTalhoes($this->userService->propriedadesUser());
         return [
@@ -164,7 +164,7 @@ class Relatorio extends Model{
             "DataEmissaoRelatorio"=> new DateTime()
         ];
     }
-
+    
     public function produtosAtivosEInativos(){
         $resultadoRelatorio = $this->modelProduto->produtosAtivosEInativos($this->userService->propriedadesUser());
         return [
@@ -179,7 +179,7 @@ class Relatorio extends Model{
             "DataEmissaoRelatorio"=> new DateTime()
         ];
     }
-
+    
     public function relatorioManejosPorPlantio(){
         $resultadoRelatorio = $this->modelManejoPlantio->relatorioManejosPorPlantio($this->userService->propriedadesUser());
         return [

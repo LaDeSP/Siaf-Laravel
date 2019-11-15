@@ -1,9 +1,9 @@
 <?php
 
 /**
- * Created by Reliese Model.
- * Date: Tue, 01 Oct 2019 22:07:44 -0400.
- */
+* Created by Reliese Model.
+* Date: Tue, 01 Oct 2019 22:07:44 -0400.
+*/
 
 namespace App\Models;
 
@@ -19,18 +19,18 @@ class ManejoPlantio extends Pivot{
 	use HasHashSlug;
 	
 	protected $table = 'manejoplantio';
-
+	
 	protected $casts = [
 		'horas_utilizadas' => 'int',
 		'plantio_id' => 'int',
 		'manejo_id' => 'int'
 	];
-
+	
 	protected $dates = [
 		'data_hora',
 		'deleted_at'
 	];
-
+	
 	protected $fillable = [
 		'descricao',
 		'data_hora',
@@ -39,19 +39,19 @@ class ManejoPlantio extends Pivot{
 		'manejo_id',
 		'deleted_at'
 	];
-
+	
 	public function manejo(){
 		return $this->belongsTo(\App\Models\Manejo::class);
 	}
-
+	
 	public function plantio(){
 		return $this->belongsTo(\App\Models\Plantio::class);
 	}
-
+	
 	public function estoques(){
 		return $this->hasMany(\App\Models\Estoque::class, 'manejoplantio_id');
 	}
-
+	
 	public function relatorioManejosPorTalhao($propriedade, $periodo = null){
 		if($periodo){
 			$tabelaHistorico = ManejoPlantio::join('manejo', 'manejoplantio.manejo_id','=','manejo.id')
@@ -98,7 +98,7 @@ class ManejoPlantio extends Pivot{
 			'linhasTabelaResumo'=>$tabelaResumo
 		];
 	}
-
+	
 	public function relatorioManejosPorPropriedade($propriedade, $periodo = null){
 		if($periodo){
 			$tabelaHistorico = ManejoPlantio::join('manejo', 'manejoplantio.manejo_id','=','manejo.id')
@@ -106,7 +106,7 @@ class ManejoPlantio extends Pivot{
 			->join('talhao', 'plantio.talhao_id','=','talhao.id')
 			->join('propriedade', 'talhao.propriedade_id','=','propriedade.id')
 			->select('propriedade.nome as 1','manejo.nome as 2', 'manejoplantio.data_hora as 3',
-			 'plantio.data_plantio as 4', 'manejoplantio.horas_utilizadas as 5')
+			'plantio.data_plantio as 4', 'manejoplantio.horas_utilizadas as 5')
 			->whereBetween('manejoplantio.data_hora', [$periodo['dataInicio'], $periodo['dataFim']])
 			->where('talhao.propriedade_id', '=', $propriedade->id)
 			->groupBy('manejoplantio.id', 'talhao.propriedade_id')
@@ -130,7 +130,7 @@ class ManejoPlantio extends Pivot{
 			->join('talhao', 'plantio.talhao_id','=','talhao.id')
 			->join('propriedade', 'talhao.propriedade_id','=','propriedade.id')
 			->select('propriedade.nome as 1','manejo.nome as 2', 'manejoplantio.data_hora as 3',
-			 'plantio.data_plantio as 4', 'manejoplantio.horas_utilizadas as 5')
+			'plantio.data_plantio as 4', 'manejoplantio.horas_utilizadas as 5')
 			->where('talhao.propriedade_id', '=', $propriedade->id)
 			->groupBy('manejoplantio.id', 'talhao.propriedade_id')
 			->orderBy('5', 'desc')
@@ -151,7 +151,7 @@ class ManejoPlantio extends Pivot{
 			'linhasTabelaResumo'=>$tabelaResumo
 		];
 	}
-
+	
 	public function colheitas($propriedade, $periodo = null){
 		if($periodo){
 			$tabelaHistorico = ManejoPlantio::join('estoque', 'manejoplantio.id','=','estoque.manejoplantio_id')
@@ -210,33 +210,33 @@ class ManejoPlantio extends Pivot{
 			'linhasTabelaResumo'=>$tabelaResumo
 		];
 	}
-
-	public function relatorioManejosPorPlantio($propriedade){
-			$tabelaHistorico = ManejoPlantio::join('plantio', 'manejoplantio.plantio_id','=','plantio.id')
-			->join('talhao', 'plantio.talhao_id','=','talhao.id')
-			->join('produto', 'plantio.produto_id','=','produto.id')
-			->join('manejo', 'manejoplantio.manejo_id','=','manejo.id')
-			->select('manejo.nome as 1', 'produto.nome as 2', 
-			 'talhao.nome as 3', 'plantio.data_plantio as 4',
-			 'manejoplantio.data_hora as 5', 'plantio.quantidade_pantas as 6',
-			 'manejoplantio.horas_utilizadas as 7')
-			->where('talhao.propriedade_id', '=', $propriedade->id)
-			->groupBy('manejoplantio.plantio_id','manejoplantio.manejo_id')
-			->orderBy('plantio.id','desc')
-			->get();
-			
-			$tabelaResumo = ManejoPlantio::join('plantio', 'manejoplantio.plantio_id','=','plantio.id')
-			->join('talhao', 'plantio.talhao_id','=','talhao.id')
-			->join('produto', 'plantio.produto_id','=','produto.id')
-			->join('manejo', 'manejoplantio.manejo_id','=','manejo.id')
-			->select('produto.nome as 1', 'plantio.data_plantio as 2',
-			 'talhao.nome as 3','plantio.quantidade_pantas as 4',
-			 (DB::raw('SUM(manejoplantio.horas_utilizadas) as \'5\'')))
-			->where('talhao.propriedade_id', '=', $propriedade->id)
-			->groupBy('manejoplantio.plantio_id')
-			->orderBy('manejoplantio.plantio_id','asc')
-			->get();
 	
+	public function relatorioManejosPorPlantio($propriedade){
+		$tabelaHistorico = ManejoPlantio::join('plantio', 'manejoplantio.plantio_id','=','plantio.id')
+		->join('talhao', 'plantio.talhao_id','=','talhao.id')
+		->join('produto', 'plantio.produto_id','=','produto.id')
+		->join('manejo', 'manejoplantio.manejo_id','=','manejo.id')
+		->select('manejo.nome as 1', 'produto.nome as 2', 
+		'talhao.nome as 3', 'plantio.data_plantio as 4',
+		'manejoplantio.data_hora as 5', 'plantio.quantidade_pantas as 6',
+		'manejoplantio.horas_utilizadas as 7')
+		->where('talhao.propriedade_id', '=', $propriedade->id)
+		->groupBy('manejoplantio.plantio_id','manejoplantio.manejo_id')
+		->orderBy('plantio.id','desc')
+		->get();
+		
+		$tabelaResumo = ManejoPlantio::join('plantio', 'manejoplantio.plantio_id','=','plantio.id')
+		->join('talhao', 'plantio.talhao_id','=','talhao.id')
+		->join('produto', 'plantio.produto_id','=','produto.id')
+		->join('manejo', 'manejoplantio.manejo_id','=','manejo.id')
+		->select('produto.nome as 1', 'plantio.data_plantio as 2',
+		'talhao.nome as 3','plantio.quantidade_pantas as 4',
+		(DB::raw('SUM(manejoplantio.horas_utilizadas) as \'5\'')))
+		->where('talhao.propriedade_id', '=', $propriedade->id)
+		->groupBy('manejoplantio.plantio_id')
+		->orderBy('manejoplantio.plantio_id','asc')
+		->get();
+		
 		return [
 			'linhasTabelaHistorico'=>$tabelaHistorico,
 			'linhasTabelaResumo'=>$tabelaResumo

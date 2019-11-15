@@ -57,7 +57,7 @@ class Venda extends Eloquent{
 			(DB::raw('sum(venda.quantidade * venda.valor_unit) as \'6\'')))
 			->whereBetween('venda.data', [$periodo['dataInicio'], $periodo['dataFim']])
 			->where('estoque.propriedade_id', '=',$propriedade->id)
-			->whereIn('destino.tipo', [1, 2])
+			->where('destino.tipo', 1)
 			->groupBy('venda.id')
 			->orderBy('2', 'desc')
 			->get();
@@ -68,7 +68,7 @@ class Venda extends Eloquent{
 			->select((DB::raw('produto.nome as \'1\', SUM(venda.quantidade) as \'2\', SUM(venda.quantidade * venda.valor_unit) as \'3\'')))
 			->whereBetween('venda.data', [$periodo['dataInicio'], $periodo['dataFim']])
 			->where('estoque.propriedade_id', '=',$propriedade->id)
-			->whereIn('destino.tipo', [1, 2])
+			->where('destino.tipo', 1)
 			->groupBy('produto.id')
 			->orderBy('3', 'desc')
 			->get();
@@ -81,7 +81,7 @@ class Venda extends Eloquent{
 			'venda.quantidade as 4', 'venda.valor_unit as 5',  
 			(DB::raw('sum(venda.quantidade * venda.valor_unit) as \'6\'')))
 			->where('estoque.propriedade_id', '=',$propriedade->id)
-			->whereIn('destino.tipo', [1, 2])
+			->where('destino.tipo', 1)
 			->groupBy('venda.id')
 			->orderBy('2', 'desc')
 			->get();
@@ -91,7 +91,7 @@ class Venda extends Eloquent{
 			->leftJoin('produto', 'estoque.produto_id','=','produto.id')
 			->select((DB::raw('produto.nome as \'1\', SUM(venda.quantidade) as \'2\', SUM(venda.quantidade * venda.valor_unit) as \'3\'')))
 			->where('estoque.propriedade_id', '=',$propriedade->id)
-			->whereIn('destino.tipo', [1, 2])
+			->where('destino.tipo', 1)
 			->groupBy('produto.id')
 			->orderBy('3', 'desc')
 			->get();

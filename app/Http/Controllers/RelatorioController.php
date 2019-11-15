@@ -71,7 +71,7 @@ class RelatorioController extends Controller{
         }else if ($request['tipoRelatorio'] == "manejoTalhao") {
             return $this->modelRelatorio->relatorioManejosPorTalhao($request->all());
         }else if($request['tipoRelatorio'] == "perdas"){
-            return $this->perdas($request);
+            return $this->modelRelatorio->perdasEstoques($request->all());
         }else if ($request['tipoRelatorio'] == "manejoPropriedade") {
             return $this->modelRelatorio->relatorioManejosPorPropriedade($request->all());
         }else if ($request['tipoRelatorio'] == "colheitas") {
@@ -83,35 +83,5 @@ class RelatorioController extends Controller{
         }else if ($request['tipoRelatorio'] == "estoquePropriedade") {
             return $this->modelRelatorio->estoquesPorPropriedade($request->all());
         }
-    }
-    
-    function perdas( $request){
-        $propriedades= Propriedade::all()->where('users_id','=',$this->usuario['cpf']);
-        $propriedade = $this->getPropriedade($request);
-        $request =$request->session()->get('r');
-        $topo = ['Produto','Quantidade perdida','Data','Destino', 'Descrição'];
-        $lastLine= ['Produto', 'Quantidade total perdida'];
-        $formatDataTopo= ['Data'];
-        $formatDataLast= [];
-        $data = Perda::join('destino', 'perda.destino_id','=','destino.id')
-        ->join('estoque', 'perda.estoque_id','=','estoque.id')
-        ->leftJoin('produto', 'estoque.produto_id','=','produto.id')
-        ->select('produto.nome as produto','perda.quantidade as quantidade_perdida', 'perda.data as data','destino.nome as destino','perda.descricao as descricao')
-        ->whereBetween('perda.data', [$request['date-inicio'], $request['date-final']])
-        ->where('estoque.propriedade_id', '=',$propriedade->id)
-        ->where('destino.tipo', '=', 0)
-        ->groupBy('perda.id')
-        ->orderBy('perda.data', 'desc')
-        ->get();
-        $totalG= Perda::join('destino', 'perda.destino_id','=','destino.id')
-        ->join('estoque', 'perda.estoque_id','=','estoque.id')
-        ->leftJoin('produto', 'estoque.produto_id','=','produto.id')
-        ->select((DB::raw('produto.nome as produto, SUM(perda.quantidade) as quantidade_total_perdida' )))
-        ->whereBetween('perda.data', [$request['date-inicio'], $request['date-final']])
-        ->where('estoque.propriedade_id', '=',$propriedade->id)
-        ->where('destino.tipo', '=',0)
-        ->groupBy('produto.id')->orderBy('quantidade_total_perdida', 'desc')
-        ->get();
-        return ["topo"=>$topo, "conteudo"=> $data, "tipo" => $request["tipo"], "inicio"=>$request['date-inicio'], "final"=>$request['date-final'],'lastLine'=>$lastLine, 'totalG'=> $totalG, "formatDataTopo" =>$formatDataTopo, "formatDataLast" =>$formatDataLast];
     }
 }

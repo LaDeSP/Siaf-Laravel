@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use DateTime;
+use App\Models\Perda;
 use App\Models\Venda;
 use App\Models\Talhao;
 use App\Models\Despesa;
@@ -25,10 +26,11 @@ class Relatorio extends Model{
     protected $modelProduto;
     protected $modelEstoque;
     protected $modelVenda;
+    protected $modelPerda;
     
     public function __construct(UserService $userService, Investimento $investimento, Despesa $despesa,
     Plantio $plantio, ManejoPlantio $manejoPlantio, Talhao $talhao, Produto $produto, Estoque $estoque,
-    Venda $venda){
+    Venda $venda, Perda $perda){
         $this->userService = $userService;
         $this->modelInvestimento = $investimento;
         $this->modelDespesa = $despesa;
@@ -38,6 +40,7 @@ class Relatorio extends Model{
         $this->modelProduto = $produto;
         $this->modelEstoque = $estoque;
         $this->modelVenda = $venda;
+        $this->modelPerda = $perda;
     }
     
     public function replaceDataRelatorio($datas){
@@ -234,6 +237,24 @@ class Relatorio extends Model{
             "tituloTabelaResumo"=> "Resumo de Vendas",
             "tituloTabelaHistorico"=> "Histórico de Vendas",
             "tituloRelatorio"=> "Histórico de Vendas",
+            "DataEmissaoRelatorio"=> new DateTime()
+        ];
+    }
+
+    public function perdasEstoques(array $request){
+        if($request['dates']){
+            $this->replaceDataRelatorio($request['dates']);
+        }
+        $resultadoRelatorio = $this->modelPerda->relatorioPerdasEstoques($this->userService->propriedadesUser(), $this->dataRelatorio);
+        return [
+            "colunasTabelaHistorico"=> ['Produto', 'Quantidade Perdida', 'Data da Perda', 'Destino'], /*Array */
+            "colunasTabelaResumo"=> ['Produto', 'Quantidade Total Perdida'], /*Array */
+            "linhasTabelaHistorico"=> $resultadoRelatorio['linhasTabelaHistorico'], /*Array */
+            "linhasTabelaResumo"=> $resultadoRelatorio['linhasTabelaResumo'], /*Array */
+            "dataRelatorio"=>$this->dataRelatorio,
+            "tituloTabelaResumo"=> "Resumo de Perdas dos Estoques",
+            "tituloTabelaHistorico"=> "Histórico de Perdas dos Estoques",
+            "tituloRelatorio"=> "Histórico de Perdas dos Estoques",
             "DataEmissaoRelatorio"=> new DateTime()
         ];
     }

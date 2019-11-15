@@ -179,4 +179,19 @@ class Relatorio extends Model{
             "DataEmissaoRelatorio"=> new DateTime()
         ];
     }
+
+    public function relatorioManejosPorPlantio(){
+        $resultadoRelatorio = $this->modelManejoPlantio->relatorioManejosPorPlantio($this->userService->propriedadesUser());
+        return [
+            "colunasTabelaHistorico"=> ['Manejo', 'Produto', 'Talhão', 'Data do Plantio', 'Data do Manejo', 'Quantidade de Plantas', 'Tempo Gasto'], /*Array */
+            "colunasTabelaResumo"=> ['Produto', 'Data do Plantio', 'Talhão', 'Quantidade de Plantas', 'Tempo Total Gasto em (H)'], /*Array */
+            "linhasTabelaHistorico"=> $resultadoRelatorio['linhasTabelaHistorico'], /*Array */
+            "linhasTabelaResumo"=> $resultadoRelatorio['linhasTabelaResumo'], /*Array */
+            "dataRelatorio"=>$this->dataRelatorio,
+            "tituloTabelaResumo"=> "Resumo de Manejos por Plantio",
+            "tituloTabelaHistorico"=> "Histórico de Manejos por Plantio",
+            "tituloRelatorio"=> "Histórico de Manejos por Plantio",
+            "DataEmissaoRelatorio"=> new DateTime()
+        ];
+    }
 }

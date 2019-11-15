@@ -79,7 +79,7 @@ class RelatorioController extends Controller{
         }else if ($request['tipoRelatorio'] == "produtosAtivosInativos") {
             return $this->modelRelatorio->produtosAtivosEInativos();
         }else if ($request['tipoRelatorio'] == "historicoManejoPlantio") {
-            return $this->historicoManejoPlantio($request);
+            return $this->modelRelatorio->relatorioManejosPorPlantio();
         }else if ($request['tipoRelatorio'] == "estoquePropriedade") {
             return $this->estoquePropriedade($request);
         }
@@ -141,37 +141,6 @@ class RelatorioController extends Controller{
         ->where('estoque.propriedade_id', '=',$propriedade->id)
         ->where('destino.tipo', '=',0)
         ->groupBy('produto.id')->orderBy('quantidade_total_perdida', 'desc')
-        ->get();
-        return ["topo"=>$topo, "conteudo"=> $data, "tipo" => $request["tipo"], "inicio"=>$request['date-inicio'], "final"=>$request['date-final'],'lastLine'=>$lastLine, 'totalG'=> $totalG, "formatDataTopo" =>$formatDataTopo, "formatDataLast" =>$formatDataLast];
-    }
-    
-    function historicoManejoPlantio( $request){
-        $propriedades= Propriedade::all()->where('users_id','=',$this->usuario['cpf']);
-        $propriedade = $this->getPropriedade($request);
-        $request =$request->session()->get('r');
-        $topo = ['Data do plantio','Manejo','Produto','Talhão','Quantidade de plantas','Tempo gasto', 'Data do Manejo','Descrição'];
-        $lastLine= ['Data do plantio','Produto','Talhão','Quantidade de plantas', 'Tempo total gasto'];
-        $formatDataTopo= ['Data do plantio','Data do Manejo'];
-        $formatDataLast= ['Data do plantio'];
-        $data = ManejoPlantio::join('plantio', 'manejoplantio.plantio_id','=','plantio.id')
-        ->join('talhao', 'plantio.talhao_id','=','talhao.id')
-        ->join('produto', 'plantio.produto_id','=','produto.id')
-        ->join('manejo', 'manejoplantio.manejo_id','=','manejo.id')
-        ->select('plantio.data_plantio as data_do_plantio','manejo.nome as manejo','produto.nome as produto','talhao.nome as talhao','plantio.quantidade_pantas as quantidade_de_plantas','manejoplantio.horas_utilizadas as tempo_gasto','manejoplantio.data_hora as data_do_manejo','manejoplantio.descricao as descricao')
-        // ->whereBetween('', [$request['date-inicio'], $request['date-final']])
-        ->where('talhao.propriedade_id', '=', $propriedade->id)
-        ->groupBy('manejoplantio.plantio_id','manejoplantio.manejo_id')
-        ->orderBy('plantio.id','desc')
-        ->get();
-        $totalG= ManejoPlantio::join('plantio', 'manejoplantio.plantio_id','=','plantio.id')
-        ->join('talhao', 'plantio.talhao_id','=','talhao.id')
-        ->join('produto', 'plantio.produto_id','=','produto.id')
-        ->join('manejo', 'manejoplantio.manejo_id','=','manejo.id')
-        ->select('plantio.data_plantio as data_do_plantio','produto.nome as produto','talhao.nome as talhao','plantio.quantidade_pantas as quantidade_de_plantas',(DB::raw('SUM(manejoplantio.horas_utilizadas) as tempo_total_gasto')))
-        // ->whereBetween('', [$request['date-inicio'], $request['date-final']])
-        ->where('talhao.propriedade_id', '=', $propriedade->id)
-        ->groupBy('manejoplantio.plantio_id')
-        ->orderBy('manejoplantio.plantio_id','asc')
         ->get();
         return ["topo"=>$topo, "conteudo"=> $data, "tipo" => $request["tipo"], "inicio"=>$request['date-inicio'], "final"=>$request['date-final'],'lastLine'=>$lastLine, 'totalG'=> $totalG, "formatDataTopo" =>$formatDataTopo, "formatDataLast" =>$formatDataLast];
     }

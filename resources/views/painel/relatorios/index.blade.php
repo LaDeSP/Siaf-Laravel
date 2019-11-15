@@ -139,7 +139,7 @@ Gerar Relatórios
         $('select[name=tipoRelatorio]').change(function () {
             tipo = $(this).val();
             var inputE = document.getElementById("dates");
-            if (tipo == 'talhao' || tipo == 'produtosAtivosInativos'){
+            if (tipo == 'talhao' || tipo == 'produtosAtivosInativos' || tipo == 'historicoManejoPlantio'){
                 inputE.disabled = true;
             }else{
                 inputE.disabled = false;

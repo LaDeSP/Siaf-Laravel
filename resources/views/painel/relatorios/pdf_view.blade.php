@@ -71,7 +71,11 @@
                 @foreach ($relatorio['linhasTabelaResumo'] as $linha)
                 <tr>
                     @for ($i = 1; $i <= count($linha->getOriginal()); $i++)
-                        <td>{{$linha[$i]}}</td>
+                        @if(date('Y-m-d', strtotime($linha[$i])) == $linha[$i])
+                            <td>{{date('d/m/Y', strtotime($linha[$i]))}}</td>
+                        @else
+                            <td>{{$linha[$i]}}</td>
+                        @endif
                     @endfor
                 </tr>
                 @endforeach

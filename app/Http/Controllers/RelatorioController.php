@@ -65,7 +65,7 @@ class RelatorioController extends Controller{
         }else if ($request['tipoRelatorio'] == "despesa") {
             return $this->modelRelatorio->despesas($request->all());
         } else if($request['tipoRelatorio'] == "vendas"){
-            return $this->vendas($request); 
+            return $this->modelRelatorio->vendas($request->all()); 
         }else if ($request['tipoRelatorio'] == "investimentos") {
             return $this->modelRelatorio->investimentos($request->all());
         }else if ($request['tipoRelatorio'] == "manejoTalhao") {
@@ -83,36 +83,6 @@ class RelatorioController extends Controller{
         }else if ($request['tipoRelatorio'] == "estoquePropriedade") {
             return $this->modelRelatorio->estoquesPorPropriedade($request->all());
         }
-    }
-    
-    function vendas($request){
-        $propriedade = $this->getPropriedade($request);
-        $request =$request->session()->get('r');
-        $topo = ['Produto','Quantidade vendida', 'Valor unitário','Total','Data da venda','Nota','Destino'];
-        $lastLine= ['Produto','Total','Total quantidade'];
-        $formatDataTopo= ['Data da venda'];
-        $formatDataLast= [];
-        $data = Venda::join('estoque', 'venda.estoque_id','=','estoque.id')
-        ->leftJoin('destino', 'venda.destino_id','=','destino.id')
-        ->leftJoin('produto', 'estoque.produto_id','=','produto.id')
-        ->select('produto.nome as produto','venda.quantidade as quantidade_vendida', 'venda.valor_unit as valor_unitario', 'venda.data as data_da_venda', 'venda.nota as nota','destino.nome as destino', (DB::raw('sum(venda.quantidade * venda.valor_unit) as total')))
-        ->whereBetween('venda.data', [$request['date-inicio'], $request['date-final']])
-        ->where('estoque.propriedade_id', '=',$propriedade->id)
-        ->where('destino.tipo', '=',1)
-        ->groupBy('venda.id')
-        ->orderBy('venda.data', 'desc')
-        ->get();
-        $totalG= Venda::join('destino', 'venda.destino_id','=','destino.id')
-        ->join('estoque', 'venda.estoque_id','=','estoque.id')
-        ->leftJoin('produto', 'estoque.produto_id','=','produto.id')
-        ->select((DB::raw('produto.nome as produto, SUM(venda.quantidade * venda.valor_unit) as total, SUM(venda.quantidade) as total_quantidade' )))
-        ->whereBetween('venda.data', [$request['date-inicio'], $request['date-final']])
-        ->where('estoque.propriedade_id', '=',$propriedade->id)
-        ->where('destino.tipo', '=',1)
-        ->groupBy('produto.id')
-        ->orderBy('total', 'desc')
-        ->get();
-        return ["topo"=>$topo, "conteudo"=> $data, "tipo" => $request["tipo"], "inicio"=>$request['date-inicio'], "final"=>$request['date-final'],'lastLine'=>$lastLine, 'totalG'=> $totalG, "formatDataTopo" =>$formatDataTopo, "formatDataLast" =>$formatDataLast];
     }
     
     function perdas( $request){

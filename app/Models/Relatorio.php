@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use DateTime;
+use App\Models\Venda;
 use App\Models\Talhao;
 use App\Models\Despesa;
 use App\Models\Estoque;
@@ -23,9 +24,11 @@ class Relatorio extends Model{
     protected $modelTalhao;
     protected $modelProduto;
     protected $modelEstoque;
+    protected $modelVenda;
     
     public function __construct(UserService $userService, Investimento $investimento, Despesa $despesa,
-    Plantio $plantio, ManejoPlantio $manejoPlantio, Talhao $talhao, Produto $produto, Estoque $estoque){
+    Plantio $plantio, ManejoPlantio $manejoPlantio, Talhao $talhao, Produto $produto, Estoque $estoque,
+    Venda $venda){
         $this->userService = $userService;
         $this->modelInvestimento = $investimento;
         $this->modelDespesa = $despesa;
@@ -34,6 +37,7 @@ class Relatorio extends Model{
         $this->modelTalhao = $talhao;
         $this->modelProduto = $produto;
         $this->modelEstoque = $estoque;
+        $this->modelVenda = $venda;
     }
     
     public function replaceDataRelatorio($datas){
@@ -212,6 +216,24 @@ class Relatorio extends Model{
             "tituloTabelaResumo"=> "Resumo de Estoques",
             "tituloTabelaHistorico"=> "Histórico de Estoques",
             "tituloRelatorio"=> "Histórico de Estoques",
+            "DataEmissaoRelatorio"=> new DateTime()
+        ];
+    }
+
+    public function vendas(array $request){
+        if($request['dates']){
+            $this->replaceDataRelatorio($request['dates']);
+        }
+        $resultadoRelatorio = $this->modelVenda->relatorioVendas($this->userService->propriedadesUser(), $this->dataRelatorio);
+        return [
+            "colunasTabelaHistorico"=> ['Produto', 'Data da Venda', 'Destino', 'Quantidade Vendida', 'Valor Unitário', 'Total (R$)'], /*Array */
+            "colunasTabelaResumo"=> ['Produto', 'Total Vendido', 'Total de Lucro no Produto(R$)'], /*Array */
+            "linhasTabelaHistorico"=> $resultadoRelatorio['linhasTabelaHistorico'], /*Array */
+            "linhasTabelaResumo"=> $resultadoRelatorio['linhasTabelaResumo'], /*Array */
+            "dataRelatorio"=>$this->dataRelatorio,
+            "tituloTabelaResumo"=> "Resumo de Vendas",
+            "tituloTabelaHistorico"=> "Histórico de Vendas",
+            "tituloRelatorio"=> "Histórico de Vendas",
             "DataEmissaoRelatorio"=> new DateTime()
         ];
     }

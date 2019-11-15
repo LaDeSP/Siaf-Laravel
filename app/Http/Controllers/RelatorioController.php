@@ -77,7 +77,7 @@ class RelatorioController extends Controller{
         }else if ($request['tipoRelatorio'] == "colheitas") {
             return $this->modelRelatorio->colheitas($request->all());
         }else if ($request['tipoRelatorio'] == "produtosAtivosInativos") {
-            return $this->produtosAtivosEnaoPropriedade($request); /*a fazer */
+            return $this->modelRelatorio->produtosAtivosEInativos();
         }else if ($request['tipoRelatorio'] == "historicoManejoPlantio") {
             return $this->historicoManejoPlantio($request);
         }else if ($request['tipoRelatorio'] == "estoquePropriedade") {
@@ -141,27 +141,6 @@ class RelatorioController extends Controller{
         ->where('estoque.propriedade_id', '=',$propriedade->id)
         ->where('destino.tipo', '=',0)
         ->groupBy('produto.id')->orderBy('quantidade_total_perdida', 'desc')
-        ->get();
-        return ["topo"=>$topo, "conteudo"=> $data, "tipo" => $request["tipo"], "inicio"=>$request['date-inicio'], "final"=>$request['date-final'],'lastLine'=>$lastLine, 'totalG'=> $totalG, "formatDataTopo" =>$formatDataTopo, "formatDataLast" =>$formatDataLast];
-    }
-    
-    function produtosAtivosEnaoPropriedade( $request){
-        $propriedades= Propriedade::all()->where('users_id','=',$this->usuario['cpf']);
-        $propriedade = $this->getPropriedade($request);
-        $request =$request->session()->get('r');
-        $topo = ['Propriedade', 'Produto','Status'];
-        $lastLine= ['Propriedade','Status', 'Total de produtos'];
-        $formatDataTopo= [];
-        $formatDataLast= [];
-        $data = Produto::join('propriedade', 'produto.propriedade_id','=','propriedade.id')
-        ->select('propriedade.nome as propriedade','produto.nome as produto',(DB::raw('IF(produto.status = 1, "ativo","inativo") as status')))
-        ->where('produto.propriedade_id', '=', $request['propriedade_id'])
-        ->groupBy('produto.id','produto.status')
-        ->get();
-        $totalG=Produto::join('propriedade', 'produto.propriedade_id','=','propriedade.id')
-        ->select('propriedade.nome as propriedade',(DB::raw('IF(produto.status = 1, "ativo","inativo") as status')), DB::raw('count(*) as total_de_produtos'))
-        ->where('produto.propriedade_id', '=', $request['propriedade_id'])
-        ->groupBy('produto.status')
         ->get();
         return ["topo"=>$topo, "conteudo"=> $data, "tipo" => $request["tipo"], "inicio"=>$request['date-inicio'], "final"=>$request['date-final'],'lastLine'=>$lastLine, 'totalG'=> $totalG, "formatDataTopo" =>$formatDataTopo, "formatDataLast" =>$formatDataLast];
     }

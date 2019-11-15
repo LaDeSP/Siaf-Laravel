@@ -6,6 +6,7 @@ use DateTime;
 use App\Models\Talhao;
 use App\Models\Despesa;
 use App\Models\Plantio;
+use App\Models\Produto;
 use App\Models\Investimento;
 use App\Models\ManejoPlantio;
 use App\Services\UserService;
@@ -19,18 +20,19 @@ class Relatorio extends Model{
     protected $modelPlantio;
     protected $modelManejoPlantio;
     protected $modelTalhao;
+    protected $modelProduto;
     
     public function __construct(UserService $userService, Investimento $investimento, Despesa $despesa,
-    Plantio $plantio, ManejoPlantio $manejoPlantio, Talhao $talhao){
+    Plantio $plantio, ManejoPlantio $manejoPlantio, Talhao $talhao, Produto $produto){
         $this->userService = $userService;
         $this->modelInvestimento = $investimento;
         $this->modelDespesa = $despesa;
         $this->modelPlantio = $plantio;
         $this->modelManejoPlantio = $manejoPlantio;
         $this->modelTalhao = $talhao;
+        $this->modelProduto = $produto;
     }
     
-
     public function replaceDataRelatorio($datas){
         $datas = explode("até", $datas);
         $dataInicio = trim($datas[0]);
@@ -159,6 +161,21 @@ class Relatorio extends Model{
             "tituloTabelaResumo"=> "Resumo de Talhões da Propriedade",
             "tituloTabelaHistorico"=> "Histórico de Talhões da Propriedade",
             "tituloRelatorio"=> "Histórico de Talhões da Propriedade",
+            "DataEmissaoRelatorio"=> new DateTime()
+        ];
+    }
+
+    public function produtosAtivosEInativos(){
+        $resultadoRelatorio = $this->modelProduto->produtosAtivosEInativos($this->userService->propriedadesUser());
+        return [
+            "colunasTabelaHistorico"=> ['Propriedade', 'Produto', 'Status'], /*Array */
+            "colunasTabelaResumo"=> ['Propriedade', 'Status', 'Total de Produtos'], /*Array */
+            "linhasTabelaHistorico"=> $resultadoRelatorio['linhasTabelaHistorico'], /*Array */
+            "linhasTabelaResumo"=> $resultadoRelatorio['linhasTabelaResumo'], /*Array */
+            "dataRelatorio"=>$this->dataRelatorio,
+            "tituloTabelaResumo"=> "Resumo de Produtos Ativos e Inativos da Propriedade",
+            "tituloTabelaHistorico"=> "Histórico de Produtos Ativos e Inativos da Propriedade",
+            "tituloRelatorio"=> "Histórico de Produtos Ativos e Inativos da Propriedade",
             "DataEmissaoRelatorio"=> new DateTime()
         ];
     }

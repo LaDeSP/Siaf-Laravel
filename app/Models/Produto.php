@@ -7,9 +7,10 @@
 
 namespace App\Models;
 
-use Reliese\Database\Eloquent\Model as Eloquent;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Balping\HashSlug\HasHashSlug;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Reliese\Database\Eloquent\Model as Eloquent;
 
 class Produto extends Eloquent{
 	protected $table="produto";
@@ -44,5 +45,26 @@ class Produto extends Eloquent{
 
 	public function plantios(){
 		return $this->hasMany(\App\Models\Plantio::class);
-    }
+	}
+	
+	public function produtosAtivosEInativos($propriedade){
+		$tabelaHistorico = Produto::join('propriedade', 'produto.propriedade_id','=','propriedade.id')
+        ->select('propriedade.nome as 1','produto.nome as 2',(DB::raw('IF(produto.status = 1, "ativo","inativo") as \'3\'')))
+        ->where('produto.propriedade_id', '=', $propriedade->id)
+		->groupBy('produto.id','produto.status')
+		->orderBy('2', 'asc')
+        ->get();
+		
+		$tabelaResumo = Produto::join('propriedade', 'produto.propriedade_id','=','propriedade.id')
+        ->select('propriedade.nome as 1',(DB::raw('IF(produto.status = 1, "ativo","inativo") as \'2\'')), DB::raw('count(*) as \'3\''))
+        ->where('produto.propriedade_id', '=', $propriedade->id)
+		->groupBy('produto.status')
+		->orderBy('3', 'desc')
+        ->get();
+		
+	return [
+		'linhasTabelaHistorico'=>$tabelaHistorico,
+		'linhasTabelaResumo'=>$tabelaResumo
+	];
+}
 }

@@ -81,7 +81,7 @@ class RelatorioController extends Controller{
         }else if ($request['tipoRelatorio'] == "historicoManejoPlantio") {
             return $this->modelRelatorio->relatorioManejosPorPlantio();
         }else if ($request['tipoRelatorio'] == "estoquePropriedade") {
-            return $this->estoquePropriedade($request);
+            return $this->modelRelatorio->estoquesPorPropriedade($request->all());
         }
     }
     
@@ -142,45 +142,6 @@ class RelatorioController extends Controller{
         ->where('destino.tipo', '=',0)
         ->groupBy('produto.id')->orderBy('quantidade_total_perdida', 'desc')
         ->get();
-        return ["topo"=>$topo, "conteudo"=> $data, "tipo" => $request["tipo"], "inicio"=>$request['date-inicio'], "final"=>$request['date-final'],'lastLine'=>$lastLine, 'totalG'=> $totalG, "formatDataTopo" =>$formatDataTopo, "formatDataLast" =>$formatDataLast];
-    }
-    
-    function estoquePropriedade( $request){
-        $propriedades= Propriedade::all()->where('users_id','=',$this->usuario['cpf']);
-        $propriedade = $this->getPropriedade($request);
-        $request =$request->session()->get('r');
-        $topo = ['Propriedade','Data do plantio','Produto','Talhão','Data','Entrada','Quantidade atual'];
-        $lastLine= ['Propriedade','Produto','Total entrada','Total atual' ];
-        $formatDataTopo= ['Data do plantio','Data'];
-        $formatDataLast=[];
-        $data = Estoque::leftJoin('manejoplantio', 'estoque.manejoplantio_id','=','manejoplantio.id')
-        ->leftJoin('plantio', 'manejoplantio.plantio_id','=','plantio.id')
-        ->leftJoin('talhao', 'plantio.talhao_id','=','talhao.id')
-        ->join('produto', 'estoque.produto_id','=','produto.id')
-        ->join('propriedade', 'estoque.propriedade_id','=','propriedade.id')
-        ->select('estoque.id as id','propriedade.nome as propriedade','plantio.data_plantio as data_do_plantio','produto.nome as produto','talhao.nome as talhao','estoque.data as data','estoque.quantidade as entrada',(DB::raw('estoque.quantidade as quantidade_atual')))
-        ->whereBetween('estoque.data', [$request['date-inicio'], $request['date-final']])
-        ->where('estoque.propriedade_id', '=', $request['propriedade_id'])
-        ->groupBy('estoque.id')
-        ->get();
-        foreach ($data as $key => $value) {
-            $value->Atual= $value->Quantidade-(Venda::all()->where('estoque_id','=',$value->id)->sum('quantidade')+Perda::all()->where('estoque_id','=',$value->id)->sum('quantidade'));
-        }
-        $totalG=Estoque::leftJoin('manejoplantio', 'estoque.manejoplantio_id','=','manejoplantio.id')
-        ->leftJoin('plantio', 'manejoplantio.plantio_id','=','plantio.id')
-        ->leftJoin('talhao', 'plantio.talhao_id','=','talhao.id')
-        ->join('produto', 'estoque.produto_id','=','produto.id')
-        ->join('propriedade', 'estoque.propriedade_id','=','propriedade.id')
-        ->select('estoque.produto_id','propriedade.nome as propriedade','produto.nome as produto',DB::raw('SUM(estoque.quantidade) as total_entrada'),DB::raw('SUM(estoque.quantidade) as total_atual'))
-        ->whereBetween('estoque.data', [$request['date-inicio'], $request['date-final']])
-        ->where('estoque.propriedade_id', '=', $request['propriedade_id'])
-        ->groupBy('produto.id')
-        ->get();
-        foreach ($totalG as $key => $value) {
-            $pv = (Venda::join('estoque','venda.estoque_id','=','estoque.id')->where('estoque.produto_id','=',$value->produto_id)->where('estoque.propriedade_id','=',$request['propriedade_id'])->whereBetween('estoque.data', [$request['date-inicio'], $request['date-final']])->sum('venda.quantidade'))+(Perda::join('estoque','perda.estoque_id','=','estoque.id')->where('estoque.produto_id','=',$value->produto_id)->where('estoque.propriedade_id','=',$request['propriedade_id'])->whereBetween('estoque.data', [$request['date-inicio'], $request['date-final']])->sum('perda.quantidade'));
-            $value->total_atual= $value->total_atual - $pv;
-        }
-        
         return ["topo"=>$topo, "conteudo"=> $data, "tipo" => $request["tipo"], "inicio"=>$request['date-inicio'], "final"=>$request['date-final'],'lastLine'=>$lastLine, 'totalG'=> $totalG, "formatDataTopo" =>$formatDataTopo, "formatDataLast" =>$formatDataLast];
     }
 }

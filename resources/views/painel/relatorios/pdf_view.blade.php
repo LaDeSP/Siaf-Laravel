@@ -70,7 +70,7 @@
             @else
                 @foreach ($relatorio['linhasTabelaResumo'] as $linha)
                 <tr>
-                    @for ($i = 1; $i <= count($linha->getOriginal()); $i++)
+                    @for ($i = 1; $i <= count($linha->getAttributes()); $i++)
                         @if(date('Y-m-d', strtotime($linha[$i])) == $linha[$i])
                             <td>{{date('d/m/Y', strtotime($linha[$i]))}}</td>
                         @else
@@ -96,9 +96,11 @@
         <tbody>
             @foreach ($relatorio['linhasTabelaHistorico'] as $linha)
                 <tr>
-                    @for ($i = 1; $i <= count($linha->getOriginal()); $i++)
+                    @for ($i = 1; $i <= count($linha->getAttributes()); $i++)
                         @if(date('Y-m-d', strtotime($linha[$i])) == $linha[$i])
                             <td>{{date('d/m/Y', strtotime($linha[$i]))}}</td>
+                        @elseif($linha[$i] == null)
+                            <td>-----</td>
                         @else
                             <td>{{$linha[$i]}}</td>
                         @endif

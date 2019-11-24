@@ -7,6 +7,7 @@
 
 namespace App\Models;
 
+use DateTime;
 use Balping\HashSlug\HasHashSlug;
 use Illuminate\Support\Facades\DB;
 use \Illuminate\Database\Eloquent\SoftDeletes;
@@ -100,5 +101,36 @@ class Venda extends Eloquent{
 			'linhasTabelaHistorico'=>$tabelaHistorico,
 			'linhasTabelaResumo'=>$tabelaResumo
 		];
+	}
+	
+	public function vendasUltimosQuinzeDias($propriedade){
+		$dataAtual = new \DateTime();
+		$datafim = $dataAtual->format('Y-m-d H:i:s');
+		$data=date('Y-m-d',strtotime("-15 day", strtotime($datafim)));
+		$totalG= Venda::join('destino', 'venda.destino_id','=','destino.id')
+		->join('estoque', 'venda.estoque_id','=','estoque.id')
+		->leftJoin('produto', 'estoque.produto_id','=','produto.id')
+		->select((DB::raw('produto.nome as produto, SUM(venda.quantidade * venda.valor_unit) as total, SUM(venda.quantidade) as total_unidade' )))
+		->whereBetween('venda.data', [$data, $datafim])
+		->where('estoque.propriedade_id', '=',$propriedade->id)
+		->where('destino.tipo', '=',1)
+		->groupBy('produto.id')->orderBy('total_unidade', 'desc')
+		->limit(3)
+		->get();
+		return $totalG;
+	}
+	
+	public function topCincoProdutosMaisVendidos($propriedade){
+		$topCincoProdutosMaisVendidos = Venda::join('destino', 'venda.destino_id','=','destino.id')
+		->join('estoque', 'venda.estoque_id','=','estoque.id')
+		->leftJoin('produto', 'estoque.produto_id','=','produto.id')
+		->select((DB::raw('produto.nome as nome, SUM(venda.quantidade) as quantidadeVenda, SUM(venda.quantidade * venda.valor_unit) as lucroVenda')))
+		->where('estoque.propriedade_id', '=',$propriedade->id)
+		->where('destino.tipo', 1)
+		->groupBy('produto.id')
+		->orderBy('quantidadeVenda', 'desc')
+		->limit(5)
+		->get();
+		return $topCincoProdutosMaisVendidos;
 	}
 }

@@ -12,10 +12,11 @@ Inicio
 <section class="section">
     <div class="row">
         <div class="col-lg-6 col-md-12 col-12 col-sm-12">
-            <div class="card text-center shadow-lg">
+            <div class="card text-center shadow-lg" style="min-height:300px; max-height:300px">
                 <div class="card-header">
                     <h4>Estoques nos últimos 15 dias</h4>
                 </div>
+                @if ($estoques->count() > 0)
                 <div class="card-body p-0">
                     <div class="table-responsive">
                         <table class="table table-striped">
@@ -36,13 +37,19 @@ Inicio
                         </table>
                     </div>
                 </div>
+                @else
+                <div class="text-muted my-auto">
+                    <h5>Nenhum estoque cadastrado nos últimos 15 dias!</h5>
+                </div>
+                @endif
             </div>
         </div>
         <div class="col-lg-6 col-md-12 col-12 col-sm-12">
-            <div class="card text-center shadow-lg">
+            <div class="card text-center shadow-lg" style="min-height:300px; max-height:300px">
                 <div class="card-header">
                     <h4>Vendas nos últimos 15 dias</h4>
                 </div>
+                @if ($vendas->count() > 0)
                 <div class="card-body p-0">
                     <div class="table-responsive">
                         <table class="table table-striped">
@@ -65,6 +72,11 @@ Inicio
                         </table>
                     </div>
                 </div>
+                @else
+                <div class="text-muted my-auto">
+                    <h5>Nenhuma venda cadastrada nos últimos 15 dias!</h5>
+                </div>
+                @endif
             </div>
         </div>
     </div>
@@ -105,18 +117,18 @@ Inicio
                     <ul class="list-unstyled list-unstyled-border">
                         @foreach ($produtos as $produto)
                         <li class="media">
-                                <img class="mr-3 rounded" width="55" src="assets/img/products/product-4-50.png" alt="product">
-                                <div class="media-body">
-                                    <div class="float-right"><div class="font-weight-600 text-muted text-small">{{$produto->quantidadeVenda}} Vendas</div></div>
-                                    <div class="media-title">{{$produto->nome}}</div>
-                                    <div class="mt-1">
-                                        <div class="budget-price">
-                                            <div class="budget-price-square bg-success" data-width="64%"></div>
-                                            <div class="budget-price-label">R${{$produto->lucroVenda}}</div>
-                                        </div>
+                            <img class="mr-3 rounded" width="55" src="assets/img/products/product-4-50.png" alt="product">
+                            <div class="media-body">
+                                <div class="float-right"><div class="font-weight-600 text-muted text-small">{{$produto->quantidadeVenda}} Vendas</div></div>
+                                <div class="media-title">{{$produto->nome}}</div>
+                                <div class="mt-1">
+                                    <div class="budget-price">
+                                        <div class="budget-price-square bg-success" data-width="64%"></div>
+                                        <div class="budget-price-label">R${{$produto->lucroVenda}}</div>
                                     </div>
                                 </div>
-                            </li>
+                            </div>
+                        </li>
                         @endforeach
                     </ul>
                 </div>

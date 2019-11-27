@@ -82,28 +82,41 @@ Inicio
     </div>
     <div class="row">
         <div class="col-lg-8">
-            <div class="card text-center shadow-lg">
-                <div class="card-header">
-                    <h4>Sua propriedade</h4>
+            <div class="row-lg-12">
+                <div class="card text-center shadow-lg">
+                    <div class="card-header">
+                        <h4>Sua propriedade</h4>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Propriedade</th>
+                                        <th>Município</th>
+                                        <th>Estado</th>
+                                    </tr>
+                                </thead>
+                                <tbody>                         
+                                    <tr>
+                                        <td>{{$propriedade->nome}}</td>
+                                        <td>{{$propriedade->cidade()->first()->nome}}</td>
+                                        <td>{{$propriedade->cidade()->first()->estado()->first()->nome}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
-                <div class="card-body p-0">
-                    <div class="table-responsive">
-                        <table class="table table-striped">
-                            <thead>
-                                <tr>
-                                    <th>Propriedade</th>
-                                    <th>Município</th>
-                                    <th>Estado</th>
-                                </tr>
-                            </thead>
-                            <tbody>                         
-                                <tr>
-                                    <td>{{$propriedade->nome}}</td>
-                                    <td>{{$propriedade->cidade()->first()->nome}}</td>
-                                    <td>{{$propriedade->cidade()->first()->estado()->first()->nome}}</td>
-                                </tr>
-                            </tbody>
-                        </table>
+            </div>
+            <div class="row-lg-12">
+                <div class="shadow-lg">
+                    <div class="card" style="min-height:205px; max-height:205px">
+                        <div class="card-header">
+                            <h4>Clima durante a semana</h4>
+                        </div>
+                        <div id="weather">
+                        </div>
                     </div>
                 </div>
             </div>
@@ -137,17 +150,6 @@ Inicio
                         <div class="budget-price-square bg-success" data-width="30"></div>
                         <div class="budget-price-label">Lucro em vendas</div>
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-12 shadow-lg">
-            <div class="card">
-                <div class="card-header">
-                    <h4>Sua propriedade</h4>
-                </div>
-                <div id="weather">
                 </div>
             </div>
         </div>

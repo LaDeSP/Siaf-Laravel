@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>jQuery Weather BR - Demo</title>
+
+        <!-- jQuery Weather CSS -->
+        <link href="plugin/jquery.weather.br.min.css" media="all" rel="stylesheet" />
+        
+        <style type="text/css">
+            #weather {
+                margin: auto;
+                width: 300px;
+            }
+        </style>
+    </head>
+    <body>
+        <!-- Element to be applied jquery.weather -->
+        <div id="weather"></div>
+        
+        <!-- jQuery -->            
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <!-- jQuery Weather --> 
+        <script src="plugin/jquery.weather.br.min.js"></script>
+
+        <!-- Start jQuery Weather -->
+        <script>
+            $(function() {
+                $('#weather').weather({
+                    locationLat: -19.9267427,
+                    locationLon: -43.9601151
+                });
+            });
+        </script>
+    </body>
+</html>

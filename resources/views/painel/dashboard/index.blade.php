@@ -109,17 +109,6 @@ Inicio
                     </div>
                 </div>
             </div>
-            <div class="row-lg-12">
-                <div class="shadow-lg">
-                    <div class="card" style="min-height:205px; max-height:205px">
-                        <div class="card-header">
-                            <h4>Clima durante a semana</h4>
-                        </div>
-                        <div id="weather">
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
         <div class="col-lg-4">
             <div class="card gradient-bottom shadow-lg">
@@ -154,6 +143,17 @@ Inicio
             </div>
         </div>
     </div>
+    <div class="row-lg-12 col-xs col-sm">
+        <div class="shadow-lg">
+            <div class="card" style="min-height:205px; max-height:205px">
+                <div class="card-header">
+                    <h4>Clima durante a semana</h4>
+                </div>
+                <div id="weather">
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
 @endsection
 
@@ -167,8 +167,8 @@ Inicio
     $(function() {
         $('#weather').weather({
             geoLocation:false,
-            locationLat: {{$propriedade->cidade->first()->latitude}},
-            locationLon: {{$propriedade->cidade->first()->longitude}}
+            locationLat: {{$propriedade->cidade()->first()->latitude}},
+            locationLon: {{$propriedade->cidade()->first()->longitude}}
         });
     });
 </script>

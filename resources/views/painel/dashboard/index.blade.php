@@ -1,7 +1,7 @@
 @extends('layouts.admin-master')
 
 @push('styles')
-<link rel="stylesheet" media="all"  type="text/css" href="{{ asset('assets/modules/plugin-tempo/jquery.weather.br.min.css')}}"/>
+<link rel="stylesheet" media="all"  type="text/css" href="{{ asset('assets/modules/jquery.weather.br-master/dist/jquery.weather.br.css')}}"/>
 @endpush
 
 @section('title')
@@ -109,6 +109,14 @@ Inicio
                     </div>
                 </div>
             </div>
+            <div class="row-lg-12">
+                <div class="shadow-lg">
+                    <div class="card table-responsive" style="min-height:205px; max-height:205px">
+                        <div id="weather">
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="col-lg-4">
             <div class="card gradient-bottom shadow-lg">
@@ -143,17 +151,6 @@ Inicio
             </div>
         </div>
     </div>
-    <div class="row-lg-12 col-xs col-sm">
-        <div class="shadow-lg">
-            <div class="card" style="min-height:205px; max-height:205px">
-                <div class="card-header">
-                    <h4>Clima durante a semana</h4>
-                </div>
-                <div id="weather">
-                </div>
-            </div>
-        </div>
-    </div>
 </section>
 @endsection
 
@@ -161,7 +158,8 @@ Inicio
 <script src="{{ asset('assets/modules/jquery-ui/jquery-ui.min.js')}}"></script>
 <!--<script src="{{ asset('assets/modules/jquery.min.js')}}"></script>-->
 <script src="https://cdn.jsdelivr.net/npm/crypto-js@3.1.9-1/crypto-js.js"></script>
-<script src="{{asset('assets/modules/plugin-tempo/jquery.weather.br.js')}}"></script>
+<script src="{{asset('assets/modules/jquery.weather.br-master/src/jquery.i18next.min.js')}}"></script>
+<script src="{{asset('assets/modules/jquery.weather.br-master/src/jquery.weather.br.js')}}"></script>
 
 <script>
     $(function() {

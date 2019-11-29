@@ -100,8 +100,7 @@
             });
     };
 
-    var getXML = function(url, callbackSuccess, callbackError)
-    	{
+    var getXML = function(url, callbackSuccess, callbackError){
       var url = 'https://weather-ydn-yql.media.yahoo.com/forecastrss';
 			var method = 'GET';
 			var app_id = 'vny03B76';

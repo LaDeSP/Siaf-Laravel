@@ -23,23 +23,19 @@ class PropriedadeService{
         }
     }
     
-    public function update(Request $request, $id){
-        $attributesPropriedade = [];
-        $attributesPropriedade['nome']= $request->nome; 
-        $attributesPropriedade['localizacao']= $request->localiza; 
-        $attributesPropriedade['cidade_id']= $request->cidade;
-
-        $sucess = $this->propriedadeRepository->update($id, $attributesPropriedade);;
-        if($sucess == true){
-            return $update = [
-                'status'=>'success',
-                'mensagem'=>'Propriedade atualizada com sucesso!'
-            ];
-        }else{
-            return $update = [
-                'status'=>'danger',
-                'mensagem'=>'Ocorreu um erro ao atualizar sua propriedade!'
-            ];
+    public function update(array  $attributes, $propriedade){
+        try {
+            $propriedade->nome = $attributes['nome'];
+            $propriedade->localizacao = $attributes['localizacao'];
+            $propriedade->cidade_id = $attributes['cidade'];
+            $saved = $propriedade->update();
+            if($saved){
+                return true;
+            }else{
+                return false;
+            }
+        } catch (\Throwable $th) {
+            return false;
         }
     }
 

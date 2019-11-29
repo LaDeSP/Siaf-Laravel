@@ -32,9 +32,24 @@ class UserService{
         }
     }
 
-    public function update(Request $request, $id){
-        $attributes = $request->all();  
-        return $this->userRepository->update($id, $attributes);
+    public function update(array  $attributes, $user){
+        try {
+            $user->name = $attributes['name'];
+            $user->email = $attributes['email'];
+            $user->telefone = $attributes['telefone'];
+            $user->password = bcrypt($attributes['senha']);
+            $saved = $user->update();
+            if($saved){
+                return true;
+            }else{
+                return false;
+            }
+        } catch (\Throwable $th) {
+            return $data=[
+                'mensagem' => 'Erro ao cadastrar conta, tente novamente!',
+                'class' => 'danger'
+            ];
+        }
     }
 
     public function propriedadesUser(){

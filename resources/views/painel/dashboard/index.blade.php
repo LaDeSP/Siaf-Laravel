@@ -5,7 +5,7 @@
 @endpush
 
 @section('title')
-Inicio
+Início
 @endsection
 
 @section('content')

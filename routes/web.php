@@ -72,14 +72,6 @@ Route::name('painel.')->prefix('painel')->middleware('auth')->group(function() {
     Route::put('/user/{user}', "UsersController@update")->name('perfil');
 });
 
-/*
-Route::group(['middleware'=>['web', 'auth']], function()
-{
-    
-    Route::get('/usuario', "UsersController@index");
-});
-*/
-
 Route::get('/', function() {
     return redirect(route('painel.dashboard'));
 });
@@ -87,7 +79,6 @@ Route::get('/', function() {
 Route::get('home', function() {
     return redirect(route('painel.dashboard'));
 });
-
 
 Route::middleware('auth')->get('logout', function() {
     Auth::logout();

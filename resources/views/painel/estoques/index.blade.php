@@ -12,7 +12,7 @@ Estoques
 @section('content')
 <section class="section">
     <div class="section-header">
-        <h1>Gestão de estoques</h1>
+        <h1>Gestão de Estoques</h1>
     </div>
     <div class="section-body">
         <div class="row d-flex justify-content-center">

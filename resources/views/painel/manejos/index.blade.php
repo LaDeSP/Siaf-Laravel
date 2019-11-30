@@ -6,13 +6,13 @@
 @endpush
 
 @section('title')
-Manejo
+Manejos
 @endsection
 
 @section('content')
 <section class="section">
     <div class="section-header">
-        <h1>Gestão de manejos</h1>
+        <h1>Gestão de Manejos</h1>
     </div>
     <div class="section-body">
         <div class="row">

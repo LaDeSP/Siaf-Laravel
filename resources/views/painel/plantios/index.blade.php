@@ -6,13 +6,13 @@
 @endpush
 
 @section('title')
-Plantio
+Plantios
 @endsection
 
 @section('content')
 <section class="section">
     <div class="section-header">
-        <h1>Gestão de plantios</h1>
+        <h1>Gestão de Plantios</h1>
     </div>
     <div class="section-body">
         <div class="row d-flex justify-content-center">

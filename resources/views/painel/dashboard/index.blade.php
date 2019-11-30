@@ -156,10 +156,8 @@ Inicio
 
 @push('scripts')
 <script src="{{ asset('assets/modules/jquery-ui/jquery-ui.min.js')}}"></script>
-<!--<script src="{{ asset('assets/modules/jquery.min.js')}}"></script>-->
 <script src="https://cdn.jsdelivr.net/npm/crypto-js@3.1.9-1/crypto-js.js"></script>
-<script src="{{asset('assets/modules/jquery.weather.br-master/src/jquery.i18next.min.js')}}"></script>
-<script src="{{asset('assets/modules/jquery.weather.br-master/src/jquery.weather.br.js')}}"></script>
+<script src="{{asset('assets/modules/jquery.weather.br-master/dist/jquery.weather.br.js')}}"></script>
 
 <script>
     $(function() {

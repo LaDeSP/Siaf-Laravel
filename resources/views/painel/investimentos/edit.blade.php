@@ -96,7 +96,7 @@ Adicionar Investimento
                             </div>        
                         </div>
                         <div class="card-footer text-center">
-                            <button class="btn btn-success">Confirmar</button>
+                            <button class="btn btn-success">Editar Investimento</button>
                         </div>
                     </form>
                 </div>

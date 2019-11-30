@@ -111,7 +111,7 @@ Adicionar plantio
                             </div>             
                         </div>
                         <div class="card-footer text-center">
-                            <button class="btn btn-success">Cadastrar Plantio</button>
+                            <button class="btn btn-success">Editar Plantio</button>
                         </div>
                     </form>
                 </div>

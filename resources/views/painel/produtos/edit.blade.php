@@ -90,7 +90,7 @@ Adicionar Produto
                             </div>
                         </div>
                         <div class="card-footer text-center">
-                            <button class="btn btn-success">Cadastrar Produto</button>
+                            <button class="btn btn-success">Editar Produto</button>
                         </div>
                     </form>
                 </div>

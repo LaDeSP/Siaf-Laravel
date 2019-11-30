@@ -175,10 +175,8 @@ Editar Perfil ({{ $user->name }})
                                     @endif
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <div class="card-footer form-group text-center">
-                                    <button class="btn btn-success btn-lg col-md-2">Editar</button>
-                                </div>
+                            <div class="card-footer text-center">
+                                <button class="btn btn-success">Editar Perfil</button>
                             </div>
                         </form>
                     </div>

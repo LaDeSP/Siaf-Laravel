@@ -89,7 +89,7 @@ Adicionar Manejo
                             </div>          
                         </div>
                         <div class="card-footer text-center">
-                            <button class="btn btn-success">Cadastrar Manejo</button>
+                            <button class="btn btn-success">Editar Manejo</button>
                         </div>
                     </form>
                 </div>

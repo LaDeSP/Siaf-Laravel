@@ -68,7 +68,7 @@ Adicionar Talhão
                             </div>         
                         </div>
                         <div class="card-footer text-center">
-                            <button class="btn btn-success">Cadastrar Talhão</button>
+                            <button class="btn btn-success">Editar Talhão</button>
                         </div>
                     </form>
                 </div>

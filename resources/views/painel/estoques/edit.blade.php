@@ -85,7 +85,7 @@ Create User
                             </div>
                         </div>
                         <div class="card-footer text-center">
-                            <button class="btn btn-success">Cadastrar Estoque</button>
+                            <button class="btn btn-success">Editar Estoque</button>
                         </div>
                     </form>
                 </div>

@@ -96,7 +96,7 @@ Adicionar Despesa
                             </div>        
                         </div>
                         <div class="card-footer text-center">
-                            <button class="btn btn-success">Confirmar</button>
+                            <button class="btn btn-success">Editar Despesa</button>
                         </div>
                     </form>
                 </div>

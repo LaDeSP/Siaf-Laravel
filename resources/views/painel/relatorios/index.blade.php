@@ -73,7 +73,7 @@ Gerar Relatórios
                             </div>        
                         </div>
                         <div class="card-footer text-center">
-                            <button class="btn btn-success" formtarget="_blank">Confirmar</button>
+                            <button class="btn btn-success" formtarget="_blank">Gera Relatório</button>
                         </div>
                     </form>
                 </div>

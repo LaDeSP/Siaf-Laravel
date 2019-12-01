@@ -37,7 +37,9 @@ class UserService{
             $user->name = ucwords($attributes['name']);
             $user->email = $attributes['email'];
             $user->telefone = $attributes['telefone'];
-            $user->password = bcrypt($attributes['senha']);
+            if($attributes['senha']){
+                $user->password = bcrypt($attributes['senha']);
+            }
             $saved = $user->update();
             if($saved){
                 return true;

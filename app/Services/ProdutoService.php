@@ -34,7 +34,7 @@ class ProdutoService{
     public function create(array $attributes){
         try {
             $produto = new Produto;
-            $produto->nome = title_case($attributes['nome_produto']);
+            $produto->nome = ucwords($attributes['nome_produto']);
             if($attributes['categoria'] == 'processado'){
                 $produto->tipo = 'processado';
             }else if($attributes['categoria'] == 'c_permanente'){
@@ -67,7 +67,7 @@ class ProdutoService{
     
     public function update(array $attributes, $produto){
         try {
-            $produto->nome = title_case($attributes['nome_produto']);
+            $produto->nome = ucwords($attributes['nome_produto']);
             if($attributes['categoria'] == 'processado'){
                 $produto->tipo = 'processado';
             }else if($attributes['categoria'] == 'c_permanente'){

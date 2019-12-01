@@ -24,7 +24,7 @@ class TalhaoService{
         try {
             $talhao = new Talhao;
             $talhao->area = $attributes['area_talhao'];
-            $talhao->nome = $attributes['nome_talhao'];
+            $talhao->nome = ucwords($attributes['nome_talhao']);
             $talhao->propriedade_id = $this->userService->propriedadesUser()->id;
             $saved = $talhao->save();
             if($saved){
@@ -49,7 +49,7 @@ class TalhaoService{
     public function update(array $attributes, $talhao){
         try {
             $talhao->area = $attributes['area_talhao'];
-            $talhao->nome = $attributes['nome_talhao'];
+            $talhao->nome = ucwords($attributes['nome_talhao']);
             $saved = $talhao->update();
             if($saved){
                 return $data=[

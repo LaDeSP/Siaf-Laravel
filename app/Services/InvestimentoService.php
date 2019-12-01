@@ -18,7 +18,7 @@ class InvestimentoService{
     public function create(array $attributes){
         try {
             $investimento = new Investimento;
-            $investimento->nome = $attributes['investimento'];
+            $investimento->nome = ucwords($attributes['investimento']);
             $investimento->descricao =  $attributes['descricao'];
             $investimento->valor_unit = $attributes['valor_investimento'];
             $investimento->quantidade =  $attributes['quantidade'];
@@ -46,7 +46,7 @@ class InvestimentoService{
     
     public function update(array $attributes, $investimento){
         try {
-            $investimento->nome = $attributes['investimento'];
+            $investimento->nome = ucwords($attributes['investimento']);
             $investimento->descricao =  $attributes['descricao'];
             $investimento->valor_unit = $attributes['valor_investimento'];
             $investimento->quantidade =  $attributes['quantidade'];

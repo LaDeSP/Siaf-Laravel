@@ -18,7 +18,7 @@ class DespesaService{
     public function create(array $attributes){
         try {
             $despesa = new Despesa;
-            $despesa->nome = $attributes['despesa'];
+            $despesa->nome = ucwords($attributes['despesa']);
             $despesa->descricao =  $attributes['descricao'];
             $despesa->valor_unit = $attributes['valor_despesa'];
             $despesa->quantidade =  $attributes['quantidade'];
@@ -46,7 +46,7 @@ class DespesaService{
     
     public function update(array $attributes, $despesa){
         try {
-            $despesa->nome = $attributes['despesa'];
+            $despesa->nome = ucwords($attributes['despesa']);
             $despesa->descricao =  $attributes['descricao'];
             $despesa->valor_unit = $attributes['valor_despesa'];
             $despesa->quantidade =  $attributes['quantidade'];

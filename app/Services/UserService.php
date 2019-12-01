@@ -11,7 +11,7 @@ class UserService{
             $attributes['cpf'] = preg_replace("/[^0-9]/", "", $attributes['cpf']);
             $saved =  User::create([
                 'cpf' => $attributes['cpf'],
-                'name' => $attributes['name'],
+                'name' => ucwords($attributes['name']),
                 'email' => $attributes['email'],
                 'password' => Hash::make($attributes['senha']),
                 'telefone' =>$attributes['telefone'],
@@ -34,7 +34,7 @@ class UserService{
 
     public function update(array  $attributes, $user){
         try {
-            $user->name = $attributes['name'];
+            $user->name = ucwords($attributes['name']);
             $user->email = $attributes['email'];
             $user->telefone = $attributes['telefone'];
             $user->password = bcrypt($attributes['senha']);

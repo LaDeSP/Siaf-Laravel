@@ -9,7 +9,7 @@ class PropriedadeService{
         try {
             $propriedade = new Propriedade;
             $propriedade->users_id = $attributes['users_id'];
-            $propriedade->nome =  $attributes['nome'];
+            $propriedade->nome =  ucwords($attributes['nome']);
             $propriedade->localizacao = $attributes['localizacao'];
             $propriedade->cidade_id =  $attributes['cidade_id'];
             $saved = $propriedade->save();
@@ -25,7 +25,7 @@ class PropriedadeService{
     
     public function update(array  $attributes, $propriedade){
         try {
-            $propriedade->nome = $attributes['nome'];
+            $propriedade->nome = ucwords($attributes['nome']);
             $propriedade->localizacao = $attributes['localizacao'];
             $propriedade->cidade_id = $attributes['cidade'];
             $saved = $propriedade->update();

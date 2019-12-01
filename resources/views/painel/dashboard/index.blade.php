@@ -125,6 +125,7 @@ Início
                 </div>
                 <div class="card-body" id="top-5-scroll">
                     <ul class="list-unstyled list-unstyled-border">
+                        @if ($produtos->count() > 0)
                         @foreach ($produtos as $produto)
                         <li class="media">
                             <img class="mr-3 rounded" width="55" src="assets/img/products/product-4-50.png" alt="product">
@@ -140,6 +141,11 @@ Início
                             </div>
                         </li>
                         @endforeach
+                        @else
+                        <div class="text-muted my-auto">
+                            <h5>Você ainda não vendeu nenhum produto!</h5>
+                        </div>
+                        @endif
                     </ul>
                 </div>
                 <div class="card-footer pt-3 d-flex justify-content-center">

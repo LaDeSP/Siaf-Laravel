@@ -89,7 +89,7 @@ Vendas
                             </table>
                             @else
                             <div class="text-center p-3 text-muted">
-                                <h5>{{ collect(explode(' ', ucwords(strtolower(Auth::user()->name))))->slice(0, 1)->implode(' ') }}, você não possui nenhuma venda cadastrada!</h5>
+                                <h5>{{ collect(explode(' ', ucwords(Auth::user()->name)))->slice(0, 1)->implode(' ') }}, você não possui nenhuma venda cadastrada!</h5>
                                 <p>Clique no botão Adicionar para cadastrar novas vendas.</p>
                             </div>
                             @endif

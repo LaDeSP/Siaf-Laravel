@@ -80,7 +80,7 @@ Estoques
                             </table>
                             @else
                             <div class="text-center p-3 text-muted">
-                                <h5>{{ collect(explode(' ', ucwords(strtolower(Auth::user()->name))))->slice(0, 1)->implode(' ') }}, você não possui nenhum estoque cadastrado!</h5>
+                                <h5>{{ collect(explode(' ', ucwords(Auth::user()->name)))->slice(0, 1)->implode(' ') }}, você não possui nenhum estoque cadastrado!</h5>
                                 <p>Clique no botão Adicionar para cadastrar novos estoques.</p>
                             </div>
                             @endif

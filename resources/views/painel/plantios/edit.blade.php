@@ -44,7 +44,7 @@ Adicionar plantio
                         <div class="card-body">
                             <div class="form-group">
                                 <label>Data da semeadura</label>
-                                <input name="data_semeadura" type="date" value="{{date('Y-m-d', strtotime($plantio->data_semeadura))}}" class="form-control {{ $errors->has('data_semeadura') ? ' is-invalid' : '' }}" value="{{ old('data_semeadura') }}">
+                                <input name="data_semeadura" type="date" value="@if($plantio->data_semeadura){{date('Y-m-d', strtotime($plantio->data_semeadura))}}@endif" class="form-control {{ $errors->has('data_semeadura') ? ' is-invalid' : '' }}" value="{{ old('data_semeadura') }}">
                                 @if ($errors->has('data_semeadura'))
                                 <div class="invalid-feedback">
                                     {{ $errors->first('data_semeadura') }}

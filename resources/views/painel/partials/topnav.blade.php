@@ -32,9 +32,9 @@
   </li>
   <li class="dropdown"><a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
     <img alt="image" src="{{ Auth::user()->avatarlink }}" class="rounded-circle mr-1">
-    <div class="d-sm-none d-lg-inline-block">Olá, {{ collect(explode(' ', ucwords(strtolower(Auth::user()->name))))->slice(0, 1)->implode(' ') }}</div></a>
+    <div class="d-sm-none d-lg-inline-block">Olá, {{ collect(explode(' ', ucwords(Auth::user()->name)))->slice(0, 1)->implode(' ') }}</div></a>
     <div class="dropdown-menu dropdown-menu-right">
-      <div class="dropdown-title">Bem vindo, {{ collect(explode(' ', ucwords(strtolower(Auth::user()->name))))->slice(0, 1)->implode(' ') }}</div>
+      <div class="dropdown-title">Bem vindo, {{ collect(explode(' ', ucwords(Auth::user()->name)))->slice(0, 1)->implode(' ') }}</div>
       <a href="{{route('painel.perfil', ['user'=>Auth::user()])}}" class="dropdown-item has-icon">
         <i class="far fa-user"></i> Perfil
       </a>

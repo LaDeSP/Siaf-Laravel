@@ -18,7 +18,8 @@
         "laravel/tinker": "^1.0",
         "laravelcollective/html": "5.5.*",
         "laravellegends/pt-br-validator": "5.1.*",
-        "reliese/laravel": "^0.0.13"
+        "reliese/laravel": "^0.0.13",
+        "yajra/laravel-datatables-oracle": "~8.0"
     },
     "require-dev": {
         "filp/whoops": "^2.0",
